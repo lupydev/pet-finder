@@ -1,9 +1,12 @@
 import express from 'express'
 import mongoose from 'mongoose'
-
-import dotenv from 'dotenv'
+import morgan from 'morgan'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
-dotenv.config()
+
+import { db, port } from './utils/constants'
+// !import router from './routes/index'
 
 const app = express()
 app.use(express.json())
@@ -13,6 +16,10 @@ app.use(
         credentials: true,
     })
 )
+app.use(morgan('dev'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(cookieParser())
 
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*') // update to match the domain you will make the request from
@@ -28,10 +35,9 @@ app.use((_req, res, next) => {
     next()
 })
 
-// * ----------Connection with Mongo Atlas ------------
+// ! app.use('/', router)
 
-const port = process.env.PORT
-const db = process.env.DB || ''
+// * ----------Connection with Mongo Atlas ------------
 
 const connectDB = async () => {
     try {
@@ -44,3 +50,5 @@ const connectDB = async () => {
 }
 
 connectDB()
+
+module.exports = app
