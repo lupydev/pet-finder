@@ -14,6 +14,7 @@ export interface Pets {
     date:string,
     image:string,
     observation:string,
+    created:string
 }
 
 export interface PetsModel extends Pets, Document {} 
@@ -30,9 +31,10 @@ const PetsSchema : Schema = new Schema (
         color:{type:String},
         location:{type:Number},
         state:{type:String},
-        date:{type:String},
+        date:{type:Date},
         image:{type:String},
         observation:{type:String},
+        created:{type:Date,required:true},
     },
 )
 
