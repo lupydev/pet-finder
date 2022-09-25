@@ -1,6 +1,6 @@
-import mongoose, {Document, Schema, Types} from 'mongoose';
+import {Document, model, Schema, Types} from 'mongoose';
 
-export interface Pets {
+export interface Pets extends Document {
     name:string,
     description:string,
     species:Types.ObjectId,
@@ -11,15 +11,13 @@ export interface Pets {
     color:string,
     location:number,
     state:string,
-    date:string,
+    datelost:string,
     image:string,
     observation:string,
-    created:string
 }
 
-export interface PetsModel extends Pets, Document {} 
 
-const PetsSchema : Schema = new Schema (
+const PetsSchema = new Schema (
     {
         name:{type:String, required:true},
         description:{type:String},
@@ -34,9 +32,9 @@ const PetsSchema : Schema = new Schema (
         date:{type:Date},
         image:{type:String},
         observation:{type:String},
-        created:{type:Date,required:true},
+        createdAt:{type:Date,default:Date.now},
     },
 )
 
 
-export default mongoose.model<PetsModel>('Pets',PetsSchema);
+export default model<Pets>('Pets',PetsSchema);
