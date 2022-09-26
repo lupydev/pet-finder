@@ -1,19 +1,11 @@
-import { useState } from 'react'
-import { Button } from '@mui/material'
-import Home from './pages/home/Home'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Found from './pages/found/Found'
-import Form from './components/form/Form'
+import Routing from './components/layout/routing/Routing'
+import Layout from './components/layout/Layout'
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/found" element={<Found />} />
-                <Route path="/form" element={<Form />} />
-            </Routes>
-        </BrowserRouter>
+        <Layout>
+            <Routing />
+        </Layout>
     )
 }
 

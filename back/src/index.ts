@@ -45,7 +45,7 @@ const connectDB = async () => {
     try {
         mongoose.connect(db)
 
-        console.log(`Connection successfully`)
+        console.log('Connection successfully')
     } catch (error) {
         console.error('Failed to connect to MongoDB')
     }

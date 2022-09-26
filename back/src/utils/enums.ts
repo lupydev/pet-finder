@@ -4,3 +4,10 @@ export enum StatusUser {
     Banned = 'Banned',
     Deleted = 'Deleted',
 }
+
+export enum StatusPet{
+    Active='Active',
+    Pause = 'Pause',
+    Deleted ='Deleted',
+    Meet ='Meet'
+}
