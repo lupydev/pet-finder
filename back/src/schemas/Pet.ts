@@ -11,11 +11,11 @@ const PetsSchema = new Schema({
     age: { type: Number },
     color: { type: String },
     location: { type: Number },
-    status: { type: String,default: 'Active' },
+    status: { type: String, default: 'Active' },
     date: { type: Date },
     img: [{ type: String }],
     observation: { type: String },
     createdAt: { type: Date, default: Date.now },
 })
 
-export default model<Pets>('Pets', PetsSchema)
+export default model<Pets>('Pet', PetsSchema)
