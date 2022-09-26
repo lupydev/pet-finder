@@ -1,13 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { AppBar, Box, Toolbar, Typography, IconButton } from '@mui/material'
 
 const Home = () => {
     return (
-        <div>
-            Home
-            <Link to="/found">Testeando router</Link>
-            <Link to="/form">Testeando form</Link>
-        </div>
+        <Box>
+            <AppBar>
+                <Link to="/form">Ir a form</Link>
+                <Toolbar />
+                <IconButton>asd</IconButton>
+            </AppBar>
+        </Box>
     )
 }
 
