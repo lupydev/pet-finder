@@ -1,6 +1,6 @@
 import {Document, model, Schema, Types} from 'mongoose';
 
-export interface Pets extends Document {
+export interface Pets {
     name:string,
     description:string,
     species:Types.ObjectId,
