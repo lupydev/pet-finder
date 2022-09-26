@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 import { db, port } from './utils/constants'
-import router from './routes/index'
+import { router } from './routes/index'
 
 const app = express()
 app.use(express.json())
@@ -45,11 +45,10 @@ const connectDB = async () => {
     try {
         mongoose.connect(db)
 
-        console.log("Connection successfully")
+        console.log('Connection successfully')
     } catch (error) {
         console.error('Failed to connect to MongoDB')
     }
 }
 
 connectDB()
-

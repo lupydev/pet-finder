@@ -1,12 +1,5 @@
-import express from 'express'
-const router = express.Router()
+import { router } from './userRoutes'
 
-router.get('/',(_req,res)=>{
-    res.send('Fetching entryes')
-})
+router.use('/users', router)
 
-router.post('/',(_req,res)=>{
-    res.send('Saving things!')
-})
-
-export default router
+export { router }
