@@ -6,6 +6,7 @@ const Home = () => {
         <div>
             Home
             <Link to="/found">Testeando router</Link>
+            <Link to="/form">Testeando form</Link>
         </div>
     )
 }
