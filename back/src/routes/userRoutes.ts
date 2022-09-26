@@ -3,6 +3,11 @@ import createUser from '../controllers/user/createUser'
 
 const router = express.Router()
 
+//* Ruta completa de estos endpoints http://localhost:4000/users
+
+//! Aun falta middleware de proteccion de rutas para acciones que requieran login
+//!Aun falta comprobacion de datos (definir si se usa middlewares o express validator)
+
 router.post('/create', createUser)
 
 //router.get('/', getAllUsers)
