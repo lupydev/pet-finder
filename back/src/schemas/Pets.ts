@@ -1,20 +1,5 @@
-import {Document, model, Schema, Types} from 'mongoose';
-
-export interface Pets {
-    name:string,
-    description:string,
-    species:Types.ObjectId,
-    sex:string,
-    size:string,
-    race:Types.ObjectId,
-    age:number,
-    color:string,
-    location:number,
-    state:string,
-    datelost:string,
-    image:string,
-    observation:string,
-}
+import {model, Schema} from 'mongoose';
+import { Pets } from '../interfaces/pets';
 
 
 const PetsSchema = new Schema (
@@ -24,13 +9,13 @@ const PetsSchema = new Schema (
         species:{type: Schema.Types.ObjectId, ref: 'Species'},
         sex:{type:String},
         size:{type:String},
-        race:{type: Schema.Types.ObjectId, ref: 'Race'},
+        breed:{type: Schema.Types.ObjectId, ref: 'Breeds'},
         age:{type:Number},
         color:{type:String},
         location:{type:Number},
-        state:{type:String},
+        status:{type:String},
         date:{type:Date},
-        image:{type:String},
+        img:[{type:String}],
         observation:{type:String},
         createdAt:{type:Date,default:Date.now},
     },
