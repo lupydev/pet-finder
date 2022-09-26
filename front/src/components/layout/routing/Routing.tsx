@@ -5,13 +5,11 @@ import Home from '../../../pages/home/Home'
 import Form from '../../form/Form'
 const Routing = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/found" element={<Found />} />
-                <Route path="/form" element={<Form />} />
-            </Routes>
-        </BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/found" element={<Found />} />
+            <Route path="/form" element={<Form />} />
+        </Routes>
     )
 }
 

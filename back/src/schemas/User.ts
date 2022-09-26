@@ -4,7 +4,6 @@ import { User } from '../interfaces/user.interface'
 const userSchema = new Schema<User>({
     nickname: {
         type: String,
-        unique: true,
     },
     fullname: {
         type: String,
@@ -24,8 +23,8 @@ const userSchema = new Schema<User>({
     },
     pets: [
         {
-            types: Types.ObjectId,
-            ref: 'User',
+            type: Types.ObjectId,
+            ref: 'Pet',
         },
     ],
     admin: {
