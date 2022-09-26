@@ -8,7 +8,7 @@ export interface User {
     email: string
     pets?: string
     admin: boolean
-    externId: string
+    externId?: string
     email_verified: boolean
-    status: StatusUser
+    status?: StatusUser
 }
