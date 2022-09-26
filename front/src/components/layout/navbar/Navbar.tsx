@@ -3,19 +3,19 @@ import { Button, ButtonProps, Stack } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom'
 
-const ButtonStyle = styled(Button)<ButtonProps>(({theme}) => {
-    return {
-        fontSize: '20px',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        textTransform: 'none',
-        color:'black',
-        px:4,
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light,
-        },
-    }
-})
+// const ButtonStyle = styled(Button)<ButtonProps>(({theme}) => {
+//     return {
+//         fontSize: theme.typography.htmlFontSize*2,
+//         fontWeight: 'bold',
+//         textAlign: 'center',
+//         textTransform: 'none',
+//         color:'black',
+//         px:4,
+//         '&:hover': {
+//             backgroundColor: theme.palette.secondary.light,
+//         },
+//     }
+// })
 
 const Navbar = () => {
     return (
@@ -23,12 +23,13 @@ const Navbar = () => {
             position="sticky"
             height="64px"
             width="100%"
-            maxWidth="1280px"
+            maxWidth="1440px"
             direction="row"
             justifyContent="space-between"
             alignItems="center"
             my={5}
             borderRadius="0 0 20px 20px"
+            px={10}
             zIndex={20}
         >
             <Link to="/">
@@ -37,31 +38,30 @@ const Navbar = () => {
                     alt="logo"
                 />
             </Link>
-            <Stack direction="row">
-                <ButtonStyle
+            <Stack direction="row" gap={5}>
+                <Button
                     component={Link}
                     to="/"
-                    variant="text"
                 >
                     Home
-                </ButtonStyle>
-                <ButtonStyle component={Link} to="/found" variant="text">
+                </Button>
+                <Button component={Link} to="/found" >
                     Found Pets
-                </ButtonStyle>
-                <ButtonStyle component={Link} to="/lost" variant="text">
+                </Button>
+                <Button component={Link} to="/lost">
                     Lost Pets
-                </ButtonStyle>
-                <ButtonStyle component={Link} to="/form" variant="text">
+                </Button>
+                <Button component={Link} to="/form">
                     Contact
-                </ButtonStyle>
+                </Button>
             </Stack>
             <Stack direction="row">
-                <ButtonStyle component={Link} to="/login" variant="text">
+                <Button component={Link} to="/login">
                     Login
-                </ButtonStyle>
-                <ButtonStyle component={Link} to="/signin" variant="text">
+                </Button>
+                <Button component={Link} to="/signin">
                     Sign In
-                </ButtonStyle>
+                </Button>
             </Stack>
         </Stack>
     )
