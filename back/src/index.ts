@@ -37,13 +37,15 @@ app.use((_req, res, next) => {
 
 app.use('/', router)
 
+app.listen(port, () => console.log(`Server listening on port: ${port}`))
+
 // * ----------Connection with Mongo Atlas ------------
 
 const connectDB = async () => {
     try {
         mongoose.connect(db)
 
-        console.log(`Connection successfully on port: ${port}`)
+        console.log("Connection successfully")
     } catch (error) {
         console.error('Failed to connect to MongoDB')
     }
@@ -51,4 +53,3 @@ const connectDB = async () => {
 
 connectDB()
 
-export default app
