@@ -4,37 +4,44 @@ import { User } from '../interfaces/user.interface'
 const userSchema = new Schema<User>({
     nickname: {
         type: String,
-        required: true,
+        unique: true,
     },
     fullname: {
         type: String,
     },
     img: {
         type: String,
+        default:
+            'https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png',
     },
     password: {
         type: String,
     },
     email: {
         type: String,
+        unique: true,
+        required: true,
     },
     pets: [
         {
             types: Types.ObjectId,
+            ref: 'User',
         },
     ],
     admin: {
         type: Boolean,
+        default: false,
     },
     externId: {
         type: String,
     },
     email_verified: {
         type: Boolean,
-        required: true,
+        default: false,
     },
     status: {
         type: String,
+        default: 'Active',
     },
 })
 
