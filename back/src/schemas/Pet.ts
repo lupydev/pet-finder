@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import { Pets } from '../interfaces/pets'
+import { Pets } from '../interfaces/pet'
 
 const PetsSchema = new Schema({
     name: { type: String, required: true },
