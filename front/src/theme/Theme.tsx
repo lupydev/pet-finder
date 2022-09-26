@@ -39,7 +39,8 @@ interface Props {
                     },
                     secondary: {
                         main: '#F16C1F',
-                        dark:'#DD6F10'
+                        dark:'#DD6F10',
+                        light:'#FEF0E9',
                     },
                 },
             }),
