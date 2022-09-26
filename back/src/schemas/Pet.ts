@@ -11,7 +11,7 @@ const PetsSchema = new Schema({
     age: { type: Number },
     color: { type: String },
     location: { type: Number },
-    status: { type: String },
+    status: { type: String,default: 'Active' },
     date: { type: Date },
     img: [{ type: String }],
     observation: { type: String },

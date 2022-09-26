@@ -1,4 +1,5 @@
 import {Types} from 'mongoose';
+import { StatusPet } from '../utils/enums'
 
 export interface Pets {
     name:string,
@@ -10,8 +11,8 @@ export interface Pets {
     age:number,
     color:string,
     location:number,
-    status:string,
+    status:StatusPet,
     date:string,
     img:string[],
-    observation:string,
+    observation?:string,
 }
