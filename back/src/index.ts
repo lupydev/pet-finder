@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 import { db, port } from './utils/constants'
-// !import router from './routes/index'
+import router from './routes/index'
 
 const app = express()
 app.use(express.json())
@@ -35,7 +35,7 @@ app.use((_req, res, next) => {
     next()
 })
 
-// ! app.use('/', router)
+app.use('/', router)
 
 // * ----------Connection with Mongo Atlas ------------
 
@@ -51,4 +51,4 @@ const connectDB = async () => {
 
 connectDB()
 
-module.exports = app
+export default app
