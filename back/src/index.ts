@@ -51,4 +51,4 @@ const connectDB = async () => {
 
 connectDB()
 
-module.exports = app
+export default app
