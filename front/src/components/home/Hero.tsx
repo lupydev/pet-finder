@@ -2,7 +2,7 @@ import { Stack, Typography, Button, Box } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
 import CardsLostPets from '../layout/CardsLostPets'
-import SvgFingerPrint from '../layout/svgFingerPrint'
+import SvgFingerPrint from '../layout/SvgFingerPrint'
 
 const Hero = () => {
     return (
