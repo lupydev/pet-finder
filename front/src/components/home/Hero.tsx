@@ -1,6 +1,7 @@
-import { Stack, Typography, Button } from '@mui/material'
+import { Stack, Typography, Button, Box } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
+import SvgFingerPrint from '../layout/svgFingerPrint'
 
 const Hero = () => {
     return (
@@ -31,7 +32,7 @@ const Hero = () => {
                         width="100%"
                     />
                 </Stack>
-                <Stack direction="row" alignItems='flex-end' gap={10}>
+                <Stack direction="row" alignItems="flex-end" gap={10}>
                     <Stack width={{ xs: '5rem', lg: '30rem' }} gap={3}>
                         <Typography
                             variant="h1"
@@ -53,7 +54,11 @@ const Hero = () => {
                         <Button
                             variant="contained"
                             color="primary"
-                            sx={{ borderRadius: 2, textTransform:'none', fontWeight: 'regular' }}
+                            sx={{
+                                borderRadius: 2,
+                                textTransform: 'none',
+                                fontWeight: 'regular',
+                            }}
                         >
                             Post Lost Pet
                         </Button>
@@ -66,6 +71,37 @@ const Hero = () => {
                     </Stack>
                 </Stack>
             </Stack>
+            <Box sx={{ backgroundColor: '#3981BF' }}>
+                <Box>
+                    <Stack>
+                        <Typography>About Us</Typography>
+                        <Typography>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Voluptatibus mollitia explicabo accusantium
+                            nulla. Quas, blanditiis nostrum. Vel ducimus id
+                            laudantium labore iste nulla voluptates ipsum? Porro
+                            beatae architecto aliquam dolore.
+                        </Typography>
+                        <Box>
+                            <SvgFingerPrint />
+                            <Button>Service</Button>
+                        </Box>
+                        <Box>
+                            <SvgFingerPrint />
+                            <Button>Service</Button>
+                        </Box>
+                        <Box>
+                            <SvgFingerPrint />
+                            <Button>Service</Button>
+                        </Box>
+                    </Stack>
+                    <img
+                        style={{ width: '50%' }}
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg"
+                        alt="img-aboutus"
+                    />
+                </Box>
+            </Box>
         </Stack>
     )
 }
