@@ -1,12 +1,11 @@
+import userRoutes from './userRoutes'
+import petRoutes from './petRoutes'
 import express from 'express'
+
 const router = express.Router()
 
-router.get('/',(_req,res)=>{
-    res.send('Fetching entryes')
-})
+router.use('/users', userRoutes)
 
-router.post('/',(_req,res)=>{
-    res.send('Saving things!')
-})
+router.use('/pets',petRoutes)
 
-export default router
+export { router }

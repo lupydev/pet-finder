@@ -1,11 +1,14 @@
-import Routing from './components/layout/routing/Routing'
 import Layout from './components/layout/Layout'
+import Routing from './routing/Routing'
+import { BrowserRouter } from 'react-router-dom'
 
 function App() {
     return (
-        <Layout>
-            <Routing />
-        </Layout>
+        <BrowserRouter>
+            <Layout>
+                <Routing />
+            </Layout>
+        </BrowserRouter>
     )
 }
 
