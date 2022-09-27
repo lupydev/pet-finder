@@ -1,6 +1,7 @@
 import { Stack, Typography, Button, Box } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
+import CardsLostPets from '../layout/CardsLostPets'
 import SvgFingerPrint from '../layout/svgFingerPrint'
 
 const Hero = () => {
@@ -72,27 +73,27 @@ const Hero = () => {
                 </Stack>
             </Stack>
             <Box sx={{ backgroundColor: '#3981BF' }}>
-                <Box>
+                <Box sx={{ display: 'flex' }}>
                     <Stack>
-                        <Typography>About Us</Typography>
-                        <Typography>
+                        <Typography color="secondary.light">
+                            About Us
+                        </Typography>
+                        <Typography color="secondary.light">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Voluptatibus mollitia explicabo accusantium
                             nulla. Quas, blanditiis nostrum. Vel ducimus id
                             laudantium labore iste nulla voluptates ipsum? Porro
                             beatae architecto aliquam dolore.
                         </Typography>
-                        <Box>
+                        <Box sx={{ display: 'flex' }}>
                             <SvgFingerPrint />
-                            <Button>Service</Button>
-                        </Box>
-                        <Box>
+                            <Button sx={{ color: '#FEF0E9' }}>Service</Button>
+
                             <SvgFingerPrint />
-                            <Button>Service</Button>
-                        </Box>
-                        <Box>
+                            <Button sx={{ color: '#FEF0E9' }}>Service</Button>
+
                             <SvgFingerPrint />
-                            <Button>Service</Button>
+                            <Button sx={{ color: '#FEF0E9' }}>Service</Button>
                         </Box>
                     </Stack>
                     <img
@@ -101,6 +102,17 @@ const Hero = () => {
                         alt="img-aboutus"
                     />
                 </Box>
+            </Box>
+            <Box>
+                {/*Sacar informacion de las mascotas perdidas de la base de datos */}
+                <Typography>Lost Pets</Typography>
+                <Box sx={{ display: 'flex' }}>
+                    <CardsLostPets />
+                    <CardsLostPets />
+                    <CardsLostPets />
+                    <CardsLostPets />
+                </Box>
+                <Button>View All lost pets</Button>
             </Box>
         </Stack>
     )
