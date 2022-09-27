@@ -1,5 +1,11 @@
-import { router } from './userRoutes'
+import userRoutes from './userRoutes'
+import petRoutes from './petRouter'
+import express from 'express'
 
-router.use('/users', router)
+const router = express.Router()
+
+router.use('/users', userRoutes)
+
+router.use('/pets',petRoutes)
 
 export { router }
