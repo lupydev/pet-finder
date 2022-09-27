@@ -2,7 +2,7 @@ import Pet from "../../schemas/Pet";
 import { Request, Response } from 'express'
 
 
-const getAllPets = async (req: Request ,res: Response)=>{
+const getAllPets = async (_req: Request ,res: Response)=>{
 
     try {
         
