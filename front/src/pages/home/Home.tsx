@@ -5,8 +5,8 @@ import Hero from '../../components/home/Hero'
 
 const Home = () => {
     return (
-        <Stack width='100%'>
-            <Hero/>
+        <Stack width="100%">
+            <Hero />
         </Stack>
     )
 }
