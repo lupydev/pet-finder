@@ -1,5 +1,5 @@
 import userRoutes from './userRoutes'
-import petRoutes from './petRouter'
+import petRoutes from './petRoutes'
 import express from 'express'
 
 const router = express.Router()
