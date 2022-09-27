@@ -17,4 +17,4 @@ router.post('/create', signUpCheck(), validateResult, createUser)
 //router.get('/:id', getUserById)
 //router.put('/update/:id', updateUser) // Con este tambien se "borra" cambiando status
 
-export { router }
+export default router
