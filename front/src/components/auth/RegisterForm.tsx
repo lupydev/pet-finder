@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Formik } from 'formik'
 
-const Form = () => {
+const RegisterForm = () => {
     const testObj = {
         email: '',
         password: '',
@@ -67,4 +67,4 @@ const Form = () => {
     )
 }
 
-export default Form
+export default RegisterForm
