@@ -43,6 +43,11 @@ interface Props {
                         light:'#FEF0E9',
                     },
                 },
+                typography: {
+                    htmlFontSize: 10,
+                    fontSize: 10,
+                    fontFamily: 'Roboto'
+                }
             }),
         [mode]
     )
