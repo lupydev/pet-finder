@@ -14,7 +14,8 @@ const createUser = async (req: Request, res: Response) => {
                 msg: 'The email is already used',
             })
         }
-        let newUser = new User(userData)
+
+        const newUser = new User(userData)
 
         //*Encrypt password
         const salt = bcrypt.genSaltSync()
