@@ -1,5 +1,5 @@
 import {Types} from 'mongoose';
-import { StatusPet,T } from '../utils/enums'
+import { StatusPet} from '../utils/enums'
 
 export interface Pets {
     name:string,
