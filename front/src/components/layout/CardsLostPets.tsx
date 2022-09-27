@@ -30,7 +30,9 @@ const CardsLostPets = () => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button sx={{ color: 'black' }} size="small">
+                    Learn More
+                </Button>
             </CardActions>
         </Card>
     )

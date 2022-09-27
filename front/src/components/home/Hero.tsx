@@ -87,13 +87,19 @@ const Hero = () => {
                         </Typography>
                         <Box sx={{ display: 'flex' }}>
                             <SvgFingerPrint />
-                            <Button sx={{ color: '#FEF0E9' }}>Service</Button>
+                            <Button sx={{ color: 'secondary.light' }}>
+                                Service
+                            </Button>
 
                             <SvgFingerPrint />
-                            <Button sx={{ color: '#FEF0E9' }}>Service</Button>
+                            <Button sx={{ color: 'secondary.light' }}>
+                                Service
+                            </Button>
 
                             <SvgFingerPrint />
-                            <Button sx={{ color: '#FEF0E9' }}>Service</Button>
+                            <Button sx={{ color: 'secondary.light' }}>
+                                Service
+                            </Button>
                         </Box>
                     </Stack>
                     <img
@@ -105,14 +111,27 @@ const Hero = () => {
             </Box>
             <Box>
                 {/*Sacar informacion de las mascotas perdidas de la base de datos */}
-                <Typography>Lost Pets</Typography>
+                <Typography color="secondary.dark">Lost Pets</Typography>
                 <Box sx={{ display: 'flex' }}>
                     <CardsLostPets />
                     <CardsLostPets />
                     <CardsLostPets />
                     <CardsLostPets />
                 </Box>
-                <Button>View All lost pets</Button>
+                <Button sx={{ color: 'secondary.dark' }}>
+                    View All pets lost
+                </Button>
+            </Box>
+            <Box>
+                {/*Sacar informacion de las mascotas perdidas de la base de datos */}
+                <Typography color="primary.main">Pets Found</Typography>
+                <Box sx={{ display: 'flex' }}>
+                    <CardsLostPets />
+                    <CardsLostPets />
+                    <CardsLostPets />
+                    <CardsLostPets />
+                </Box>
+                <Button>View All pets founds</Button>
             </Box>
         </Stack>
     )
