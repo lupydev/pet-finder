@@ -1,5 +1,7 @@
 import express from 'express'
 import createUser from '../controllers/user/createUser'
+import { validateResult } from '../middlewares/validate-fields'
+import { signUpCheck } from '../utils/checks/signUpCheck'
 
 const router = express.Router()
 
@@ -8,7 +10,7 @@ const router = express.Router()
 //! Aun falta middleware de proteccion de rutas para acciones que requieran login
 //!Aun falta comprobacion de datos (definir si se usa middlewares o express validator)
 
-router.post('/create', createUser)
+router.post('/create', signUpCheck(), validateResult, createUser)
 
 //router.get('/', getAllUsers)
 //router.get('/:id', getUserById)
