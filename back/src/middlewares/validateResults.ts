@@ -1,11 +1,11 @@
+import { Request, Response, NextFunction } from 'express'
 import { validationResult } from 'express-validator'
 
-export const validateResult = async (req: any, res: any, next: any) => {
-    // body('email', 'El email es obligatorio').isEmail()
-    // body('password', 'El password debe de ser de 6 caracteres').isLength({
-    //     min: 6,
-    // })
-
+export const validateResult = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const errors = validationResult(req)
     console.log(errors)
     if (!errors.isEmpty()) {
@@ -15,5 +15,5 @@ export const validateResult = async (req: any, res: any, next: any) => {
         })
     }
 
-    next()
+    return next()
 }
