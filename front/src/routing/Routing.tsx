@@ -3,12 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Found from '../pages/found/Found'
 import Home from '../pages/home/Home'
 import Form from '../components/form/Form'
+import ContactForm from '../components/contact-form/ContactForm'
+
 const Routing = () => {
     return (
         <Routes>
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="/found" element={<Found />} />
+            <Route path="/contact" element={<ContactForm />} />
             <Route path="/form" element={<Form />} />
         </Routes>
     )
