@@ -7,12 +7,17 @@ const getAllPets = async (_req: Request ,res: Response)=>{
     try {
         
         const pets = await Pet.find({});
-        res.status(200).json({ pets, ok: true, msg: 'All pets in DB' })
+        
+        if (pets) {
+            return res.status(200).json({ pets, ok: true, msg: 'All pets in DB' })            
+        } else {
+            return res.status(204).json({ ok: false, msg: 'No pets in DB' })
+        }
 
     } catch (error) {
 
         console.log(error)
-        res.status(404).json({
+        return res.status(404).json({
             ok: false,
             msg: 'An error occured, contact with admin',
         })
