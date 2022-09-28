@@ -1,3 +1,4 @@
+import React from 'react'
 import {
     Box,
     Card,
@@ -7,27 +8,34 @@ import {
     TextField,
     Typography,
     Button,
-    FormControl,
-    TextareaAutosize,
+    Alert
 } from '@mui/material'
+import { Formik, Form } from 'formik'
+import { useState } from 'react'
 
-import React from 'react'
-import { useState } from 'react';
+interface typesContactForm {
+    name: string
+    lastname: string
+    email: string
+    comments: string
+}
 
-const initialForm = {
+const initialForm: typesContactForm = {
     name: '',
     lastname: '',
     email: '',
-    comments: ''
+    comments: '',
 }
 
 const ContactForm: React.FC = () => {
-
     const [contactform, setContactform] = useState(initialForm)
+    const [submittedForm, setSubmitedform] = useState(false)
 
-    const handleChange = () => {}
+    const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {}
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleBlur = () => {}
+
+    const handleSubmit = (e: React.FormEvent<HTMLInputElement>): void => {
         e.preventDefault()
         alert('Thanks for your feedback!')
     }
@@ -80,113 +88,234 @@ const ContactForm: React.FC = () => {
                     }}
                 >
                     <CardContent sx={{ width: '100%', margin: '0 auto' }}>
-                        <form onSubmit={handleSubmit}>
-                            <Grid
-                                container
-                                direction="row"
-                                spacing={2}
-                                justifyContent="center"
-                            >
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    lg={12}
-                                    xl={12}
-                                >
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        error={false}
-                                        type="text"
-                                        name="name"
-                                        margin="dense"
-                                        label="Name:"
-                                        helperText="* Required field"
-                                        size="small"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    lg={12}
-                                    xl={12}
-                                >
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        error={false}
-                                        type="text"
-                                        name="lastname"
-                                        margin="dense"
-                                        label="Lastname:"
-                                        helperText="* Required field"
-                                        size="small"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    lg={12}
-                                    xl={12}
-                                >
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        error={false}
-                                        type="email"
-                                        name="email"
-                                        margin="dense"
-                                        label="Email:"
-                                        helperText="* Required field"
-                                        size="small"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    lg={12}
-                                    xl={12}
-                                >
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        id="outlined-multiline-static"
-                                        name="comment"
-                                        error={false}
-                                        label="Let me know your comments"
-                                        multiline
-                                        rows={4}
-                                        helperText="* Required field"
-                                        size="small"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    lg={12}
-                                    xl={12}
-                                >
-                                    <Button
-                                        sx={{ width: '100%' }}
-                                        type="submit"
-                                        variant="contained"
-                                        size="small"
+                        <Formik
+                            initialValues={initialForm}
+                            onSubmit={(values, { resetForm }) => {
+                                resetForm()
+                               setSubmitedform(true);
+
+                               setTimeout(() => {
+                                setSubmitedform(false)
+                               }, 1500);
+                            }}
+                            validate={(values) => {
+                                let contactFormErrors: any = {}
+
+                                // Name validation
+                                if (!values.name) {
+                                    contactFormErrors.name ='* Name field is required'
+                                } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+                                    contactFormErrors.name ='* The name field allows only letters and blank spaces'
+                                }
+
+                                // Lastname validation
+                                if (!values.lastname) {
+                                    contactFormErrors.lastname ='* Lastname is required'
+                                } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastname)) {
+                                    contactFormErrors.lastname ='* The lastname field allows only letters and blank spaces'
+                                }
+
+                                // Email validation
+                                if (!values.email) {
+                                    contactFormErrors.email ='* Email is required'
+                                } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email)) {
+                                    contactFormErrors.email =
+                                        '* The e-mail field allows only letters, numbers, periods, hyphens and underscores.'
+                                }
+
+                                // // Comments validation
+                                // if (!values.comments) {
+                                //     contactFormErrors.comments =
+                                //         '* comments is required'
+                                // } else if (
+                                //     !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(
+                                //         values.comments
+                                //     )
+                                // ) {
+                                //     contactFormErrors.comments =
+                                //         '* The comments field allows only letters and blank spaces'
+                                // }
+
+                                return contactFormErrors
+                            }}
+                        >
+                            {({
+                                values,
+                                errors,
+                                touched,
+                                handleChange,
+                                handleBlur,
+                            }) => (
+                                <Form>
+                                    {/* {console.log(errors)} */}
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        spacing={2}
+                                        justifyContent="center"
                                     >
-                                        Enviar 🚀
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </form>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={12}
+                                            md={12}
+                                            lg={12}
+                                            xl={12}
+                                        >
+                                            <TextField
+                                                sx={{ width: '100%' }}
+                                                error={false}
+                                                type="text"
+                                                name="name"
+                                                margin="dense"
+                                                label="Name:"
+                                                helperText={
+                                                    touched.name && errors.name && (
+                                                        <Box sx={{color: '#dc3545',fontWeight:'bold',}}>
+                                                            {errors.name}
+                                                        </Box>
+                                                    )
+                                                }
+                                                size="small"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.name}
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={12}
+                                            md={12}
+                                            lg={12}
+                                            xl={12}
+                                        >
+                                            <TextField
+                                                sx={{ width: '100%' }}
+                                                error={false}
+                                                type="text"
+                                                name="lastname"
+                                                margin="dense"
+                                                label="Lastname:"
+                                                helperText={
+                                                    touched.lastname &&
+                                                    errors.lastname && (
+                                                        <Box
+                                                            sx={{
+                                                                color: '#dc3545',
+                                                                fontWeight:
+                                                                    'bold',
+                                                            }}
+                                                        >
+                                                            {errors.lastname}
+                                                        </Box>
+                                                    )
+                                                }
+                                                size="small"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.lastname}
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={12}
+                                            md={12}
+                                            lg={12}
+                                            xl={12}
+                                        >
+                                            <TextField
+                                                sx={{ width: '100%' }}
+                                                error={false}
+                                                type="email"
+                                                name="email"
+                                                margin="dense"
+                                                label="Email:"
+                                                helperText={
+                                                    touched.email &&
+                                                    errors.email && (
+                                                        <Box
+                                                            sx={{
+                                                                color: '#dc3545',
+                                                                fontWeight:
+                                                                    'bold',
+                                                            }}
+                                                        >
+                                                            {errors.email}
+                                                        </Box>
+                                                    )
+                                                }
+                                                size="small"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.email}
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={12}
+                                            md={12}
+                                            lg={12}
+                                            xl={12}
+                                        >
+                                            <TextField
+                                                sx={{ width: '100%' }}
+                                                id="outlined-multiline-static"
+                                                name="comments"
+                                                error={false}
+                                                label="Let me know your comments"
+                                                multiline
+                                                rows={4}
+                                                helperText={
+                                                    touched.comments &&
+                                                    errors.comments && (
+                                                        <Box
+                                                            sx={{
+                                                                color: '#dc3545',
+                                                                fontWeight:
+                                                                    'bold',
+                                                            }}
+                                                        >
+                                                            {errors.comments}
+                                                        </Box>
+                                                    )
+                                                }
+                                                size="small"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.comments}
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={12}
+                                            md={12}
+                                            lg={12}
+                                            xl={12}
+                                        >
+                                            <Button
+                                                sx={{ width: '100%' }}
+                                                type="submit"
+                                                variant="contained"
+                                                size="small"
+                                            >
+                                                Enviar 🚀
+                                            </Button>
+                                            {submittedForm && <Alert
+                                                sx={{ margin: '1rem 0' }}
+                                                variant="filled"
+                                                severity="success"
+                                            >
+                                                Thanks for your feedback!
+                                            </Alert>}
+                                        </Grid>
+                                    </Grid>
+                                </Form>
+                            )}
+                        </Formik>
                     </CardContent>
                 </Card>
             </Box>
