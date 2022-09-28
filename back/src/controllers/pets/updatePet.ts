@@ -15,7 +15,7 @@ const updatePet = async (req: Request, res: Response) => {
 
         if (petUpdated) {
             return res
-                .status(200)
+                .status(201)
                 .json({ ok: true, msg: 'Pet Updated!', petUpdated })
         }else{
             return res.status(204).json({
