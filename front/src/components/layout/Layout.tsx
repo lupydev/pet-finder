@@ -14,7 +14,7 @@ const Layout: FC<Props> = ({ children }) => {
             alignItems="center"
             spacing="0"
             width="100%"
-            maxWidth="1440px"
+            // maxWidth="1440px"
             m="0 auto"
         >
             <Navbar />
