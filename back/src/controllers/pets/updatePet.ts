@@ -2,11 +2,8 @@ import { Request, Response } from 'express'
 import Pet from '../../schemas/Pet'
 
 const updatePet = async (req: Request, res: Response) => {
-    res.send('Update Pet')
     const { id } = req.params
     const newData = req.body
-
-    console.log(id, newData)
 
     try {
         const petUpdated = await Pet.findOneAndUpdate({ _id: id }, newData, {
