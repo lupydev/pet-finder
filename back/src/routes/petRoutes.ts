@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.post('/newPet', createPet)
 router.get('/hola', async(_req:Request,res:Response) => {res.send("Hola")})
-router.get('/',getAllPets)
+router.get('/:type',getAllPets)
 router.get('/:id',getById)
 router.put('/update/:id',updatePet)
 router.delete('/delete/:id',deletePet)

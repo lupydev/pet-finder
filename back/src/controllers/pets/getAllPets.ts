@@ -2,11 +2,12 @@ import Pet from "../../schemas/Pet";
 import { Request, Response } from 'express'
 
 
-const getAllPets = async (_req: Request ,res: Response)=>{
+const getAllPets = async (req: Request ,res: Response)=>{
+    const {petType} = req.params
 
     try {
         
-        const pets = await Pet.find({});
+        const pets = await Pet.find({$and: [{type: petType}, {status: "Active"}]});
         
         if (pets) {
             return res.status(200).json({ pets, ok: true, msg: 'All pets in DB' })            
