@@ -10,10 +10,8 @@ interface Values {
     password: string
 }
 
-interface LoginProps {}
-
 const Login: React.FC = () => {
-    const { user, setUser } = useAuth()
+    const { setUser } = useAuth()
 
     const clientSchema = Yup.object().shape({
         name: Yup.string()
