@@ -6,7 +6,7 @@ const deletePet = async (req: Request, res: Response) => {
 
       try {
 
-            const pet = await Pet.deleteOne({_id: { $eq: id}});
+            const pet = await Pet.findOneAndDelete({_id: { $eq: id}});
             res.status(200).json({ pet, ok: true, msg: 'Pet deleted' })
 
       } catch (error) {
