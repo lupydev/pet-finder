@@ -1,65 +1,54 @@
 import { useState } from 'react'
-import { Formik } from 'formik'
+import { Formik, Field } from 'formik'
 
-const RegisterForm = () => {
-    const testObj = {
-        email: '',
-        password: '',
-    }
+interface Values {
+    name: string
+    password: string
+    email: string
+}
+
+const RegisterForm: React.FC = () => {
+    const [newUser, setNewUser] = useState([])
+
+    console.log(newUser)
 
     return (
         <div>
+            <h1>Register</h1>
             <Formik
-                initialValues={testObj}
-                validate={(values) => {
-                    const errors = {}
-                    if (!values.email) {
-                        errors.email = 'Required'
-                    } else if (
-                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                            values.email
-                        )
-                    ) {
-                        errors.email = 'Invalid email address'
-                    }
-                    return errors
+                initialValues={{
+                    name: '',
+                    password: '',
+                    email: '',
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2))
-                        setSubmitting(false)
-                    }, 400)
+                onSubmit={(values: Values) => {
+                    setNewUser(values)
                 }}
             >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                }) => (
+                {({ handleSubmit }) => (
                     <form onSubmit={handleSubmit}>
-                        <input
-                            type="email"
+                        <label htmlFor="name">Name</label>
+                        <Field
+                            type="text"
+                            placeholder="Name"
+                            id="name"
+                            name="name"
+                        />
+                        <label htmlFor="email">Email</label>
+                        <Field
+                            type="text"
+                            placeholder="Email"
+                            id="email"
                             name="email"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.email}
                         />
-                        {errors.email && touched.email && errors.email}
-                        <input
+                        <label htmlFor="email">Password</label>
+                        <Field
                             type="password"
+                            placeholder="Password"
+                            id="password"
                             name="password"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.password}
                         />
-                        {errors.password && touched.password && errors.password}
-                        <button type="submit" disabled={isSubmitting}>
-                            Submit
-                        </button>
+                        <button type="submit">Send Form</button>
                     </form>
                 )}
             </Formik>

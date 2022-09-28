@@ -1,7 +1,8 @@
-import React from 'react'
+import { useState } from 'react'
 import { Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { Box, Typography, Button } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 interface LoginUser {
     name: string
@@ -10,8 +11,10 @@ interface LoginUser {
 
 interface LoginProps {}
 
-const Login: React.FC<{}> = () => {
-    const initialValues: LoginUser = {
+const Login: React.FC = () => {
+    const [user, setUser] = useState('')
+
+    const initialValuesUser: LoginUser = {
         name: '',
         password: '',
     }
@@ -27,9 +30,14 @@ const Login: React.FC<{}> = () => {
             .required('Este campo es obligatorio'),
     })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
         console.log('Enviaste el formulario')
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUser(e.target.value)
     }
 
     return (
@@ -38,12 +46,12 @@ const Login: React.FC<{}> = () => {
                 Login
             </Typography>
             <Formik
-                initialValues={initialValues}
+                initialValues={initialValuesUser}
                 enableReinitialize={true}
                 onSubmit={handleSubmit}
                 validationSchema={clientSchema}
             >
-                {(errors, touched) => {
+                {({ errors, touched }) => {
                     return (
                         <Form onSubmit={handleSubmit}>
                             <Box
@@ -55,12 +63,18 @@ const Login: React.FC<{}> = () => {
                                 }}
                             >
                                 <label htmlFor="name">Name</label>
-                                <Field id="name" type="text" name="name" />
+                                <Field
+                                    onChange={handleChange}
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                />
                                 {errors.name && touched.name ? (
                                     <h1>{errors.name}</h1>
                                 ) : null}
                                 <label htmlFor="password">Password</label>
                                 <Field
+                                    onChange={handleChange}
                                     id="password"
                                     type="text"
                                     name="password"
@@ -76,13 +90,14 @@ const Login: React.FC<{}> = () => {
                                     }}
                                     type="submit"
                                 >
-                                    Submit
+                                    Login
                                 </Button>
                             </Box>
                         </Form>
                     )
                 }}
             </Formik>
+            <Link to="/signin">Register</Link>
         </div>
     )
 }
