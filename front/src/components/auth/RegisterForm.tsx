@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Formik, Field, Form } from 'formik'
 import { Box, Button, Typography } from '@mui/material'
+import * as Yup from 'yup'
 
 interface Values {
     name: string
@@ -12,6 +13,20 @@ const RegisterForm: React.FC = () => {
     const [newUser, setNewUser] = useState([])
 
     console.log(newUser)
+
+    const clientSchema = Yup.object().shape({
+        name: Yup.string()
+            .min(3, 'El nombre es muy corto')
+            .max(20, 'El nombre es muy largo!')
+            .required('Este campo es obligatorio'),
+        email: Yup.string()
+            .email('El email no es valido')
+            .required('Este campo es obligatorio'),
+        password: Yup.string()
+            .min(3, 'El nombre es muy corto')
+            .max(20, 'El nombre es muy largo!')
+            .required('Este campo es obligatorio'),
+    })
 
     return (
         <>
@@ -27,8 +42,10 @@ const RegisterForm: React.FC = () => {
                 onSubmit={(values: Values) => {
                     console.log(values)
                 }}
+                enableReinitialize={true}
+                validationSchema={clientSchema}
             >
-                {({ handleSubmit }) => (
+                {({ handleSubmit, errors, touched }) => (
                     <Form onSubmit={handleSubmit}>
                         <Box
                             sx={{
@@ -45,13 +62,19 @@ const RegisterForm: React.FC = () => {
                                 id="name"
                                 name="name"
                             />
+                            {errors.name && touched.name ? (
+                                <h1>{errors.name}</h1>
+                            ) : null}
                             <label htmlFor="email">Email</label>
                             <Field
-                                type="text"
+                                type="email"
                                 placeholder="Email"
                                 id="email"
                                 name="email"
                             />
+                            {errors.email && touched.email ? (
+                                <h1>{errors.email}</h1>
+                            ) : null}
                             <label htmlFor="email">Password</label>
                             <Field
                                 type="password"
@@ -59,6 +82,9 @@ const RegisterForm: React.FC = () => {
                                 id="password"
                                 name="password"
                             />
+                            {errors.password && touched.password ? (
+                                <h1>{errors.password}</h1>
+                            ) : null}
                             <Button
                                 sx={{
                                     backgroundColor: 'green',
