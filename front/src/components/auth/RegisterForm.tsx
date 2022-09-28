@@ -13,7 +13,7 @@ const RegisterForm: React.FC = () => {
     console.log(newUser)
 
     return (
-        <div>
+        <>
             <h1>Register</h1>
             <Formik
                 initialValues={{
@@ -22,7 +22,7 @@ const RegisterForm: React.FC = () => {
                     email: '',
                 }}
                 onSubmit={(values: Values) => {
-                    setNewUser(values)
+                    console.log(values)
                 }}
             >
                 {({ handleSubmit }) => (
@@ -52,7 +52,7 @@ const RegisterForm: React.FC = () => {
                     </form>
                 )}
             </Formik>
-        </div>
+        </>
     )
 }
 
