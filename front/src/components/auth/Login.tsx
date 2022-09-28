@@ -12,7 +12,8 @@ interface Values {
 interface LoginProps {}
 
 const Login: React.FC = () => {
-    const [user, setUser] = useState('')
+    const [user, setUser] = useState({})
+    console.log(user)
 
     const clientSchema = Yup.object().shape({
         name: Yup.string()
@@ -25,6 +26,11 @@ const Login: React.FC = () => {
             .required('Este campo es obligatorio'),
     })
 
+    const handleSubmit = (values: Values) => {
+        setUser(values)
+        console.log('enviaste el form')
+    }
+
     return (
         <>
             <Typography sx={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -35,9 +41,7 @@ const Login: React.FC = () => {
                     name: '',
                     password: '',
                 }}
-                onSubmit={(values: Values) => {
-                    console.log(values)
-                }}
+                onSubmit={handleSubmit}
                 enableReinitialize={true}
                 validationSchema={clientSchema}
             >

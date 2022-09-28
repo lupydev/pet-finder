@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react'
 import Navbar from './navbar/Navbar'
 
 interface Props {
-    children?: ReactNode
+    children?: JSX.Element
     // any props that come into the component
 }
 
