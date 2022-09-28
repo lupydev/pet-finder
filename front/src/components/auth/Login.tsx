@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, ButtonBase } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 interface Values {
@@ -53,7 +53,12 @@ const Login: React.FC = () => {
                                 }}
                             >
                                 <label htmlFor="name">Name</label>
-                                <Field id="name" type="text" name="name" />
+                                <Field
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    placeholder="Name"
+                                />
                                 {errors.name && touched.name ? (
                                     <h1>{errors.name}</h1>
                                 ) : null}
@@ -62,6 +67,7 @@ const Login: React.FC = () => {
                                     id="password"
                                     type="password"
                                     name="password"
+                                    placeholder="Password"
                                 />
                                 {errors.password && touched.password ? (
                                     <h1>{errors.password}</h1>
@@ -81,7 +87,25 @@ const Login: React.FC = () => {
                     )
                 }}
             </Formik>
-            <Link to="/signin">Register</Link>
+            <Box
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <Button
+                    sx={{
+                        backgroundColor: 'cyan',
+                        color: 'black',
+                        marginTop: '1rem',
+                    }}
+                    component={Link}
+                    to="/signin"
+                >
+                    Register
+                </Button>
+            </Box>
         </>
     )
 }
