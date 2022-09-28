@@ -16,7 +16,7 @@ const updatePet = async (req: Request, res: Response) => {
                 .json({ ok: true, msg: 'Pet Updated!', petUpdated })
 
         } else {
-            return res.status(204).json({
+            return res.status(404).json({
                 msg: "Pet doesn't exist",
             })
         }
