@@ -51,7 +51,7 @@ const Navbar = () => {
                 <Button component={Link} to="/lost">
                     Lost Pets
                 </Button>
-                <Button component={Link} to="/form">
+                <Button component={Link} to="/contact">
                     Contact
                 </Button>
             </Stack>
