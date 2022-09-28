@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Formik, Field } from 'formik'
+import { Formik, Field, Form } from 'formik'
+import { Box, Button, Typography } from '@mui/material'
 
 interface Values {
     name: string
@@ -14,7 +15,9 @@ const RegisterForm: React.FC = () => {
 
     return (
         <>
-            <h1>Register</h1>
+            <Typography sx={{ textAlign: 'center', marginBottom: '2rem' }}>
+                Register
+            </Typography>
             <Formik
                 initialValues={{
                     name: '',
@@ -26,30 +29,48 @@ const RegisterForm: React.FC = () => {
                 }}
             >
                 {({ handleSubmit }) => (
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="name">Name</label>
-                        <Field
-                            type="text"
-                            placeholder="Name"
-                            id="name"
-                            name="name"
-                        />
-                        <label htmlFor="email">Email</label>
-                        <Field
-                            type="text"
-                            placeholder="Email"
-                            id="email"
-                            name="email"
-                        />
-                        <label htmlFor="email">Password</label>
-                        <Field
-                            type="password"
-                            placeholder="Password"
-                            id="password"
-                            name="password"
-                        />
-                        <button type="submit">Send Form</button>
-                    </form>
+                    <Form onSubmit={handleSubmit}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                width: '100%',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <label htmlFor="name">Name</label>
+                            <Field
+                                type="text"
+                                placeholder="Name"
+                                id="name"
+                                name="name"
+                            />
+                            <label htmlFor="email">Email</label>
+                            <Field
+                                type="text"
+                                placeholder="Email"
+                                id="email"
+                                name="email"
+                            />
+                            <label htmlFor="email">Password</label>
+                            <Field
+                                type="password"
+                                placeholder="Password"
+                                id="password"
+                                name="password"
+                            />
+                            <Button
+                                sx={{
+                                    backgroundColor: 'green',
+                                    color: 'black',
+                                    marginTop: '1rem',
+                                }}
+                                type="submit"
+                            >
+                                Send Form
+                            </Button>
+                        </Box>
+                    </Form>
                 )}
             </Formik>
         </>
