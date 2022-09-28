@@ -1,8 +1,8 @@
 import { Stack, Typography, Button, Box } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
-import CardsLostPets from '../layout/CardsLostPets'
 import SvgFingerPrint from '../layout/svgFingerPrint'
+import PetsContainer from './pets/PetsContainer'
 
 const Hero = () => {
     return (
@@ -109,30 +109,9 @@ const Hero = () => {
                     />
                 </Box>
             </Box>
-            <Box>
-                {/*Sacar informacion de las mascotas perdidas de la base de datos */}
-                <Typography color="secondary.dark">Lost Pets</Typography>
-                <Box sx={{ display: 'flex' }}>
-                    <CardsLostPets />
-                    <CardsLostPets />
-                    <CardsLostPets />
-                    <CardsLostPets />
-                </Box>
-                <Button sx={{ color: 'secondary.dark' }}>
-                    View All pets lost
-                </Button>
-            </Box>
-            <Box>
-                {/*Sacar informacion de las mascotas perdidas de la base de datos */}
-                <Typography color="primary.main">Pets Found</Typography>
-                <Box sx={{ display: 'flex' }}>
-                    <CardsLostPets />
-                    <CardsLostPets />
-                    <CardsLostPets />
-                    <CardsLostPets />
-                </Box>
-                <Button>View All pets founds</Button>
-            </Box>
+
+            <PetsContainer />
+            
         </Stack>
     )
 }
