@@ -15,8 +15,12 @@ const deleteSpecies = async (req: Request, res: Response) => {
         res.status(404).json({
             ok: false,
             msg: 'An error occured, contact with admin',
+<<<<<<< HEAD
         })
             
+=======
+        })          
+>>>>>>> nora-create-schema-pets
     }
 }
 export default deleteSpecies

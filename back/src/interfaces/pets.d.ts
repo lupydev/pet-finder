@@ -5,7 +5,7 @@ export interface Pets {
     name:string,
     description:string,
     species:Types.ObjectId,
-    sex:string,
+    gender:string,
     size:string,
     type:string,
     breed:Types.ObjectId,
