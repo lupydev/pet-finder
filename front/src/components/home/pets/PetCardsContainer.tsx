@@ -4,6 +4,7 @@ import React from 'react'
 import PetCard from './PetCard'
 import SvgFingerPrint from '../../layout/svgFingerPrint'
 import paws from '../../../../public/paws.svg'
+import { Link } from 'react-router-dom'
 
 const data: any[] = [
     {
@@ -95,8 +96,10 @@ const PetCardsContainer = (props: Info) => {
                     )}
                 </Stack>
                 <Button
+                    component={Link}
+                    to={`/${props.title.toLowerCase()}Pets`}
                     variant="contained"
-                    color={props.color}
+                    color={props.title.toLowerCase() === 'lost' ? 'secondary' : 'primary'}
                     sx={{
                         textTransform: 'none',
                         px: '100px',
