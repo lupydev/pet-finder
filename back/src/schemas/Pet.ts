@@ -5,7 +5,7 @@ const PetsSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String },
     species: { type: Schema.Types.ObjectId, ref: 'Species' },
-    sex: { type: String },
+    gender: { type: String },
     size: { type: String },
     type:{type:String, enum:["Lost","Found"], required:true },
     breed: { type: Schema.Types.ObjectId, ref: 'Breeds' },
