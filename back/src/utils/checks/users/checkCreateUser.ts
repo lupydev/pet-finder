@@ -1,5 +1,5 @@
 import { body } from 'express-validator'
-export const signUpCheck = () => {
+export const checkCreateUser = () => {
     return [
         body('email')
             .toLowerCase()

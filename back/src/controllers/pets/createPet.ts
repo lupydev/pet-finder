@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 
 const createPet = async (req: Request, res: Response) => {
     const petData = req.body
+
     try {
         const newPet = new Pet(petData)
         await newPet.save()
