@@ -12,8 +12,6 @@ interface Values {
 const RegisterForm: React.FC = () => {
     const [newUser, setNewUser] = useState([])
 
-    console.log(newUser)
-
     const clientSchema = Yup.object().shape({
         name: Yup.string()
             .min(3, 'El nombre es muy corto')

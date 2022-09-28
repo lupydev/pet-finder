@@ -3,6 +3,7 @@ import { Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { Box, Typography, Button, ButtonBase } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 
 interface Values {
     name: string
@@ -12,8 +13,7 @@ interface Values {
 interface LoginProps {}
 
 const Login: React.FC = () => {
-    const [user, setUser] = useState({})
-    console.log(user)
+    const { user, setUser } = useAuth()
 
     const clientSchema = Yup.object().shape({
         name: Yup.string()
@@ -28,7 +28,6 @@ const Login: React.FC = () => {
 
     const handleSubmit = (values: Values) => {
         setUser(values)
-        console.log('enviaste el form')
     }
 
     return (

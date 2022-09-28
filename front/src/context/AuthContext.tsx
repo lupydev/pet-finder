@@ -7,10 +7,12 @@ interface Props {
 export const AuthContext = createContext({})
 
 export const AuthProvider: React.FC = ({ children }: Props) => {
-    const [test, setTest] = useState('Hola')
-    console.log(test)
+    const [user, setUser] = useState({})
+
+    console.log(user)
+
     return (
-        <AuthContext.Provider value={{ test, setTest }}>
+        <AuthContext.Provider value={{ user, setUser }}>
             {children}
         </AuthContext.Provider>
     )
