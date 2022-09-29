@@ -1,32 +1,23 @@
 import { Stack, Typography, Button, Box } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
-import SvgFingerPrint from '../layout/svgFingerPrint'
-import PetsContainer from './pets/PetsContainer'
 
 const Hero = () => {
     return (
         <Stack gap={20}>
-            <Stack width="100%" alignItems="center" position="relative">
-                <Stack position="absolute" zIndex={-1}>
+            <Stack
+                width="100%"
+                alignItems="center"
+                position="relative"
+                justifyContent='flex-end'
+                height="500px"
+            >
+                <Stack position="absolute" zIndex={-1} left='0' top='0'>
                     <img
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664207806/Imagenes%20Dise%C3%B1o%20UX/Logo/paws_blue_nh6vyt.png"
                         width="100%"
                     />
                 </Stack>
-                <Stack alignItems="center" width={{ xs: '18rem', lg: '34rem' }}>
-                    <img
-                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049160/Imagenes%20Dise%C3%B1o%20UX/Logo/Frame_7_cbmjbf.png"
-                        width="100%"
-                    />
-                </Stack>
-            </Stack>
-            <Stack
-                width="100%"
-                alignItems="center"
-                position="relative"
-                height="28rem"
-            >
                 <Stack position="absolute" zIndex={-1} right={0}>
                     <img
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664207810/Imagenes%20Dise%C3%B1o%20UX/Logo/paws_orange_astxim.png"
@@ -34,7 +25,7 @@ const Hero = () => {
                     />
                 </Stack>
                 <Stack direction="row" alignItems="flex-end" gap={10}>
-                    <Stack width={{ xs: '5rem', lg: '30rem' }} gap={3}>
+                    <Stack width='30rem' gap={3}>
                         <Typography
                             variant="h1"
                             fontWeight="bold"
@@ -45,8 +36,8 @@ const Hero = () => {
                         </Typography>
 
                         <img
-                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1664229461/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/Vector_1_ot1yi9.png"
-                            width="80%"
+                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1664294010/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/Vector_1_my3suh.svg"
+                            width="60%"
                         />
                         <Typography variant="subtitle1" color="primary.dark">
                             In voluptatem dolor in nihil dolorem in nihil quasi
@@ -64,54 +55,14 @@ const Hero = () => {
                             Post Lost Pet
                         </Button>
                     </Stack>
-                    <Stack width={{ xs: '18rem', lg: '34rem' }}>
+                    <Stack width='38rem'>
                         <img
-                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1664231254/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/res-console.cloudinary-removebg-preview_tvxbcu.png"
+                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1664418265/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/res-console.cloudinary-removebg-preview_xq0yo7.png"
                             width="100%"
                         />
                     </Stack>
                 </Stack>
             </Stack>
-            <Box sx={{ backgroundColor: '#3981BF' }}>
-                <Box sx={{ display: 'flex' }}>
-                    <Stack>
-                        <Typography color="secondary.light">
-                            About Us
-                        </Typography>
-                        <Typography color="secondary.light">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Voluptatibus mollitia explicabo accusantium
-                            nulla. Quas, blanditiis nostrum. Vel ducimus id
-                            laudantium labore iste nulla voluptates ipsum? Porro
-                            beatae architecto aliquam dolore.
-                        </Typography>
-                        <Box sx={{ display: 'flex' }}>
-                            <SvgFingerPrint />
-                            <Button sx={{ color: 'secondary.light' }}>
-                                Service
-                            </Button>
-
-                            <SvgFingerPrint />
-                            <Button sx={{ color: 'secondary.light' }}>
-                                Service
-                            </Button>
-
-                            <SvgFingerPrint />
-                            <Button sx={{ color: 'secondary.light' }}>
-                                Service
-                            </Button>
-                        </Box>
-                    </Stack>
-                    <img
-                        style={{ width: '50%' }}
-                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg"
-                        alt="img-aboutus"
-                    />
-                </Box>
-            </Box>
-
-            <PetsContainer />
-            
         </Stack>
     )
 }
