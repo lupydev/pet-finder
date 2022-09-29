@@ -10,6 +10,6 @@ router.get('/', getAllBreedsBySpecies)
 
 router.post('/newBreed', createBreed)
 
-router.delete('/delete', deleteBreed)
+router.delete('/delete/:id', deleteBreed)
 
 export default router
