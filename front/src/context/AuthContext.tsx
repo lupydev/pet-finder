@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
 interface Users {
     name: string
@@ -6,12 +6,15 @@ interface Users {
 }
 interface Props {
     children: JSX.Element
+    userProps: Users
 }
 
-export const AuthContext = createContext({})
+export const AuthContext = createContext<Users>({} as Users)
 
 export const AuthProvider = ({ children }: Props) => {
     const [user, setUser] = useState<Users>()
+
+    console.log(user)
 
     const loginUser = (value: Users) => {
         setUser(value)
