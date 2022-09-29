@@ -1,9 +1,9 @@
-import { Stack, Typography, Button, Box, Grid } from '@mui/material'
+import { Stack, Typography, Button, Box, Grid, Link } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
 import CardsLostPets from '../layout/CardsLostPets'
 import SvgFingerPrint from '../layout/SvgFingerPrint'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 const Hero = () => {
     return (
@@ -97,10 +97,18 @@ const Hero = () => {
                             nulla. Quas, blanditiis nostrum. Vel ducimus id
                             laudantium labore iste nulla voluptates ipsum? Porro
                             beatae architecto aliquam dolore.{' '}
-                            {/* <Link component={Link} to="/" scolor="secondary.light">
-                            Learn more
-                        </Link> */}
-                        {/* falta agregar link learn more */}
+                            <Link
+                                href="/about"
+                                sx={{
+                                    color: 'secondary.light',
+                                    fontWeight: '700',
+                                    // textTransform: 'none',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Learn more
+                            </Link>
                         </Typography>
                         <Stack
                             sx={{
@@ -109,12 +117,12 @@ const Hero = () => {
                             }}
                         >
                             <Button
-                                component={Link}
-                                to="/pet"
+                                href="/lost"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
                                     color: 'secondary.light',
+                                    fontWeight: '700',
                                     textTransform: 'none',
                                 }}
                             >
@@ -123,12 +131,12 @@ const Hero = () => {
                             </Button>
 
                             <Button
-                                component={Link}
-                                to="/pet"
+                                href="/found"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
                                     color: 'secondary.light',
+                                    fontWeight: '700',
                                     textTransform: 'none',
                                 }}
                             >
@@ -137,12 +145,12 @@ const Hero = () => {
                             </Button>
 
                             <Button
-                                component={Link}
-                                to="/pet"
+                                href="/post"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
                                     color: 'secondary.light',
+                                    fontWeight: '700',
                                     textTransform: 'none',
                                 }}
                             >
@@ -151,19 +159,15 @@ const Hero = () => {
                             </Button>
                         </Stack>
                     </Stack>
-                    {/* <Box sx={{ backgroundImage: 'url("https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg")', backgroundSize: "contain", backgroundRepeat: "no-repeat", borderLeft: "500px"}}> */}
+
                     <img
                         style={{
                             width: '100%',
-                            // marginBottom: '3rem',
                             clipPath: 'circle(62.9% at 60% 50%)',
-                            // borderTopLeftRadius: '50%',
-                            // borderBottomLeftRadius: '50%',
                         }}
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg"
                         alt="img-aboutus"
                     />
-                    {/* </Box> */}
                 </Grid>
             </Box>
             <Box>
