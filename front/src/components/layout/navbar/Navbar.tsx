@@ -92,9 +92,9 @@ const Navbar = () => {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem component={Link} to='/LostPets' onClick={handleClose}>Lost Pets</MenuItem>
-                        <MenuItem component={Link} to='/FoundPets'  onClick={handleClose}>Found Pets</MenuItem>
-                        <MenuItem component={Link} to='/CreatPost'  onClick={handleClose}>Create Post</MenuItem>
+                        <MenuItem component={Link} to='/lostPets' onClick={handleClose}>Lost Pets</MenuItem>
+                        <MenuItem component={Link} to='/foundPets'  onClick={handleClose}>Found Pets</MenuItem>
+                        <MenuItem component={Link} to='/createPost'  onClick={handleClose}>Create Post</MenuItem>
                     </Menu>
                 </Stack>
                 

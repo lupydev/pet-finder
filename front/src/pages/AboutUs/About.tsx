@@ -1,6 +1,7 @@
 import React from 'react'
 import { Stack, Typography, Grid, Button } from '@mui/material'
 import SvgFingerPrint from '../../components/layout/SvgFingerPrint'
+import { Link } from 'react-router-dom'
 
 const About = () => {
     return (
@@ -51,14 +52,20 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <SvgFingerPrint />
+                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
                         Odio, omnis esse facere quisquam, fugit quaerat mollitia
                         aliquid facilis reprehenderit nesciunt, amet corrupti!
                     </Typography>
-                    <Button href="/lost" sx={{color: "secundary.main"}}>Lost pets</Button>
+                    <Button
+                        component={Link}
+                        to="/lostPets"
+                        sx={{ color: 'secundary.main' }}
+                    >
+                        Lost pets
+                    </Button>
                 </Stack>
                 <Stack
                     sx={{
@@ -70,14 +77,20 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <SvgFingerPrint />
+                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
                         Odio, omnis esse facere quisquam, fugit quaerat mollitia
                         aliquid facilis reprehenderit nesciunt, amet corrupti!
                     </Typography>
-                    <Button href="/found" sx={{color: "primary.main"}}>Found pets</Button>
+                    <Button
+                        component={Link}
+                        to="/foundPets"
+                        sx={{ color: 'primary.main' }}
+                    >
+                        Found pets
+                    </Button>
                 </Stack>
                 <Stack
                     sx={{
@@ -89,14 +102,16 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <SvgFingerPrint />
+                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
                         Odio, omnis esse facere quisquam, fugit quaerat mollitia
                         aliquid facilis reprehenderit nesciunt, amet corrupti!
                     </Typography>
-                    <Button href="/post">Post a lost pet</Button>
+                    <Button component={Link} to="/createPost">
+                        Post a lost pet
+                    </Button>
                 </Stack>
             </Grid>
         </Stack>
