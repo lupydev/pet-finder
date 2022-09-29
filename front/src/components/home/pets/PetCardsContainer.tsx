@@ -72,45 +72,48 @@ type Info = {
 
 const PetCardsContainer = (props: Info) => {
     return (
-        <>
-            <Stack gap="25px">
-                <Typography
-                    variant="h3"
-                    color={props.color}
-                    fontFamily={'Merriweather'}
-                    fontWeight="bold"
-                >
-                    {props.title} Pets
-                </Typography>
-                <Stack direction="row" justifyContent={'center'} gap="24px">
-                    {data.map(
-                        (item) =>
-                            item.status.toLowerCase() === props.title.toLowerCase() && (
-                                <PetCard
-                                    name={item.name}
-                                    img={item.img}
-                                    description={item.description}
-                                    status={item.status}
-                                />
-                            )
-                    )}
-                </Stack>
-                <Button
-                    component={Link}
-                    to={`/${props.title.toLowerCase()}Pets`}
-                    variant="contained"
-                    color={props.title.toLowerCase() === 'lost' ? 'secondary' : 'primary'}
-                    sx={{
-                        textTransform: 'none',
-                        px: '100px',
-                        mx: 'auto',
-                        borderRadius: '8px',
-                    }}
-                >
-                    View all {props.title.toLowerCase()} pets
-                </Button>
+        <Stack gap="25px" width='100%'>
+            <Typography
+                variant="h3"
+                color={props.color}
+                fontFamily={'Merriweather'}
+                fontWeight="bold"
+            >
+                {props.title} Pets
+            </Typography>
+            <Stack direction="row" justifyContent={'center'} gap="24px">
+                {data.map(
+                    (item) =>
+                        item.status.toLowerCase() ===
+                            props.title.toLowerCase() && (
+                            <PetCard
+                                name={item.name}
+                                img={item.img}
+                                description={item.description}
+                                status={item.status}
+                            />
+                        )
+                )}
             </Stack>
-        </>
+            <Button
+                component={Link}
+                to={`/${props.title.toLowerCase()}Pets`}
+                variant="contained"
+                color={
+                    props.title.toLowerCase() === 'lost'
+                        ? 'secondary'
+                        : 'primary'
+                }
+                sx={{
+                    textTransform: 'none',
+                    px: '100px',
+                    mx: 'auto',
+                    borderRadius: '8px',
+                }}
+            >
+                View all {props.title.toLowerCase()} pets
+            </Button>
+        </Stack>
     )
 }
 

@@ -10,16 +10,10 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
     return (
-        <Stack
-        minHeight="100vh"
-        alignItems="center"
-        spacing="0"
-        width="100%"
-        maxWidth="1440px"
-        m="0 auto">
+        <Stack spacing="0" width="100%" alignItems='center'>
             <Navbar />
             {children}
-            <Footer/>
+            <Footer />
         </Stack>
     )
 }

@@ -100,6 +100,15 @@ const Navbar = () => {
                 
                 <Button
                     component={Link}
+                    to="/aboutUs"
+                    sx={buttonStyle}
+                    disableRipple
+                >
+                    About Us
+                </Button>
+                
+                <Button
+                    component={Link}
                     to="/contact"
                     sx={buttonStyle}
                     disableRipple
