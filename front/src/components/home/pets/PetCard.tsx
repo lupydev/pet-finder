@@ -22,7 +22,7 @@ const CardsLostPets = (props: PetData) => {
     return (
         <Card
             sx={{
-                maxWidth: '260px',
+                maxWidth: '300px',
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'
             }}
         >
@@ -41,14 +41,14 @@ const CardsLostPets = (props: PetData) => {
                             props.status === 'lost'
                                 ? 'secondary.light'
                                 : 'primary.light',
-                        height: '150px',
+                        height: '180px',
                         borderRadius: '8px',
                     }}
                 >
                     <Avatar
                         alt="Remy Sharp"
                         src={props.img}
-                        sx={{ width: 130, height: 130 }}
+                        sx={{ width: '150px', height: '150px' }}
                     />
                 </Stack>
                 <Stack p="16px" gap='16px'>
@@ -71,10 +71,9 @@ const CardsLostPets = (props: PetData) => {
                         }
                         sx={{
                             textTransform: 'none',
-                            width: '120px',
+                            width: '140px',
                             borderRadius: '8px',
                         }}
-                        size="small"
                     >
                         More Details
                     </Button>
