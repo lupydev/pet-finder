@@ -1,26 +1,27 @@
-import React, { createContext, ReactNode, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
 interface Users {
     name: string
     password: string
 }
-
-interface State {
-    user: Array<Users>
-}
 interface Props {
-    children?: JSX.Element
+    children: JSX.Element
+    userProps: Users
 }
 
-export const AuthContext = createContext({})
+export const AuthContext = createContext<Users>({} as Users)
 
-export const AuthProvider: React.FC = ({ children }: Props) => {
-    const [user, setUser] = useState<State['user']>([])
+export const AuthProvider = ({ children }: Props) => {
+    const [user, setUser] = useState<Users>()
 
     console.log(user)
 
+    const loginUser = (value: Users) => {
+        setUser(value)
+    }
+
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, loginUser }}>
             {children}
         </AuthContext.Provider>
     )
