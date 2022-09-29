@@ -11,7 +11,7 @@ interface Values {
 }
 
 const Login: React.FC = () => {
-    const { setUser } = useAuth()
+    const { loginUser } = useAuth()
 
     const clientSchema = Yup.object().shape({
         name: Yup.string()
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     })
 
     const handleSubmit = (values: Values) => {
-        setUser(values)
+        loginUser(values)
     }
 
     return (
