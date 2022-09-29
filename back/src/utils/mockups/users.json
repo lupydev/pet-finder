@@ -1,0 +1,127 @@
+[{
+  "_id": {
+    "$oid": "6335b7ea39217f29f0585bbc"
+  },
+  "nickname": "Andres",
+  "fullname": "Andres Fuentes",
+  "img": "https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png",
+  "password": "$2a$10$Oeh3m31PRFGBQAYOgwzE8ueg8iRffk/ofFVkiyzGioKBdOIa5Bqy.",
+  "email": "ingplazasfuentes@hotmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335b8db39217f29f0585bc2"
+  },
+  "nickname": "Daniel",
+  "fullname": "Daniel Albanez",
+  "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465097/Integrantes/Daniel_zvpphk.jpg",
+  "password": "$2a$10$VdejfUqxb6h8TzqZNswacuoXQPkz1sH3LYFkSf1Ge2Kd/5Ou9Y22.",
+  "email": "danielalbanez40@gmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335b95d39217f29f0585bc5"
+  },
+  "nickname": "Francisco",
+  "fullname": "Francisco Rey",
+  "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465188/Integrantes/Francisco_rqloby.jpg",
+  "password": "$2a$10$xrwNdB0B1kiTVs5vRnQ3MuRUrwgLQUa49E2eQo4guUKBlLInuI0ZG",
+  "email": "reyfrancisco98@hotmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335b9d539217f29f0585bc8"
+  },
+  "nickname": "Jeyther",
+  "fullname": "Jeyther Yriza",
+  "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465328/Integrantes/Jeyter_v3omxg.jpg",
+  "password": "$2a$10$I7A2zGwJVtNdjhZgfBjKFuZK3bKuQbhbXAQ/F/h7meaDlHjOrBum6",
+  "email": "jeyther13@gmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335ba2539217f29f0585bcb"
+  },
+  "nickname": "Leonardo",
+  "fullname": "Leonardo Dávalos",
+  "img": "https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png",
+  "password": "$2a$10$Zxhwc2Pl13eUPl1x3LsuIOT1zcevOmgCIEzyxN50rIOFF0asf.ckm",
+  "email": "davaloslm@hotmail.com.ar",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335ba7539217f29f0585bce"
+  },
+  "nickname": "LuisMi",
+  "fullname": "LuisMi Guzmán",
+  "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465504/Integrantes/LuisMi_yvmw6a.png",
+  "password": "$2a$10$sz0CAiukpKMm5rm177LBXOMHoyC5z9lnelfHzLPbx4A8tHFyuVTJm",
+  "email": "lumigu.dev@gmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335babb39217f29f0585bd1"
+  },
+  "nickname": "Nora",
+  "fullname": "Nora Saucedo",
+  "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465581/Integrantes/Nora_kmtlar.jpg",
+  "password": "$2a$10$11MjubBJbqA7GEse7G2QK.fEQn0unWuPbzMGrkG6pkp4KilNlZu8.",
+  "email": "nps_22@hotmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335bb0d39217f29f0585bd4"
+  },
+  "nickname": "Saira",
+  "fullname": "Saira M",
+  "img": "https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png",
+  "password": "$2a$10$I.ZzfPsayqVuR1wKjLslV.qOW9k3ZO967aE7kxYQjH0Kp9LalEliS",
+  "email": "sairamiranda1@gmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6335bb7539217f29f0585bd7"
+  },
+  "nickname": "Yamila",
+  "fullname": "Yamila paez",
+  "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465766/Integrantes/Yamila_gi0sl2.jpg",
+  "password": "$2a$10$vJclEGmTnDPs.wOAw.bApO4YifoOzV0QSTARn02UOMkwRhtLfPA56",
+  "email": "yamilapaez2@hotmail.com",
+  "pets": [],
+  "admin": true,
+  "email_verified": true,
+  "status": "Active",
+  "__v": 0
+}]
