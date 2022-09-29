@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Found from '../pages/found/Found'
 import Home from '../pages/home/Home'
 import Form from '../components/form/Form'
+import About from '../pages/AboutUs/About'
 const Routing = () => {
     return (
         <Routes>
@@ -10,6 +11,7 @@ const Routing = () => {
             <Route path="/" element={<Home />} />
             <Route path="/found" element={<Found />} />
             <Route path="/form" element={<Form />} />
+            <Route path="/about" element={<About />} />
         </Routes>
     )
 }
