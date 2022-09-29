@@ -72,12 +72,13 @@ type Info = {
 
 const PetCardsContainer = (props: Info) => {
     return (
-        <Stack gap="25px" width='100%'>
+        <Stack gap="25px">
             <Typography
                 variant="h3"
                 color={props.color}
                 fontFamily={'Merriweather'}
                 fontWeight="bold"
+                px='30px'
             >
                 {props.title} Pets
             </Typography>

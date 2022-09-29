@@ -2,7 +2,7 @@ import React from 'react'
 
 const SvgFingerPrint = () => {
     return (
-        <div>
+        
             <svg
                 width="65"
                 height="69"
@@ -43,7 +43,7 @@ const SvgFingerPrint = () => {
                     </clipPath>
                 </defs>
             </svg>
-        </div>
+        
     )
 }
 
