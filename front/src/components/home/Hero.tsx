@@ -1,7 +1,7 @@
-import { Stack, Typography, Button, Box } from '@mui/material'
+import { Stack, Typography, Button, Box, Grid, Link } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
-import SvgFingerPrint from '../layout/svgFingerPrint'
+import SvgFingerPrint from '../layout/SvgFingerPrint'
 import PetsContainer from './pets/PetsContainer'
 
 const Hero = () => {
@@ -73,9 +73,21 @@ const Hero = () => {
                 </Stack>
             </Stack>
             <Box sx={{ backgroundColor: '#3981BF' }}>
-                <Box sx={{ display: 'flex' }}>
-                    <Stack>
-                        <Typography color="secondary.light">
+                <Grid
+                    display="grid"
+                    gridTemplateColumns="55% 45%"
+                    alignContent="center"
+                    height="100%"
+                >
+                    <Stack
+                        sx={{
+                            alignSelf: 'center',
+                            justifySelf: 'end',
+                            maxWidth: '600px',
+                            gap: '30px',
+                        }}
+                    >
+                        <Typography color="secondary.light" variant="h2">
                             About Us
                         </Typography>
                         <Typography color="secondary.light">
@@ -83,31 +95,79 @@ const Hero = () => {
                             elit. Voluptatibus mollitia explicabo accusantium
                             nulla. Quas, blanditiis nostrum. Vel ducimus id
                             laudantium labore iste nulla voluptates ipsum? Porro
-                            beatae architecto aliquam dolore.
+                            beatae architecto aliquam dolore.{' '}
+                            <Link
+                                href="/about"
+                                sx={{
+                                    color: 'secondary.light',
+                                    fontWeight: '700',
+                                    // textTransform: 'none',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Learn more
+                            </Link>
                         </Typography>
-                        <Box sx={{ display: 'flex' }}>
-                            <SvgFingerPrint />
-                            <Button sx={{ color: 'secondary.light' }}>
-                                Service
+                        <Stack
+                            sx={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-evenly',
+                            }}
+                        >
+                            <Button
+                                href="/lost"
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    color: 'secondary.light',
+                                    fontWeight: '700',
+                                    textTransform: 'none',
+                                }}
+                            >
+                                <SvgFingerPrint />
+                                Lost pet
                             </Button>
 
-                            <SvgFingerPrint />
-                            <Button sx={{ color: 'secondary.light' }}>
-                                Service
+                            <Button
+                                href="/found"
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    color: 'secondary.light',
+                                    fontWeight: '700',
+                                    textTransform: 'none',
+                                }}
+                            >
+                                <SvgFingerPrint />
+                                Found pet
                             </Button>
 
-                            <SvgFingerPrint />
-                            <Button sx={{ color: 'secondary.light' }}>
-                                Service
+                            <Button
+                                href="/post"
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    color: 'secondary.light',
+                                    fontWeight: '700',
+                                    textTransform: 'none',
+                                }}
+                            >
+                                <SvgFingerPrint />
+                                Post a lost pet
                             </Button>
-                        </Box>
+                        </Stack>
                     </Stack>
+
                     <img
-                        style={{ width: '50%' }}
+                        style={{
+                            width: '100%',
+                            clipPath: 'circle(62.9% at 60% 50%)',
+                        }}
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg"
                         alt="img-aboutus"
                     />
-                </Box>
+                </Grid>
             </Box>
 
             <PetsContainer />

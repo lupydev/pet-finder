@@ -5,8 +5,9 @@ import Home from '../pages/home/Home'
 import ContactForm from '../components/contact-form/ContactForm'
 import RegisterForm from '../components/auth/RegisterForm'
 import Login from '../components/auth/Login'
-
 import PetBrowser from '../components/petBrowser/PetBrowser'
+import About from '../pages/AboutUs/About'
+
 const Routing = () => {
     return (
         <Routes>
@@ -17,6 +18,7 @@ const Routing = () => {
             <Route path="/contact" element={<ContactForm />} />
             <Route path="/signin" element={<RegisterForm />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/about" element={<About />} />
         </Routes>
     )
 }
