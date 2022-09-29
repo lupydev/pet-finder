@@ -12,7 +12,7 @@ export const getAllUsers = async (_req: Request, res: Response) => {
             return res.status(200).json({ ok: true, allUsers })
         }
 
-        return res.status(204).json({ ok: false, msg: 'Users not found' })
+        return res.status(404).json({ ok: false, msg: 'Users not found' })
     } catch (error) {
         console.log(error)
         return res.status(404).json({

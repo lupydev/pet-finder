@@ -22,8 +22,6 @@
     "rules": {
         "indent": ["error", 4]
        
-    },
-    "eslintIgnore": [
-       
-    ]
+    }
+    
 }
