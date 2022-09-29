@@ -1,5 +1,6 @@
 import { Schema, model, Types } from 'mongoose'
 import { User } from '../interfaces/user'
+import { StatusUser } from '../utils/enums'
 
 const userSchema = new Schema<User>({
     nickname: {
@@ -39,7 +40,7 @@ const userSchema = new Schema<User>({
         default: false,
     },
     status: {
-        type: String,
+        type: StatusUser,
         default: 'Active',
     },
 })
