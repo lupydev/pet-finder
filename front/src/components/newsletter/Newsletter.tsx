@@ -3,12 +3,11 @@ import { height, width } from '@mui/system'
 import React from 'react'
 import { alpha, styled } from '@mui/material/styles'
 
-
 const NewsletterEmailTextField = styled(TextField)({
     '& label.Mui-focused': {
         color: '#fff',
     },
-    
+
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
             borderColor: '#ccc',
@@ -23,13 +22,13 @@ const NewsletterEmailTextField = styled(TextField)({
 })
 
 // const NewsletterSuscribeButton = styled(Button)({
-   
+
 //     '& .MuiButton-hover': {
-    
+
 //         '&:hover button': {
 //             backgroundColor: '#fff',
 //         },
-        
+
 //     },
 // })
 
@@ -37,7 +36,10 @@ const Newsletter = () => {
     return (
         <Box sx={{ backgroundColor: '#3981BF', height: '50vh' }}>
             <Box sx={{ display: 'flex' }}>
-                <Stack color="secondary.light" sx={{ padding: '0 5rem', justifyContent: 'center' }}>
+                <Stack
+                    color="secondary.light"
+                    sx={{ padding: '0 5rem', justifyContent: 'center' }}
+                >
                     <h2>Newsletter</h2>
                     <Typography sx={{ paddingBottom: '2rem' }}>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -47,27 +49,30 @@ const Newsletter = () => {
                         aliquam dolore.
                     </Typography>
 
-                    <Box sx={{ display: 'flex' }}>
-                        
-                        <NewsletterEmailTextField sx={{
-                            width: '50%',
-                        }}
+                    <Stack direction='row' alignItems='center' gap='22px'>
+                        <NewsletterEmailTextField
+                            sx={{
+                                width: '50%',
+                                backgroundColor: 'primary.light',
+                                borderRadius: '5px',
+                            }}
                             id="newsletterEmail"
-                            label="Email:"
+                            label="Email"
                             variant="outlined"
                             type="email"
                         />
 
                         <Button
+                            variant="contained"
                             sx={{
-                                color: '#3981BF',
-                                backgroundColor: '#fff',
+                                color: 'primary.main',
+                                textTransform: 'none',
+                                backgroundColor: 'white',
                                 padding: '1rem',
-                                margin: '1rem 0 0 1rem',
-                                height: '2rem',
-                                
+                                px: '40px',
+                                height: '56px',
+                                '&:hover': {backgroundColor:'secondary.light'},
                             }}
-
                         >
                             Suscribe
                         </Button>
@@ -84,7 +89,7 @@ const Newsletter = () => {
                         >
                             Suscribe
                         </NewsletterSuscribeButton> */}
-                    </Box>
+                    </Stack>
                 </Stack>
                 <img
                     style={{
