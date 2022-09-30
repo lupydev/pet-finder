@@ -2,12 +2,14 @@ import Pet from '../../schemas/Pet'
 import { Request, Response } from 'express'
 
 const getAllPets = async (req: Request, res: Response) => {
-    const { type } = req.params
+    const { type } = req.body
 
     try {
         const pets = await Pet.find({
             $and: [{ type: { $eq: type } }, { status: 'Active' }],
         })
+        .populate({path: "breed", select: "_id name"})
+        .populate({path: "species", select: "_id name"})
 
         if (pets.length > 0) {
             return res

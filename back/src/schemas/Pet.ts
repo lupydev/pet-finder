@@ -2,16 +2,16 @@ import { model, Schema } from 'mongoose'
 import { Pets } from '../interfaces/pets'
 
 const PetsSchema = new Schema({
-    name: { type: String, required: true },
-    description: { type: String },
+    name: { type: String, default:'No Name' },
+    description: { type: String, default:'Withouth description' },
     species: { type: Schema.Types.ObjectId, ref: 'Species' },
-    gender: { type: String, enum: ['Male', 'Female'] },
+    gender: { type: String, enum: ['Male', 'Female','Unknown'] ,default:'Unknown'},
     size: { type: String, enum: ['Small', 'Medium', 'Large'] },
     type: { type: String, enum: ['Lost', 'Found'], required: true },
-    breed: { type: Schema.Types.ObjectId, ref: 'Breeds' },
+    breed: { type: Schema.Types.ObjectId, ref: 'Breed' },
     age: { type: Number },
-    color: { type: String },
-    location: { type: Number },
+    color: { type: String, enum: ['White','Black','Brown','LightBrown', 'Grey'] },
+    location: { type: String },
     status: { type: String, default: 'Active' },
     date: { type: Date },
     img: [
