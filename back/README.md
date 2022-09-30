@@ -39,34 +39,50 @@
 -   http://localhost:PORT/users/create
 -   http://localhost:PORT/users/update/629375c1545316ac4d6924a9
 
+**Enums Used**
+
+-   enum StatusUser {
+    NotVerified = 'Not Verified',
+    Active = 'Active',
+    Banned = 'Banned',
+    Deleted = 'Deleted',
+    }
+
+## Authenticacion
+
+| TYPE | DETAIL      | ROUTE                       | SEND                |
+| ---- | ----------- | --------------------------- | ------------------- |
+| POST | login       | http://localhost:PORT/login |                     |
+| POST | renew token | http://localhost:PORT/renew | headers : { token } |
+
 ## Pet
 
-| TYPE   | DETAIL             | ROUTE                                  | SEND                                           |
-| ------ | --------------     | -------------------------------------- | ---------------------------------------------- |
-| GET    | get all lost pets  | http://localhost:PORT/pets/:type       |params: {Lost}                                  |
-| GET    | get all found pets | http://localhost:PORT/pets/:type       |params : {Found}                                |
-| POST   | create a pet       | http://localhost:PORT/pets/newPet      | body : accept all Pet Schema                   |
-| PUT    | update a pet       | http://localhost:PORT/pets/update/:id  | params : { id }, body : accept all Pet Schema  |
-| DELETE | delete a pet       | http://localhost:PORT/pets/delete/:id  | params : { id }                                |
+| TYPE   | DETAIL             | ROUTE                                 | SEND                                          |
+| ------ | ------------------ | ------------------------------------- | --------------------------------------------- |
+| GET    | get all lost pets  | http://localhost:PORT/pets/:type      | params: {Lost}                                |
+| GET    | get all found pets | http://localhost:PORT/pets/:type      | params : {Found}                              |
+| POST   | create a pet       | http://localhost:PORT/pets/newPet     | body : accept all Pet Schema                  |
+| PUT    | update a pet       | http://localhost:PORT/pets/update/:id | params : { id }, body : accept all Pet Schema |
+| DELETE | delete a pet       | http://localhost:PORT/pets/delete/:id | params : { id }                               |
 
 **Pet Schema**
 
-| KEY            | TYPE                   | REQUIRED   |
-| -------------- | ---------------------- | ---------- |
-| name           | String                 | NO         |
-| description    | String                 | NO         |
-| species        | Object Id              | NO         |
-| gender         | String enum            | NO         |
-| size           | Number enum            | NO         |
-| type           | String enum            | YES        |
-| breed          | Object Id              | NO         |
-| age            | Number                 | NO         |
-| color          | String enum            | NO         |
-| location       | String                 | NO         |
-| status         | String enum: StatusPet | NO         |
-| date           | Date                   | NO         |
-| img            | Array of String        | NO         |
-| observation    | String                 | NO         |
+| KEY         | TYPE                   | REQUIRED |
+| ----------- | ---------------------- | -------- |
+| name        | String                 | NO       |
+| description | String                 | NO       |
+| species     | Object Id              | NO       |
+| gender      | String enum            | NO       |
+| size        | Number enum            | NO       |
+| type        | String enum            | YES      |
+| breed       | Object Id              | NO       |
+| age         | Number                 | NO       |
+| color       | String enum            | NO       |
+| location    | String                 | NO       |
+| status      | String enum: StatusPet | NO       |
+| date        | Date                   | NO       |
+| img         | Array of String        | NO       |
+| observation | String                 | NO       |
 
 **Example Routes Pet**
 
@@ -87,21 +103,25 @@
 
 ## Species
 
-| TYPE   | DETAIL         | ROUTE                                    | SEND                                           |
-| ------ | -------------- | --------------------------------------   | ---------------------------------------------- |
-| GET    | get all species| http://localhost:PORT/species/all        |                                                |
-| POST   | create an user | http://localhost:PORT/species/new        | body : accept all Species Schema               |
-| DELETE | delete an user | http://localhost:PORT/species/delete/:id | params : { id }                                |
+| TYPE   | DETAIL          | ROUTE                                    | SEND                             |
+| ------ | --------------- | ---------------------------------------- | -------------------------------- |
+| GET    | get all species | http://localhost:PORT/species/all        |                                  |
+| POST   | create an user  | http://localhost:PORT/species/new        | body : accept all Species Schema |
+| DELETE | delete an user  | http://localhost:PORT/species/delete/:id | params : { id }                  |
 
 **Species Schema**
 
-| KEY            | TYPE                   | REQUIRED   |
-| -------------- | ---------------------- | ---------- |
-| name           | String                 | YES        |
-
+| KEY  | TYPE   | REQUIRED |
+| ---- | ------ | -------- |
+| name | String | YES      |
 
 **Example Routes Species**
 
 -   http://localhost:PORT/species/all
+<<<<<<< HEAD
 -   http://localhost:PORT/species/new
 -   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
+=======
+-   http://localhost:PORT/users/new
+-   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
+>>>>>>> b6dda1a744db9e9e4d9ad877dcb4b1e2fc84829a
