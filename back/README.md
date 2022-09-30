@@ -47,3 +47,69 @@
     Banned = 'Banned',
     Deleted = 'Deleted',
     }
+
+## Pet
+
+| TYPE   | DETAIL             | ROUTE                                 | SEND                                          |
+| ------ | ------------------ | ------------------------------------- | --------------------------------------------- |
+| GET    | get all lost pets  | http://localhost:PORT/pets/:type      | params: {Lost}                                |
+| GET    | get all found pets | http://localhost:PORT/pets/:type      | params : {Found}                              |
+| POST   | create a pet       | http://localhost:PORT/pets/newPet     | body : accept all Pet Schema                  |
+| PUT    | update a pet       | http://localhost:PORT/pets/update/:id | params : { id }, body : accept all Pet Schema |
+| DELETE | delete a pet       | http://localhost:PORT/pets/delete/:id | params : { id }                               |
+
+**Pet Schema**
+
+| KEY         | TYPE                   | REQUIRED |
+| ----------- | ---------------------- | -------- |
+| name        | String                 | NO       |
+| description | String                 | NO       |
+| species     | Object Id              | NO       |
+| gender      | String enum            | NO       |
+| size        | Number enum            | NO       |
+| type        | String enum            | YES      |
+| breed       | Object Id              | NO       |
+| age         | Number                 | NO       |
+| color       | String enum            | NO       |
+| location    | String                 | NO       |
+| status      | String enum: StatusPet | NO       |
+| date        | Date                   | NO       |
+| img         | Array of String        | NO       |
+| observation | String                 | NO       |
+
+**Example Routes Pet**
+
+-   http://localhost:PORT/pets/Found
+-   http://localhost:PORT/pets/Lost
+-   http://localhost:PORT/pets/newPet
+-   http://localhost:PORT/pets/6334a909f7a60b325e2cb875
+-   http://localhost:PORT/pets/update/6334a909f7a60b325e2cb875
+-   http://localhost:PORT/pets/delete/6334a909f7a60b325e2cb875
+
+**ENUMS!**
+
+-   gender: ['Male', 'Female','Unknown']
+-   size: ['Small', 'Medium', 'Large']
+-   type: ['Lost', 'Found']
+-   color: ['White','Black','Brown','LightBrown', 'Grey']
+-   StatusPet: ['Active', 'Pause','Deleted','Meet']
+
+## Species
+
+| TYPE   | DETAIL          | ROUTE                                    | SEND                             |
+| ------ | --------------- | ---------------------------------------- | -------------------------------- |
+| GET    | get all species | http://localhost:PORT/species/all        |                                  |
+| POST   | create an user  | http://localhost:PORT/species/new        | body : accept all Species Schema |
+| DELETE | delete an user  | http://localhost:PORT/species/delete/:id | params : { id }                  |
+
+**Species Schema**
+
+| KEY  | TYPE   | REQUIRED |
+| ---- | ------ | -------- |
+| name | String | YES      |
+
+**Example Routes Species**
+
+-   http://localhost:PORT/species/all
+-   http://localhost:PORT/users/new
+-   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
