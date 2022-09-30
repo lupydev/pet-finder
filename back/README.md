@@ -106,8 +106,8 @@
 | TYPE   | DETAIL          | ROUTE                                    | SEND                             |
 | ------ | --------------- | ---------------------------------------- | -------------------------------- |
 | GET    | get all species | http://localhost:PORT/species/all        |                                  |
-| POST   | create an user  | http://localhost:PORT/species/new        | body : accept all Species Schema |
-| DELETE | delete an user  | http://localhost:PORT/species/delete/:id | params : { id }                  |
+| POST   | create species  | http://localhost:PORT/species/new        | body : accept all Species Schema |
+| DELETE | delete species  | http://localhost:PORT/species/delete/:id | params : { id }                  |
 
 **Species Schema**
 
