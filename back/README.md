@@ -103,5 +103,5 @@
 **Example Routes Species**
 
 -   http://localhost:PORT/species/all
--   http://localhost:PORT/users/new
+-   http://localhost:PORT/species/new
 -   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
