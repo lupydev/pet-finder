@@ -79,11 +79,11 @@
 
 **ENUMS!**
 
-  gender: ['Male', 'Female','Unknown']
-  size: ['Small', 'Medium', 'Large']
-  type: ['Lost', 'Found']
-  color: ['White','Black','Brown','LightBrown', 'Grey']
-  StatusPet: ['Active', 'Pause','Deleted','Meet']
+-   gender: ['Male', 'Female','Unknown']
+-   size: ['Small', 'Medium', 'Large']
+-   type: ['Lost', 'Found']
+-   color: ['White','Black','Brown','LightBrown', 'Grey']
+-   StatusPet: ['Active', 'Pause','Deleted','Meet']
 
 ## Species
 
