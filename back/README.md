@@ -38,3 +38,12 @@
 -   http://localhost:PORT/users/629375c1545316ac4d6924a9
 -   http://localhost:PORT/users/create
 -   http://localhost:PORT/users/update/629375c1545316ac4d6924a9
+
+**Enums Used**
+
+-   enum StatusUser {
+    NotVerified = 'Not Verified',
+    Active = 'Active',
+    Banned = 'Banned',
+    Deleted = 'Deleted',
+    }
