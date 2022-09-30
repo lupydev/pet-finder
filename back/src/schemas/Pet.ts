@@ -8,7 +8,7 @@ const PetsSchema = new Schema({
     gender: { type: String, enum: ['Male', 'Female'] },
     size: { type: String, enum: ['Small', 'Medium', 'Large'] },
     type: { type: String, enum: ['Lost', 'Found'], required: true },
-    breed: { type: Schema.Types.ObjectId, ref: 'Breeds' },
+    breed: { type: Schema.Types.ObjectId, ref: 'Breed' },
     age: { type: Number },
     color: { type: String },
     location: { type: Number },
