@@ -118,10 +118,7 @@
 **Example Routes Species**
 
 -   http://localhost:PORT/species/all
-<<<<<<< HEAD
 -   http://localhost:PORT/species/new
 -   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
-=======
--   http://localhost:PORT/users/new
--   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
->>>>>>> b6dda1a744db9e9e4d9ad877dcb4b1e2fc84829a
+
+
