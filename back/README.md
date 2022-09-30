@@ -48,6 +48,13 @@
     Deleted = 'Deleted',
     }
 
+## Authenticacion
+
+| TYPE | DETAIL      | ROUTE                       | SEND                |
+| ---- | ----------- | --------------------------- | ------------------- |
+| POST | login       | http://localhost:PORT/login |                     |
+| POST | renew token | http://localhost:PORT/renew | headers : { token } |
+
 ## Pet
 
 | TYPE   | DETAIL             | ROUTE                                 | SEND                                          |
