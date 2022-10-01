@@ -88,7 +88,7 @@ const buttonData: any[] = [
         values: ['Chihuahua', 'Persian', 'Pug', 'Bengal', 'Boxer', 'Siames'],
     },
     { name: 'Size', values: ['small', 'medium', 'large'] },
-    { name: 'Sex', values: ['male', 'female'] },
+    { name: 'Gender', values: ['male', 'female'] },
     { name: 'Age', values: ['1-3', '4-6', '7-9', '10-12', '13-15', '16+'] },
     { name: 'Color', values: ['Black', 'Brown', 'White', 'Gray', 'Orange'] },
 ]
