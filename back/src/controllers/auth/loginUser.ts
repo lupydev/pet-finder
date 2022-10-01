@@ -26,7 +26,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
         //* Crear JWT
 
-        const token = await generateJWT(user.id)
+        const token = await generateJWT(user.id, user.admin)
 
         return res.status(201).json({
             ok: true,

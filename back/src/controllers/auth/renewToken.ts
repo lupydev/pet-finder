@@ -1,12 +1,12 @@
-import { Request, Response } from 'express'
 import { generateJWT } from '../../utils/jwt'
+import { Request, Response } from 'express'
 
 export const renewToken = async (req: Request, res: Response) => {
-    const { id } = req.body
+    const admin = req.admin
+    const id = req.id
 
     //* Generar JWT
+    const token = await generateJWT(id, admin)
 
-    const token = generateJWT(id)
-
-    res.send({ ok: true, id, token })
+    res.status(200).json({ ok: true, id, admin, token: token })
 }
