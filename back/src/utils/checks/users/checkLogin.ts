@@ -1,6 +1,6 @@
 import { body } from 'express-validator'
 
-export const checkEmail = () => {
+export const checkLogin = () => {
     return [
         body('email')
             .notEmpty()
