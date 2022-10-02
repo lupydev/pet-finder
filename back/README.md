@@ -70,6 +70,7 @@
 | KEY         | TYPE                   | REQUIRED |
 | ----------- | ---------------------- | -------- |
 | name        | String                 | NO       |
+| userId      | Object Id              |YES,UNIQUE|
 | description | String                 | NO       |
 | species     | Object Id              | NO       |
 | gender      | String enum            | NO       |
@@ -106,8 +107,8 @@
 | TYPE   | DETAIL          | ROUTE                                    | SEND                             |
 | ------ | --------------- | ---------------------------------------- | -------------------------------- |
 | GET    | get all species | http://localhost:PORT/species/all        |                                  |
-| POST   | create an user  | http://localhost:PORT/species/new        | body : accept all Species Schema |
-| DELETE | delete an user  | http://localhost:PORT/species/delete/:id | params : { id }                  |
+| POST   | create species  | http://localhost:PORT/species/new        | body : accept all Species Schema |
+| DELETE | delete species  | http://localhost:PORT/species/delete/:id | params : { id }                  |
 
 **Species Schema**
 
@@ -118,5 +119,7 @@
 **Example Routes Species**
 
 -   http://localhost:PORT/species/all
--   http://localhost:PORT/users/new
+-   http://localhost:PORT/species/new
 -   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
+
+

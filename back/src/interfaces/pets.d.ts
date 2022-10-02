@@ -3,6 +3,7 @@ import { StatusPet } from '../utils/enums'
 
 export interface Pets {
     name: string
+    userId: Types.ObjectId
     description: string
     species: Types.ObjectId
     gender: string
