@@ -3,6 +3,7 @@ import { Pets } from '../interfaces/pets'
 
 const PetsSchema = new Schema({
     name: { type: String, default:'No Name' },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', unique:true },
     description: { type: String, default:'Withouth description' },
     species: { type: Schema.Types.ObjectId, ref: 'Species' },
     gender: { type: String, enum: ['Male', 'Female','Unknown'] ,default:'Unknown'},

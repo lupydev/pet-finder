@@ -70,6 +70,7 @@
 | KEY         | TYPE                   | REQUIRED |
 | ----------- | ---------------------- | -------- |
 | name        | String                 | NO       |
+| userId      | Object Id              |YES,UNIQUE|
 | description | String                 | NO       |
 | species     | Object Id              | NO       |
 | gender      | String enum            | NO       |
