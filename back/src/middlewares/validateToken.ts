@@ -21,7 +21,7 @@ export const validateJWT = async (
             })
         }
 
-        const payload = jwt.verify(token, secretKey || '') as IPayload
+        const payload = jwt.verify(token, secretKey) as IPayload
 
         req.id = payload.id
         req.admin = payload.admin
