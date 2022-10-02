@@ -8,18 +8,23 @@ import { getUserById } from '../controllers/user/getUserById'
 import { updateUser } from '../controllers/user/updateUser'
 import { deleteUser } from '../controllers/user/deleteUser'
 import { checkIdParams } from '../utils/checks/users/checkIdParams'
+import { validateJWT } from '../middlewares/validateToken'
+import { validateAdmin } from '../middlewares/validateAdmin'
 
 const router = express.Router()
 
 //* Ruta completa de estos endpoints http://localhost:4000/users
 
-//! Aun falta middleware de proteccion de rutas para acciones que requieran login
-//!Aun falta comprobacion de datos (definir si se usa middlewares o express validator)
-
 router.post('/create', checkCreateUser(), validateResult, createUser)
-router.get('/', getAllUsers)
-router.get('/:id', checkIdParams(), validateResult, getUserById)
-router.put('/update/:id', updateUser)
-router.delete('/delete/:id', deleteUser) //! Endpoint solo accesible para admins
+router.get('/', validateAdmin, getAllUsers)
+router.get('/:id', checkIdParams(), validateResult, validateJWT, getUserById)
+router.put('/update/:id', validateJWT, updateUser)
+router.delete(
+    '/delete/:id',
+    checkIdParams(),
+    validateResult,
+    validateAdmin,
+    deleteUser
+)
 
 export default router

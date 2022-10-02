@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { secretKey } from '../utils/constants'
 import { IPayload } from '../interfaces/jwtPayload'
 
-export const validateJWT = async (
+export const validateAdmin = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -21,10 +21,8 @@ export const validateJWT = async (
             })
         }
 
-        const payload = jwt.verify(token, secretKey) as IPayload
+        jwt.verify(token, secretKey) as IPayload
 
-        req.id = payload.id
-        req.admin = payload.admin
         return next()
     } catch (error) {
         console.log(error)

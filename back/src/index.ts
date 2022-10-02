@@ -7,6 +7,9 @@ import cors from 'cors'
 
 import { db, port } from './utils/constants'
 import { router } from './routes/index'
+import { fillUsers } from './utils/mockups/mockupsCharge'
+
+//* ----------------Server configuration -----------------
 
 const app = express()
 app.use(express.json())
@@ -37,8 +40,6 @@ app.use((_req, res, next) => {
 
 app.use('/', router)
 
-app.listen(port, () => console.log(`Server listening on port: ${port}`))
-
 // * ----------Connection with Mongo Atlas ------------
 
 const connectDB = async () => {
@@ -52,3 +53,10 @@ const connectDB = async () => {
 }
 
 connectDB()
+
+// * ----------Connection Local and mockups charge ------------
+
+app.listen(port, async () => {
+    await fillUsers()
+    console.log(`Server listening on port: ${port}`)
+})

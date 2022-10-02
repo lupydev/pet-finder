@@ -33,6 +33,7 @@ const userSchema = new Schema<User>({
     },
     externId: {
         type: String,
+        default: '',
     },
     email_verified: {
         type: Boolean,
