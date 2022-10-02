@@ -22,7 +22,7 @@ const createUser = async (req: Request, res: Response) => {
         newUser.password = bcrypt.hashSync(newUser.password, salt)
 
         //*Generate JWT
-        const token = await generateJWT(newUser.id)
+        const token = await generateJWT(newUser.id, newUser.admin)
 
         await newUser.save()
         res.status(200).json({

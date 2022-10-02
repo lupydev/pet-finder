@@ -50,10 +50,10 @@
 
 ## Authenticacion
 
-| TYPE | DETAIL      | ROUTE                       | SEND                |
-| ---- | ----------- | --------------------------- | ------------------- |
-| POST | login       | http://localhost:PORT/login |                     |
-| POST | renew token | http://localhost:PORT/renew | headers : { token } |
+| TYPE | DETAIL      | ROUTE                       | SEND                  |
+| ---- | ----------- | --------------------------- | --------------------- |
+| POST | login       | http://localhost:PORT/login | body: email, password |
+| POST | renew token | http://localhost:PORT/renew | headers : { token }   |
 
 ## Pet
 
