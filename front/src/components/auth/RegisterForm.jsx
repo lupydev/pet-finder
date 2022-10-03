@@ -3,8 +3,11 @@ import { Formik, Field, Form } from 'formik'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 
 const RegisterForm = () => {
+    const { registerUser } = useAuth()
+
     const clientSchema = Yup.object().shape({
         name: Yup.string()
             .min(3, 'Name is too short')
@@ -18,6 +21,10 @@ const RegisterForm = () => {
             .max(20, 'Password is too long!')
             .required('This field is required'),
     })
+
+    const handleSubmit = (values) => {
+        registerUser(values)
+    }
 
     return (
         <Stack
@@ -53,7 +60,7 @@ const RegisterForm = () => {
                         email: '',
                     }}
                     onSubmit={(values) => {
-                        console.log(values)
+                        handleSubmit(values)
                     }}
                     enableReinitialize={true}
                     validationSchema={clientSchema}
