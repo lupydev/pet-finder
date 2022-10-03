@@ -4,13 +4,7 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
 
-interface Values {
-    name: string
-    password: string
-    email: string
-}
-
-const RegisterForm: React.FC = () => {
+const RegisterForm = () => {
     const clientSchema = Yup.object().shape({
         name: Yup.string()
             .min(3, 'Name is too short')
@@ -58,7 +52,7 @@ const RegisterForm: React.FC = () => {
                         password: '',
                         email: '',
                     }}
-                    onSubmit={(values: Values) => {
+                    onSubmit={(values) => {
                         console.log(values)
                     }}
                     enableReinitialize={true}

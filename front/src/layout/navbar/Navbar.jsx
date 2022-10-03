@@ -1,22 +1,7 @@
-import React from 'react'
-import { Button, ButtonProps, Menu, MenuItem, Stack } from '@mui/material'
-import { styled } from '@mui/material/styles'
+import React, { useState } from 'react'
+import { Button, Menu, MenuItem, Stack } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { BsFillCaretDownFill } from 'react-icons/bs'
-
-// const ButtonStyle = styled(Button)<ButtonProps>(({theme}) => {
-//     return {
-//         fontSize: theme.typography.htmlFontSize*2,
-//         fontWeight: 'bold',
-//         textAlign: 'center',
-//         textTransform: 'none',
-//         color:'black',
-//         px:4,
-//         '&:hover': {
-//             backgroundColor: theme.palette.secondary.light,
-//         },
-//     }
-// })
 
 const buttonStyle = {
     fontSize: '20px',
@@ -36,9 +21,10 @@ const buttonStyle = {
 }
 
 const Navbar = () => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+    const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    
+    const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {

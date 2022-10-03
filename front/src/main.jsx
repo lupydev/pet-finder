@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import Theme from './theme/Theme'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
         <Theme>
             <App />
         </Theme>
-    </React.StrictMode>
+  </React.StrictMode>
 )

@@ -1,7 +1,6 @@
 import { Box, Stack, TextField, Typography, Button } from '@mui/material'
-import { height, width } from '@mui/system'
 import React from 'react'
-import { alpha, styled } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 
 const NewsletterEmailTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -20,17 +19,6 @@ const NewsletterEmailTextField = styled(TextField)({
         },
     },
 })
-
-// const NewsletterSuscribeButton = styled(Button)({
-
-//     '& .MuiButton-hover': {
-
-//         '&:hover button': {
-//             backgroundColor: '#fff',
-//         },
-
-//     },
-// })
 
 const Newsletter = () => {
     return (
@@ -76,19 +64,6 @@ const Newsletter = () => {
                         >
                             Suscribe
                         </Button>
-                        {/* <NewsletterSuscribeButton
-                            sx={{
-                                color: '#3981BF',
-                                backgroundColor: '#fff',
-                                padding: '1rem',
-                                margin: '1rem 0 0 1rem',
-                                height: '2rem',
-                                
-                            }}
-
-                        >
-                            Suscribe
-                        </NewsletterSuscribeButton> */}
                     </Stack>
                 </Stack>
                 <img
@@ -103,34 +78,6 @@ const Newsletter = () => {
                 />
             </Box>
         </Box>
-
-        // <Stack sx={{ backgroundColor: '#3981BF' }}>
-        //     <Stack sx={newsletterStyles}>
-        //         <Box>
-        //             <h2>Newsletter</h2>
-        //             <p>
-        //                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        //                 Magnam non doloribus facere molestiae eaque vero tempora
-        //                 voluptatibus error voluptatem? Perferendis perspiciatis
-        //                 mollitia aut maiores, impedit ab quam voluptas quia
-        //                 distinctio.
-        //             </p>
-        //             <TextField
-        //                 id="newsletterEmail"
-        //                 label="Email:"
-        //                 variant="outlined"
-        //                 type="email"
-        //             />
-        //         </Box>
-        //         <Box>
-        //             <img
-        //                 style={{ width: '50%', height: '100%' }}
-        //                 src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049161/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-1333195606_yldfxa.jpg"
-        //                 alt="NewsletterImage"
-        //             />
-        //         </Box>
-        //     </Stack>
-        // </Stack>
     )
 }
 
