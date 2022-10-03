@@ -1,23 +1,10 @@
-import { useState } from 'react'
 import { Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import {
-    Box,
-    Typography,
-    Button,
-    ButtonBase,
-    Stack,
-    TextField,
-} from '@mui/material'
+import { Typography, Button, Stack } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 
-interface Values {
-    name: string
-    password: string
-}
-
-const Login: React.FC = () => {
+const Login = () => {
     const { loginUser } = useAuth()
 
     const clientSchema = Yup.object().shape({
@@ -31,7 +18,7 @@ const Login: React.FC = () => {
             .required('This field is required'),
     })
 
-    const handleSubmit = (values: Values) => {
+    const handleSubmit = (values) => {
         loginUser(values)
     }
 

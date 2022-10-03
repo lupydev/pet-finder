@@ -35,7 +35,6 @@ const AboutUs = () => {
                             sx={{
                                 color: 'secondary.light',
                                 fontWeight: '700',
-                                // textTransform: 'none',
                                 textDecoration: 'underline',
                                 cursor: 'pointer',
                             }}

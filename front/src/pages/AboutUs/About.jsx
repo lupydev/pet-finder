@@ -1,6 +1,5 @@
 import React from 'react'
 import { Stack, Typography, Grid, Button } from '@mui/material'
-import SvgFingerPrint from '../../components/layout/SvgFingerPrint'
 import { Link } from 'react-router-dom'
 
 const About = () => {
