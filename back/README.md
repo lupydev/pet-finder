@@ -70,18 +70,18 @@
 | KEY         | TYPE                   | REQUIRED |
 | ----------- | ---------------------- | -------- |
 | name        | String                 | NO       |
-| userId      | Object Id              |YES,UNIQUE|
+| userId      | Object Id              | YES      |
 | description | String                 | NO       |
-| species     | Object Id              | NO       |
-| gender      | String enum            | NO       |
-| size        | Number enum            | NO       |
+| species     | Object Id              | YES      |
+| gender      | String enum            | YES      |
+| size        | Number enum            | YES      |
 | type        | String enum            | YES      |
-| breed       | Object Id              | NO       |
+| breed       | Object Id              | YES      |
 | age         | Number                 | NO       |
-| color       | String enum            | NO       |
+| color       | String enum            | YES      |
 | location    | String                 | NO       |
 | status      | String enum: StatusPet | NO       |
-| date        | Date                   | NO       |
+| date        | Date                   | YES      |
 | img         | Array of String        | NO       |
 | observation | String                 | NO       |
 
