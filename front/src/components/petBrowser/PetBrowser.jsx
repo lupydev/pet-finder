@@ -3,65 +3,9 @@ import React, { useEffect, useState } from 'react'
 import PetCard from '../home/pets/PetCard'
 import Title from './Title'
 import FilterBar from './FilterBar'
-
-const INITIAL_PETS = [
-    // {
-    //     name: 'Tommy',
-    //     img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664049161/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-515863076_fs7aed.jpg',
-    //     description:
-    //         'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-    //     status: 'found',
-    // },
-    // {
-    //     name: 'Firulais',
-    //     img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664197188/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-1395952991_ksmp62.jpg',
-    //     description:
-    //         'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-    //     status: 'found',
-    // },
-    // {
-    //     name: 'Manchas',
-    //     img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-1001199382_brtfko.jpg',
-    //     description:
-    //         'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-    //     status: 'found',
-    // },
-    // {
-    //     name: 'Firulais',
-    //     img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664197188/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-1395952991_ksmp62.jpg',
-    //     description:
-    //         'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-    //     status: 'found',
-    // },
-    {
-        name: 'Huesos',
-        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664049161/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-515863076_fs7aed.jpg',
-        description:
-            'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-        status: 'lost',
-    },
-    {
-        name: 'Loki',
-        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664197188/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-1395952991_ksmp62.jpg',
-        description:
-            'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-        status: 'lost',
-    },
-    {
-        name: 'Zeus',
-        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664049161/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-515863076_fs7aed.jpg',
-        description:
-            'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-        status: 'lost',
-    },
-    {
-        name: 'Tommy',
-        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-1001199382_brtfko.jpg',
-        description:
-            'Tommy Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa similique incidunt laborum, rerum deserunt reprehenderit perspiciatis?',
-        status: 'lost',
-    },
-]
+import { useDispatch, useSelector } from 'react-redux'
+import { createPet } from '../../redux/asyncActions/pet/createPet'
+import { getPets } from '../../redux/asyncActions/pet/getPets'
 
 const INITIAL_FILTER = {
     specie: '',
@@ -131,17 +75,25 @@ const extraInputs = [
 ]
 
 const PetBrowser = (props) => {
-    const [pets, setPets] = useState([])
+    const dispatch = useDispatch()
+    const { petsData } = useSelector((state) => state.pet)
     const [filter, setFilter] = useState(INITIAL_FILTER)
+    const type = props.title
 
     const handleChange = (e) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
     }
 
     useEffect(() => {
-        setPets(INITIAL_PETS)
         setFilter(INITIAL_FILTER)
+        dispatch(getPets(type))
     }, [])
+    
+    useEffect(()=>{
+
+     console.log(petsData);
+
+    },[petsData])
 
     return (
         <>
@@ -161,7 +113,7 @@ const PetBrowser = (props) => {
                 flexWrap="wrap"
                 gap="24px"
             >
-                <PetCard pets={pets} />
+                <PetCard pets={petsData} />
             </Stack>
         </>
     )
