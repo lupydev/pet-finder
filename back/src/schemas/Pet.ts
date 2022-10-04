@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose'
 import { Pets } from '../interfaces/pets'
 
-const PetsSchema = new Schema({
+const PetsSchema = new Schema<Pets>({
     name: { type: String, default: 'No Name' },
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     description: { type: String, default: 'Withouth description' },
@@ -24,7 +24,7 @@ const PetsSchema = new Schema({
         },
     ],
     location: { type: String },
-    status: { type: String, default: 'Active' },
+    status: {type: String, default: 'Active' },
     date: { type: Date, required: true },
     img: [
         {
