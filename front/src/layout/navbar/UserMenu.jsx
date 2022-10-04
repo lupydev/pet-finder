@@ -31,6 +31,9 @@ const UserMenu = () => {
 
     const handleClick = (setting) => {
         switch (setting) {
+            case 'Profile':
+                navigate('/profile')
+                break
             case 'Dashboard':
                 navigate('/user')
                 break

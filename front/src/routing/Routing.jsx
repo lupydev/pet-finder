@@ -7,6 +7,7 @@ import PetBrowserContainer from '../pages/petBrowser/petBrowserContainer'
 import About from '../pages/AboutUs/About'
 import PetDetails from '../pages/petDetails/PetDetails'
 import User from '../pages/user/User'
+import Profile from '../pages/profile/Profile'
 import { useDispatch, useSelector } from 'react-redux'
 import PrivateRoute from '../components/privateRoute/PrivateRoute'
 import isUserLogged from '../utils/isUserLogged'
@@ -45,6 +46,9 @@ const Routing = () => {
             <Route path="/aboutUs" element={<About />} />
             <Route element={<PrivateRoute isAllowed={isLogged} />}>
                 <Route path="/user" element={<User />} />
+            </Route>
+            <Route element={<PrivateRoute isAllowed={isLogged} />}>
+                <Route path="/profile" element={<Profile />} />
             </Route>
         </Routes>
     )
