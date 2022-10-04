@@ -2,7 +2,7 @@ import Pet from '../../schemas/Pet'
 import { Request, Response } from 'express'
 
 const getAllPets = async (req: Request, res: Response) => {
-    const { type } = req.body
+    const { type } = req.params
 
     try {
         const pets = await Pet.find({
@@ -14,7 +14,7 @@ const getAllPets = async (req: Request, res: Response) => {
         if (pets.length > 0) {
             return res
                 .status(200)
-                .json({ pets, ok: true, msg: 'All pets in DB' })
+                .json({ pets, ok: true, msg: 'All pets in DB', type: type})
         } else {
             return res.status(204).json({ ok: false, msg: 'No pets in DB' })
         }
