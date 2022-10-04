@@ -8,7 +8,7 @@ import {
     Tooltip,
     Typography,
 } from '@mui/material'
-import {IoMdArrowDropdown} from 'react-icons/io'
+import { IoMdArrowDropdown } from 'react-icons/io'
 const settings = ['Profile', 'Dashboard', 'Logout']
 
 const UserMenu = () => {
@@ -23,7 +23,11 @@ const UserMenu = () => {
     return (
         <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-                <Button onClick={handleOpenUserMenu} startIcon={<IoMdArrowDropdown color='black'/>} sx={{ p: 0, px:1 }}>
+                <Button
+                    onClick={handleOpenUserMenu}
+                    startIcon={<IoMdArrowDropdown color="black" />}
+                    sx={{ p: 0, px: 1 }}
+                >
                     <Avatar
                         alt="Remy Sharp"
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664465328/Integrantes/Jeyter_v3omxg.jpg"
