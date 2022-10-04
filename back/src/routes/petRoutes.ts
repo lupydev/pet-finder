@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post('/newPet', createPet)
 router.get('/:id', getPetById)
-router.get('/', getAllPetsByType)
+router.get('/getAll/:type', getAllPetsByType)
 router.put('/update/:id', updatePet)
 router.delete('/delete/:id', deletePet)
 
