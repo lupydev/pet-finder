@@ -7,6 +7,7 @@ import {
     Avatar,
     Stack,
 } from '@mui/material'
+import {Link} from 'react-router-dom'
 
 const PetCard = ({ pets }) => {
     return pets.pets ? (
@@ -58,6 +59,8 @@ const PetCard = ({ pets }) => {
                                 {pet.description}
                             </Typography>
                             <Button
+                                component={Link}
+                                to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
                                 variant="contained"
                                 color={
                                     pet.type.toLowerCase() === 'lost'
