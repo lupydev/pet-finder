@@ -1,26 +1,46 @@
 import { Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { Typography, Button, Stack } from '@mui/material'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../hooks/useAuth'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { login } from '../../redux/asyncActions/user/login'
+import Snack from '../snackbar/Snack'
+
+const clientSchema = Yup.object().shape({
+    email: Yup.string()
+        .email('Invalid Email')
+        .required('This field is required'),
+    password: Yup.string()
+        .min(8, 'Password is too short')
+        .required('This field is required')
+        .matches(
+            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
+        ),
+})
 
 const Login = () => {
-    const { loginUser } = useAuth()
-
-    const clientSchema = Yup.object().shape({
-        name: Yup.string()
-            .min(3, 'Name is too short')
-            .max(20, 'Name is too long!')
-            .required('This field is required'),
-        password: Yup.string()
-            .min(3, 'Password is too short')
-            .max(20, 'Password is too long!')
-            .required('This field is required'),
-    })
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { isLogged, status } = useSelector((state) => state.user)
 
     const handleSubmit = (values) => {
-        loginUser(values)
+        dispatch(login(values))
     }
+
+    useEffect(() => {
+        if (isLogged) {
+            navigate('/user')
+            // dispatch(getUserInfo())
+        }
+    }, [isLogged])
+
+    // useEffect(() => {
+    //     status === 'success' && (
+    //         <Snack isOpen={true} msg={status} />
+    //     )
+    // }, [status])
 
     return (
         <Stack
@@ -52,10 +72,10 @@ const Login = () => {
             >
                 <Formik
                     initialValues={{
-                        name: '',
+                        email: '',
                         password: '',
                     }}
-                    onSubmit={handleSubmit}
+                    onSubmit={(values) =>handleSubmit(values)}
                     enableReinitialize={true}
                     validationSchema={clientSchema}
                 >
@@ -67,13 +87,13 @@ const Login = () => {
                                         display="flex"
                                         justifyContent="flex-start"
                                     >
-                                        <label htmlFor="name">Name</label>
+                                        <label htmlFor="name">Email</label>
                                         <Stack
                                             component={Field}
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            placeholder="Name"
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            placeholder="email"
                                             sx={{
                                                 border: ' 2px solid #BFBFBF',
                                                 width: '100%',
@@ -84,13 +104,13 @@ const Login = () => {
                                                 fontSize: '20px',
                                             }}
                                         />
-                                        {errors.name && touched.name ? (
+                                        {errors.email && touched.email ? (
                                             <Typography
                                                 color="red"
                                                 fontSize="16px"
                                                 mt="5px"
                                             >
-                                                {errors.name}
+                                                {errors.email}
                                             </Typography>
                                         ) : null}
                                     </Stack>

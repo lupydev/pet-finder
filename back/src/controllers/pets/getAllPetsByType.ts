@@ -12,7 +12,7 @@ const getAllPets = async (req: Request, res: Response) => {
         if (pets.length > 0) {
             return res
                 .status(200)
-                .json({ pets, ok: true, msg: 'All pets in DB' })
+                .json({ pets, ok: true, msg: 'All pets in DB', type: type})
         } else {
             return res.status(204).json({ ok: false, msg: 'No pets in DB' })
         }
