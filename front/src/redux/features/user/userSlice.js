@@ -1,21 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {
-    extraGetUserInfo,
-    getUserInfo,
-} from '../../asyncActions/user/getUserInfo'
-
-import {
-    extraPutEditUser,
-    putEditUser,
-} from '../../asyncActions/user/putEditUser'
-
-import { postUser, extraPostUser } from '../../asyncActions/user/postUser'
-
-import {
-    extraPostAuthLoginPassword,
-    postAuthLoginPassword,
-} from '../../asyncActions/user/postAuthLoginPassword'
-import { postLogout, extraPostLogout } from '../../asyncActions/user/postLogout'
+import { createUser, extraCreateUser } from '../../asyncActions/user/createUser'
+import { getUserInfo, extraGetUserInfo } from '../../asyncActions/user/getUserInfo'
+import { login, extraLogin } from '../../asyncActions/user/login'
 
 const initialState = {
     userInfo: undefined,
@@ -28,16 +14,18 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user', // name of the state
     initialState,
-    reducers: {},
+    reducers: {
+        userIsLogged: (state) => {state.isLogged = true}
+    },
     extraReducers: {
-        ...extraGetUserInfo,
-        ...extraPostUser,
-        ...extraPutEditUser,
-        ...extraPostAuthLoginPassword,
-        ...extraPostLogout,
+        ...extraCreateUser,
+        ...extraLogin,
+        ...extraGetUserInfo
     },
 })
 
-export { getUserInfo, postUser, putEditUser, postAuthLoginPassword, postLogout }
+export { createUser, login ,getUserInfo, }
+
+export const {userIsLogged}= userSlice.actions
 
 export default userSlice.reducer
