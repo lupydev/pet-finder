@@ -3,11 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const editPet = createAsyncThunk(
-    'pet/update/:id',
+    'pets/update/:id',
     async (data) => {
         try {
-            const { _id, values } = data
-            return await axios.put(`${API_ROUTE}/pet/update/${_id}`, values)
+            const { id, newData } = data
+            return await axios.put(`${API_ROUTE}/pets/update/${id}`, newData)
         } catch (err) {
             console.log(err)
         }
@@ -16,12 +16,12 @@ export const editPet = createAsyncThunk(
 
 export const extraEditPet = {
     [editPet.pending]: (state) => {
-        state.statusCreate = 'loading'
+        state.status = 'loading'
     },
     [editPet.fulfilled]: (state, action) => {
-        state.statusCreate = 'success'
+        state.status = 'success'
     },
     [editPet.rejected]: (state) => {
-        state.statusCreate = 'failed'
+        state.status = 'failed'
     },
 }

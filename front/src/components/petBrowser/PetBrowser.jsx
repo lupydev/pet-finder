@@ -6,6 +6,8 @@ import FilterBar from './FilterBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPet } from '../../redux/asyncActions/pet/createPet'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
+import { cleanPetData } from '../../redux/features/pet/PetSlice'
+
 
 const INITIAL_FILTER = {
     specie: '',
@@ -83,17 +85,14 @@ const PetBrowser = (props) => {
     const handleChange = (e) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
     }
-
-    useEffect(() => {
-        setFilter(INITIAL_FILTER)
-        dispatch(getPets(type))
-    }, [])
     
-    useEffect(()=>{
-
-     console.log(petsData);
-
-    },[petsData])
+    
+    useEffect(() => {
+        dispatch(cleanPetData())
+        // setFilter(INITIAL_FILTER)
+        dispatch(getPets(type))
+        
+    }, [props.title])
 
     return (
         <>
