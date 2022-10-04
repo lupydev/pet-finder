@@ -8,7 +8,6 @@ import { createPet } from '../../redux/asyncActions/pet/createPet'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
 import { cleanPetData } from '../../redux/features/pet/PetSlice'
 
-
 const INITIAL_FILTER = {
     specie: '',
     breed: '',
@@ -78,20 +77,18 @@ const extraInputs = [
 
 const PetBrowser = (props) => {
     const dispatch = useDispatch()
-    const { petsData } = useSelector((state) => state.pet)
+    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const [filter, setFilter] = useState(INITIAL_FILTER)
     const type = props.title
 
     const handleChange = (e) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
     }
-    
-    
+
     useEffect(() => {
         dispatch(cleanPetData())
         // setFilter(INITIAL_FILTER)
         dispatch(getPets(type))
-        
     }, [props.title])
 
     return (
@@ -112,7 +109,9 @@ const PetBrowser = (props) => {
                 flexWrap="wrap"
                 gap="24px"
             >
-                <PetCard pets={petsData} />
+                <PetCard
+                    pets={type === 'Lost' ? LostPetsData : FoundPetsData}
+                />
             </Stack>
         </>
     )

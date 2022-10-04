@@ -2,7 +2,7 @@ import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
-export const getUserInfo = createAsyncThunk('auth/getUserInfo', async () => {
+export const getUserInfo = createAsyncThunk('users/', async () => {
     const token = JSON.parse(window.localStorage.getItem('user'))
 
     const config = { headers: { Authorization: `Bearer ${token}` } }

@@ -1,7 +1,9 @@
 import { Stack, Typography, Button, Box } from '@mui/material'
 import PetCard from './PetCard'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { getPets } from '../../../redux/asyncActions/pet/getPets'
 
 const INITIAL_PETS = [
     // {
@@ -63,10 +65,12 @@ const INITIAL_PETS = [
 ]
 
 const PetCardsContainer = (props) => {
-    const [pets, setPets] = useState([])
+    const dispatch = useDispatch()
+    const type = props.title
+    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
 
     useEffect(() => {
-        setPets(INITIAL_PETS)
+        dispatch(getPets(type))
     }, [])
 
     return (
@@ -81,7 +85,9 @@ const PetCardsContainer = (props) => {
                 {props.title} Pets
             </Typography>
             <Stack direction="row" justifyContent={'center'} gap="24px">
-                <PetCard pets={pets} />
+                <PetCard
+                    pets={type === 'Lost' ? LostPetsData : FoundPetsData}
+                />
             </Stack>
             <Button
                 component={Link}

@@ -1,7 +1,19 @@
 import React, { useState } from 'react'
-import { Button, Menu, MenuItem, Stack } from '@mui/material'
+import {
+    Avatar,
+    Box,
+    Button,
+    IconButton,
+    Menu,
+    MenuItem,
+    Stack,
+    Tooltip,
+    Typography,
+} from '@mui/material'
 import { Link } from 'react-router-dom'
 import { BsFillCaretDownFill } from 'react-icons/bs'
+import { useSelector } from 'react-redux'
+import UserMenu from './UserMenu'
 
 const buttonStyle = {
     fontSize: '20px',
@@ -21,9 +33,10 @@ const buttonStyle = {
 }
 
 const Navbar = () => {
+    const { isLogged } = useSelector((state) => state.user)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
-    
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
@@ -67,7 +80,7 @@ const Navbar = () => {
                         endIcon={<BsFillCaretDownFill size="15px" />}
                         disableRipple
                     >
-                        Pet Browser 
+                        Pet Browser
                     </Button>
                     <Menu
                         id="basic-menu"
@@ -78,12 +91,30 @@ const Navbar = () => {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem component={Link} to='/lostPets' onClick={handleClose}>Lost Pets</MenuItem>
-                        <MenuItem component={Link} to='/foundPets'  onClick={handleClose}>Found Pets</MenuItem>
-                        <MenuItem component={Link} to='/createPost'  onClick={handleClose}>Create Post</MenuItem>
+                        <MenuItem
+                            component={Link}
+                            to="/lostPets"
+                            onClick={handleClose}
+                        >
+                            Lost Pets
+                        </MenuItem>
+                        <MenuItem
+                            component={Link}
+                            to="/foundPets"
+                            onClick={handleClose}
+                        >
+                            Found Pets
+                        </MenuItem>
+                        <MenuItem
+                            component={Link}
+                            to="/createPost"
+                            onClick={handleClose}
+                        >
+                            Create Post
+                        </MenuItem>
                     </Menu>
                 </Stack>
-                
+
                 <Button
                     component={Link}
                     to="/aboutUs"
@@ -92,7 +123,7 @@ const Navbar = () => {
                 >
                     About Us
                 </Button>
-                
+
                 <Button
                     component={Link}
                     to="/contact"
@@ -103,16 +134,19 @@ const Navbar = () => {
                 </Button>
             </Stack>
             <Stack direction="row">
-                <Button
-                    variant="contained"
-                    component={Link}
-                    to="/login"
-                    
-                    sx={{textTransform:'none',px:'40px'}}
-                    disableRipple
-                >
-                    Login
-                </Button>
+                {isLogged ? (
+                    <UserMenu />
+                ) : (
+                    <Button
+                        variant="contained"
+                        component={Link}
+                        to="/login"
+                        sx={{ textTransform: 'none', px: '40px' }}
+                        disableRipple
+                    >
+                        Login
+                    </Button>
+                )}
             </Stack>
         </Stack>
     )
