@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const registerUser = (values) => {
         const { nickname, password, email } = values
         try {
-            const response = axios.post('http://localhost:PORT/users/create', {
+            const response = axios.post('http://localhost:4000/users/create', {
                 password,
                 email,
             })

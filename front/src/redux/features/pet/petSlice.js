@@ -5,7 +5,8 @@ import { getPetById, extraGetPetById } from '../../asyncActions/pet/getPetById'
 import { getPets, extraGetPets } from '../../asyncActions/pet/getPets'
 
 const initialState = {
-    petsData: [],
+    LostPetsData: [],
+    FoundPetsData: [],
     petDetail: undefined,
     status: 'loading',
     error: ''

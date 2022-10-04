@@ -1,30 +1,41 @@
-import { useState } from 'react'
 import { Formik, Field, Form } from 'formik'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import * as Yup from 'yup'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../hooks/useAuth'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { createUser } from '../../redux/asyncActions/user/createUser'
+import { useEffect } from 'react'
+
+const clientSchema = Yup.object().shape({
+    name: Yup.string()
+        .min(3, 'Name is too short')
+        .max(20, 'Name is too long!')
+        .required('This field is required'),
+    email: Yup.string()
+        .email('Invalid Email')
+        .required('This field is required'),
+    password: Yup.string()
+        .min(8, 'Password is too short')
+        .max(20, 'Password is too long!')
+        .required('This field is required'),
+})
 
 const RegisterForm = () => {
-    const { registerUser } = useAuth()
-
-    const clientSchema = Yup.object().shape({
-        name: Yup.string()
-            .min(3, 'Name is too short')
-            .max(20, 'Name is too long!')
-            .required('This field is required'),
-        email: Yup.string()
-            .email('Invalid Email')
-            .required('This field is required'),
-        password: Yup.string()
-            .min(3, 'Password is too short')
-            .max(20, 'Password is too long!')
-            .required('This field is required'),
-    })
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { isLogged } = useSelector((state) => state.user)
 
     const handleSubmit = (values) => {
-        registerUser(values)
+        console.log(values)
+        dispatch(createUser(values))
     }
+
+    useEffect(() => {
+        if (isLogged) {
+            navigate('/user')
+            // dispatch(getUserInfo())
+        }
+    }, [isLogged])
 
     return (
         <Stack
@@ -106,10 +117,10 @@ const RegisterForm = () => {
                                     <label htmlFor="email">Email</label>
                                     <Stack
                                         component={Field}
-                                        type="email"
-                                        placeholder="Email"
                                         id="email"
+                                        type="email"
                                         name="email"
+                                        placeholder="Email"
                                         sx={{
                                             border: ' 2px solid #BFBFBF',
                                             width: '100%',
