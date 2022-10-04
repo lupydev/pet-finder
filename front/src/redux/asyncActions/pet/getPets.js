@@ -16,7 +16,9 @@ export const extraGetPets = {
     },
     [getPets.fulfilled]: (state, action) => {
         state.statusPets = 'success'
-        state.petsData = action.payload.data
+        action.payload.data.type === 'Lost'
+            ? (state.LostPetsData = action.payload.data)
+            : (state.FoundPetsData = action.payload.data)
     },
     [getPets.rejected]: (state) => {
         state.statusPets = 'failed'
