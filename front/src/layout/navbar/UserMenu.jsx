@@ -9,17 +9,42 @@ import {
     Typography,
 } from '@mui/material'
 import { IoMdArrowDropdown } from 'react-icons/io'
+
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../redux/features/user/userSlice'
 const settings = ['Profile', 'Dashboard', 'Logout']
 
 const UserMenu = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const [anchorElUser, setAnchorElUser] = useState(null)
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget)
     }
+
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
+
+    const handleClick = (setting) => {
+        switch (setting) {
+            case 'Dashboard':
+                navigate('/user')
+                break
+            case 'Logout':
+                dispatch(logout())
+                navigate('/')
+                break
+
+            default:
+                break
+        }
+        setAnchorElUser(null)
+    }
+
     return (
         <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -51,7 +76,10 @@ const UserMenu = () => {
                 onClose={handleCloseUserMenu}
             >
                 {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem
+                        key={setting}
+                        onClick={() => handleClick(setting)}
+                    >
                         <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                 ))}

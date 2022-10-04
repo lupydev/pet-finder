@@ -15,7 +15,17 @@ const userSlice = createSlice({
     name: 'user', // name of the state
     initialState,
     reducers: {
-        userIsLogged: (state) => {state.isLogged = true}
+        userIsLogged: (state) => {state.isLogged = true},
+        logout: (state) => {
+            state.userInfo = undefined
+            state.isLogged = false
+            state.isAdmin = false
+            state.status = 'loading'
+
+            window.localStorage.removeItem('user')
+            window.localStorage.removeItem('isAdmin')
+
+        }
     },
     extraReducers: {
         ...extraCreateUser,
@@ -26,6 +36,6 @@ const userSlice = createSlice({
 
 export { createUser, login ,getUserInfo, }
 
-export const {userIsLogged}= userSlice.actions
+export const {userIsLogged,logout}= userSlice.actions
 
 export default userSlice.reducer

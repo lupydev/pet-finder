@@ -11,10 +11,11 @@ export interface Pets {
     type: string
     breed: Types.ObjectId
     age: number
-    color: string
-    location: number
-    status: StatusPet
-    date: string
+    color: string[]
+    location: string
+    status?: StatusPet
+    date?: string
     img: string[]
     observation?: string
+    createdAt?:string
 }

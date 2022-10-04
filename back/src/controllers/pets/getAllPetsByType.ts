@@ -8,13 +8,13 @@ const getAllPets = async (req: Request, res: Response) => {
         const pets = await Pet.find({
             $and: [{ type: { $eq: type } }, { status: 'Active' }],
         })
-        .populate({path: "breed", select: "_id name"})
-        .populate({path: "species", select: "_id name"})
+            .populate({ path: 'breed', select: '_id name' })
+            .populate({ path: 'species', select: '_id name' })
 
         if (pets.length > 0) {
             return res
                 .status(200)
-                .json({ pets, ok: true, msg: 'All pets in DB', type: type})
+                .json({ pets, ok: true, msg: 'All pets in DB', type: type })
         } else {
             return res.status(204).json({ ok: false, msg: 'No pets in DB' })
         }
