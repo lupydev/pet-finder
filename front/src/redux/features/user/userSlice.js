@@ -40,6 +40,7 @@ const userSlice = createSlice({
             //googleLogout()
 
             window.localStorage.removeItem('user')
+            state.userData = undefined
         },
     },
     extraReducers: {
