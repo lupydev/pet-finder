@@ -2,10 +2,10 @@ import { Request, Response } from 'express'
 import User from '../../schemas/User'
 
 export const getUserById = async (req: Request, res: Response) => {
-    const { id } = req.params //! En teoria valido que este dato llega y es el tipo correcto
+    const { id } = req.params
 
     try {
-        const user = await User.findById({ _id: id, status: 'Active' }) //!Despopular info para retornar datos basicos
+        const user = await User.findById({ _id: id, status: 'Active' }) //Todo:Despopular info para retornar datos basicos
 
         if (user) {
             return res.status(200).json({ ok: true, msg: 'User found', user })

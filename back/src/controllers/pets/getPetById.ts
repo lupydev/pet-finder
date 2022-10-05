@@ -3,14 +3,13 @@ import { Request, Response } from 'express'
 
 const getPetById = async (req: Request, res: Response) => {
     const { id } = req.params
-
     try {
-        const pet = await Pet.findOne({ _id: id })
+        const pet = await Pet.findOne({ _id: id }).populate({path: "breed", select: "_id name"}).populate({path: "species", select: "_id name"}).populate({path: "userId", select: "_id"})
 
         if (pet) {
             return res.status(200).json({ pet, ok: true, msg: 'Pet found' })
         } else {
-            return res.status(204).json({ ok: false, msg: 'Pet not found' })
+            return res.status(404).json({ ok: false, msg: 'Pet not found' })
         }
     } catch (error) {
         console.log(error)
