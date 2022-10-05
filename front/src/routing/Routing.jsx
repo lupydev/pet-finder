@@ -47,7 +47,7 @@ const Routing = () => {
             <Route element={<PrivateRoute isAllowed={userInfo.isLogged} />}>
                 <Route path="/user" element={<User />} />
             </Route>
-            <Route element={<PrivateRoute isAllowed={isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={userInfo.isLogged} />}>
                 <Route path="/profile" element={<Profile />} />
             </Route>
         </Routes>
