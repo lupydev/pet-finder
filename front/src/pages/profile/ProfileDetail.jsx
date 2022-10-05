@@ -6,6 +6,7 @@ import {
     Divider,
     Avatar,
     IconButton,
+    Button,
 } from '@mui/material'
 
 const ProfileDetail = ({ userData }) => {
@@ -46,37 +47,59 @@ const ProfileDetail = ({ userData }) => {
                             src={userData?.img}
                             alt={userData?.nickname}
                         />
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Typography
+                                sx={{
+                                    p: 1.5,
+                                    borderRadius: 3,
+                                    bgcolor: 'white',
+                                    marginRight: '1rem',
+                                    marginLeft: '1rem',
+                                }}
+                                border="1px solid gray"
+                                color="text.primary"
+                                marginTop={3}
+                            >
+                                <b> Name:</b> {userData?.fullName}
+                            </Typography>
 
-                        <Typography
-                            sx={{
-                                p: 1.5,
-                                borderRadius: 3,
-                                bgcolor: 'white',
-                            }}
-                            border="1px solid gray"
-                            variant="body1"
-                            color="text.primary"
-                            marginTop={5}
-                        >
-                            <b> Name:</b> {userData?.fullName}
-                        </Typography>
-
-                        <Typography
-                            sx={{
-                                p: 1.5,
-                                borderRadius: 3,
-                                bgcolor: 'white',
-                            }}
-                            border="1px solid gray"
-                            variant="body1"
-                            color="text.primary"
-                            marginTop={5}
-                            marginBottom={5}
-                        >
-                            <b> Email:</b> {userData?.email}
-                        </Typography>
+                            <Typography
+                                sx={{
+                                    p: 1.5,
+                                    borderRadius: 3,
+                                    bgcolor: 'white',
+                                    marginRight: '1rem',
+                                    marginLeft: '1rem',
+                                }}
+                                border="1px solid gray"
+                                color="text.primary"
+                                marginTop={3}
+                                marginBottom={3}
+                            >
+                                <b> Email:</b> {userData?.email}
+                            </Typography>
+                        </Box>
                     </Box>
                 </Paper>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '1rem',
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            borderRadius: 2,
+                            textTransform: 'none',
+                            fontWeight: 'regular',
+                        }}
+                    >
+                        Edit Information
+                    </Button>
+                </Box>
             </Container>
         </div>
     )
