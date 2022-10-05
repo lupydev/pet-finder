@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import axios from 'axios'
 
 export const AuthContext = createContext({})
 
@@ -9,8 +10,23 @@ export const AuthProvider = ({ children }) => {
         setUser(value)
     }
 
+    const registerUser = (values) => {
+        const { nickname, password, email } = values
+        try {
+            const response = axios.post('http://localhost:4000/users/create', {
+                password,
+                email,
+            })
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, setUser, loginUser }}>
+        <AuthContext.Provider
+            value={{ user, setUser, loginUser, registerUser }}
+        >
             {children}
         </AuthContext.Provider>
     )
