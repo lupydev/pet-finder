@@ -28,6 +28,7 @@ export const extraLogin = {
                 id: action.payload.data.id,
                 isLogged: true,
                 isAdmin: action.payload.data.admin,
+                isGoogle: false,
             }
 
             state.userInfo = user

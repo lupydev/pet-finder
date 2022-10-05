@@ -5,10 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { login } from '../../redux/asyncActions/user/login'
-import { GoogleLogin } from 'react-google-login'
-import { FcGoogle } from 'react-icons/fc'
-import { BsGoogle } from 'react-icons/bs'
-import { Toast } from '../../utils/swalToasts'
+import { GoogleLogin } from '@react-oauth/google'
+import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
 
 const CLLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID
 
@@ -31,10 +29,7 @@ const Login = () => {
     const { userInfo, status } = useSelector((state) => state.user)
 
     const onLoginSuccess = (googleData) => {
-        console.log(googleData.profileObj)
-    }
-    const onLoginFailure = (res) => {
-        console.log('Login failed:', res.error)
+        dispatch(loginGoogle(googleData))
     }
 
     const handleSubmit = (values) => {
@@ -177,7 +172,6 @@ const Login = () => {
                         )
                     }}
                 </Formik>
-
                 <Stack justifyContent="center" direction="row" gap="10px">
                     <Typography fontSize="16px">
                         Don't have an account?
@@ -186,32 +180,14 @@ const Login = () => {
                         Sign Up
                     </Typography>
                 </Stack>
-
                 <Divider sx={{ width: '100%' }} />
-
                 <GoogleLogin
-                    clientId={CLLIENT_ID}
-                    buttonText="Login"
-                    onSuccess={onLoginSuccess}
-                    onFailure={onLoginFailure}
-                    cookiePolicy={'single_host_origin'}
-                    render={(renderProps) => (
-                        <Button
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled}
-                            startIcon={<FcGoogle />}
-                            // startIcon={<BsGoogle />}
-                            variant="outlined"
-                            disableElevation
-                            sx={{
-                                textTransform: 'none',
-                                width: '90%',
-                                borderRadius: '8px',
-                            }}
-                        >
-                            Log in with Google
-                        </Button>
-                    )}
+                    onSuccess={(credentialResponse) => {
+                        onLoginSuccess(credentialResponse)
+                    }}
+                    onError={() => {
+                        console.log('Login Failed')
+                    }}
                 />
             </Stack>
         </Stack>

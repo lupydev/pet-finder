@@ -5,6 +5,12 @@ import {
     extraGetUserData,
 } from '../../asyncActions/user/getUserData'
 import { login, extraLogin } from '../../asyncActions/user/login'
+import {
+    loginGoogle,
+    extraLoginGoogle,
+} from '../../asyncActions/user/loginGoogle'
+
+import { googleLogout } from '@react-oauth/google'
 
 const initialState = {
     userData: undefined,
@@ -30,6 +36,9 @@ const userSlice = createSlice({
             }
             state.status = 'loading'
 
+            //!Hacer funcion q baja localstorage y si user.goole = tru va a ejecutar googleLogout();
+            //googleLogout()
+
             window.localStorage.removeItem('user')
         },
     },
@@ -37,10 +46,11 @@ const userSlice = createSlice({
         ...extraCreateUser,
         ...extraLogin,
         ...extraGetUserData,
+        ...extraLoginGoogle,
     },
 })
 
-export { createUser, login, getUserData }
+export { createUser, login, getUserData, loginGoogle }
 
 export const { userIsLogged, logout } = userSlice.actions
 
