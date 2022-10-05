@@ -9,6 +9,7 @@ import { GoogleLogin } from '@react-oauth/google'
 import { FcGoogle } from 'react-icons/fc'
 import { BsGoogle } from 'react-icons/bs'
 import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
+import { getUserData } from '../../redux/asyncActions/user/getUserData'
 
 const CLLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID
 
@@ -42,7 +43,7 @@ const Login = () => {
     useEffect(() => {
         if (userInfo.isLogged) {
             navigate('/profile')
-            // dispatch(getUserInfo())
+            dispatch(getUserData())
         }
     }, [userInfo.isLogged])
 
