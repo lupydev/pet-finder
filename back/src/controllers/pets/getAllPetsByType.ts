@@ -5,6 +5,7 @@ const getAllPets = async (req: Request, res: Response) => {
     const { type } = req.params
 
     try {
+        
         const pets = await Pet.find({
             $and: [{ type: { $eq: type } }, { status: 'Active' }],
         })
