@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createUser, extraCreateUser } from '../../asyncActions/user/createUser'
 import {
-    getUserInfo,
-    extraGetUserInfo,
-} from '../../asyncActions/user/getUserInfo'
+    getUserData,
+    extraGetUserData,
+} from '../../asyncActions/user/getUserData'
 import { login, extraLogin } from '../../asyncActions/user/login'
 
 const initialState = {
@@ -35,11 +35,11 @@ const userSlice = createSlice({
     extraReducers: {
         ...extraCreateUser,
         ...extraLogin,
-        ...extraGetUserInfo,
+        ...extraGetUserData,
     },
 })
 
-export { createUser, login, getUserInfo }
+export { createUser, login, getUserData }
 
 export const { userIsLogged, logout } = userSlice.actions
 
