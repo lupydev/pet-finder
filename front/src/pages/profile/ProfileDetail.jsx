@@ -1,16 +1,15 @@
 import React from 'react'
 
-const ProfileDetail = ({ details }) => {
-    console.log(details)
+const ProfileDetail = ({ userData }) => {
     return (
         <div>
-            {/* {details.map((item) => (
-                <div key={item._id}>
-                    <h3>{item.nickname}</h3>
-                    <h3>{item.email}</h3>
-                    <img style={{ width: '200px' }} src={item.img} />
+            <ul>
+                <div key={userData._id}>
+                    <li>{userData.fullname}</li>
+                    <li>{userData.email}</li>
+                    <img style={{ width: '200px' }} src={userData.img} />
                 </div>
-            ))} */}
+            </ul>
         </div>
     )
 }
