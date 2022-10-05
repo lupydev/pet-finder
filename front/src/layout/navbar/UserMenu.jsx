@@ -21,6 +21,8 @@ const UserMenu = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    console.log(userData)
+
     const [anchorElUser, setAnchorElUser] = useState(null)
 
     const handleOpenUserMenu = (event) => {
@@ -59,7 +61,7 @@ const UserMenu = () => {
                         startIcon={<IoMdArrowDropdown color="black" />}
                         sx={{ p: 0, px: 1 }}
                     >
-                        <Avatar alt={userData.nickname} src={userData.img} />
+                        <Avatar alt={userData?.nickname} src={userData?.img} />
                     </Button>
                 </Tooltip>
                 <Menu

@@ -30,13 +30,11 @@ const Login = () => {
     const { userInfo, status } = useSelector((state) => state.user)
 
     const onLoginSuccess = (googleData) => {
-        
         console.log(googleData.profileObj)
     }
     const onLoginFailure = (res) => {
         console.log('Login failed:', res.error)
-      }
-    
+    }
 
     const handleSubmit = (values) => {
         dispatch(login(values))
@@ -44,7 +42,7 @@ const Login = () => {
 
     useEffect(() => {
         if (userInfo.isLogged) {
-            navigate('/user')
+            navigate('/profile')
             // dispatch(getUserInfo())
         }
     }, [userInfo.isLogged])
@@ -188,7 +186,7 @@ const Login = () => {
                     </Typography>
                 </Stack>
 
-                <Divider sx={{width:'100%'}}/>
+                <Divider sx={{ width: '100%' }} />
 
                 <GoogleLogin
                     clientId={CLLIENT_ID}
