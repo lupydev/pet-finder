@@ -1,11 +1,15 @@
 import { Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import { Typography, Button, Stack } from '@mui/material'
+import { Typography, Button, Stack, Divider } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { login } from '../../redux/asyncActions/user/login'
-import Snack from '../snackbar/Snack'
+import { GoogleLogin } from 'react-google-login'
+import { FcGoogle } from 'react-icons/fc'
+import { BsGoogle } from 'react-icons/bs'
+
+const CLLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID
 
 const clientSchema = Yup.object().shape({
     email: Yup.string()
@@ -24,6 +28,15 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { userInfo, status } = useSelector((state) => state.user)
+
+    const onLoginSuccess = (googleData) => {
+        
+        console.log(googleData.profileObj)
+    }
+    const onLoginFailure = (res) => {
+        console.log('Login failed:', res.error)
+      }
+    
 
     const handleSubmit = (values) => {
         dispatch(login(values))
@@ -69,13 +82,14 @@ const Login = () => {
                 padding="10px"
                 boxShadow="3"
                 paddingY="35px"
+                alignItems="center"
             >
                 <Formik
                     initialValues={{
                         email: '',
                         password: '',
                     }}
-                    onSubmit={(values) =>handleSubmit(values)}
+                    onSubmit={(values) => handleSubmit(values)}
                     enableReinitialize={true}
                     validationSchema={clientSchema}
                 >
@@ -83,11 +97,8 @@ const Login = () => {
                         return (
                             <Form onSubmit={handleSubmit}>
                                 <Stack alignItems="center" gap="20px">
-                                    <Stack
-                                        display="flex"
-                                        justifyContent="flex-start"
-                                    >
-                                        <label htmlFor="name">Email</label>
+                                    <Stack>
+                                        <label htmlFor="email">Email</label>
                                         <Stack
                                             component={Field}
                                             id="email"
@@ -169,7 +180,6 @@ const Login = () => {
                 </Formik>
 
                 <Stack justifyContent="center" direction="row" gap="10px">
-                    {' '}
                     <Typography fontSize="16px">
                         Don't have an account?
                     </Typography>
@@ -177,6 +187,33 @@ const Login = () => {
                         Sign Up
                     </Typography>
                 </Stack>
+
+                <Divider sx={{width:'100%'}}/>
+
+                <GoogleLogin
+                    clientId={CLLIENT_ID}
+                    buttonText="Login"
+                    onSuccess={onLoginSuccess}
+                    onFailure={onLoginFailure}
+                    cookiePolicy={'single_host_origin'}
+                    render={(renderProps) => (
+                        <Button
+                            onClick={renderProps.onClick}
+                            disabled={renderProps.disabled}
+                            startIcon={<FcGoogle />}
+                            // startIcon={<BsGoogle />}
+                            variant="outlined"
+                            disableElevation
+                            sx={{
+                                textTransform: 'none',
+                                width: '90%',
+                                borderRadius: '8px',
+                            }}
+                        >
+                            Log in with Google
+                        </Button>
+                    )}
+                />
             </Stack>
         </Stack>
     )
