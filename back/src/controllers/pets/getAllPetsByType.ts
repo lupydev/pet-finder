@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 const getAllPets = async (req: Request, res: Response) => {
     const { type } = req.params
-    const {color,gender} = req.query
+    const {color,gender,species,breed} = req.query
     try {
 
         const pets = await Pet.find({
@@ -11,6 +11,8 @@ const getAllPets = async (req: Request, res: Response) => {
         })
             .and([color ? { color: { $regex: `^${color}`, $options: 'i' } } : {}])
             .and([gender ? { gender: { $regex: `^${gender}`, $options: 'i' } } : {}])
+            .and([species ? { species: { $eq:species } } : {}])
+            .and([breed ? { breed: { $eq:breed } } : {}])
             .populate({ path: 'breed', select: '_id name' })
             .populate({ path: 'species', select: '_id name' })
 
