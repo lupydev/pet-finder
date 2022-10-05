@@ -1,5 +1,8 @@
 import { Typography } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import { useEffect } from 'react'
+import ProfileDetail from './ProfileDetail'
+export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 const users = [
     {
@@ -19,19 +22,26 @@ const users = [
 ]
 
 const Profile = () => {
+    useEffect(() => {
+        const getUser = async () => {
+            const token = JSON.parse(window.localStorage.getItem('user'))
+
+            const config = { headers: { Authorization: `Bearer ${token}` } }
+            try {
+                const response = await axios(`${API_ROUTE}/users`, config)
+                console.log(response)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getUser()
+    }, [])
+
     return (
         <div>
             <Typography variant="h2">User Profile</Typography>
             <div>
-                <ul>
-                    {users.map((item) => (
-                        <div key={item._id}>
-                            <li>{item.fullname}</li>
-                            <li>{item.email}</li>
-                            <img style={{ width: '200px' }} src={item.img} />
-                        </div>
-                    ))}
-                </ul>
+                <ProfileDetail details={users} />
             </div>
         </div>
     )
