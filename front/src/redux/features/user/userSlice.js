@@ -10,6 +10,7 @@ const initialState = {
     userData: undefined,
     userInfo: { token: '', id: '', isLogged: false, isAdmin: false },
     status: 'loading',
+    createUserStatus: 'loading',
     error: '',
 }
 

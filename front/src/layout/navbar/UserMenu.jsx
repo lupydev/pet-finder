@@ -21,8 +21,6 @@ const UserMenu = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    console.log(userData)
-
     const [anchorElUser, setAnchorElUser] = useState(null)
 
     const handleOpenUserMenu = (event) => {
@@ -53,7 +51,7 @@ const UserMenu = () => {
     }
 
     return (
-        status === 'success' && (
+        userData !== undefined && (
             <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                     <Button

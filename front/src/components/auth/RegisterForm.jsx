@@ -7,23 +7,37 @@ import { createUser } from '../../redux/asyncActions/user/createUser'
 import { useEffect } from 'react'
 
 const clientSchema = Yup.object().shape({
-    name: Yup.string()
-        .min(3, 'Name is too short')
-        .max(20, 'Name is too long!')
+    nickname: Yup.string()
+        .min(3, 'nickname is too short')
+        .max(20, 'nickname is too long!')
         .required('This field is required'),
+    fullname: Yup.string()
+        .min(3, 'Full Name is too short')
+        .max(25, 'Full Name is too long!'),
     email: Yup.string()
         .email('Invalid Email')
         .required('This field is required'),
     password: Yup.string()
         .min(8, 'Password is too short')
         .max(20, 'Password is too long!')
-        .required('This field is required'),
+        .required('This field is required')
+        .matches(
+            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
+        ),
 })
+
+const initialValues = {
+    nickname: '',
+    fullname: '',
+    email: '',
+    password: '',
+}
 
 const RegisterForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { isLogged } = useSelector((state) => state.user)
+    const { userInfo } = useSelector((state) => state.user)
 
     const handleSubmit = (values) => {
         console.log(values)
@@ -31,11 +45,12 @@ const RegisterForm = () => {
     }
 
     useEffect(() => {
-        if (isLogged) {
+        if (userInfo.isLogged) {
             navigate('/user')
             // dispatch(getUserInfo())
         }
-    }, [isLogged])
+    }, [userInfo.isLogged])
+
 
     return (
         <Stack
@@ -65,11 +80,7 @@ const RegisterForm = () => {
                 paddingY="35px"
             >
                 <Formik
-                    initialValues={{
-                        name: '',
-                        password: '',
-                        email: '',
-                    }}
+                    initialValues={initialValues}
                     onSubmit={(values) => {
                         handleSubmit(values)
                     }}
@@ -80,16 +91,17 @@ const RegisterForm = () => {
                         <Form onSubmit={handleSubmit}>
                             <Stack alignItems="center" gap="20px">
                                 <Stack
-                                    display="flex"
                                     justifyContent="flex-start"
+                                    px="20px"
+                                    width="100%"
                                 >
-                                    <label htmlFor="name">Name</label>
+                                    <label htmlFor="nickname">Nickname *</label>
                                     <Stack
                                         component={Field}
                                         type="text"
-                                        placeholder="Name"
-                                        id="name"
-                                        name="name"
+                                        placeholder="Nickname"
+                                        id="nickname"
+                                        name="nickname"
                                         sx={{
                                             border: ' 2px solid #BFBFBF',
                                             width: '100%',
@@ -100,21 +112,54 @@ const RegisterForm = () => {
                                             fontSize: '20px',
                                         }}
                                     />
-                                    {errors.name && touched.name ? (
+                                    {errors.nickname && touched.nickname ? (
                                         <Typography
                                             color="red"
                                             fontSize="16px"
                                             mt="5px"
                                         >
-                                            {errors.name}
+                                            {errors.nickname}
                                         </Typography>
                                     ) : null}
                                 </Stack>
                                 <Stack
-                                    display="flex"
                                     justifyContent="flex-start"
+                                    px="20px"
+                                    width="100%"
                                 >
-                                    <label htmlFor="email">Email</label>
+                                    <label htmlFor="fullname">Full Name</label>
+                                    <Stack
+                                        component={Field}
+                                        type="text"
+                                        placeholder="Full Name"
+                                        id="fullname"
+                                        name="fullname"
+                                        sx={{
+                                            border: ' 2px solid #BFBFBF',
+                                            width: '100%',
+                                            height: '50px',
+                                            borderRadius: '10px',
+                                            transition: 'border .3s ease',
+                                            px: '20px',
+                                            fontSize: '20px',
+                                        }}
+                                    />
+                                    {errors.fullname && touched.fullname ? (
+                                        <Typography
+                                            color="red"
+                                            fontSize="16px"
+                                            mt="5px"
+                                        >
+                                            {errors.fullname}
+                                        </Typography>
+                                    ) : null}
+                                </Stack>
+                                <Stack
+                                    justifyContent="flex-start"
+                                    px="20px"
+                                    width="100%"
+                                >
+                                    <label htmlFor="email">Email *</label>
                                     <Stack
                                         component={Field}
                                         id="email"
@@ -142,10 +187,11 @@ const RegisterForm = () => {
                                     ) : null}
                                 </Stack>
                                 <Stack
-                                    display="flex"
                                     justifyContent="flex-start"
+                                    px="20px"
+                                    width="100%"
                                 >
-                                    <label htmlFor="email">Password</label>
+                                    <label htmlFor="email">Password *</label>
                                     <Stack
                                         component={Field}
                                         type="password"
