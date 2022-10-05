@@ -24,11 +24,23 @@ const users = [
 const Profile = () => {
     useEffect(() => {
         const getUser = async () => {
-            const token = JSON.parse(window.localStorage.getItem('user'))
+            const infoLocalStorage = JSON.parse(
+                window.localStorage.getItem('user')
+            )
 
-            const config = { headers: { Authorization: `Bearer ${token}` } }
+            const { id, token } = infoLocalStorage
+
+            const options = {
+                headers: {
+                    token,
+                },
+            }
+
             try {
-                const response = await axios(`${API_ROUTE}/users`, config)
+                const response = await axios(
+                    `${API_ROUTE}/users/${id}`,
+                    options
+                )
                 console.log(response)
             } catch (error) {
                 console.log(error)

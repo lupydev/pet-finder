@@ -4,10 +4,11 @@ const ProfileDetail = ({ details }) => {
     console.log(details)
     return (
         <div>
-            ProfileDetail
             {details.map((item) => (
                 <div key={item._id}>
-                    <h1>{item.nickname}</h1>
+                    <h3>{item.nickname}</h3>
+                    <h3>{item.email}</h3>
+                    <img style={{ width: '200px' }} src={item.img} />
                 </div>
             ))}
         </div>
