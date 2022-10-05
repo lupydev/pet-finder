@@ -10,19 +10,21 @@ import User from '../pages/user/User'
 import Profile from '../pages/profile/Profile'
 import { useDispatch, useSelector } from 'react-redux'
 import isUserLogged from '../utils/isUserLogged'
-import { getUserInfo } from '../redux/asyncActions/user/getUserInfo'
+import { getUserData } from '../redux/asyncActions/user/getUserData'
 import { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
 
 const Routing = () => {
     const dispatch = useDispatch()
-    const { userInfo } = useSelector((state) => state.user)
+    const { userInfo, userData } = useSelector((state) => state.user)
 
     useEffect(() => {
         if (isUserLogged()) {
-            // dispatch(getUserInfo())
+            dispatch(getUserData())
             dispatch(userIsLogged())
+
+            console.log(userData);
         }
     }, [])
 
