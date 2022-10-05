@@ -8,15 +8,15 @@ import About from '../pages/AboutUs/About'
 import PetDetails from '../pages/petDetails/PetDetails'
 import User from '../pages/user/User'
 import { useDispatch, useSelector } from 'react-redux'
-import PrivateRoute from '../components/privateRoute/PrivateRoute'
 import isUserLogged from '../utils/isUserLogged'
 import { getUserInfo } from '../redux/asyncActions/user/getUserInfo'
 import { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
+import PrivateRoute from './privateRoute/PrivateRoute'
 
 const Routing = () => {
     const dispatch = useDispatch()
-    const { isLogged, isAdmin } = useSelector((state) => state.user)
+    const { userInfo } = useSelector((state) => state.user)
 
     useEffect(() => {
         if (isUserLogged()) {
@@ -43,7 +43,7 @@ const Routing = () => {
             <Route path="/signin" element={<RegisterForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutUs" element={<About />} />
-            <Route element={<PrivateRoute isAllowed={isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={userInfo.isLogged} />}>
                 <Route path="/user" element={<User />} />
             </Route>
         </Routes>

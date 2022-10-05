@@ -23,18 +23,18 @@ const clientSchema = Yup.object().shape({
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { isLogged, status } = useSelector((state) => state.user)
+    const { userInfo, status } = useSelector((state) => state.user)
 
     const handleSubmit = (values) => {
         dispatch(login(values))
     }
 
     useEffect(() => {
-        if (isLogged) {
+        if (userInfo.isLogged) {
             navigate('/user')
             // dispatch(getUserInfo())
         }
-    }, [isLogged])
+    }, [userInfo.isLogged])
 
     // useEffect(() => {
     //     status === 'success' && (
