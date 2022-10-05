@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const users = [
     {
@@ -19,19 +20,24 @@ const users = [
 ]
 
 const Profile = () => {
+    const { status, userData } = useSelector((state) => state.user)
+
     return (
         <div>
             <Typography variant="h2">User Profile</Typography>
             <div>
-                <ul>
-                    {users.map((item) => (
-                        <div key={item._id}>
-                            <li>{item.fullname}</li>
-                            <li>{item.email}</li>
-                            <img style={{ width: '200px' }} src={item.img} />
+                {status === 'success' && (
+                    <ul>
+                        <div key={userData._id}>
+                            <li>{userData.fullname}</li>
+                            <li>{userData.email}</li>
+                            <img
+                                style={{ width: '200px' }}
+                                src={userData.img}
+                            />
                         </div>
-                    ))}
-                </ul>
+                    </ul>
+                )}
             </div>
         </div>
     )

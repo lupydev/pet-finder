@@ -23,10 +23,14 @@ const Routing = () => {
         if (isUserLogged()) {
             dispatch(getUserData())
             dispatch(userIsLogged())
-
-            console.log(userData);
         }
     }, [])
+
+    useEffect(() => {
+
+        console.log(userData);
+
+    },[userData])
 
     return (
         <Routes>
