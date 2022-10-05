@@ -8,6 +8,7 @@ import { login } from '../../redux/asyncActions/user/login'
 import { GoogleLogin } from 'react-google-login'
 import { FcGoogle } from 'react-icons/fc'
 import { BsGoogle } from 'react-icons/bs'
+import { Toast } from '../../utils/swalToasts'
 
 const CLLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID
 
@@ -30,13 +31,11 @@ const Login = () => {
     const { userInfo, status } = useSelector((state) => state.user)
 
     const onLoginSuccess = (googleData) => {
-        
         console.log(googleData.profileObj)
     }
     const onLoginFailure = (res) => {
         console.log('Login failed:', res.error)
-      }
-    
+    }
 
     const handleSubmit = (values) => {
         dispatch(login(values))
@@ -188,7 +187,7 @@ const Login = () => {
                     </Typography>
                 </Stack>
 
-                <Divider sx={{width:'100%'}}/>
+                <Divider sx={{ width: '100%' }} />
 
                 <GoogleLogin
                     clientId={CLLIENT_ID}
