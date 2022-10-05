@@ -1,45 +1,26 @@
 import { Typography } from '@mui/material'
-import axios from 'axios'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import ProfileDetail from './ProfileDetail'
-export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 const Profile = () => {
-    const [userInfo, setUserInfo] = useState({})
-
-    useEffect(() => {
-        const getUser = async () => {
-            const infoLocalStorage = JSON.parse(
-                window.localStorage.getItem('user')
-            )
-
-            const { id, token } = infoLocalStorage
-
-            const options = {
-                headers: {
-                    token,
-                },
-            }
-
-            try {
-                const response = await axios(
-                    `${API_ROUTE}/users/${id}`,
-                    options
-                )
-                setUserInfo(response.data.user)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getUser()
-    }, [])
+    const { status, userData } = useSelector((state) => state.user)
 
     return (
         <div>
             <Typography variant="h2">User Profile</Typography>
             <div>
-                <ProfileDetail details={userInfo} />
+                {status === 'success' && (
+                    <ul>
+                        <div key={userData._id}>
+                            <li>{userData.fullname}</li>
+                            <li>{userData.email}</li>
+                            <img
+                                style={{ width: '200px' }}
+                                src={userData.img}
+                            />
+                        </div>
+                    </ul>
+                )}
             </div>
         </div>
     )

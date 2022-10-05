@@ -33,7 +33,7 @@ const buttonStyle = {
 }
 
 const Navbar = () => {
-    const { isLogged } = useSelector((state) => state.user)
+    const { userInfo } = useSelector((state) => state.user)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
 
@@ -134,7 +134,7 @@ const Navbar = () => {
                 </Button>
             </Stack>
             <Stack direction="row">
-                {isLogged ? (
+                {userInfo.isLogged ? (
                     <UserMenu />
                 ) : (
                     <Button
