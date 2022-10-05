@@ -4,9 +4,8 @@ export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const editPet = createAsyncThunk(
     'pets/update/:id',
-    async (data) => {
+    async ({ id, newData }) => {
         try {
-            const { id, newData } = data
             return await axios.put(`${API_ROUTE}/pets/update/${id}`, newData)
         } catch (err) {
             console.log(err)

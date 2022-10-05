@@ -9,10 +9,10 @@ import {
     Typography,
 } from '@mui/material'
 import { IoMdArrowDropdown } from 'react-icons/io'
+
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/features/user/userSlice'
-
 const settings = ['Profile', 'Dashboard', 'Logout']
 
 const UserMenu = () => {
@@ -31,6 +31,9 @@ const UserMenu = () => {
 
     const handleClick = (setting) => {
         switch (setting) {
+            case 'Profile':
+                navigate('/profile')
+                break
             case 'Dashboard':
                 navigate('/user')
                 break

@@ -7,7 +7,7 @@ import { getPets, extraGetPets } from '../../asyncActions/pet/getPets'
 const initialState = {
     LostPetsData: [],
     FoundPetsData: [],
-    petDetail: undefined,
+    petDetail: [],
     status: 'loading',
     error: ''
 }
@@ -17,7 +17,7 @@ const petSlice = createSlice({
     initialState,
     reducers: {
         cleanPetData: (state) => {
-            state.petsData = {}
+            state.petDetail= undefined
             state.status = 'loading'
         },},
     extraReducers: {
