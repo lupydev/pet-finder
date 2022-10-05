@@ -20,6 +20,14 @@ export const extraLogin = {
         state.status = 'loading'
     },
     [login.fulfilled]: (state, action) => {
+        state.status = 'success'
+        state.isLogged = true
+        state.isAdmin = action.payload.data.admin
+        window.localStorage.setItem('user', JSON.stringify(action.payload.data))
+        window.localStorage.setItem(
+            'isAdmin',
+            JSON.stringify(action.payload.data.admin)
+        )
         if (action.payload.data.ok) {
             state.status = 'success'
 
