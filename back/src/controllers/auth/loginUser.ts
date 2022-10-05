@@ -7,7 +7,7 @@ export const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body
 
     try {
-        const user = await User.findOne({ email })
+        const user = await User.findOne({ email, status: 'Active' })
 
         //*Comprobar que el email este en la base de datos
         if (!user) {
