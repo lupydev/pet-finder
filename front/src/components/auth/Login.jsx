@@ -1,11 +1,17 @@
 import { Field, Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import { Typography, Button, Stack } from '@mui/material'
+import { Typography, Button, Stack, Divider } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { login } from '../../redux/asyncActions/user/login'
-import Snack from '../snackbar/Snack'
+import { GoogleLogin } from '@react-oauth/google'
+import { FcGoogle } from 'react-icons/fc'
+import { BsGoogle } from 'react-icons/bs'
+import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
+import { getUserData } from '../../redux/asyncActions/user/getUserData'
+
+const CLLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID
 
 const clientSchema = Yup.object().shape({
     email: Yup.string()
@@ -23,18 +29,23 @@ const clientSchema = Yup.object().shape({
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { isLogged, status } = useSelector((state) => state.user)
+    const { userInfo, status } = useSelector((state) => state.user)
+
+    const onLoginSuccess = (googleData) => {
+        console.log(googleData)
+        dispatch(loginGoogle(googleData))
+    }
 
     const handleSubmit = (values) => {
         dispatch(login(values))
     }
 
     useEffect(() => {
-        if (isLogged) {
-            navigate('/user')
-            // dispatch(getUserInfo())
+        if (userInfo.isLogged) {
+            navigate('/profile')
+            dispatch(getUserData())
         }
-    }, [isLogged])
+    }, [userInfo.isLogged])
 
     // useEffect(() => {
     //     status === 'success' && (
@@ -69,13 +80,14 @@ const Login = () => {
                 padding="10px"
                 boxShadow="3"
                 paddingY="35px"
+                alignItems="center"
             >
                 <Formik
                     initialValues={{
                         email: '',
                         password: '',
                     }}
-                    onSubmit={(values) =>handleSubmit(values)}
+                    onSubmit={(values) => handleSubmit(values)}
                     enableReinitialize={true}
                     validationSchema={clientSchema}
                 >
@@ -83,11 +95,8 @@ const Login = () => {
                         return (
                             <Form onSubmit={handleSubmit}>
                                 <Stack alignItems="center" gap="20px">
-                                    <Stack
-                                        display="flex"
-                                        justifyContent="flex-start"
-                                    >
-                                        <label htmlFor="name">Email</label>
+                                    <Stack>
+                                        <label htmlFor="email">Email</label>
                                         <Stack
                                             component={Field}
                                             id="email"
@@ -167,9 +176,7 @@ const Login = () => {
                         )
                     }}
                 </Formik>
-
                 <Stack justifyContent="center" direction="row" gap="10px">
-                    {' '}
                     <Typography fontSize="16px">
                         Don't have an account?
                     </Typography>
@@ -177,6 +184,15 @@ const Login = () => {
                         Sign Up
                     </Typography>
                 </Stack>
+                <Divider sx={{ width: '100%' }} />
+                <GoogleLogin
+                    onSuccess={(credentialResponse) => {
+                        onLoginSuccess(credentialResponse)
+                    }}
+                    onError={() => {
+                        console.log('Login Failed')
+                    }}
+                />
             </Stack>
         </Stack>
     )

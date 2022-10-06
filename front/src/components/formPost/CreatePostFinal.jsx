@@ -151,7 +151,7 @@ export const CreatePostFinal = () => {
                             label="Location"
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextfieldWrapper
                             id="description"
                             name="description"
@@ -161,7 +161,7 @@ export const CreatePostFinal = () => {
                         />
                     </Grid>
 
-                    <Grid item xs={3}>
+                    {/* <Grid item xs={3}>
                         <TextfieldWrapper
                             id="map"
                             name="map"
@@ -169,7 +169,7 @@ export const CreatePostFinal = () => {
                             multiline={true}
                             rows={6}
                         />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={6}>
                         <Typography>Pictures</Typography>
                     </Grid>
@@ -178,6 +178,7 @@ export const CreatePostFinal = () => {
                             id="img"
                             name="img"
                             label="Pictures"
+                            file={true}
                             multiline={true}
                             rows={6}
                         />

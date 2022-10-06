@@ -7,18 +7,18 @@ export const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body
 
     try {
-        const user = await User.findOne({ email })
+        const user = await User.findOne({ email, status: 'Active' })
 
         //*Comprobar que el email este en la base de datos
         if (!user) {
-            return res.status(404).json({ ok: false, msg: 'Email not found' })
+            return res.status(200).json({ ok: false, msg: 'Email not found' })
         }
 
         //* Comprobar que las contraseñas coincidan
         const validPassword = bcrypt.compareSync(password, user.password)
 
         if (!validPassword) {
-            return res.status(400).json({
+            return res.status(200).json({
                 ok: false,
                 msg: 'Incorrect Password',
             })

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, React } from 'react'
 import {
     Box,
     Card,
@@ -11,7 +11,8 @@ import {
     Alert,
 } from '@mui/material'
 import { Formik, Form } from 'formik'
-import { useState } from 'react'
+import emailjs from '@emailjs/browser'
+import * as Yup from 'yup'
 
 const initialForm = {
     name: '',
@@ -20,8 +21,57 @@ const initialForm = {
     comments: '',
 }
 
+const CONTACT_FORM_VALIDATION = Yup.object().shape({
+    name: Yup.string()
+        .matches(
+            /^[A-Za-z\s]+$/g,
+            '* The name field allows only letters and blank spaces'
+        )
+        .required('* Name is required'),
+
+    lastname: Yup.string()
+        .matches(
+            /^[A-Za-z\s]+$/g,
+            '* The lastname field allows only letters and blank spaces'
+        )
+        .required('* Lastname is required'),
+
+    email: Yup.string()
+        .email('* Invalid Email')
+        .required('* Email is required'),
+
+    comments: Yup.string()
+        .min(10, 'This comment is too short')
+        .max(255, 'This comment is too long!')
+        .required('* Comments is required'),
+})
+
 const ContactForm = () => {
-    const [submittedForm, setSubmitedform] = useState(false)
+    const [submittedForm, setSubmitedform] = useState('')
+
+    const sendEmail = (values, resetForm) => {
+        try {
+            emailjs
+                .send(
+                    import.meta.env.VITE_APP_SERVICE_ID,
+                    import.meta.env.VITE_APP_TEMPLATE_ID,
+                    values,
+                    import.meta.env.VITE_APP_USER_ID
+                )
+                .then(() => {
+                    setSubmitedform('success')
+                    setTimeout(() => {
+                        setSubmitedform('')
+                    }, 2500)
+                    resetForm()
+                })
+        } catch (error) {
+            setSubmitedform('error')
+            setTimeout(() => {
+                setSubmitedform('')
+            }, 2500)
+        }
+    }
 
     return (
         <Stack
@@ -29,7 +79,6 @@ const ContactForm = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100%',
-                backgroundColor: '#fcf8f8',
             }}
         >
             <Stack
@@ -38,11 +87,16 @@ const ContactForm = () => {
                     width: '50%',
                 }}
             >
-                <Typography variant="h4" sx={{ padding: '1rem' }}>
+                <Typography
+                    variant="h4"
+                    sx={{ padding: '1rem', color: '#357ABD' }}
+                >
                     Contact Form
                 </Typography>
 
                 <Typography
+                    component={'span'}
+                    variant="body1"
                     sx={{
                         margin: '0 auto',
                         width: '100%',
@@ -52,8 +106,8 @@ const ContactForm = () => {
                     Hello dear user! welcome to the contact section of our
                     website, leave us all your questions regarding the operation
                     of our site and we will take care of it! Our users are very
-                    important to us, that's why we are very interested in your
-                    feedback so that everyone feels comfortable surfing our
+                    important to us, that&apos;s why we are very interested in
+                    your feedback so that everyone feels comfortable surfing our
                     website. Feel free to leave your concerns below.
                 </Typography>
             </Stack>
@@ -62,73 +116,16 @@ const ContactForm = () => {
                     sx={{
                         width: '40%',
                         margin: '0 auto',
-                        boxShadow: '0px 0px 5px #555',
+                        borderRadius: '20px',
+                        boxShadow: '3',
                     }}
                 >
                     <CardContent sx={{ width: '100%', margin: '0 auto' }}>
                         <Formik
                             initialValues={initialForm}
+                            validationSchema={CONTACT_FORM_VALIDATION}
                             onSubmit={(values, { resetForm }) => {
-                                resetForm()
-                                setSubmitedform(true)
-
-                                setTimeout(() => {
-                                    setSubmitedform(false)
-                                }, 1500)
-                            }}
-                            validate={(values) => {
-                                let contactFormErrors = {}
-
-                                // Name validation
-                                if (!values.name) {
-                                    contactFormErrors.name =
-                                        '* Name field is required'
-                                } else if (
-                                    !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)
-                                ) {
-                                    contactFormErrors.name =
-                                        '* The name field allows only letters and blank spaces'
-                                }
-
-                                // Lastname validation
-                                if (!values.lastname) {
-                                    contactFormErrors.lastname =
-                                        '* Lastname is required'
-                                } else if (
-                                    !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(
-                                        values.lastname
-                                    )
-                                ) {
-                                    contactFormErrors.lastname =
-                                        '* The lastname field allows only letters and blank spaces'
-                                }
-
-                                // Email validation
-                                if (!values.email) {
-                                    contactFormErrors.email =
-                                        '* Email is required'
-                                } else if (
-                                    !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
-                                        values.email
-                                    )
-                                ) {
-                                    contactFormErrors.email =
-                                        '* The e-mail field allows only letters, numbers, periods, hyphens and underscores.'
-                                }
-
-                                // Comments validation
-                                if (!values.comments) {
-                                    contactFormErrors.comments =
-                                        '* comments is required'
-                                } else if (
-                                    !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(
-                                        values.comments
-                                    )
-                                ) {
-                                    contactFormErrors.comments =
-                                        '* The comments field allows only letters and blank spaces'
-                                }
-                                return contactFormErrors
+                                sendEmail(values, resetForm)
                             }}
                         >
                             {({
@@ -139,7 +136,7 @@ const ContactForm = () => {
                                 handleBlur,
                             }) => (
                                 <Form>
-                                    {/* {console.log(errors)} */}
+                                    
                                     <Grid
                                         container
                                         direction="row"
@@ -156,24 +153,19 @@ const ContactForm = () => {
                                         >
                                             <TextField
                                                 sx={{ width: '100%' }}
-                                                error={false}
+                                                error={
+                                                    touched.name && errors.name
+                                                        ? true
+                                                        : false
+                                                }
                                                 type="text"
                                                 name="name"
                                                 margin="dense"
                                                 label="Name:"
                                                 helperText={
                                                     touched.name &&
-                                                    errors.name && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.name}
-                                                        </Box>
-                                                    )
+                                                    errors.name &&
+                                                    errors.name
                                                 }
                                                 size="small"
                                                 onChange={handleChange}
@@ -191,24 +183,20 @@ const ContactForm = () => {
                                         >
                                             <TextField
                                                 sx={{ width: '100%' }}
-                                                error={false}
+                                                error={
+                                                    touched.lastname &&
+                                                    errors.lastname
+                                                        ? true
+                                                        : false
+                                                }
                                                 type="text"
                                                 name="lastname"
                                                 margin="dense"
                                                 label="Lastname:"
                                                 helperText={
                                                     touched.lastname &&
-                                                    errors.lastname && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.lastname}
-                                                        </Box>
-                                                    )
+                                                    errors.lastname &&
+                                                    errors.lastname
                                                 }
                                                 size="small"
                                                 onChange={handleChange}
@@ -226,24 +214,20 @@ const ContactForm = () => {
                                         >
                                             <TextField
                                                 sx={{ width: '100%' }}
-                                                error={false}
+                                                error={
+                                                    touched.email &&
+                                                    errors.email
+                                                        ? true
+                                                        : false
+                                                }
                                                 type="email"
                                                 name="email"
                                                 margin="dense"
                                                 label="Email:"
                                                 helperText={
                                                     touched.email &&
-                                                    errors.email && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.email}
-                                                        </Box>
-                                                    )
+                                                    errors.email &&
+                                                    errors.email
                                                 }
                                                 size="small"
                                                 onChange={handleChange}
@@ -263,23 +247,19 @@ const ContactForm = () => {
                                                 sx={{ width: '100%' }}
                                                 id="outlined-multiline-static"
                                                 name="comments"
-                                                error={false}
+                                                error={
+                                                    touched.comments &&
+                                                    errors.comments
+                                                        ? true
+                                                        : false
+                                                }
                                                 label="Let me know your comments"
                                                 multiline
                                                 rows={4}
                                                 helperText={
                                                     touched.comments &&
-                                                    errors.comments && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.comments}
-                                                        </Box>
-                                                    )
+                                                    errors.comments &&
+                                                    errors.comments
                                                 }
                                                 size="small"
                                                 onBlur={handleBlur}
@@ -303,13 +283,25 @@ const ContactForm = () => {
                                             >
                                                 Enviar 🚀
                                             </Button>
-                                            {submittedForm && (
+
+                                            {submittedForm === 'success' && (
                                                 <Alert
                                                     sx={{ margin: '1rem 0' }}
                                                     variant="filled"
                                                     severity="success"
                                                 >
                                                     Thanks for your feedback!
+                                                </Alert>
+                                            )}
+                                            {submittedForm === 'error' && (
+                                                <Alert
+                                                    sx={{ margin: '1rem 0' }}
+                                                    variant="filled"
+                                                    severity="error"
+                                                >
+                                                    Oops! An error occurred and
+                                                    we were unable to submit the
+                                                    form.
                                                 </Alert>
                                             )}
                                         </Grid>
