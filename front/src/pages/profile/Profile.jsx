@@ -15,7 +15,11 @@ const Profile = () => {
                 User Profile
             </Typography>
             <div>
-                {status === 'success' && <ProfileDetail userData={userData} />}
+                {userData
+                    ? status === 'success' && (
+                          <ProfileDetail userData={userData} />
+                      )
+                    : 'Profile is loading, please reload the page'}
             </div>
         </div>
     )
