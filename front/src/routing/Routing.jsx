@@ -27,10 +27,8 @@ const Routing = () => {
     }, [])
 
     useEffect(() => {
-
-        console.log(userData);
-
-    },[userData])
+        console.log(userData)
+    }, [userData])
 
     return (
         <Routes>
@@ -50,10 +48,10 @@ const Routing = () => {
             <Route path="/signin" element={<RegisterForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutUs" element={<About />} />
-            <Route element={<PrivateRoute isAllowed={userInfo.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
                 <Route path="/user" element={<User />} />
             </Route>
-            <Route element={<PrivateRoute isAllowed={userInfo.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
                 <Route path="/profile" element={<Profile />} />
             </Route>
         </Routes>
