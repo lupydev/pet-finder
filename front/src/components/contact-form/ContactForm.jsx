@@ -31,46 +31,46 @@ const CONTACT_FORM_VALIDATION = Yup.object().shape({
 
     lastname: Yup.string()
         .matches(
-            // !/^[a-zA-ZÀ-ÿ\s]{1,40}$/,
             /^[A-Za-z\s]+$/g,
             '* The lastname field allows only letters and blank spaces'
         )
         .required('* Lastname is required'),
 
-    email: Yup.string().email('*Invalid Email').required('* Email is required'),
+    email: Yup.string()
+        .email('* Invalid Email')
+        .required('* Email is required'),
 
     comments: Yup.string()
-        .matches(
-            /^[A-Za-z0-9\s]+$/g,
-            '* The comments field allows only letters, numbers and blank spaces'
-        )
+        .min(10, 'This comment is too short')
+        .max(255, 'This comment is too long!')
         .required('* Comments is required'),
 })
 
 const ContactForm = () => {
-    const [submittedForm, setSubmitedform] = useState(false)
-    
+    const [submittedForm, setSubmitedform] = useState('')
 
-    const sendEmail = (e) => {
-  
-        e.preventDefault()
-        emailjs
-            .sendForm(
-                process.env.REACT_APP_SERVICE_ID,
-                process.env.REACT_APP_TEMPLATE_ID,
-                e.target,
-                process.env.REACT_APP_USER_ID
-            )
-            .then(
-                (result) => {
-                    console.log(result.text)
-                    alert('Form send!')
-                },
-                (error) => {
-                    console.log(error.text)
-                    alert('Form not send!')
-                }
-            )
+    const sendEmail = (values, resetForm) => {
+        try {
+            emailjs
+                .send(
+                    import.meta.env.VITE_APP_SERVICE_ID,
+                    import.meta.env.VITE_APP_TEMPLATE_ID,
+                    values,
+                    import.meta.env.VITE_APP_USER_ID
+                )
+                .then(() => {
+                    setSubmitedform('success')
+                    setTimeout(() => {
+                        setSubmitedform('')
+                    }, 2500)
+                    resetForm()
+                })
+        } catch (error) {
+            setSubmitedform('error')
+            setTimeout(() => {
+                setSubmitedform('')
+            }, 2500)
+        }
     }
 
     return (
@@ -79,7 +79,6 @@ const ContactForm = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100%',
-                backgroundColor: '#fcf8f8',
             }}
         >
             <Stack
@@ -88,11 +87,16 @@ const ContactForm = () => {
                     width: '50%',
                 }}
             >
-                <Typography variant="h4" sx={{ padding: '1rem' }}>
+                <Typography
+                    variant="h4"
+                    sx={{ padding: '1rem', color: '#357ABD' }}
+                >
                     Contact Form
                 </Typography>
 
                 <Typography
+                    component={'span'}
+                    variant="body1"
                     sx={{
                         margin: '0 auto',
                         width: '100%',
@@ -112,7 +116,8 @@ const ContactForm = () => {
                     sx={{
                         width: '40%',
                         margin: '0 auto',
-                        boxShadow: '0px 0px 5px #555',
+                        borderRadius: '20px',
+                        boxShadow: '3',
                     }}
                 >
                     <CardContent sx={{ width: '100%', margin: '0 auto' }}>
@@ -120,13 +125,7 @@ const ContactForm = () => {
                             initialValues={initialForm}
                             validationSchema={CONTACT_FORM_VALIDATION}
                             onSubmit={(values, { resetForm }) => {
-                                sendEmail()
-                                resetForm()
-                                setSubmitedform(true)
-
-                                setTimeout(() => {
-                                    setSubmitedform(false)
-                                }, 2000)
+                                sendEmail(values, resetForm)
                             }}
                         >
                             {({
@@ -137,7 +136,7 @@ const ContactForm = () => {
                                 handleBlur,
                             }) => (
                                 <Form>
-                                    {/* {console.log(errors)} */}
+                                    
                                     <Grid
                                         container
                                         direction="row"
@@ -154,24 +153,19 @@ const ContactForm = () => {
                                         >
                                             <TextField
                                                 sx={{ width: '100%' }}
-                                                error={false}
+                                                error={
+                                                    touched.name && errors.name
+                                                        ? true
+                                                        : false
+                                                }
                                                 type="text"
                                                 name="name"
                                                 margin="dense"
                                                 label="Name:"
                                                 helperText={
                                                     touched.name &&
-                                                    errors.name && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.name}
-                                                        </Box>
-                                                    )
+                                                    errors.name &&
+                                                    errors.name
                                                 }
                                                 size="small"
                                                 onChange={handleChange}
@@ -189,24 +183,20 @@ const ContactForm = () => {
                                         >
                                             <TextField
                                                 sx={{ width: '100%' }}
-                                                error={false}
+                                                error={
+                                                    touched.lastname &&
+                                                    errors.lastname
+                                                        ? true
+                                                        : false
+                                                }
                                                 type="text"
                                                 name="lastname"
                                                 margin="dense"
                                                 label="Lastname:"
                                                 helperText={
                                                     touched.lastname &&
-                                                    errors.lastname && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.lastname}
-                                                        </Box>
-                                                    )
+                                                    errors.lastname &&
+                                                    errors.lastname
                                                 }
                                                 size="small"
                                                 onChange={handleChange}
@@ -224,24 +214,20 @@ const ContactForm = () => {
                                         >
                                             <TextField
                                                 sx={{ width: '100%' }}
-                                                error={false}
+                                                error={
+                                                    touched.email &&
+                                                    errors.email
+                                                        ? true
+                                                        : false
+                                                }
                                                 type="email"
                                                 name="email"
                                                 margin="dense"
                                                 label="Email:"
                                                 helperText={
                                                     touched.email &&
-                                                    errors.email && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.email}
-                                                        </Box>
-                                                    )
+                                                    errors.email &&
+                                                    errors.email
                                                 }
                                                 size="small"
                                                 onChange={handleChange}
@@ -261,23 +247,19 @@ const ContactForm = () => {
                                                 sx={{ width: '100%' }}
                                                 id="outlined-multiline-static"
                                                 name="comments"
-                                                error={false}
+                                                error={
+                                                    touched.comments &&
+                                                    errors.comments
+                                                        ? true
+                                                        : false
+                                                }
                                                 label="Let me know your comments"
                                                 multiline
                                                 rows={4}
                                                 helperText={
                                                     touched.comments &&
-                                                    errors.comments && (
-                                                        <Box
-                                                            sx={{
-                                                                color: '#dc3545',
-                                                                fontWeight:
-                                                                    'bold',
-                                                            }}
-                                                        >
-                                                            {errors.comments}
-                                                        </Box>
-                                                    )
+                                                    errors.comments &&
+                                                    errors.comments
                                                 }
                                                 size="small"
                                                 onBlur={handleBlur}
@@ -301,13 +283,25 @@ const ContactForm = () => {
                                             >
                                                 Enviar 🚀
                                             </Button>
-                                            {submittedForm && (
+
+                                            {submittedForm === 'success' && (
                                                 <Alert
                                                     sx={{ margin: '1rem 0' }}
                                                     variant="filled"
                                                     severity="success"
                                                 >
                                                     Thanks for your feedback!
+                                                </Alert>
+                                            )}
+                                            {submittedForm === 'error' && (
+                                                <Alert
+                                                    sx={{ margin: '1rem 0' }}
+                                                    variant="filled"
+                                                    severity="error"
+                                                >
+                                                    Oops! An error occurred and
+                                                    we were unable to submit the
+                                                    form.
                                                 </Alert>
                                             )}
                                         </Grid>
