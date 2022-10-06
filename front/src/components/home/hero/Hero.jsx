@@ -1,5 +1,6 @@
 import { Stack, Typography, Button, Box } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
     return (
@@ -47,6 +48,8 @@ const Hero = () => {
                         repellendus.
                     </Typography>
                     <Button
+                        component={Link}
+                        to="/createPost"
                         variant="contained"
                         color="primary"
                         sx={{

@@ -60,7 +60,21 @@ const ProfileDetail = ({ userData }) => {
                                 color="text.primary"
                                 marginTop={3}
                             >
-                                <b> Name:</b> {userData?.fullName}
+                                <b> Nickname:</b> {userData?.nickname}
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    p: 1.5,
+                                    borderRadius: 3,
+                                    bgcolor: 'white',
+                                    marginRight: '1rem',
+                                    marginLeft: '1rem',
+                                }}
+                                border="1px solid gray"
+                                color="text.primary"
+                                marginTop={3}
+                            >
+                                <b> Full Name:</b> {userData?.fullName}
                             </Typography>
 
                             <Typography
