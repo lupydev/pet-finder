@@ -13,8 +13,8 @@ import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
 
 const PetCard = ({ pets }) => {
-    return pets.pets ? (
-        pets.pets.map((pet) => {
+    return pets ? (
+        pets.map((pet) => {
             return (
                 <Card
                     sx={{
@@ -44,7 +44,6 @@ const PetCard = ({ pets }) => {
                             }}
                         >
                             <Avatar
-                                alt="Remy Sharp"
                                 src={pet.img[0]}
                                 sx={{ width: '170px', height: '170px' }}
                             />
@@ -97,8 +96,8 @@ const PetCard = ({ pets }) => {
                             </Stack>
                             
                             <Button
-                                component={Link}
-                                to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
+                                // component={Link}
+                                // to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
                                 variant="contained"
                                 color={
                                     pet.type.toLowerCase() === 'lost'
