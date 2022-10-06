@@ -26,11 +26,7 @@ const Routing = () => {
             dispatch(userIsLogged())
         }
     }, [])
-
-    useEffect(() => {
-        console.log(userData)
-    }, [userData])
-
+    
     return (
         <Routes>
             <Route index element={<Home />} />

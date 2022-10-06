@@ -12,14 +12,14 @@ export const getPetById = createAsyncThunk('pets/', async (id) => {
 
 export const extraGetPetById = {
     [getPetById.pending]: (state) => {
-        state.status = 'loading'
+        state.statusPets = 'loading'
         state.openModal = true
     },
     [getPetById.fulfilled]: (state, action) => {
-        state.status = 'success'
+        state.statusPets = 'success'
         state.petDetail = action.payload.data.pet
     },
     [getPetById.rejected]: (state) => {
-        state.status = 'failed'
+        state.statusPets = 'failed'
     },
 }

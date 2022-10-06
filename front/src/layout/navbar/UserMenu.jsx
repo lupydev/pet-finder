@@ -51,7 +51,7 @@ const UserMenu = () => {
     }
 
     return (
-        status === 'success' && (
+        userData !== undefined && (
             <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                     <Button

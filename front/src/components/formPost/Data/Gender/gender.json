@@ -1,5 +1,5 @@
-{
-    "male": "Male",
-    "female": "Female",
-    "na": "Unknown"
-}
+[
+    {"_id": "male", "name": "Male"},
+    {"_id": "female", "name": "Female"},
+    {"_id": "na", "name": "Unknown"}
+]

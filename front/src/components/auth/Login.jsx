@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { login } from '../../redux/asyncActions/user/login'
 import { GoogleLogin } from '@react-oauth/google'
-import { FcGoogle } from 'react-icons/fc'
-import { BsGoogle } from 'react-icons/bs'
 import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 
@@ -32,7 +30,6 @@ const Login = () => {
     const { userInfo, status } = useSelector((state) => state.user)
 
     const onLoginSuccess = (googleData) => {
-        console.log(googleData)
         dispatch(loginGoogle(googleData))
     }
 
