@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Button,
     Typography,
@@ -7,15 +7,19 @@ import {
     Avatar,
     Stack,
 } from '@mui/material'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { MdPets } from 'react-icons/md'
+import { FaTransgender } from 'react-icons/fa'
+import { GrMap } from 'react-icons/gr'
 
 const PetCard = ({ pets }) => {
-    return pets.pets ? (
-        pets.pets.map((pet) => {
+    return pets ? (
+        pets.map((pet) => {
             return (
                 <Card
                     sx={{
-                        maxWidth: '300px',
+                        width: '270px',
+                        height: '400px',
                         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                     }}
                     key={pet._id}
@@ -35,32 +39,65 @@ const PetCard = ({ pets }) => {
                                     pet.type.toLowerCase() === 'lost'
                                         ? 'secondary.light'
                                         : 'primary.light',
-                                height: '180px',
+                                height: '200px',
                                 borderRadius: '8px',
                             }}
                         >
                             <Avatar
-                                alt="Remy Sharp"
                                 src={pet.img[0]}
-                                sx={{ width: '150px', height: '150px' }}
+                                sx={{ width: '170px', height: '170px' }}
                             />
                         </Stack>
-                        <Stack p="16px" gap="16px">
+                        <Stack p="11px" gap="11px">
                             <Typography
+                                noWrap
                                 gutterBottom
-                                variant="h5"
+                                fontSize="25px"
                                 component="div"
                                 fontWeight={'bold'}
                                 m="0"
                             >
                                 {pet.name}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {pet.description}
-                            </Typography>
+                            <Stack w="100%" direction="row" display='flex'>
+                                <Stack direction="row" width="50%">
+                                    <MdPets fontSize='20px' />
+                                    <Typography
+                                        ml='5px'
+                                        noWrap
+                                        variant="body2"
+                                        color="text.secondary"
+                                    >
+                                        {pet.species.name}
+                                    </Typography>
+                                </Stack>
+                                <Stack direction="row" width="50%">
+                                <FaTransgender fontSize='20px' />
+                                    <Typography
+                                        ml='5px'
+                                        noWrap
+                                        variant="body2"
+                                        color="text.secondary"
+                                    >
+                                        {pet.gender}
+                                    </Typography>
+                                </Stack>
+                            </Stack>
+                            <Stack direction="row" width="100%">
+                                <GrMap fontSize='20px' />
+                                    <Typography
+                                        ml='5px'
+                                        noWrap
+                                        variant="body2"
+                                        color="text.secondary"
+                                    >
+                                        {pet.location}
+                                    </Typography>
+                            </Stack>
+                            
                             <Button
-                                component={Link}
-                                to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
+                                // component={Link}
+                                // to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
                                 variant="contained"
                                 color={
                                     pet.type.toLowerCase() === 'lost'

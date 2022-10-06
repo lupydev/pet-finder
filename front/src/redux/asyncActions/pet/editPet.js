@@ -15,12 +15,12 @@ export const editPet = createAsyncThunk(
 
 export const extraEditPet = {
     [editPet.pending]: (state) => {
-        state.status = 'loading'
+        state.statusPets = 'loading'
     },
     [editPet.fulfilled]: (state, action) => {
-        state.status = 'success'
+        state.statusPets = 'success'
     },
     [editPet.rejected]: (state) => {
-        state.status = 'failed'
+        state.statusPets = 'failed'
     },
 }

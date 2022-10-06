@@ -9,7 +9,7 @@ const createUser = async (req: Request, res: Response) => {
     try {
         const findUser = await User.findOne({ email: userData.email })
         if (findUser) {
-            res.status(400).json({
+            res.status(200).json({
                 ok: false,
                 msg: 'The email is already used',
             })

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import Snack from '../../../components/snackbar/Snack'
+import { Toast } from '../../../utils/swalToasts' 
+
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const login = createAsyncThunk('login/', async ({ email, password }) => {
@@ -27,14 +28,25 @@ export const extraLogin = {
                 id: action.payload.data.id,
                 isLogged: true,
                 isAdmin: action.payload.data.admin,
+                isGoogle: false,
             }
 
             state.userInfo = user
 
             window.localStorage.setItem('user', JSON.stringify(user))
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully',
+            })
+        
             
         } else {
-            console.log(action.payload.data.msg)
+            Toast.fire({
+                icon: 'error',
+                title: action.payload.data.msg,
+            })
+        
         }
     },
     [login.rejected]: (state) => {

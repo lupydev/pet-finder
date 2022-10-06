@@ -7,14 +7,13 @@ export const deleteUser = async (req: Request, res: Response) => {
 
     try {
         const deleted = await User.findByIdAndDelete({ _id: id })
-        console.log(deleted)
 
         if (deleted) {
-            return res.status(201).json({ ok: true, msg: 'user deleted', id })
+            return res.status(200).json({ ok: true, msg: 'user deleted', id })
         }
 
         return res
-            .status(404)
+            .status(200)
             .json({ ok: false, msg: 'The id do not exist in DB' })
     } catch (error) {
         console.log(error)

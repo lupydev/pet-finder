@@ -14,6 +14,7 @@ import { getUserData } from '../redux/asyncActions/user/getUserData'
 import { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
+import { CreatePostFinal } from '../components/formPost/CreatePostFinal'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -25,13 +26,7 @@ const Routing = () => {
             dispatch(userIsLogged())
         }
     }, [])
-
-    useEffect(() => {
-
-        console.log(userData);
-
-    },[userData])
-
+    
     return (
         <Routes>
             <Route index element={<Home />} />
@@ -50,11 +45,14 @@ const Routing = () => {
             <Route path="/signin" element={<RegisterForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutUs" element={<About />} />
-            <Route element={<PrivateRoute isAllowed={userInfo.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
                 <Route path="/user" element={<User />} />
             </Route>
-            <Route element={<PrivateRoute isAllowed={userInfo.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
                 <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
+                <Route path="/createPost" element={<CreatePostFinal />} />
             </Route>
         </Routes>
     )
