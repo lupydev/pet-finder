@@ -15,24 +15,7 @@ import types from './Data/Type/types.json'
 import ButtonWrapper from './Button/ButtonWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
-
-const INITIAL_FORM_STATE = {
-    name: '',
-    userId: '',
-    description: '',
-    species: '',
-    gender: '',
-    size: '',
-    type: '',
-    breed: '',
-    age: '',
-    color: '',
-    location: '',
-    status: '',
-    date: '',
-    img: '',
-    observation: '',
-}
+import { createPet } from '../../redux/asyncActions/pet/createPet'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string(),
@@ -47,25 +30,52 @@ const FORM_VALIDATION = Yup.object().shape({
     location: Yup.string(),
     status: Yup.string(),
     date: Yup.date().required('Required'),
-    img: Yup.string(),
     observation: Yup.string(),
 })
 
 export const CreatePostFinal = () => {
-
     const dispatch = useDispatch()
     const { species, breeds } = useSelector((state) => state.pet)
+
+    const getUserId = () => {
+        let user = JSON.parse(window.localStorage.getItem('user'))
+        return user.id
+    }
+
+    const INITIAL_FORM_STATE = {
+        name: '',
+        userId: getUserId(),
+        description: '',
+        species: '',
+        gender: '',
+        size: '',
+        type: '',
+        breed: '',
+        age: '',
+        color: '',
+        img: [
+            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
+        ],
+        location: '',
+        date: '',
+        observation: '',
+    }
 
     useEffect(() => {
         dispatch(getSpecies())
     }, [])
 
+    const handleSubmit = (values, resetForm) => {
+        dispatch(createPet(values))
+        resetForm()
+    }
+
     return (
         <Formik
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
-            onSubmit={(values) => {
-                console.log(values)
+            onSubmit={(values, { resetForm }) => {
+                handleSubmit(values, resetForm)
             }}
         >
             <Form>
@@ -185,13 +195,13 @@ export const CreatePostFinal = () => {
                     </Grid>
                     <Grid item xs={6}>
                         {/* agregar cloudinary widget */}
-                        <TextfieldWrapper
+                        {/* <TextfieldWrapper
                             id="img"
                             name="img"
                             label="Pictures"
                             multiline={true}
                             rows={6}
-                        />
+                        /> */}
                     </Grid>
                     <Grid item xs={6}>
                         <ButtonWrapper>Submit form</ButtonWrapper>

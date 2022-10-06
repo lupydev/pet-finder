@@ -40,7 +40,6 @@ const RegisterForm = () => {
     const { userInfo } = useSelector((state) => state.user)
 
     const handleSubmit = (values) => {
-        console.log(values)
         dispatch(createUser(values))
     }
 
