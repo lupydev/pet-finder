@@ -33,7 +33,6 @@ export const extraCreateUser = {
                 icon: 'success',
                 title: `${action.payload.data.msg} and signed in successfully`,
             })
-
         }
     },
     [createUser.rejected]: (state, action) => {

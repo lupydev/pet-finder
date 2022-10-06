@@ -45,11 +45,10 @@ const RegisterForm = () => {
 
     useEffect(() => {
         if (userInfo.isLogged) {
-            navigate('/user')
+            navigate('/profile')
             // dispatch(getUserInfo())
         }
     }, [userInfo.isLogged])
-
 
     return (
         <Stack

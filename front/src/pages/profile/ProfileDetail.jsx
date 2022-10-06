@@ -74,7 +74,7 @@ const ProfileDetail = ({ userData }) => {
                                 color="text.primary"
                                 marginTop={3}
                             >
-                                <b> Full Name:</b> {userData?.fullName}
+                                <b> Full Name:</b> {userData?.fullname}
                             </Typography>
 
                             <Typography
