@@ -18,8 +18,8 @@ export const extraGetUserData = {
         state.status = 'loading'
     },
     [getUserData.fulfilled]: (state, action) => {
-        state.status = 'success'
         state.userData = action.payload.data.user
+        state.status = 'success'
     },
     [getUserData.rejected]: (state, action) => {
         state.status = 'failed'

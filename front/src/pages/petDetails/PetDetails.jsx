@@ -20,12 +20,6 @@ const PetDetails = () => {
 
     }, [])
 
-    useEffect(()=>{
-
-        console.log(petDetail, 'petDetail');
-
-    },[petDetail])
-
     return (
         <Stack
             sx={{
@@ -52,7 +46,7 @@ const PetDetails = () => {
                         sx={{ width: 150, height: 150 }}
                     />
                     <Typography
-                        variant="h3"
+                        variant="h4"
                         color="primary.main"
                         fontFamily={'Merriweather'}
                         fontWeight="bold"

@@ -8,10 +8,12 @@ import {
     IconButton,
     Button,
 } from '@mui/material'
+import { useSelector } from 'react-redux'
 
-const ProfileDetail = ({ userData }) => {
+const ProfileDetail = () => {
+    const { userData } = useSelector((state) => state.user)
+
     return (
-        <div key={userData?._id}>
             <Container maxWidth="sm">
                 <Paper
                     elevation={6}
@@ -119,7 +121,6 @@ const ProfileDetail = ({ userData }) => {
                     </Button>
                 </Box>
             </Container>
-        </div>
     )
 }
 
