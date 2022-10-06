@@ -1,9 +1,23 @@
 import Pet from '../../schemas/Pet'
 import { Request, Response } from 'express'
 
+
+/*const getsort = (order:unknown)=>{
+    if(order){
+        if (order ==="asc"){
+            return {name:1}
+        }else if(order === "des"){
+            return {name:-1}
+        }
+    }return {}
+}*/
+
 const getAllPets = async (req: Request, res: Response) => {
     const { type } = req.params
-    const {color,gender,species,breed} = req.query
+
+    const {color,gender,species,breed}= req.query
+  
+      
     try {
         const pets = await Pet.find({
             $and: [{ type: { $eq: type } }, { status: 'Active' }],
@@ -14,6 +28,8 @@ const getAllPets = async (req: Request, res: Response) => {
             .and([breed ? { breed: { $eq:breed } } : {}])
             .populate({ path: 'breed', select: '_id name' })
             .populate({ path: 'species', select: '_id name' })
+        ///.sort(getsort(order))
+            
         
         if (pets.length > 0) {
             return res
