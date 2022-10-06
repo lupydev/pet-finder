@@ -1,41 +1,29 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import Snack from '../../../components/snackbar/Snack'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
-export const login = createAsyncThunk('login/', async ({ email, password }) => {
+export const loginGoogle = createAsyncThunk('/loginGoogle', async (data) => {
     try {
-        return await axios.post(`${API_ROUTE}/login`, {
-            email,
-            password,
-        })
+        return await axios.post(`${API_ROUTE}/loginGoogle`, data)
     } catch (err) {
         console.log(err)
     }
 })
 
-export const extraLogin = {
-    [login.pending]: (state) => {
+export const extraLoginGoogle = {
+    [loginGoogle.pending]: (state) => {
         state.status = 'loading'
     },
-    [login.fulfilled]: (state, action) => {
+    [loginGoogle.fulfilled]: (state, action) => {
         state.status = 'success'
-        state.isLogged = true
-        state.isAdmin = action.payload.data.admin
-        window.localStorage.setItem('user', JSON.stringify(action.payload.data))
-        window.localStorage.setItem(
-            'isAdmin',
-            JSON.stringify(action.payload.data.admin)
-        )
+        console.log(action.payload.data)
         if (action.payload.data.ok) {
-            state.status = 'success'
-
             let user = {
                 token: action.payload.data.token,
                 id: action.payload.data.id,
                 isLogged: true,
                 isAdmin: action.payload.data.admin,
-                isGoogle: false,
+                isGoogle: action.payload.data.google,
             }
 
             state.userInfo = user
@@ -45,7 +33,7 @@ export const extraLogin = {
             console.log(action.payload.data.msg)
         }
     },
-    [login.rejected]: (state) => {
+    [loginGoogle.rejected]: (state) => {
         state.status = 'failed'
         state.isLogged = false
     },
