@@ -179,7 +179,6 @@ export const CreatePostFinal = () => {
                             id="img"
                             name="img"
                             label="Pictures"
-                            file={true}
                             multiline={true}
                             rows={6}
                         />
