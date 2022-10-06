@@ -21,8 +21,6 @@ const UserMenu = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    console.log(userData)
-
     const [anchorElUser, setAnchorElUser] = useState(null)
 
     const handleOpenUserMenu = (event) => {

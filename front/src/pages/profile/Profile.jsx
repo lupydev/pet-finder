@@ -8,7 +8,12 @@ const Profile = () => {
 
     return (
         <div>
-            <Typography variant="h2">User Profile</Typography>
+            <Typography
+                variant="h4"
+                sx={{ textAlign: 'center', margin: '1rem' }}
+            >
+                User Profile
+            </Typography>
             <div>
                 {status === 'success' && <ProfileDetail userData={userData} />}
             </div>
