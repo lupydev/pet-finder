@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 const getAllBreedsBySpecies = async (req: Request, res: Response) =>{
     
-    const {species} = req.body;    
+    const {species} = req.params;    
 
     try {
         const breeds = await Breed.find({ species: species })
