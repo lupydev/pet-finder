@@ -16,7 +16,7 @@ export const extraLoginGoogle = {
     },
     [loginGoogle.fulfilled]: (state, action) => {
         state.status = 'success'
-        console.log(action.payload.data)
+        
         if (action.payload.data.ok) {
             let user = {
                 token: action.payload.data.token,

@@ -6,6 +6,8 @@ import FilterBar from './FilterBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPet } from '../../redux/asyncActions/pet/createPet'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
+import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
+import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
 import { cleanPetData } from '../../redux/features/pet/PetSlice'
 
 const INITIAL_FILTER = {
@@ -80,7 +82,7 @@ const extraInputs = [
 
 const PetBrowser = (props) => {
     const dispatch = useDispatch()
-    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
+    const { LostPetsData, FoundPetsData, species, breeds } = useSelector((state) => state.pet)
     const [filter, setFilter] = useState(INITIAL_FILTER)
     const type = props.title
 
@@ -90,9 +92,11 @@ const PetBrowser = (props) => {
 
     useEffect(() => {
         dispatch(cleanPetData())
-        // setFilter(INITIAL_FILTER)
         dispatch(getPets(type))
+        dispatch(getSpecies())
+
     }, [props.title])
+
 
     return (
         <>

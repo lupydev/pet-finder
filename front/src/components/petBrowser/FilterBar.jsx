@@ -16,38 +16,85 @@ import {
     Checkbox,
     Divider,
 } from '@mui/material'
-import { MdExpandMore, MdPets, MdDateRange, MdPalette, MdExpand } from 'react-icons/md'
+import {
+    MdExpandMore,
+    MdPets,
+    MdDateRange,
+    MdPalette,
+    MdExpand,
+} from 'react-icons/md'
 import { BsCaretDownFill } from 'react-icons/bs'
-import { FaTransgender } from "react-icons/fa";
-import { GrMap } from "react-icons/gr";
-import { TbSortDescending } from "react-icons/tb";
+import { FaTransgender } from 'react-icons/fa'
+import { GrMap } from 'react-icons/gr'
+import { TbSortDescending } from 'react-icons/tb'
+import { useDispatch, useSelector } from 'react-redux'
 
 const FilterBar = (props) => {
+    const dispatch = useDispatch()
+    const { species, breeds } = useSelector((state) => state.pet)
+
     return (
         <>
-        <Stack px={10}  mt='10px' direction="column" width='100%' maxWidth='1440px' pb='5px' gap='10px'>
-        <Typography color='primary.main' variant='h5' >Choose your filters:</Typography>
-        <Divider color='#357abd' sx={{ borderBottomWidth: 3, width: '450px' }} />
-        </Stack>
-            <Stack px={10} mt='10px' direction="row" width='100%' maxWidth='1440px' justifyContent='space-between' flexWrap='wrap'>
+            <Stack
+                px={10}
+                mt="10px"
+                direction="column"
+                width="100%"
+                maxWidth="1440px"
+                pb="5px"
+                gap="10px"
+            >
+                <Typography color="primary.main" variant="h5">
+                    Choose your filters:
+                </Typography>
+                <Divider
+                    color="#357abd"
+                    sx={{ borderBottomWidth: 3, width: '450px' }}
+                />
+            </Stack>
+            <Stack
+                px={10}
+                mt="10px"
+                direction="row"
+                width="100%"
+                maxWidth="1440px"
+                justifyContent="space-between"
+                flexWrap="wrap"
+            >
                 <FormControl>
-                    <Stack width="200px" >
+                    <Stack width="200px">
                         <InputLabel htmlFor="demo-customized-select-native">
                             {props.principalInputs[0].label}
                         </InputLabel>
                         <Select
                             displayEmpty
-                            sx={{height: '45px'}}
+                            sx={{ height: '45px' }}
                             startAdornment={
-                                <InputAdornment position='start'>
+                                <InputAdornment position="start">
                                     <MdPets />
-                                </InputAdornment> 
+                                </InputAdornment>
                             }
                             renderValue={(selected) => {
                                 if (selected.length === 0) {
-                                    return <Typography pt='4px' fontSize='15px' ml='5px'>Choose species</Typography>;
+                                    return (
+                                        <Typography
+                                            pt="4px"
+                                            fontSize="15px"
+                                            ml="5px"
+                                        >
+                                            Choose species
+                                        </Typography>
+                                    )
                                 }
-                                return <Typography pt='4px' fontSize='15px' ml='5px'>{selected}</Typography>;
+                                return (
+                                    <Typography
+                                        pt="4px"
+                                        fontSize="15px"
+                                        ml="5px"
+                                    >
+                                        {selected}
+                                    </Typography>
+                                )
                             }}
                             color={
                                 props.title.toLowerCase() === 'lost'
@@ -57,13 +104,25 @@ const FilterBar = (props) => {
                             onChange={(event) => props.handleChange(event)}
                             label={props.principalInputs[0].label}
                             name={props.principalInputs[0].name}
-                            value={props.filter['specie']}                            
+                            value={props.filter['specie']}
                         >
-                            {props.principalInputs[0].values.map((item) => (
-                                <MenuItem key={item} value={item}>
-                                    <em><Typography pt='4px' fontSize='15px' ml='5px'>{item}</Typography></em>
-                                </MenuItem>
-                            ))}
+                            {species.length > 0 &&
+                                species.map((specie) => (
+                                    <MenuItem
+                                        key={specie._id}
+                                        value={specie._id}
+                                    >
+                                        <em>
+                                            <Typography
+                                                pt="4px"
+                                                fontSize="15px"
+                                                ml="5px"
+                                            >
+                                                {specie.name}
+                                            </Typography>
+                                        </em>
+                                    </MenuItem>
+                                ))}
                         </Select>
                     </Stack>
                 </FormControl>
@@ -75,17 +134,33 @@ const FilterBar = (props) => {
                         </InputLabel>
                         <Select
                             displayEmpty
-                            sx={{height: '45px'}}
+                            sx={{ height: '45px' }}
                             startAdornment={
-                                <InputAdornment position='start'>
+                                <InputAdornment position="start">
                                     <FaTransgender />
-                                </InputAdornment> 
+                                </InputAdornment>
                             }
                             renderValue={(selected) => {
                                 if (selected.length === 0) {
-                                    return <Typography pt='4px' fontSize='15px' ml='5px'>Choose gender</Typography>;
+                                    return (
+                                        <Typography
+                                            pt="4px"
+                                            fontSize="15px"
+                                            ml="5px"
+                                        >
+                                            Choose gender
+                                        </Typography>
+                                    )
                                 }
-                                return <Typography pt='4px' fontSize='15px' ml='5px'>{selected}</Typography>;
+                                return (
+                                    <Typography
+                                        pt="4px"
+                                        fontSize="15px"
+                                        ml="5px"
+                                    >
+                                        {selected}
+                                    </Typography>
+                                )
                             }}
                             color={
                                 props.title.toLowerCase() === 'lost'
@@ -99,7 +174,15 @@ const FilterBar = (props) => {
                         >
                             {props.principalInputs[1].values.map((item) => (
                                 <MenuItem key={item} value={item}>
-                                    <em><Typography pt='4px' fontSize='15px' ml='5px'>{item}</Typography></em>
+                                    <em>
+                                        <Typography
+                                            pt="4px"
+                                            fontSize="15px"
+                                            ml="5px"
+                                        >
+                                            {item}
+                                        </Typography>
+                                    </em>
                                 </MenuItem>
                             ))}
                         </Select>
@@ -113,17 +196,33 @@ const FilterBar = (props) => {
                         </InputLabel>
                         <Select
                             displayEmpty
-                            sx={{height: '45px'}}
+                            sx={{ height: '45px' }}
                             startAdornment={
-                                <InputAdornment position='start'>
+                                <InputAdornment position="start">
                                     <GrMap />
-                                </InputAdornment> 
+                                </InputAdornment>
                             }
                             renderValue={(selected) => {
                                 if (selected.length === 0) {
-                                    return <Typography pt='4px' fontSize='15px' ml='5px'>Choose city</Typography>;
+                                    return (
+                                        <Typography
+                                            pt="4px"
+                                            fontSize="15px"
+                                            ml="5px"
+                                        >
+                                            Choose city
+                                        </Typography>
+                                    )
                                 }
-                                return <Typography pt='4px' fontSize='15px' ml='5px'>{selected}</Typography>;
+                                return (
+                                    <Typography
+                                        pt="4px"
+                                        fontSize="15px"
+                                        ml="5px"
+                                    >
+                                        {selected}
+                                    </Typography>
+                                )
                             }}
                             color={
                                 props.title.toLowerCase() === 'lost'
@@ -137,16 +236,33 @@ const FilterBar = (props) => {
                         >
                             {props.principalInputs[2].values.map((item) => (
                                 <MenuItem key={item} value={item}>
-                                    <em><Typography pt='4px' fontSize='15px' ml='5px'>{item}</Typography></em>
+                                    <em>
+                                        <Typography
+                                            pt="4px"
+                                            fontSize="15px"
+                                            ml="5px"
+                                        >
+                                            {item}
+                                        </Typography>
+                                    </em>
                                 </MenuItem>
                             ))}
                         </Select>
                     </Stack>
                 </FormControl>
 
-                <FormControlLabel control={<Checkbox color={props.title.toLowerCase() === 'lost'
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            color={
+                                props.title.toLowerCase() === 'lost'
                                     ? 'secondary'
-                                    : 'primary'}  />} label="Show ReFound" />
+                                    : 'primary'
+                            }
+                        />
+                    }
+                    label="Show ReFound"
+                />
                 {/* <Button
                     variant="contained"
                     color={
@@ -166,22 +282,31 @@ const FilterBar = (props) => {
                 </Button> */}
             </Stack>
 
-            <Stack width="100%" maxWidth='1440px' >
-                <Accordion sx={{transform: 'rotate(180deg)', boxShadow: 'none'}} >
+            <Stack width="100%" maxWidth="1440px">
+                <Accordion
+                    sx={{ transform: 'rotate(180deg)', boxShadow: 'none' }}
+                >
                     <AccordionSummary
                         sx={{
                             transform: 'rotate(180deg)',
-                                color: props.title.toLowerCase() === 'lost'
-                                ? 'secondary.main'
-                                : 'primary.main',
+                            color:
+                                props.title.toLowerCase() === 'lost'
+                                    ? 'secondary.main'
+                                    : 'primary.main',
                             fontWeight: 'bold',
                             width: '180px',
-                            mx: 'auto'
+                            mx: 'auto',
                         }}
                         expandIcon={
-                            <BsCaretDownFill sx={{color: props.title.toLowerCase() === 'lost'
-                            ? 'secondary.main'
-                            : 'primary.main',}} fontWeight="bold"  />
+                            <BsCaretDownFill
+                                sx={{
+                                    color:
+                                        props.title.toLowerCase() === 'lost'
+                                            ? 'secondary.main'
+                                            : 'primary.main',
+                                }}
+                                fontWeight="bold"
+                            />
                         }
                     >
                         <Typography sx={{ mx: 'auto' }}>
@@ -204,17 +329,35 @@ const FilterBar = (props) => {
                                 </InputLabel>
                                 <Select
                                     displayEmpty
-                                    sx={{height: '45px'}}
+                                    sx={{ height: '45px' }}
                                     startAdornment={
-                                        <InputAdornment position='start'>
+                                        <InputAdornment position="start">
                                             <MdDateRange />
-                                        </InputAdornment> 
+                                        </InputAdornment>
                                     }
                                     renderValue={(selected) => {
                                         if (selected.toString().length === 0) {
-                                            return <Typography pt='4px' fontSize='15px' ml='5px'>Choose order</Typography>;
+                                            return (
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    Choose order
+                                                </Typography>
+                                            )
                                         }
-                                        return <Typography pt='4px' fontSize='15px' ml='5px'>{selected == false ? 'Ascending order' : 'Descending order'}</Typography>;
+                                        return (
+                                            <Typography
+                                                pt="4px"
+                                                fontSize="15px"
+                                                ml="5px"
+                                            >
+                                                {selected == false
+                                                    ? 'Ascending order'
+                                                    : 'Descending order'}
+                                            </Typography>
+                                        )
                                     }}
                                     color={
                                         props.title.toLowerCase() === 'lost'
@@ -233,7 +376,15 @@ const FilterBar = (props) => {
                                             key={item.value}
                                             value={item.value}
                                         >
-                                            <em><Typography pt='4px' fontSize='15px' ml='5px'>{item.label}</Typography></em>
+                                            <em>
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    {item.label}
+                                                </Typography>
+                                            </em>
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -246,17 +397,35 @@ const FilterBar = (props) => {
                                 </InputLabel>
                                 <Select
                                     displayEmpty
-                                    sx={{height: '45px'}}
+                                    sx={{ height: '45px' }}
                                     startAdornment={
-                                        <InputAdornment position='start'>
+                                        <InputAdornment position="start">
                                             <TbSortDescending />
-                                        </InputAdornment> 
+                                        </InputAdornment>
                                     }
                                     renderValue={(selected) => {
                                         if (selected.length === 0) {
-                                            return <Typography pt='4px' fontSize='15px' ml='5px'>Choose order</Typography>;
+                                            return (
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    Choose order
+                                                </Typography>
+                                            )
                                         }
-                                        return <Typography pt='4px' fontSize='15px' ml='5px'>{selected == false ? 'Ascending order' : 'Descending order'}</Typography>;
+                                        return (
+                                            <Typography
+                                                pt="4px"
+                                                fontSize="15px"
+                                                ml="5px"
+                                            >
+                                                {selected == false
+                                                    ? 'Ascending order'
+                                                    : 'Descending order'}
+                                            </Typography>
+                                        )
                                     }}
                                     color={
                                         props.title.toLowerCase() === 'lost'
@@ -275,7 +444,15 @@ const FilterBar = (props) => {
                                             key={item.value}
                                             value={item.value}
                                         >
-                                            <em><Typography pt='4px' fontSize='15px' ml='5px'>{item.label}</Typography></em>
+                                            <em>
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    {item.label}
+                                                </Typography>
+                                            </em>
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -288,17 +465,33 @@ const FilterBar = (props) => {
                                 </InputLabel>
                                 <Select
                                     displayEmpty
-                                    sx={{height: '45px'}}
+                                    sx={{ height: '45px' }}
                                     startAdornment={
-                                        <InputAdornment position='start'>
+                                        <InputAdornment position="start">
                                             <MdPalette />
-                                        </InputAdornment> 
+                                        </InputAdornment>
                                     }
                                     renderValue={(selected) => {
                                         if (selected.length === 0) {
-                                            return <Typography pt='4px' fontSize='15px' ml='5px'>Choose color</Typography>;
+                                            return (
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    Choose color
+                                                </Typography>
+                                            )
                                         }
-                                        return <Typography pt='4px' fontSize='15px' ml='5px'>{selected}</Typography>;
+                                        return (
+                                            <Typography
+                                                pt="4px"
+                                                fontSize="15px"
+                                                ml="5px"
+                                            >
+                                                {selected}
+                                            </Typography>
+                                        )
                                     }}
                                     color={
                                         props.title.toLowerCase() === 'lost'
@@ -317,7 +510,15 @@ const FilterBar = (props) => {
                                             key={item.value}
                                             value={item.value}
                                         >
-                                            <em><Typography pt='4px' fontSize='15px' ml='5px'>{item.label}</Typography></em>
+                                            <em>
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    {item.label}
+                                                </Typography>
+                                            </em>
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -330,17 +531,33 @@ const FilterBar = (props) => {
                                 </InputLabel>
                                 <Select
                                     displayEmpty
-                                    sx={{height: '45px'}}
+                                    sx={{ height: '45px' }}
                                     startAdornment={
-                                        <InputAdornment position='start'>
+                                        <InputAdornment position="start">
                                             <MdExpand />
-                                        </InputAdornment> 
+                                        </InputAdornment>
                                     }
                                     renderValue={(selected) => {
                                         if (selected.length === 0) {
-                                            return <Typography pt='4px' fontSize='15px' ml='5px'>Choose size</Typography>;
+                                            return (
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    Choose size
+                                                </Typography>
+                                            )
                                         }
-                                        return <Typography pt='4px' fontSize='15px' ml='5px'>{selected}</Typography>;
+                                        return (
+                                            <Typography
+                                                pt="4px"
+                                                fontSize="15px"
+                                                ml="5px"
+                                            >
+                                                {selected}
+                                            </Typography>
+                                        )
                                     }}
                                     color={
                                         props.title.toLowerCase() === 'lost'
@@ -359,7 +576,15 @@ const FilterBar = (props) => {
                                             key={item.value}
                                             value={item.value}
                                         >
-                                            <em><Typography pt='4px' fontSize='15px' ml='5px'>{item.label}</Typography></em>
+                                            <em>
+                                                <Typography
+                                                    pt="4px"
+                                                    fontSize="15px"
+                                                    ml="5px"
+                                                >
+                                                    {item.label}
+                                                </Typography>
+                                            </em>
                                         </MenuItem>
                                     ))}
                                 </Select>
