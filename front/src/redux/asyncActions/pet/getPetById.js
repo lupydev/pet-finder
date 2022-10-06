@@ -16,8 +16,8 @@ export const extraGetPetById = {
         state.openModal = true
     },
     [getPetById.fulfilled]: (state, action) => {
-        state.statusPets = 'success'
         state.petDetail = action.payload.data.pet
+        state.statusPets = 'success'
     },
     [getPetById.rejected]: (state) => {
         state.statusPets = 'failed'

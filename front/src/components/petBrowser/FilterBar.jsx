@@ -110,7 +110,7 @@ const FilterBar = (props) => {
                                 species.map((specie) => (
                                     <MenuItem
                                         key={specie._id}
-                                        value={specie._id}
+                                        value={specie.name}
                                     >
                                         <em>
                                             <Typography
