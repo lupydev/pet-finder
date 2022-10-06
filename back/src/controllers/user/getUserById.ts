@@ -11,7 +11,7 @@ export const getUserById = async (req: Request, res: Response) => {
             return res.status(200).json({ ok: true, msg: 'User found', user })
         }
 
-        return res.status(404).json({ ok: false, msg: 'User not found' })
+        return res.status(200).json({ ok: false, msg: 'User not found' })
     } catch (error) {
         console.log(error)
         return res.status(404).json({
