@@ -60,9 +60,9 @@ const extraInputs = [
         label: 'Color',
         values: [
             { label: 'White', value: 'White' },
-            { label: 'Grey', value: 'Black' },
-            { label: 'Brown', value: 'Brown' },
             { label: 'Black', value: 'Black' },
+            { label: 'Brown', value: 'Brown' },
+            { label: 'LightBrown', value: 'LightBrown' },
             { label: 'Grey', value: 'Grey' },
         ],
     },

@@ -13,7 +13,6 @@ import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
 
 const PetCard = ({ pets }) => {
-    useEffect(() => {console.log(pets)},[pets])
     return pets.pets ? (
         pets.pets.map((pet) => {
             return (
