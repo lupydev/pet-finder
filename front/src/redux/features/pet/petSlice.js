@@ -7,13 +7,14 @@ import { getSpecies, extraGetSpecies } from '../../asyncActions/pet/getSpecies'
 import { getBreeds, extraGetBreeds } from '../../asyncActions/pet/getBreeds'
 
 const initialState = {
-    LostPetsData: [],
-    FoundPetsData: [],
+    LostPetsData: {},
+    FoundPetsData: {},
     petDetail: [],
     species: [],
     breeds:[],
     statusPets: 'loading',
     statusBreeds: 'loading',
+    statusCreatePet: 'loading',
     error: ''
 }
 
@@ -24,6 +25,8 @@ const petSlice = createSlice({
         cleanPetData: (state) => {
             state.petDetail= []
             state.statusPets = 'loading'
+            statusBreeds= 'loading'
+            statusCreatePet= 'loading'
         },},
     extraReducers: {
         ...extraCreatePet,

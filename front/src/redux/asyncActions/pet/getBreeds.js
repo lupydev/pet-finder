@@ -7,7 +7,6 @@ export const getBreeds = createAsyncThunk('breeds/', async (species) => {
         return await axios.get(`${API_ROUTE}/breeds`, species)
     } catch (err) {
         console.log(err)
-        console.log('failed')
     }
 })
 

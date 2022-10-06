@@ -97,8 +97,6 @@ const PetBrowser = (props) => {
 
     }, [props.title])
 
-    useEffect(()=>{console.log(species);},[species])
-
 
     return (
         <>
@@ -119,7 +117,7 @@ const PetBrowser = (props) => {
                 gap="24px"
             >
                 <PetCard
-                    pets={type === 'Lost' ? LostPetsData : FoundPetsData}
+                    pets={type === 'Lost' ? LostPetsData.pets : FoundPetsData.pets}
                 />
             </Stack>
 

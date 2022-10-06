@@ -8,7 +8,6 @@ export const createUser = createAsyncThunk('users/create', async (user) => {
     try {
         return await axios.post(`${API_ROUTE}/users/create`, user)
     } catch (err) {
-        console.log('entro');
         console.log(err)
     }
 })

@@ -1,5 +1,7 @@
 [
-    {"_id": "white", "name": "White"},
-    {"_id": "black", "name": "Black"},
-    {"_id": "brown", "name": "Brown"}
+    {"_id": "White", "name": "White"},
+    {"_id": "Black", "name": "Black"},
+    {"_id": "Brown", "name": "Brown"},
+    {"_id": "LightBrown", "name": "LightBrown"},
+    {"_id": "Grey", "name": "Grey"}
 ]
