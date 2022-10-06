@@ -6,7 +6,7 @@ import getAllBreedsBySpecies from '../controllers/breeds/getAllBreedsBySpecies'
 
 const router = express.Router();
 
-router.get('/', getAllBreedsBySpecies)
+router.get('/getBreed/:species', getAllBreedsBySpecies)
 
 router.post('/newBreed', createBreed)
 

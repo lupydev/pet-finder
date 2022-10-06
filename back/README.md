@@ -114,12 +114,29 @@
 
 | KEY  | TYPE   | REQUIRED |
 | ---- | ------ | -------- |
-| name | String | YES      |
+| name | String |YES,UNIQUE|
 
 **Example Routes Species**
 
 -   http://localhost:PORT/species/all
--   http://localhost:PORT/species/new
--   http://localhost:PORT/species/delete/63349820bb516339d5f633f0
+
+
+## Breed
+
+| TYPE   | DETAIL         | ROUTE                                         | SEND                             |
+| ------ | ---------------| ----------------------------------------      | -------------------------------- |
+| GET    | get all breeds | http://localhost:4000/breeds/getBreed/:species| params : {id species}             |
+| POST   | create breed   | http://localhost:PORT/breed/newBreed          | body : accept Breed Schema   |
+| DELETE | delete breed   | http://localhost:PORT/breed/delete/:id        | params : { id }                  |
+
+**Breed Schema**
+
+| KEY  | TYPE   | REQUIRED |
+| ---- | ------ | -------- |
+| name | String | YES,UNIQUE      |
+
+**Example Routes Species**
+
+-   http://localhost:4000/breeds/getBreed/6334982abb516339d5f633f2 Bring all breeds of dog species
 
 

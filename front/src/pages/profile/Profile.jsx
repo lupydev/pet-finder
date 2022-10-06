@@ -1,10 +1,16 @@
 import { Typography } from '@mui/material'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ProfileDetail from './ProfileDetail'
 
 const Profile = () => {
+    const dispatch = useDispatch();
     const { status, userData } = useSelector((state) => state.user)
+
+    useEffect(() => {
+        dispatch(getUserData())
+    }, [])
 
     return (
         <div>
@@ -15,7 +21,11 @@ const Profile = () => {
                 User Profile
             </Typography>
             <div>
-                {status === 'success' && <ProfileDetail userData={userData} />}
+                {status === 'success' && userData ? (
+                    <ProfileDetail userData={userData} />
+                ) : (
+                    'Profile is loading, please reload the page'
+                )}
             </div>
         </div>
     )

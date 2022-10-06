@@ -20,6 +20,8 @@ export const extraCreateUser = {
         if (action.payload.data.ok) {
             state.createUserStatus = 'success'
 
+            console.log(action.payload.data);
+
             let user = {
                 token: action.payload.data.token,
                 id: action.payload.data.id,
@@ -33,7 +35,6 @@ export const extraCreateUser = {
                 icon: 'success',
                 title: `${action.payload.data.msg} and signed in successfully`,
             })
-
         }
     },
     [createUser.rejected]: (state, action) => {

@@ -18,7 +18,7 @@ import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { createPet } from '../../redux/asyncActions/pet/createPet'
 
 const FORM_VALIDATION = Yup.object().shape({
-    name: Yup.string(),
+    name: Yup.string().max(15),
     description: Yup.string(),
     species: Yup.string().required('Required'),
     gender: Yup.string().required('Required'),

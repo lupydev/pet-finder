@@ -8,10 +8,12 @@ import {
     IconButton,
     Button,
 } from '@mui/material'
+import { useSelector } from 'react-redux'
 
-const ProfileDetail = ({ userData }) => {
+const ProfileDetail = () => {
+    const { userData } = useSelector((state) => state.user)
+
     return (
-        <div key={userData?._id}>
             <Container maxWidth="sm">
                 <Paper
                     elevation={6}
@@ -62,20 +64,24 @@ const ProfileDetail = ({ userData }) => {
                             >
                                 <b> Nickname:</b> {userData?.nickname}
                             </Typography>
-                            <Typography
-                                sx={{
-                                    p: 1.5,
-                                    borderRadius: 3,
-                                    bgcolor: 'white',
-                                    marginRight: '1rem',
-                                    marginLeft: '1rem',
-                                }}
-                                border="1px solid gray"
-                                color="text.primary"
-                                marginTop={3}
-                            >
-                                <b> Full Name:</b> {userData?.fullName}
-                            </Typography>
+                            {userData?.fullname ? (
+                                <Typography
+                                    sx={{
+                                        p: 1.5,
+                                        borderRadius: 3,
+                                        bgcolor: 'white',
+                                        marginRight: '1rem',
+                                        marginLeft: '1rem',
+                                    }}
+                                    border="1px solid gray"
+                                    color="text.primary"
+                                    marginTop={3}
+                                >
+                                    <b> Full Name:</b> {userData?.fullname}
+                                </Typography>
+                            ) : (
+                                ''
+                            )}
 
                             <Typography
                                 sx={{
@@ -115,7 +121,6 @@ const ProfileDetail = ({ userData }) => {
                     </Button>
                 </Box>
             </Container>
-        </div>
     )
 }
 
