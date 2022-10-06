@@ -14,7 +14,17 @@ const PetDetails = () => {
     useEffect(() => {
         dispatch(cleanPetData())
         dispatch(getPetById(id))
+        return () => {
+            dispatch(cleanPetData())
+          }
+
     }, [])
+
+    useEffect(()=>{
+
+        console.log(petDetail, 'petDetail');
+
+    },[petDetail])
 
     return (
         <Stack
@@ -38,7 +48,7 @@ const PetDetails = () => {
                     paddingY="35px"
                 >
                     <Avatar
-                        src={petDetail.img[0]}
+                        src={petDetail?.img[0]}
                         sx={{ width: 150, height: 150 }}
                     />
                     <Typography
@@ -47,26 +57,26 @@ const PetDetails = () => {
                         fontFamily={'Merriweather'}
                         fontWeight="bold"
                     >
-                        {petDetail.name}
+                        {petDetail?.name}
                     </Typography>
                     <Typography variant="h6" >
-                        <b>Specie:</b> {petDetail.species.name}
+                        <b>Specie:</b> {petDetail?.species.name}
                     </Typography>
                     <Typography variant="h6" >
                         <b> Breed: </b>
-                        {petDetail.breed.name}
+                        {petDetail?.breed.name}
                     </Typography>
                     <Typography variant="h6" >
                         <b> Age: </b>
-                        {petDetail.age}
+                        {petDetail?.age}
                     </Typography>
                     <Typography variant="h6" >
                         <b> Gender: </b>
-                        {petDetail.gender}
+                        {petDetail?.gender}
                     </Typography>
                     <Typography variant="h6" >
                         <b> Size: </b>
-                        {petDetail.size}
+                        {petDetail?.size}
                     </Typography>
                 </Stack>
             )}
