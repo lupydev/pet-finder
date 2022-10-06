@@ -1,5 +1,5 @@
-{
-    "small": "Small",
-    "medium": "Medium",
-    "large": "Large"
-}
+[
+    {"_id": "small", "name": "Small"},
+    {"_id": "medium", "name": "Medium"},
+    {"_id": "large", "name": "Large"}
+]

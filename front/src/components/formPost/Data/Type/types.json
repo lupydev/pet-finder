@@ -1,4 +1,4 @@
-{
-    "lost": "Lost",
-    "found": "Found"
-}
+[
+    {"_id": "lost", "name": "Lost"},
+    {"_id": "found", "name": "Found"}
+]

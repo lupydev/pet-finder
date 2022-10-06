@@ -97,6 +97,8 @@ const PetBrowser = (props) => {
 
     }, [props.title])
 
+    useEffect(()=>{console.log(species);},[species])
+
 
     return (
         <>

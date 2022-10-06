@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import { Grid, Typography } from '@mui/material'
@@ -13,6 +13,8 @@ import age from './Data/Age/age.json'
 import color from './Data/Color/color.json'
 import types from './Data/Type/types.json'
 import ButtonWrapper from './Button/ButtonWrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 
 const INITIAL_FORM_STATE = {
     name: '',
@@ -50,6 +52,14 @@ const FORM_VALIDATION = Yup.object().shape({
 })
 
 export const CreatePostFinal = () => {
+
+    const dispatch = useDispatch()
+    const { species, breeds } = useSelector((state) => state.pet)
+
+    useEffect(() => {
+        dispatch(getSpecies())
+    }, [])
+
     return (
         <Formik
             initialValues={{ ...INITIAL_FORM_STATE }}
@@ -79,7 +89,7 @@ export const CreatePostFinal = () => {
                             id="species"
                             name="species"
                             label="Specie"
-                            options={specie}
+                            options={species}
                         />
                     </Grid>
                     <Grid item xs={2}>
