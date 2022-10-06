@@ -14,6 +14,7 @@ import { getUserData } from '../redux/asyncActions/user/getUserData'
 import { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
+import { CreatePostFinal } from '../components/formPost/CreatePostFinal'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -53,6 +54,9 @@ const Routing = () => {
             </Route>
             <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
                 <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
+                <Route path="/createPost" element={<CreatePostFinal />} />
             </Route>
         </Routes>
     )
