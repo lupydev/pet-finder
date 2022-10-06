@@ -174,6 +174,7 @@ export const CreatePostFinal = () => {
                         <Typography>Pictures</Typography>
                     </Grid>
                     <Grid item xs={6}>
+                        {/* agregar cloudinary widget */}
                         <TextfieldWrapper
                             id="img"
                             name="img"
