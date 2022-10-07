@@ -12,6 +12,8 @@ const Profile = () => {
         dispatch(getUserData())
     }, [])
 
+    console.log(userData)
+
     return (
         <div>
             <Typography

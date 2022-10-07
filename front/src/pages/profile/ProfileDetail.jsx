@@ -22,7 +22,7 @@ const ProfileDetail = () => {
     const handleModeEdit = () => {
         setEditOn(!editOn)
     }
-
+    console.log(userData)
     return (
         <Container maxWidth="sm">
             {editOn ? (

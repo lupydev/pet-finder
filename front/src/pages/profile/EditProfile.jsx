@@ -77,7 +77,9 @@ const EditProfile = () => {
             denyButtonText: `Don't save`,
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(putEditUser(userData._id, valuesUpdate))
+                dispatch(
+                    putEditUser({ id: userData._id, newData: valuesUpdate })
+                )
                 Swal.fire('Your profile has been updated!')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
