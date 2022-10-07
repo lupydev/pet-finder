@@ -5,7 +5,7 @@ import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ProfileDetail from './ProfileDetail'
 
 const Profile = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const { status, userData } = useSelector((state) => state.user)
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const Profile = () => {
             </Typography>
             <div>
                 {status === 'success' && userData ? (
-                    <ProfileDetail userData={userData} />
+                    <ProfileDetail />
                 ) : (
                     'Profile is loading, please reload the page'
                 )}

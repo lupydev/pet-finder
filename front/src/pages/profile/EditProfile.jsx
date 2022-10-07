@@ -34,6 +34,7 @@ const clientSchema = Yup.object().shape({
 
 const EditProfile = () => {
     const { userData } = useSelector((state) => state.user)
+    console.log(userData)
 
     const dispatch = useDispatch()
 
@@ -76,7 +77,7 @@ const EditProfile = () => {
             denyButtonText: `Don't save`,
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(putEditUser(userData.id, valuesUpdate))
+                dispatch(putEditUser(userData._id, valuesUpdate))
                 Swal.fire('Your profile has been updated!')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')

@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Toast } from '../../../utils/swalToasts' 
+import { Toast } from '../../../utils/swalToasts'
 
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const login = createAsyncThunk('login/', async ({ email, password }) => {
+    console.log('logeaste', email, password)
     try {
         return await axios.post(`${API_ROUTE}/login`, {
             email,
@@ -39,14 +40,11 @@ export const extraLogin = {
                 icon: 'success',
                 title: 'Signed in successfully',
             })
-        
-            
         } else {
             Toast.fire({
                 icon: 'error',
                 title: action.payload.data.msg,
             })
-        
         }
     },
     [login.rejected]: (state) => {
