@@ -1,36 +1,32 @@
 import Pet from '../../schemas/Pet'
 import { Request, Response } from 'express'
 
-
-/*const getsort = (order:unknown)=>{
-    if(order){
-        if (order ==="asc"){
-            return {name:1}
-        }else if(order === "des"){
-            return {name:-1}
-        }
-    }return {}
-}*/
-
 const getAllPets = async (req: Request, res: Response) => {
     const { type } = req.params
+    const { color, gender, species, breed, name } = req.query
 
-    const {color,gender,species,breed}= req.query
-  
-      
+    console.log(name)
+
     try {
         const pets = await Pet.find({
             $and: [{ type: { $eq: type } }, { status: 'Active' }],
         })
-            .and([color ? { color: { $regex: `^${color}`, $options: 'i' } } : {}])
-            .and([gender ? { gender: { $regex: `^${gender}`, $options: 'i' } } : {}])
-            .and([species ? { species: { $eq:species } } : {}])
-            .and([breed ? { breed: { $eq:breed } } : {}])
+            .and([
+                color ? { color: { $regex: `^${color}`, $options: 'i' } } : {},
+            ])
+            .and([
+                gender
+                    ? { gender: { $regex: `^${gender}`, $options: 'i' } }
+                    : {},
+            ])
+            .and([species ? { species: { $eq: species } } : {}])
+            .and([breed ? { breed: { $eq: breed } } : {}])
             .populate({ path: 'breed', select: '_id name' })
             .populate({ path: 'species', select: '_id name' })
-        ///.sort(getsort(order))
-            
-        
+            .sort(name === 'asc' ? { name: 1 } : {})
+            .sort(name === 'desc' ? { name: -1 } : {})
+
+
         if (pets.length > 0) {
             return res
                 .status(200)

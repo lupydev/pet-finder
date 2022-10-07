@@ -96,8 +96,8 @@ const PetCard = ({ pets }) => {
                             </Stack>
                             
                             <Button
-                                // component={Link}
-                                // to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
+                                component={Link}
+                                to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
                                 variant="contained"
                                 color={
                                     pet.type.toLowerCase() === 'lost'
