@@ -68,10 +68,22 @@ const PetCardsContainer = (props) => {
     const dispatch = useDispatch()
     const type = props.title
     const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
+    const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
+    const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
 
     useEffect(() => {
         dispatch(getPets(type))
     }, [])
+
+    useEffect(() => {
+        Object.entries(LostPetsData).length > 0 &&
+            setLimitedLostPetsData(LostPetsData.pets.slice(0, 4))
+    }, [LostPetsData])
+
+    useEffect(() => {
+        Object.entries(FoundPetsData).length > 0 &&
+            setLimitedFoundPetsData(FoundPetsData.pets.slice(0, 4))
+    }, [FoundPetsData])
 
     return (
         <Stack gap="25px">
@@ -86,7 +98,11 @@ const PetCardsContainer = (props) => {
             </Typography>
             <Stack direction="row" justifyContent={'center'} gap="24px">
                 <PetCard
-                    pets={type === 'Lost' ? LostPetsData : FoundPetsData}
+                    pets={
+                        type === 'Lost'
+                            ? limitedLostPetsData
+                            : limitedFoundPetsData
+                    }
                 />
             </Stack>
             <Button

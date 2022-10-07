@@ -7,10 +7,7 @@ export const getUserData = createAsyncThunk('users/', async () => {
 
     const config = { headers: { token: user.token } }
     try {
-        return await axios.get(
-            `${API_ROUTE}/users/${user.id}`,
-            config
-        )
+        return await axios.get(`${API_ROUTE}/users/${user.id}`, config)
     } catch (err) {
         console.log(err)
     }

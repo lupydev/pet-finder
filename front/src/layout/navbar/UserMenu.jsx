@@ -51,7 +51,7 @@ const UserMenu = () => {
     }
 
     return (
-        status === 'success' && (
+        userData !== undefined && (
             <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                     <Button
@@ -59,7 +59,7 @@ const UserMenu = () => {
                         startIcon={<IoMdArrowDropdown color="black" />}
                         sx={{ p: 0, px: 1 }}
                     >
-                        <Avatar alt={userData.nickname} src={userData.img} />
+                        <Avatar alt={userData?.nickname} src={userData?.img} />
                     </Button>
                 </Tooltip>
                 <Menu

@@ -4,19 +4,17 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getPetById } from '../../redux/asyncActions/pet/getPetById'
+import { cleanPetData } from '../../redux/features/pet/PetSlice'
 
 const PetDetails = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
-    const { petDetail, status } = useSelector((state) => state.pet)
+    const { petDetail, statusPets } = useSelector((state) => state.pet)
 
     useEffect(() => {
+        dispatch(cleanPetData())
         dispatch(getPetById(id))
     }, [])
-
-    useEffect(() => {
-        petDetail && console.log(petDetail)
-    }, [petDetail])
 
     return (
         <Stack
@@ -27,7 +25,7 @@ const PetDetails = () => {
                 gap: '20px',
             }}
         >
-            {status === 'success' && (
+            {statusPets === 'success' && (
                 <Stack
                     width="400px"
                     borderRadius="20px"
