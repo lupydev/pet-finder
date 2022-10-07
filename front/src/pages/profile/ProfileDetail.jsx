@@ -18,16 +18,15 @@ const ProfileDetail = () => {
 
     const { userData } = useSelector((state) => state.user)
 
-    console.log(editOn)
-
-    const handleEdit = () => {
-        console.log('Enviando a edit')
-        setEditOn(true)
+    const handleModeEdit = () => {
+        setEditOn(!editOn)
     }
 
     return (
         <Container maxWidth="sm">
-            {!editOn ? (
+            {editOn ? (
+                <EditProfile />
+            ) : (
                 <Paper
                     elevation={6}
                     sx={{
@@ -114,8 +113,6 @@ const ProfileDetail = () => {
                         </Box>
                     </Box>
                 </Paper>
-            ) : (
-                <EditProfile />
             )}
             <Box
                 sx={{
@@ -125,7 +122,7 @@ const ProfileDetail = () => {
                 }}
             >
                 <Button
-                    onClick={handleEdit}
+                    onClick={handleModeEdit}
                     variant="contained"
                     color="primary"
                     sx={{
@@ -134,8 +131,7 @@ const ProfileDetail = () => {
                         fontWeight: 'regular',
                     }}
                 >
-                    Edit Information /*Cuando estoy editando cambiar el texto
-                    del boton y poner para volver atras*/
+                    {editOn ? 'Back to profile' : 'Go to edit'}
                 </Button>
             </Box>
         </Container>
