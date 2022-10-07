@@ -1,7 +1,15 @@
 import { Formik, Field, Form } from 'formik'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import {
+    Avatar,
+    Box,
+    Button,
+    Stack,
+    TextField,
+    Typography,
+} from '@mui/material'
 import * as Yup from 'yup'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const clientSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -24,14 +32,20 @@ const clientSchema = Yup.object().shape({
         ),
 })
 
-const initialValues = {
-    nickname: '',
-    fullname: '',
-    email: '',
-    password: '',
-}
-
 const EditProfile = () => {
+    const { userData } = useSelector((state) => state.user)
+
+    useEffect(() => {
+        console.log(userData)
+    }, [userData])
+
+    const initialValues = {
+        img: userData?.img,
+        nickname: userData?.nickname,
+        fullname: userData?.fullname,
+        email: userData?.email,
+        password: userData?.password,
+    }
     return (
         <Box>
             <Formik
@@ -50,6 +64,35 @@ const EditProfile = () => {
                                 px="20px"
                                 width="100%"
                             >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        marginTop: '10px',
+                                        marginBottom: '10px',
+                                    }}
+                                >
+                                    <Avatar
+                                        sx={{
+                                            width: 200,
+                                            height: 200,
+                                            marginBottom: '20px',
+                                        }}
+                                        src={userData?.img}
+                                        alt={userData?.nickname}
+                                    />
+                                    <TextField
+                                        id="profilePicture"
+                                        placeholder="Select image"
+                                        type="file"
+                                        name="profilePicture"
+                                        onChange={() => {
+                                            console.log('cambiar imagen')
+                                        }}
+                                    />
+                                </Box>
                                 <label htmlFor="nickname">Nickname *</label>
                                 <Stack
                                     component={Field}
