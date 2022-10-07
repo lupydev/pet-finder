@@ -9,7 +9,10 @@ import {
 } from '@mui/material'
 import * as Yup from 'yup'
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { putEditUser } from '../../redux/asyncActions/user/putEditUser'
 
 const clientSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -19,9 +22,6 @@ const clientSchema = Yup.object().shape({
     fullname: Yup.string()
         .min(3, 'Full Name is too short')
         .max(25, 'Full Name is too long!'),
-    email: Yup.string()
-        .email('Invalid Email')
-        .required('This field is required'),
     password: Yup.string()
         .min(8, 'Password is too short')
         .max(20, 'Password is too long!')
@@ -35,6 +35,10 @@ const clientSchema = Yup.object().shape({
 const EditProfile = () => {
     const { userData } = useSelector((state) => state.user)
 
+    const dispatch = useDispatch()
+
+    const [image, setImage] = React.useState(userData.img)
+
     useEffect(() => {
         console.log(userData)
     }, [userData])
@@ -43,21 +47,54 @@ const EditProfile = () => {
         img: userData?.img,
         nickname: userData?.nickname,
         fullname: userData?.fullname,
-        email: userData?.email,
-        password: userData?.password,
+        password: '',
     }
 
-    // const handleSubmitEdit = (values) => {
-    //     console.log(values)
-    // }
+    const handleUploadPicture = async (e) => {
+        try {
+            const files = e.target.files
+            const data = new FormData()
+            data.append('file', files[0])
+            data.append('upload_preset', 'pet')
+            const response = await axios.post(
+                // 'https://api.cloudinary.com/v1_1/dpqihpvhd/image/upload',
+                data
+            )
+            setImage(response)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    const handleSubmitEdit = (values) => {
+        const valuesUpdate = {
+            ...values,
+            userData: image,
+        }
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(putEditUser(userData.id, valuesUpdate))
+                Swal.fire('Your profile has been updated!')
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+        console.log(valuesUpdate)
+    }
 
     return (
         <Box>
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values) => {
-                    // handleSubmitEdit(values)
-                    console.log('estas editando')
+                    handleSubmitEdit(values)
                 }}
                 enableReinitialize={true}
                 validationSchema={clientSchema}
@@ -94,12 +131,12 @@ const EditProfile = () => {
                                         placeholder="Select image"
                                         type="file"
                                         name="profilePicture"
-                                        onChange={() => {
-                                            console.log('cambiar imagen')
+                                        onChange={(e) => {
+                                            handleUploadPicture(e)
                                         }}
                                     />
                                 </Box>
-                                <label htmlFor="nickname">Nickname *</label>
+                                <label htmlFor="nickname">New Nickname *</label>
                                 <Stack
                                     component={Field}
                                     type="text"
@@ -131,7 +168,7 @@ const EditProfile = () => {
                                 px="20px"
                                 width="100%"
                             >
-                                <label htmlFor="fullname">Full Name</label>
+                                <label htmlFor="fullname">New Full Name</label>
                                 <Stack
                                     component={Field}
                                     type="text"
@@ -163,39 +200,7 @@ const EditProfile = () => {
                                 px="20px"
                                 width="100%"
                             >
-                                <label htmlFor="email">Email *</label>
-                                <Stack
-                                    component={Field}
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email"
-                                    sx={{
-                                        border: ' 2px solid #BFBFBF',
-                                        width: '100%',
-                                        height: '50px',
-                                        borderRadius: '10px',
-                                        transition: 'border .3s ease',
-                                        px: '20px',
-                                        fontSize: '20px',
-                                    }}
-                                />
-                                {errors.email && touched.email ? (
-                                    <Typography
-                                        color="red"
-                                        fontSize="16px"
-                                        mt="5px"
-                                    >
-                                        {errors.email}
-                                    </Typography>
-                                ) : null}
-                            </Stack>
-                            <Stack
-                                justifyContent="flex-start"
-                                px="20px"
-                                width="100%"
-                            >
-                                <label htmlFor="email">Password *</label>
+                                <label htmlFor="email">New Password *</label>
                                 <Stack
                                     component={Field}
                                     type="password"
