@@ -9,19 +9,19 @@
 
 ## User
 
-| TYPE   | DETAIL         | ROUTE                                  | SEND                                           |
-| ------ | -------------- | -------------------------------------- | ---------------------------------------------- |
-| GET    | get all users  | http://localhost:PORT/users            |                                                |
-| GET    | get user by Id | http://localhost:PORT/users/:id        | params : { id }                                |
-| POST   | create an user | http://localhost:PORT/users/create     | body : accept all User Schema                  |
-| PUT    | update an user | http://localhost:PORT/users/update/:id | params : { id }, body : accept all User Schema |
-| DELETE | delete an user | http://localhost:PORT/users/delete/:id | params : { id }                                |
+| TYPE   | DETAIL         | ROUTE                                  | SEND                                                              |
+| ------ | -------------- | -------------------------------------- | ----------------------------------------------------------------- |
+| GET    | get all users  | http://localhost:PORT/users            | headers: {token}                                                  |
+| GET    | get user by Id | http://localhost:PORT/users/:id        | params : { id } , headers: {token}                                |
+| POST   | create an user | http://localhost:PORT/users/create     | body : accept all User Schema                                     |
+| PUT    | update an user | http://localhost:PORT/users/update/:id | params : { id }, body : accept all User Schema, ,headers: {token} |
+| DELETE | delete an user | http://localhost:PORT/users/delete/:id | params : { id } , headers: {token}                                |
 
 **User Schema**
 
 | KEY            | TYPE                   | REQUIRED   |
 | -------------- | ---------------------- | ---------- |
-| nickname       | String                 | NO         |
+| nickname       | String                 | YES,UNIQUE |
 | fullname       | String                 | NO         |
 | img            | String                 | NO         |
 | password       | String                 | YES        |
@@ -50,10 +50,11 @@
 
 ## Authenticacion
 
-| TYPE | DETAIL      | ROUTE                       | SEND                  |
-| ---- | ----------- | --------------------------- | --------------------- |
-| POST | login       | http://localhost:PORT/login | body: email, password |
-| POST | renew token | http://localhost:PORT/renew | headers : { token }   |
+| TYPE | DETAIL       | ROUTE                             | SEND                  |
+| ---- | ------------ | --------------------------------- | --------------------- |
+| POST | login        | http://localhost:PORT/login       | body: email, password |
+| POST | renew token  | http://localhost:PORT/renew       | headers : { token }   |
+| POST | login Google | http://localhost:PORT/loginGoogle | body: credential      |
 
 ## Pet
 
@@ -125,31 +126,28 @@
 
 **Species Schema**
 
-| KEY  | TYPE   | REQUIRED |
-| ---- | ------ | -------- |
-| name | String |YES,UNIQUE|
+| KEY  | TYPE   | REQUIRED   |
+| ---- | ------ | ---------- |
+| name | String | YES,UNIQUE |
 
 **Example Routes Species**
 
 -   http://localhost:PORT/species/all
 
-
 ## Breed
 
-| TYPE   | DETAIL         | ROUTE                                         | SEND                             |
-| ------ | ---------------| ----------------------------------------      | -------------------------------- |
-| GET    | get all breeds | http://localhost:4000/breeds/getBreed/:species| params : {id species}             |
-| POST   | create breed   | http://localhost:PORT/breed/newBreed          | body : accept Breed Schema   |
-| DELETE | delete breed   | http://localhost:PORT/breed/delete/:id        | params : { id }                  |
+| TYPE   | DETAIL         | ROUTE                                          | SEND                       |
+| ------ | -------------- | ---------------------------------------------- | -------------------------- |
+| GET    | get all breeds | http://localhost:4000/breeds/getBreed/:species | params : {id species}      |
+| POST   | create breed   | http://localhost:PORT/breed/newBreed           | body : accept Breed Schema |
+| DELETE | delete breed   | http://localhost:PORT/breed/delete/:id         | params : { id }            |
 
 **Breed Schema**
 
-| KEY  | TYPE   | REQUIRED |
-| ---- | ------ | -------- |
-| name | String | YES,UNIQUE      |
+| KEY  | TYPE   | REQUIRED   |
+| ---- | ------ | ---------- |
+| name | String | YES,UNIQUE |
 
 **Example Routes Species**
 
 -   http://localhost:4000/breeds/getBreed/6334982abb516339d5f633f2 Bring all breeds of dog species
-
-
