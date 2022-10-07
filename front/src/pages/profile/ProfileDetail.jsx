@@ -8,13 +8,26 @@ import {
     IconButton,
     Button,
 } from '@mui/material'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import EditProfile from './EditProfile'
 
 const ProfileDetail = () => {
+    const [editOn, setEditOn] = useState(false)
+
     const { userData } = useSelector((state) => state.user)
 
+    console.log(editOn)
+
+    const handleEdit = () => {
+        console.log('Enviando a edit')
+        setEditOn(true)
+    }
+
     return (
-            <Container maxWidth="sm">
+        <Container maxWidth="sm">
+            {!editOn ? (
                 <Paper
                     elevation={6}
                     sx={{
@@ -101,26 +114,31 @@ const ProfileDetail = () => {
                         </Box>
                     </Box>
                 </Paper>
-                <Box
+            ) : (
+                <EditProfile />
+            )}
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '1rem',
+                }}
+            >
+                <Button
+                    onClick={handleEdit}
+                    variant="contained"
+                    color="primary"
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginTop: '1rem',
+                        borderRadius: 2,
+                        textTransform: 'none',
+                        fontWeight: 'regular',
                     }}
                 >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                            borderRadius: 2,
-                            textTransform: 'none',
-                            fontWeight: 'regular',
-                        }}
-                    >
-                        Edit Information
-                    </Button>
-                </Box>
-            </Container>
+                    Edit Information /*Cuando estoy editando cambiar el texto
+                    del boton y poner para volver atras*/
+                </Button>
+            </Box>
+        </Container>
     )
 }
 
