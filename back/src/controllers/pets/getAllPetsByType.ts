@@ -3,13 +3,13 @@ import { Request, Response } from 'express'
 
 const getAllPets = async (req: Request, res: Response) => {
     const { type } = req.params
-    const { color, gender, species, breed, name, date } = req.query
+    const { color, gender, species, breed, name, date, size} = req.query
 
     console.log(name)
 
     try {
         const pets = await Pet.find({
-            $and: [{ type: { $eq: type } }, { status: 'Active' }],
+            $and: [{ type: { $eq: type }}, {status:"Active"}],
         })
             .and([
                 color ? { color: { $regex: `^${color}`, $options: 'i' } } : {},
@@ -17,6 +17,11 @@ const getAllPets = async (req: Request, res: Response) => {
             .and([
                 gender
                     ? { gender: { $regex: `^${gender}`, $options: 'i' } }
+                    : {},
+            ])
+            .and([
+                size
+                    ? { size: { $regex: `^${size}`, $options: 'i' } }
                     : {},
             ])
             .and([species ? { species: { $eq: species } } : {}])
