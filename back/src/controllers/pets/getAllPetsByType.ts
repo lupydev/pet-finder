@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 const getAllPets = async (req: Request, res: Response) => {
     const { type } = req.params
-    const { color, gender, species, breed, name } = req.query
+    const { color, gender, species, breed, name, date } = req.query
 
     console.log(name)
 
@@ -25,6 +25,8 @@ const getAllPets = async (req: Request, res: Response) => {
             .populate({ path: 'species', select: '_id name' })
             .sort(name === 'asc' ? { name: 1 } : {})
             .sort(name === 'desc' ? { name: -1 } : {})
+            .sort(date === 'asc' ? { date: 1 } : {})
+            .sort(date === 'desc' ? { date: -1 } : {})
 
 
         if (pets.length > 0) {
