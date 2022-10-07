@@ -46,18 +46,24 @@ const EditProfile = () => {
         email: userData?.email,
         password: userData?.password,
     }
+
+    // const handleSubmitEdit = (values) => {
+    //     console.log(values)
+    // }
+
     return (
         <Box>
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values) => {
-                    handleSubmit(values)
+                    // handleSubmitEdit(values)
+                    console.log('estas editando')
                 }}
                 enableReinitialize={true}
                 validationSchema={clientSchema}
             >
-                {({ handleSubmit, errors, touched }) => (
-                    <Form onSubmit={handleSubmit}>
+                {({ errors, touched }) => (
+                    <Form>
                         <Stack alignItems="center" gap="20px">
                             <Stack
                                 justifyContent="flex-start"
