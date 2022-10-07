@@ -5,8 +5,17 @@ export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 export const putEditUser = createAsyncThunk(
     'users/putEditUser',
     async ({ id, newData }) => {
+        const user = JSON.parse(window.localStorage.getItem('user'))
+
+        console.log(id, newData, user)
+
+        const config = { headers: { token: user.token } }
         try {
-            return await axios.put(`${API_ROUTE}/users/update/${id}`, newData)
+            return await axios.put(
+                `${API_ROUTE}/users/update/${id}`,
+                newData,
+                config
+            )
         } catch (err) {
             console.log(err)
         }

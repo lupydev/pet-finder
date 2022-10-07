@@ -39,10 +39,6 @@ const EditProfile = () => {
 
     const [image, setImage] = React.useState(userData.img)
 
-    useEffect(() => {
-        console.log(userData)
-    }, [userData])
-
     const initialValues = {
         img: userData?.img,
         nickname: userData?.nickname,
@@ -86,7 +82,6 @@ const EditProfile = () => {
                 Swal.fire('Changes are not saved', '', 'info')
             }
         })
-        console.log(valuesUpdate)
     }
 
     return (
