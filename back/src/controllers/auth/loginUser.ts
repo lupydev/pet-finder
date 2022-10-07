@@ -28,7 +28,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
         const token = await generateJWT(user.id, user.admin)
 
-        return res.status(201).json({
+        return res.status(200).json({
             ok: true,
             msg: 'User Logged',
             token,

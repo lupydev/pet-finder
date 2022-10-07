@@ -11,11 +11,11 @@ const initialState = {
     FoundPetsData: {},
     petDetail: undefined,
     species: [],
-    breeds:[],
+    breeds: [],
     statusPets: 'loading',
     statusBreeds: 'loading',
     statusCreatePet: 'loading',
-    error: ''
+    error: '',
 }
 
 const petSlice = createSlice({
@@ -23,22 +23,23 @@ const petSlice = createSlice({
     initialState,
     reducers: {
         cleanPetData: (state) => {
-            state.petDetail= undefined
+            state.petDetail = undefined
             state.statusPets = 'loading'
-            state.statusBreeds= 'loading'
-            state.statusCreatePet= 'loading'
-        },},
+            state.statusBreeds = 'loading'
+            state.statusCreatePet = 'loading'
+        },
+    },
     extraReducers: {
         ...extraCreatePet,
         ...extraGetPets,
         ...extraGetPetById,
         ...extraEditPet,
         ...extraGetSpecies,
-        ...extraGetBreeds
+        ...extraGetBreeds,
     },
 })
 
-export {createPet, getPets, getPetById, editPet, getSpecies, getBreeds}
+export { createPet, getPets, getPetById, editPet, getSpecies, getBreeds }
 
-export const {cleanPetData} = petSlice.actions
+export const { cleanPetData } = petSlice.actions
 export default petSlice.reducer
