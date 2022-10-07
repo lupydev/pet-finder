@@ -71,7 +71,7 @@
 | KEY         | TYPE                   | REQUIRED |
 | ----------- | ---------------------- | -------- |
 | name        | String                 | NO       |
-| userId      | Object Id              | YES      |
+| userId      | Object Ids             | YES      |
 | description | String                 | NO       |
 | species     | Object Id              | YES      |
 | gender      | String enum            | YES      |
