@@ -62,6 +62,7 @@
 | ------ | ------------------ | -------------------------------------      |-------------------------------------------- |
 | GET    | get all lost pets  | http://localhost:PORT/pets/getAll/:type    | params: {Lost}                              |
 | GET    | get all found pets | http://localhost:PORT/pets/getAll/:type    | params : {Found}                            |
+| GET    | get all meet pets  | http://localhost:PORT/pets/getAll/:type    | params : {Meet}                             |
 | POST   | create a pet       | http://localhost:PORT/pets/newPet          | body : accept all Pet Shema                 |
 | PUT    | update a pet       | http://localhost:PORT/pets/update/:id      |params : { id }, body : accept all Pet Schema|
 | DELETE | delete a pet       | http://localhost:PORT/pets/delete/:id      | params : { id }                             |
@@ -96,9 +97,9 @@
 
 -   gender: ['Male', 'Female','Unknown']
 -   size: ['Small', 'Medium', 'Large']
--   type: ['Lost', 'Found']
+-   type: ['Lost', 'Found', 'Meet']
 -   color: ['White','Black','Brown','LightBrown', 'Grey']
--   StatusPet: ['Active', 'Pause','Deleted','Meet']
+-   StatusPet: ['Active', 'Pause','Deleted']
 
 **Example Routes Pet**
 
