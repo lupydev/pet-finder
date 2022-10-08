@@ -8,11 +8,12 @@ import {
     Typography,
 } from '@mui/material'
 import * as Yup from 'yup'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { putEditUser } from '../../redux/asyncActions/user/putEditUser'
+import { useNavigate } from 'react-router-dom'
 
 const clientSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -34,11 +35,10 @@ const clientSchema = Yup.object().shape({
 
 const EditProfile = () => {
     const { userData } = useSelector((state) => state.user)
-    console.log(userData)
 
     const dispatch = useDispatch()
 
-    const [image, setImage] = React.useState(userData.img)
+    const [image, setImage] = useState(userData.img)
 
     const initialValues = {
         img: userData?.img,
@@ -81,6 +81,7 @@ const EditProfile = () => {
                     putEditUser({ id: userData._id, newData: valuesUpdate })
                 )
                 Swal.fire('Your profile has been updated!')
+                useNavigate('/profile')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
             }

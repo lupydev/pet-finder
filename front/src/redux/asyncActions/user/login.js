@@ -5,7 +5,6 @@ import { Toast } from '../../../utils/swalToasts'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const login = createAsyncThunk('login/', async ({ email, password }) => {
-    console.log('logeaste', email, password)
     try {
         return await axios.post(`${API_ROUTE}/login`, {
             email,

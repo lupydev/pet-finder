@@ -39,7 +39,7 @@ const Login = () => {
 
     useEffect(() => {
         if (userInfo.isLogged) {
-            navigate('/profile')
+            navigate('/')
             dispatch(getUserData())
         }
     }, [userInfo.isLogged])
