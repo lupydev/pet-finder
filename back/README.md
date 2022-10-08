@@ -67,8 +67,10 @@
 | DELETE | delete a pet       | http://localhost:PORT/pets/delete/:id      | params : { id }                             |
 
 **Filters**
-| GET    | get all pets lost or found | http://localhost:PORT/pets/getAll/:type?key=value  | params :{Found} or {Lost}   |
-|        | using filters by query     |                                                    |Query params: Key:{} Value:{}|
+| TYPE | DETAIL       | ROUTE                             | SEND                  |
+| ---- | ------------ | --------------------------------- | --------------------- |
+| GET   | get all pets lost or found        | http://localhost:PORT/pets/getAll/:type?key=value      | params :{Found} or{Lost} or {Meet} Query params: Key:{} Value:{} |
+
 
 **Pet Schema**
 

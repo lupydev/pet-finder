@@ -8,6 +8,5 @@ export enum StatusUser {
 export enum StatusPet {
     Active = 'Active',
     Pause = 'Pause',
-    Deleted = 'Deleted',
-    Meet = 'Meet',
+    Deleted = 'Deleted'
 }
