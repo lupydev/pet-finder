@@ -103,6 +103,13 @@
   "include": [
     "./src/**/*",
     "*.json"
-  ]
+  ],
+  "exclude": [
+    "node_modules","build"
+  ],
+  "files":["types.d.ts"],
+  "files.exclude":{
+    "build":true
+  }
 
 }
