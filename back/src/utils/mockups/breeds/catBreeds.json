@@ -1,0 +1,284 @@
+[
+    {
+        "_id": "633ad94d2abe126b96795ea3",
+        "name": "American Wirehaired",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ad9622abe126b96795ea5",
+        "name": "Asian",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ad9762abe126b96795ea7",
+        "name": "Russian Blue",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ad9862abe126b96795ea9",
+        "name": "Balinese",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ad9972abe126b96795eab",
+        "name": "Bengali",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ad9cd2abe126b96795eaf",
+        "name": "Short Hair Japanese Bobtail",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ad9ee2abe126b96795eb1",
+        "name": "Long Haired Japanese Bobtail",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ada022abe126b96795eb3",
+        "name": "Bombay",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ada1e2abe126b96795eb5",
+        "name": "Norwegian Forest",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ada372abe126b96795eb7",
+        "name": "Siberian Forest",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ada562abe126b96795eb9",
+        "name": "British Shorthair",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ada712abe126b96795ebb",
+        "name": "Burmese",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ada872abe126b96795ebd",
+        "name": "Burmilla",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633ada962abe126b96795ebf",
+        "name": "Chinchilla",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adab22abe126b96795ec1",
+        "name": "Cornish Rex",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adad82abe126b96795ec3",
+        "name": "Welsh",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adae62abe126b96795ec5",
+        "name": "Devon Rex",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adafe2abe126b96795ec7",
+        "name": "Exotic Shorthair",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb162abe126b96795ec9",
+        "name": "Scottish Fold",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb272abe126b96795ecb",
+        "name": "Khao Manee",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb352abe126b96795ecd",
+        "name": "Korat",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb462abe126b96795ecf",
+        "name": "Laperm",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb5b2abe126b96795ed1",
+        "name": "Maine Coon",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb6e2abe126b96795ed3",
+        "name": "Manx",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb842abe126b96795ed5",
+        "name": "Egyptian Mau",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adb9a2abe126b96795ed7",
+        "name": "Australian Mist",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adbad2abe126b96795ed9",
+        "name": "Munchkin",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adbbf2abe126b96795edb",
+        "name": "Ocigato",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adbd32abe126b96795edd",
+        "name": "Eastern Shorthair",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adbea2abe126b96795edf",
+        "name": "Long Haired Eastern",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc022abe126b96795ee1",
+        "name": "Long Haired Persian",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc202abe126b96795ee3",
+        "name": "Pixie Bob",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc332abe126b96795ee5",
+        "name": "Ragdoll",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc432abe126b96795ee7",
+        "name": "Savannah",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc562abe126b96795ee9",
+        "name": "Selkirk Rex",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc662abe126b96795eeb",
+        "name": "Siamese",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc752abe126b96795eed",
+        "name": "Singapore",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc882abe126b96795eef",
+        "name": "Snowshoe",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adc962abe126b96795ef1",
+        "name": "Somali",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adca42abe126b96795ef3",
+        "name": "Sphynx",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633adcb12abe126b96795ef5",
+        "name": "Tiffanie",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633afa82d1678bf37ffd0c75",
+        "name": "Abyssinian ",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633afb28d1678bf37ffd0c7b",
+        "name": "Tonkinese",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633afb58d1678bf37ffd0c7e",
+        "name": "Thai",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633afb8bd1678bf37ffd0c81",
+        "name": "Turkish Van",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633afbb6d1678bf37ffd0c85",
+        "name": "Turkish Angora",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    },
+    {
+        "_id": "633b1623d1678bf37ffd0c8b",
+        "name": "Mixed-breed",
+        "species": "63349820bb516339d5f633f0",
+        "__v": 0
+    }
+]

@@ -4,6 +4,8 @@ import { User } from '../interfaces/user'
 const userSchema = new Schema<User>({
     nickname: {
         type: String,
+        required: true,
+        unique: true,
     },
     fullname: {
         type: String,
@@ -33,6 +35,7 @@ const userSchema = new Schema<User>({
     },
     externId: {
         type: String,
+        default: '',
     },
     email_verified: {
         type: Boolean,
