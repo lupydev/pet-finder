@@ -60,3 +60,5 @@ app.listen(port, async () => {
     await fillUsers()
     console.log(`Server listening on port: ${port}`)
 })
+
+export default app
