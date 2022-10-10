@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Toast } from '../../../utils/swalToasts' 
+import { Toast } from '../../../utils/swalToasts'
 
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
-export const login = createAsyncThunk('login/', async ({ email, password }) => {
+export const login = createAsyncThunk('renew/', async ({ id, admin }) => {
     try {
-        return await axios.post(`${API_ROUTE}/login`, {
-            email,
-            password,
+        return await axios.post(`${API_ROUTE}/renew`, {
+            id,
+            admin,
         })
     } catch (err) {
         console.log(err)
@@ -27,7 +27,7 @@ export const extraLogin = {
                 token: action.payload.data.token,
                 id: action.payload.data.id,
                 isLogged: true,
-                isAdmin: action.payload.data.admin,
+                admin: action.payload.data.admin,
                 isGoogle: false,
             }
 
@@ -35,18 +35,11 @@ export const extraLogin = {
 
             window.localStorage.setItem('user', JSON.stringify(user))
 
-            Toast.fire({
-                icon: 'success',
-                title: 'Signed in successfully',
-            })
-        
-            
         } else {
             Toast.fire({
                 icon: 'error',
                 title: action.payload.data.msg,
             })
-        
         }
     },
     [login.rejected]: (state) => {

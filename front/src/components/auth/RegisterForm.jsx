@@ -1,10 +1,20 @@
 import { Formik, Field, Form } from 'formik'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import {
+    Avatar,
+    Box,
+    Button,
+    CircularProgress,
+    Stack,
+    TextField,
+    Typography,
+} from '@mui/material'
 import * as Yup from 'yup'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createUser } from '../../redux/asyncActions/user/createUser'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const clientSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -37,9 +47,38 @@ const initialValues = {
 const RegisterForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
+    const [image, setImage] = useState('')
     const { userInfo } = useSelector((state) => state.user)
 
+    const handleUpload = async (e) => {
+        try {
+            const files = e.target.files
+            const data = new FormData()
+            data.append('file', files[0])
+            data.append('upload_preset', 'upload_petfinder')
+            setLoading(true)
+            const response = await axios.post(
+                'https://api.cloudinary.com/v1_1/diyk4to11/image/upload',
+                data
+            )
+            const file = response.data
+            setImage(file.secure_url)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Upload failed. Please, try again',
+            })
+        }
+    }
+
     const handleSubmit = (values) => {
+        if (image !== '') {
+            values = { ...values, img: image }
+        }
         dispatch(createUser(values))
     }
 
@@ -68,7 +107,7 @@ const RegisterForm = () => {
                 Register
             </Typography>
             <Stack
-                width="400px"
+                width="500px"
                 borderRadius="20px"
                 display="flex"
                 direction="column"
@@ -215,6 +254,32 @@ const RegisterForm = () => {
                                             {errors.password}
                                         </Typography>
                                     ) : null}
+                                </Stack>
+                                <Stack
+                                    direction="row"
+                                    alignItems="center"
+                                    px="20px"
+                                    width="100%"
+                                    gap="10px"
+                                >
+                                    {loading ? (
+                                        <CircularProgress />
+                                    ) : (
+                                        <Avatar
+                                            src={image}
+                                            sx={{
+                                                width: '5rem',
+                                                height: '5rem',
+                                            }}
+                                        />
+                                    )}
+                                    <TextField
+                                        id="profilePicture"
+                                        placeholder="Upload an image"
+                                        type="file"
+                                        name="profilePicture"
+                                        onChange={(e) => handleUpload(e)}
+                                    />
                                 </Stack>
                                 <Button
                                     variant="contained"

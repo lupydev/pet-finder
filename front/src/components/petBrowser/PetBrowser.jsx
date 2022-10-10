@@ -6,10 +6,12 @@ import FilterBar from './FilterBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPet } from '../../redux/asyncActions/pet/createPet'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
+import { getPetsBrowser } from '../../redux/asyncActions/pet/getPetsBrowser'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
 import { cleanPetData } from '../../redux/features/pet/PetSlice'
 import { Paginationn } from './Pagination'
+import Loading from '../loading/Loading'
 
 const INITIAL_FILTER = {
     species: '',
@@ -114,12 +116,12 @@ const PetBrowser = (props) => {
         dispatch(cleanPetData())
         setPage(1);
         
-        dispatch(getPets({ type, filter }))
+        dispatch(getPetsBrowser({ type, filter }))
         dispatch(getSpecies())
     }, [props.title])
     
     useEffect(() => {
-        dispatch(getPets({ type, filter }))
+        dispatch(getPetsBrowser({ type, filter }))
         setPage(1);
     }, [filter])
 
