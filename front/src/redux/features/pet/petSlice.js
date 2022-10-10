@@ -3,6 +3,7 @@ import { createPet, extraCreatePet } from '../../asyncActions/pet/createPet'
 import { editPet, extraEditPet } from '../../asyncActions/pet/editPet'
 import { getPetById, extraGetPetById } from '../../asyncActions/pet/getPetById'
 import { getPets, extraGetPets } from '../../asyncActions/pet/getPets'
+import {getPetsBrowser, extraGetPetsBrowser} from '../../asyncActions/pet/getPetsBrowser'
 import { getSpecies, extraGetSpecies } from '../../asyncActions/pet/getSpecies'
 import { getBreeds, extraGetBreeds } from '../../asyncActions/pet/getBreeds'
 
@@ -32,6 +33,7 @@ const petSlice = createSlice({
     extraReducers: {
         ...extraCreatePet,
         ...extraGetPets,
+        ...extraGetPetsBrowser,
         ...extraGetPetById,
         ...extraEditPet,
         ...extraGetSpecies,
@@ -39,7 +41,7 @@ const petSlice = createSlice({
     },
 })
 
-export { createPet, getPets, getPetById, editPet, getSpecies, getBreeds }
+export { createPet, getPets, getPetsBrowser, getPetById, editPet, getSpecies, getBreeds }
 
 export const { cleanPetData } = petSlice.actions
 export default petSlice.reducer
