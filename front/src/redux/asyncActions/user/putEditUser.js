@@ -28,7 +28,8 @@ export const extraPutEditUser = {
     },
     [putEditUser.fulfilled]: (state, action) => {
         state.status = 'success'
-        state.userInfo = action.payload.data
+        console.log(action.payload.data)
+        state.userData = action.payload.data.userUpdated
     },
     [putEditUser.rejected]: (state, action) => {
         state.status = 'failed'

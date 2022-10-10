@@ -26,7 +26,6 @@ const clientSchema = Yup.object().shape({
     password: Yup.string()
         .min(8, 'Password is too short')
         .max(20, 'Password is too long!')
-        .required('This field is required')
         .matches(
             /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             'Password must contain at least 8 characters, one uppercase, one number and one special case character'
@@ -35,6 +34,7 @@ const clientSchema = Yup.object().shape({
 
 const EditProfile = () => {
     const { userData } = useSelector((state) => state.user)
+    const navigate = useNavigate();
 
     const dispatch = useDispatch()
 
@@ -44,7 +44,6 @@ const EditProfile = () => {
         img: userData?.img,
         nickname: userData?.nickname,
         fullname: userData?.fullname,
-        password: '',
     }
 
     const handleUploadPicture = async (e) => {
@@ -66,7 +65,7 @@ const EditProfile = () => {
     const handleSubmitEdit = (values) => {
         const valuesUpdate = {
             ...values,
-            userData: image,
+            img: image,
         }
         Swal.fire({
             title: 'Are you sure?',
@@ -81,7 +80,7 @@ const EditProfile = () => {
                     putEditUser({ id: userData._id, newData: valuesUpdate })
                 )
                 Swal.fire('Your profile has been updated!')
-                useNavigate('/profile')
+                navigate('/profile')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
             }
@@ -199,7 +198,7 @@ const EditProfile = () => {
                                 px="20px"
                                 width="100%"
                             >
-                                <label htmlFor="email">New Password *</label>
+                                <label htmlFor="email">New Password</label>
                                 <Stack
                                     component={Field}
                                     type="password"
