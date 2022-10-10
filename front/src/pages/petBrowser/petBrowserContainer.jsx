@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material'
 import React from 'react'
-import PetBrowser from '../../components/petBrowser/petBrowser'
+import PetBrowser from '../../components/petBrowser/PetBrowser'
 
 const petBrowserContainer = (props) => {
     return (
