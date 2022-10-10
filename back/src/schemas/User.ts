@@ -5,7 +5,6 @@ const userSchema = new Schema<User>({
     nickname: {
         type: String,
         required: true,
-        unique: true,
     },
     fullname: {
         type: String,
