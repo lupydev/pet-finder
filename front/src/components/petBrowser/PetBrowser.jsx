@@ -9,6 +9,7 @@ import { getPets } from '../../redux/asyncActions/pet/getPets'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
 import { cleanPetData } from '../../redux/features/pet/PetSlice'
+import Loading from '../loading/Loading'
 
 const INITIAL_FILTER = {
     specie: '',
@@ -27,7 +28,7 @@ const principalInputs = [
         type: 'select',
         name: 'gender',
         label: 'Gender',
-        values: ['Male', 'Female','Unknown'],
+        values: ['Male', 'Female', 'Unknown'],
     },
     {
         type: 'select',
@@ -82,7 +83,9 @@ const extraInputs = [
 
 const PetBrowser = (props) => {
     const dispatch = useDispatch()
-    const { LostPetsData, FoundPetsData, species, breeds } = useSelector((state) => state.pet)
+    const { LostPetsData, FoundPetsData, status } = useSelector(
+        (state) => state.pet
+    )
     const [filter, setFilter] = useState(INITIAL_FILTER)
     const type = props.title
 
@@ -95,8 +98,10 @@ const PetBrowser = (props) => {
         dispatch(getPets(type))
         dispatch(getSpecies())
 
+        return () => {
+            dispatch(cleanPetData())
+        }
     }, [props.title])
-
 
     return (
         <>
@@ -117,32 +122,40 @@ const PetBrowser = (props) => {
                 gap="24px"
             >
                 <PetCard
-                    pets={type === 'Lost' ? LostPetsData.pets : FoundPetsData.pets}
+                    pets={
+                        type === 'Lost' ? LostPetsData.pets : FoundPetsData.pets
+                    }
                 />
             </Stack>
 
-            <Pagination sx={{marginTop: '20px'}} count={10} showFirstButton showLastButton />
+            <Pagination
+                sx={{ marginTop: '20px' }}
+                count={10}
+                showFirstButton
+                showLastButton
+            />
 
-            {type === 'Lost' ?
-            <Stack
-                height="100px"
-                width={'100%'}
-                sx={{
-                    backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)`,
-                    backgroundRepeat: 'repeat',
-                }}
-            ></Stack>
-            :
-            <Stack
-                height="100px"
-                width={'100%'}
-                sx={{
-                    backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)`,
-                    backgroundRepeat: 'repeat',
-                }}
-            ></Stack>}
-
-
+            {type === 'Lost' ? (
+                <Stack
+                    height="100px"
+                    width={'100%'}
+                    sx={{
+                        backgroundImage:
+                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)',
+                        backgroundRepeat: 'repeat',
+                    }}
+                ></Stack>
+            ) : (
+                <Stack
+                    height="100px"
+                    width={'100%'}
+                    sx={{
+                        backgroundImage:
+                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
+                        backgroundRepeat: 'repeat',
+                    }}
+                ></Stack>
+            )}
         </>
     )
 }

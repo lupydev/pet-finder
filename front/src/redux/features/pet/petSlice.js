@@ -12,9 +12,8 @@ const initialState = {
     petDetail: undefined,
     species: [],
     breeds: [],
-    statusPets: 'loading',
+    status: 'loading',
     statusBreeds: 'loading',
-    statusCreatePet: 'loading',
     error: '',
 }
 
@@ -23,10 +22,11 @@ const petSlice = createSlice({
     initialState,
     reducers: {
         cleanPetData: (state) => {
+            state.LostPetsData= {}
+            state.FoundPetsData= {}
             state.petDetail = undefined
-            state.statusPets = 'loading'
+            state.status = 'loading'
             state.statusBreeds = 'loading'
-            state.statusCreatePet = 'loading'
         },
     },
     extraReducers: {

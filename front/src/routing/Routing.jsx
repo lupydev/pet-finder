@@ -6,19 +6,18 @@ import Login from '../components/auth/Login'
 import PetBrowserContainer from '../pages/petBrowser/petBrowserContainer'
 import About from '../pages/AboutUs/About'
 import PetDetails from '../pages/petDetails/PetDetails'
-import User from '../pages/user/User'
 import Profile from '../pages/profile/Profile'
 import { useDispatch, useSelector } from 'react-redux'
 import isUserLogged from '../utils/isUserLogged'
 import { getUserData } from '../redux/asyncActions/user/getUserData'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
 import { CreatePostFinal } from '../components/formPost/CreatePostFinal'
 
 const Routing = () => {
     const dispatch = useDispatch()
-    const { userInfo, userData } = useSelector((state) => state.user)
+    const { userInfo } = useSelector((state) => state.user)
 
     useEffect(() => {
         if (isUserLogged()) {
@@ -26,7 +25,7 @@ const Routing = () => {
             dispatch(userIsLogged())
         }
     }, [])
-    
+
     return (
         <Routes>
             <Route index element={<Home />} />
@@ -43,11 +42,10 @@ const Routing = () => {
             <Route path="/lostPets/:id" element={<PetDetails />} />
             <Route path="/contact" element={<ContactForm />} />
             <Route path="/signin" element={<RegisterForm />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/aboutUs" element={<About />} />
-            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
-                <Route path="/user" element={<User />} />
+            <Route element={<PrivateRoute redirectPath={'/profile'} isAllowed={!userInfo?.isLogged} />}>
+                <Route path="/login" element={<Login />} />
             </Route>
+            <Route path="/aboutUs" element={<About />} />
             <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
                 <Route path="/profile" element={<Profile />} />
             </Route>

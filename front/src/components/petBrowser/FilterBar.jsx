@@ -1,3 +1,4 @@
+import React from 'react'
 import {
     Accordion,
     AccordionDetails,
@@ -261,7 +262,7 @@ const FilterBar = (props) => {
                             }
                         />
                     }
-                    label="Show ReFound"
+                    label="Show Meet"
                 />
                 {/* <Button
                     variant="contained"

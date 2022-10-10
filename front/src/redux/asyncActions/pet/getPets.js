@@ -12,15 +12,15 @@ export const getPets = createAsyncThunk('pets/getAll/', async (type = {}) => {
 
 export const extraGetPets = {
     [getPets.pending]: (state) => {
-        state.statusPets = 'loading'
+        state.status = 'loading'
     },
     [getPets.fulfilled]: (state, action) => {
-        state.statusPets = 'success'
+        state.status = 'success'
         action.payload.data.type === 'Lost'
             ? (state.LostPetsData = action.payload.data)
             : (state.FoundPetsData = action.payload.data)
     },
     [getPets.rejected]: (state) => {
-        state.statusPets = 'failed'
+        state.status = 'failed'
     },
 }

@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
 import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
+import Loading from '../../loading/Loading'
 
 const PetCard = ({ pets }) => {
     return pets ? (
@@ -59,11 +60,11 @@ const PetCard = ({ pets }) => {
                             >
                                 {pet.name}
                             </Typography>
-                            <Stack w="100%" direction="row" display='flex'>
+                            <Stack w="100%" direction="row" display="flex">
                                 <Stack direction="row" width="50%">
-                                    <MdPets fontSize='20px' />
+                                    <MdPets fontSize="20px" />
                                     <Typography
-                                        ml='5px'
+                                        ml="5px"
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
@@ -72,9 +73,9 @@ const PetCard = ({ pets }) => {
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" width="50%">
-                                <FaTransgender fontSize='20px' />
+                                    <FaTransgender fontSize="20px" />
                                     <Typography
-                                        ml='5px'
+                                        ml="5px"
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
@@ -84,17 +85,17 @@ const PetCard = ({ pets }) => {
                                 </Stack>
                             </Stack>
                             <Stack direction="row" width="100%">
-                                <GrMap fontSize='20px' />
-                                    <Typography
-                                        ml='5px'
-                                        noWrap
-                                        variant="body2"
-                                        color="text.secondary"
-                                    >
-                                        {pet.location}
-                                    </Typography>
+                                <GrMap fontSize="20px" />
+                                <Typography
+                                    ml="5px"
+                                    noWrap
+                                    variant="body2"
+                                    color="text.secondary"
+                                >
+                                    {pet.location}
+                                </Typography>
                             </Stack>
-                            
+
                             <Button
                                 component={Link}
                                 to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
@@ -118,7 +119,7 @@ const PetCard = ({ pets }) => {
             )
         })
     ) : (
-        <Typography>Loading</Typography>
+        <Loading />
     )
 }
 
