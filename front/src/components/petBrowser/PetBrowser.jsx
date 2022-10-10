@@ -1,4 +1,4 @@
-import { Pagination, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import PetCard from '../home/pets/PetCard'
 import Title from './Title'
@@ -9,21 +9,27 @@ import { getPets } from '../../redux/asyncActions/pet/getPets'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
 import { cleanPetData } from '../../redux/features/pet/PetSlice'
+import { Paginationn } from './Pagination'
 import Loading from '../loading/Loading'
 
 const INITIAL_FILTER = {
-    specie: '',
+    species: '',
     gender: '',
     city: '',
-    date: true,
-    name: true,
+    date: '',
+    name: '',
     color: '',
     size: '',
-    isRefound: true,
+    isRefound: '',
 }
 
 const principalInputs = [
-    { type: 'select', name: 'specie', label: 'Specie', values: ['Dog', 'Cat'] },
+    {
+        type: 'select',
+        name: 'species',
+        label: 'Specie',
+        values: ['Dog', 'Cat'],
+    },
     {
         type: 'select',
         name: 'gender',
@@ -44,8 +50,8 @@ const extraInputs = [
         name: 'date',
         label: 'Date',
         values: [
-            { label: 'Ascending order', value: false },
-            { label: 'Descending order', value: true },
+            { label: 'Asc order', value: 'asc' },
+            { label: 'Desc order', value: 'desc' },
         ],
     },
     {
@@ -53,8 +59,8 @@ const extraInputs = [
         name: 'name',
         label: 'Name',
         values: [
-            { label: 'Ascending order', value: false },
-            { label: 'Descending order', value: true },
+            { label: 'Asc order', value: 'asc' },
+            { label: 'Desc order', value: 'desc' },
         ],
     },
     {
@@ -83,25 +89,61 @@ const extraInputs = [
 
 const PetBrowser = (props) => {
     const dispatch = useDispatch()
-    const { LostPetsData, FoundPetsData, status } = useSelector(
+    const { LostPetsData, FoundPetsData, species, breeds } = useSelector(
         (state) => state.pet
     )
     const [filter, setFilter] = useState(INITIAL_FILTER)
     const type = props.title
+    const [page, setPage] = useState(1)
+    const [perPage, setPerPage] = useState(10)
+    const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
+    const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
+    let max
+    if (type === 'Lost') {
+        max = LostPetsData.pets?.length / perPage;
+    } else {
+        max = FoundPetsData.pets?.length / perPage;
+    }
 
     const handleChange = (e) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
     }
 
+    useEffect(() => {},[])
+
     useEffect(() => {
         dispatch(cleanPetData())
-        dispatch(getPets(type))
+        setPage(1);
+        
+        dispatch(getPets({ type, filter }))
         dispatch(getSpecies())
-
-        return () => {
-            dispatch(cleanPetData())
-        }
     }, [props.title])
+    
+    useEffect(() => {
+        dispatch(getPets({ type, filter }))
+        setPage(1);
+    }, [filter])
+
+    useEffect(() => {
+        Object.entries(LostPetsData).length > 0 &&
+            setLimitedLostPetsData(
+                LostPetsData.pets.slice(
+                    (page - 1) * perPage,
+                    (page - 1) * perPage + perPage
+                )
+            )
+    }, [page, LostPetsData])
+
+    useEffect(() => {
+        Object.entries(FoundPetsData).length > 0 &&
+            setLimitedFoundPetsData(
+                FoundPetsData.pets.slice(
+                    (page - 1) * perPage,
+                    (page - 1) * perPage + perPage
+                )
+            )
+    }, [page, FoundPetsData])
+
 
     return (
         <>
@@ -123,25 +165,25 @@ const PetBrowser = (props) => {
             >
                 <PetCard
                     pets={
-                        type === 'Lost' ? LostPetsData.pets : FoundPetsData.pets
+                        type === 'Lost'
+                            ? limitedLostPetsData
+                            : limitedFoundPetsData
                     }
                 />
             </Stack>
 
-            <Pagination
-                sx={{ marginTop: '20px' }}
-                count={10}
-                showFirstButton
-                showLastButton
-            />
+            {max > 1 ? (
+                <Paginationn page={page} setPage={setPage} max={max} />
+            ) : (
+                null
+            )}
 
             {type === 'Lost' ? (
                 <Stack
                     height="100px"
                     width={'100%'}
                     sx={{
-                        backgroundImage:
-                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)',
+                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)`,
                         backgroundRepeat: 'repeat',
                     }}
                 ></Stack>
@@ -150,8 +192,7 @@ const PetBrowser = (props) => {
                     height="100px"
                     width={'100%'}
                     sx={{
-                        backgroundImage:
-                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
+                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)`,
                         backgroundRepeat: 'repeat',
                     }}
                 ></Stack>
