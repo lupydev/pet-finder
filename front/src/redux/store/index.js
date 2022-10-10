@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import petSlice from '../features/pet/petSlice'
+import PetSlice from '../features/pet/petSlice'
 import userSlice from '../features/user/userSlice'
 
 const store = configureStore({
     reducer: {
-        pet: petSlice,
+        pet: PetSlice,
         user: userSlice,
     },
     middleware: (getDefaultMiddleware) =>
