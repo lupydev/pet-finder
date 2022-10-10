@@ -44,6 +44,6 @@ Andres Fuentes
 
 <a href=""><img src="https://img.shields.io/badge/LinkedIn-blue.svg?style=flat&logo=LinkedIn&logoColor=%blue" /></a>
 
-## Communication
+## Communicatio
 
 [![](https://img.shields.io/badge/Discord-black.svg?style=flat&logo=Discord&logoColor=white)](https://discord.gg/dyxDxw8w) [![](https://img.shields.io/badge/Trello-black.svg?style=flat&logo=Trello&logoColor=white)](https://trello.com/b/BbJrA9Gq/no-country-s4-11) [![](https://img.shields.io/badge/Slack-black.svg?style=flat&logo=Slack&logoColor=white)](https://app.slack.com/client/T032Y55Q6VC/C042JFPAZD0)
