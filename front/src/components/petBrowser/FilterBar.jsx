@@ -1,3 +1,4 @@
+import React from 'react'
 import {
     Accordion,
     AccordionDetails,
@@ -86,13 +87,37 @@ const FilterBar = (props) => {
                                         </Typography>
                                     )
                                 }
+                                let option
+                                switch (selected) {
+                                case '63349820bb516339d5f633f0':
+                                    option = 'Cat'
+                                    break
+                                case '6334982abb516339d5f633f2':
+                                    option = 'Dog'
+                                    break
+                                case '6334984dbb516339d5f633f4':
+                                    option = 'Bird'
+                                    break
+                                case '63349866bb516339d5f633f6':
+                                    option = 'Horse'
+                                    break
+                                case '63349870bb516339d5f633f8':
+                                    option = 'Rabbit'
+                                    break
+                                case '63349899bb516339d5f633fa':
+                                    option = 'Hamster'
+                                    break
+                                case '633498a3bb516339d5f633fc':
+                                    option = 'Others'
+                                    break
+                                }
                                 return (
                                     <Typography
                                         pt="4px"
                                         fontSize="15px"
                                         ml="5px"
                                     >
-                                        {selected}
+                                        {option}
                                     </Typography>
                                 )
                             }}
@@ -104,19 +129,20 @@ const FilterBar = (props) => {
                             onChange={(event) => props.handleChange(event)}
                             label={props.principalInputs[0].label}
                             name={props.principalInputs[0].name}
-                            value={props.filter['specie']}
+                            value={props.filter['species']}
                         >
                             {species.length > 0 &&
                                 species.map((specie) => (
                                     <MenuItem
                                         key={specie._id}
-                                        value={specie.name}
+                                        value={specie._id}
                                     >
                                         <em>
                                             <Typography
                                                 pt="4px"
                                                 fontSize="15px"
                                                 ml="5px"
+                                                textTransform="capitalize"
                                             >
                                                 {specie.name}
                                             </Typography>
@@ -261,7 +287,7 @@ const FilterBar = (props) => {
                             }
                         />
                     }
-                    label="Show ReFound"
+                    label="Show Meet"
                 />
                 {/* <Button
                     variant="contained"
@@ -352,10 +378,9 @@ const FilterBar = (props) => {
                                                 pt="4px"
                                                 fontSize="15px"
                                                 ml="5px"
+                                                textTransform="capitalize"
                                             >
-                                                {selected == false
-                                                    ? 'Ascending order'
-                                                    : 'Descending order'}
+                                                {selected} Order
                                             </Typography>
                                         )
                                     }}
@@ -420,10 +445,9 @@ const FilterBar = (props) => {
                                                 pt="4px"
                                                 fontSize="15px"
                                                 ml="5px"
+                                                textTransform="capitalize"
                                             >
-                                                {selected == false
-                                                    ? 'Ascending order'
-                                                    : 'Descending order'}
+                                                {selected} Order
                                             </Typography>
                                         )
                                     }}

@@ -11,8 +11,14 @@ import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
 import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
+import Loading from '../../loading/Loading'
 
 const PetCard = ({ pets }) => {
+
+    function capitalize(text){
+        return text[0].toUpperCase() + text.slice(1).toLowerCase();
+    }
+
     return pets ? (
         pets.map((pet) => {
             return (
@@ -59,27 +65,30 @@ const PetCard = ({ pets }) => {
                             >
                                 {pet.name}
                             </Typography>
-                            <Stack w="100%" direction="row" display='flex'>
+                            <Stack w="100%" direction="row" display="flex">
                                 <Stack direction="row" width="50%">
-                                    <MdPets fontSize='20px' />
+                                    <MdPets fontSize="20px" />
                                     <Typography
-                                        ml='5px'
+                                        ml="5px"
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
                                     >
-                                        {pet.species.name}
+                                        {capitalize(pet.species.name)}
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" width="50%">
-                                <FaTransgender fontSize='20px' />
+                                    <FaTransgender fontSize="20px" />
                                     <Typography
-                                        ml='5px'
+                                        ml="5px"
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
-                                    >
-                                        {pet.gender}
+                                     
+                                    > 
+                                        {
+                                        capitalize(pet.gender)
+                                        }
                                     </Typography>
                                 </Stack>
                             </Stack>
@@ -90,11 +99,12 @@ const PetCard = ({ pets }) => {
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
+                                        
                                     >
-                                        {pet.location}
+                                        {capitalize(pet.location)}
                                     </Typography>
                             </Stack>
-                            
+
                             <Button
                                 component={Link}
                                 to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
@@ -118,7 +128,7 @@ const PetCard = ({ pets }) => {
             )
         })
     ) : (
-        <Typography>Loading</Typography>
+        <Loading />
     )
 }
 
