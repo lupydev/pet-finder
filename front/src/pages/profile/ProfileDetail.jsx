@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import {
     Container,
     Paper,
@@ -11,6 +11,21 @@ import {
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import EditProfile from './EditProfile'
+import PetDetail from './PetDetail'
+import { Link } from 'react-router-dom'
+
+const petPost = [
+    {
+        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664197188/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-1395952991_ksmp62.jpg',
+        name: 'Firulais',
+        description: 'Lorem ipsum apsam',
+    },
+    {
+        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664049169/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/adorable-brown-and-white-basenji-dog-smiling-and-giving-high-five-isolated-on-white_pxtf8z.jpg',
+        name: 'Carlito',
+        description: 'Lorem ipsum apsam',
+    },
+]
 
 const ProfileDetail = () => {
     const [editOn, setEditOn] = useState(false)
@@ -131,6 +146,33 @@ const ProfileDetail = () => {
                 >
                     {editOn ? 'Back to profile' : 'Go to edit'}
                 </Button>
+            </Box>
+            <Box mt={5} sx={{ textAlign: 'center' }}>
+                <Typography variant="h5" color="text.primary">
+                    <b>My Posts</b>
+                </Typography>
+                <Box
+                    display="flex"
+                    flexWrap="nowrap"
+                    justifyContent="center"
+                    gap={5}
+                    mb={5}
+                    mt={5}
+                >
+                    {petPost?.length ? (
+                        petPost.map((pets, idx) => (
+                            <PetDetail key={idx} pets={pets} />
+                        ))
+                    ) : (
+                        <Button
+                            component={Link}
+                            to="/createPost"
+                            variant="outlined"
+                        >
+                            Make your publication!
+                        </Button>
+                    )}
+                </Box>
             </Box>
         </Container>
     )
