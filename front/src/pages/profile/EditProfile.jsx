@@ -52,9 +52,9 @@ const EditProfile = () => {
             const files = e.target.files
             const data = new FormData()
             data.append('file', files[0])
-            data.append('upload_preset', 'pet')
+            data.append('upload_preset', 'upload_profile')
             const response = await axios.post(
-                // 'https://api.cloudinary.com/v1_1/dpqihpvhd/image/upload',
+                'https://api.cloudinary.com/v1_1/diyk4to11/image/upload',
                 data
             )
             setImage(response)
