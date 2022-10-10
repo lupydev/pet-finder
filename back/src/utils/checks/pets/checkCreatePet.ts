@@ -3,6 +3,7 @@ import { body } from 'express-validator'
 export const checkCreatePet = () => {
     return [
         body("name")
+            .toUpperCase()
             .isLength({max: 15}).withMessage('The maximum length of a name is 15 characters'),
         body("userId")
             .notEmpty().withMessage('UserId field is required')
