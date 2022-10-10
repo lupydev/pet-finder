@@ -24,7 +24,7 @@ const PetsSchema = new Schema<Pets>({
         },
     ],
     location: { type: String },
-    status: {type: String, default: 'Active' },
+    status: { type: String, default: 'Active' },
     date: { type: Date, required: true },
     img: [
         {
