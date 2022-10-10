@@ -13,6 +13,11 @@ import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
 
 const PetCard = ({ pets }) => {
+
+    function capitalize(text){
+        return text[0].toUpperCase() + text.slice(1).toLowerCase();
+    }
+
     return pets ? (
         pets.map((pet) => {
             return (
@@ -56,6 +61,7 @@ const PetCard = ({ pets }) => {
                                 component="div"
                                 fontWeight={'bold'}
                                 m="0"
+                                
                             >
                                 {pet.name}
                             </Typography>
@@ -67,8 +73,9 @@ const PetCard = ({ pets }) => {
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
+                                        
                                     >
-                                        {pet.species.name}
+                                        {capitalize(pet.species.name)}
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" width="50%">
@@ -78,8 +85,11 @@ const PetCard = ({ pets }) => {
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
-                                    >
-                                        {pet.gender}
+                                     
+                                    > 
+                                        {
+                                        capitalize(pet.gender)
+                                        }
                                     </Typography>
                                 </Stack>
                             </Stack>
@@ -90,8 +100,9 @@ const PetCard = ({ pets }) => {
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
+                                        
                                     >
-                                        {pet.location}
+                                        {capitalize(pet.location)}
                                     </Typography>
                             </Stack>
                             
