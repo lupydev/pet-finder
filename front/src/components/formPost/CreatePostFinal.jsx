@@ -230,11 +230,13 @@ export const CreatePostFinal = () => {
                             label="Type"
                             options={types}
                             size="small"
+                            
                         />
                     </Grid>
                     {/* Gmaps Api */}
                     <Grid item xs={3}>
-                        <GMapsApi setLocation={setLocation} name="location" />
+                        <GMapsApi setLocation={setLocation} />
+                        
                     </Grid>
 
                     <Grid item xs={6}>
