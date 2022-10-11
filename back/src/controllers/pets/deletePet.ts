@@ -8,7 +8,7 @@ const deletePet = async (req: Request, res: Response) => {
     try {
 
         const pet = await Pet.findByIdAndDelete({ _id: id })
-        const user = await User.findById({ _id: pet?.userId })
+        const user = await User.findByIdAndUpdate({ _id: pet?.userId })
         
         if (user && user.pets !== undefined) {
             const petsArray = user.pets.filter((element) => element != id)
