@@ -9,12 +9,13 @@ export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 export const getPetsById = createAsyncThunk('pets/', async (items) => {
     const pets = []
     try {
-        Promise.all(
+        await Promise.all(
             items.map((item) => {
-                axios.get(`${API_ROUTE}/pets/${id}`)
+                axios.get(`${API_ROUTE}/pets/${item}`)
                 pets.push()
             })
         )
+        return pets
     } catch (err) {
         console.log(err)
     }
@@ -26,7 +27,10 @@ export const extraGetPetsById = {
         state.openModal = true
     },
     [getPetsById.fulfilled]: (state, action) => {
-        state.petDetail = action.payload.data.pet
+
+        console.log(action.payload);
+
+        // state.petsDetails = action.payload.data.pet
         state.status = 'success'
     },
     [getPetsById.rejected]: (state) => {
