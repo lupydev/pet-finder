@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import {
@@ -40,7 +40,7 @@ const FORM_VALIDATION = Yup.object().shape({
     breed: Yup.string().required('Required'),
     age: Yup.string(),
     color: Yup.string().required('Required'),
-    location: Yup.string(),
+    location: Yup.object().required('Required'),
     status: Yup.string(),
     date: Yup.date().required('Required'),
     observation: Yup.string(),
@@ -48,9 +48,10 @@ const FORM_VALIDATION = Yup.object().shape({
 
 export const CreatePostFinal = () => {
     const dispatch = useDispatch()
-    const [loading, setLoading] = React.useState(false)
-    const [images, setImages] = React.useState([])
+    const [loading, setLoading] = useState(false)
+    const [images, setImages] = useState([])
     const { species, breeds } = useSelector((state) => state.pet)
+    const [location, setLocation] = useState({})
 
     const getUserId = () => {
         const user = JSON.parse(window.localStorage.getItem('user'))
@@ -112,6 +113,12 @@ export const CreatePostFinal = () => {
     }, [])
 
     const handleSubmit = (values, resetForm) => {
+        if (!Object.entries(location)) {
+            console.log(location, 'location');
+            return
+        }else{
+            values.location = location
+        }
         if (images !== '') {
             values.img = images
         } else {
@@ -216,9 +223,6 @@ export const CreatePostFinal = () => {
                         />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <Typography>Location</Typography>
-                    </Grid>
                     <Grid item xs={3}>
                         <SelectWrapper
                             id="type"
@@ -230,7 +234,7 @@ export const CreatePostFinal = () => {
                     </Grid>
                     {/* Gmaps Api */}
                     <Grid item xs={3}>
-                        <GMapsApi />
+                        <GMapsApi setLocation={setLocation} name="location" />
                     </Grid>
 
                     <Grid item xs={6}>

@@ -4,7 +4,7 @@ import { TextField, Typography } from '@mui/material'
 
 const libraries = ['places']
 
-const GMapsApi = () => {
+const GMapsApi = ({ setLocation }) => {
     const [autocomplete, setAutocomplete] = useState(null)
 
     const { isLoaded } = useJsApiLoader({
@@ -19,11 +19,11 @@ const GMapsApi = () => {
     const onPlaceChanged = () => {
         try {
             if (autocomplete !== null) {
-                const addressInput = autocomplete.getPlace().formatted_address
-                const latitude = autocomplete.getPlace().geometry.location.lat()
-                const longitude = autocomplete.getPlace().geometry.location.lng()
+                const country = autocomplete.getPlace().formatted_address
+                const lat = autocomplete.getPlace().geometry.location.lat()
+                const long = autocomplete.getPlace().geometry.location.lng()
 
-                console.log(addressInput, latitude, longitude)
+                setLocation({ country, lat, long })
             }
         } catch (error) {
             console.log(error)
@@ -33,16 +33,18 @@ const GMapsApi = () => {
     return isLoaded ? (
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
             <TextField
+                id="location"
+                name="location"
                 fullWidth={true}
                 type="text"
                 size="small"
-                placeholder="Insert Location"
-                required
+                label="Location"
             />
         </Autocomplete>
     ) : (
         'Error!!'
     )
+
 }
 
 export default GMapsApi

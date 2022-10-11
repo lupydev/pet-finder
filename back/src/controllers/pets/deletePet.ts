@@ -7,7 +7,6 @@ const deletePet = async (req: Request, res: Response) => {
     try {
 
         const pet = await Pet.findByIdAndDelete({_id: id});
-
         if(pet){               
             return res.status(200).json({ pet, ok: true, msg: 'Pet deleted' })
         }else{
