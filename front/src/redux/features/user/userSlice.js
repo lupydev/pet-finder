@@ -9,6 +9,7 @@ import {
     loginGoogle,
     extraLoginGoogle,
 } from '../../asyncActions/user/loginGoogle'
+import { renewToken, extraRenewToken } from '../../asyncActions/user/renewToken'
 
 import { googleLogout } from '@react-oauth/google'
 
@@ -47,10 +48,11 @@ const userSlice = createSlice({
         ...extraLogin,
         ...extraGetUserData,
         ...extraLoginGoogle,
+        ...extraRenewToken
     },
 })
 
-export { createUser, login, getUserData, loginGoogle }
+export { createUser, login, getUserData, loginGoogle, renewToken }
 
 export const { userIsLogged, logout } = userSlice.actions
 
