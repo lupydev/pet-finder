@@ -101,7 +101,7 @@ export const CreatePostFinal = () => {
         img: [
             'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
         ],
-        location: '',
+        location: {},
         date: '',
         observation: '',
     }
@@ -232,7 +232,7 @@ export const CreatePostFinal = () => {
                     <Grid item xs={3}>
                         <GMapsApi />
                     </Grid>
-
+                     
                     <Grid item xs={6}>
                         <TextfieldWrapper
                             id="description"
