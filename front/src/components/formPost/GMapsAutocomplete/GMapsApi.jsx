@@ -4,7 +4,7 @@ import { TextField, Typography } from '@mui/material'
 
 const libraries = ['places']
 
-const GMapsApi = () => {
+const GMapsApi = ({ setLocation }) => {
     const [autocomplete, setAutocomplete] = useState(null)
 
     const { isLoaded, loadError } = useJsApiLoader({
@@ -21,11 +21,12 @@ const GMapsApi = () => {
             if (autocomplete !== null) {
                 const addressInput = autocomplete.getPlace().formatted_address
                 const latitude = autocomplete.getPlace().geometry.location.lat()
-                const longitude = autocomplete.getPlace().geometry.location.lng()
-                
-                console.log(addressInput, latitude, longitude)
-            }
+                const longitude = autocomplete
+                    .getPlace()
+                    .geometry.location.lng()
 
+                setLocation({ addressInput, latitude, longitude })
+            }
         } catch (error) {
             console.log(error)
         }
@@ -35,11 +36,12 @@ const GMapsApi = () => {
         return (
             <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <TextField
+                    id="location"
+                    name="location"
                     fullWidth={true}
                     type="text"
                     size="small"
-                    placeholder="Insert Location"
-                    required
+                    label="Location"
                 />
             </Autocomplete>
         )
