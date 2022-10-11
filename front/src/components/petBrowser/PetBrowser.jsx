@@ -9,7 +9,7 @@ import { getPets } from '../../redux/asyncActions/pet/getPets'
 import { getPetsBrowser } from '../../redux/asyncActions/pet/getPetsBrowser'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
-import { cleanPetData } from '../../redux/features/pet/PetSlice'
+import { cleanPetData } from '../../redux/features/pet/petSlice'
 import { Paginationn } from './Pagination'
 import Loading from '../loading/Loading'
 
@@ -101,28 +101,28 @@ const PetBrowser = (props) => {
     const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
     let max
     if (type === 'Lost') {
-        max = LostPetsData.pets?.length / perPage;
+        max = LostPetsData.pets?.length / perPage
     } else {
-        max = FoundPetsData.pets?.length / perPage;
+        max = FoundPetsData.pets?.length / perPage
     }
 
     const handleChange = (e) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
     }
 
-    useEffect(() => {},[])
+    useEffect(() => {}, [])
 
     useEffect(() => {
         dispatch(cleanPetData())
-        setPage(1);
-        
+        setPage(1)
+
         dispatch(getPetsBrowser({ type, filter }))
         dispatch(getSpecies())
     }, [props.title])
-    
+
     useEffect(() => {
         dispatch(getPetsBrowser({ type, filter }))
-        setPage(1);
+        setPage(1)
     }, [filter])
 
     useEffect(() => {
@@ -144,7 +144,6 @@ const PetBrowser = (props) => {
                 )
             )
     }, [page, FoundPetsData])
-
 
     return (
         <>
@@ -176,16 +175,15 @@ const PetBrowser = (props) => {
 
             {max > 1 ? (
                 <Paginationn page={page} setPage={setPage} max={max} />
-            ) : (
-                null
-            )}
+            ) : null}
 
             {type === 'Lost' ? (
                 <Stack
                     height="100px"
                     width={'100%'}
                     sx={{
-                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)`,
+                        backgroundImage:
+                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)',
                         backgroundRepeat: 'repeat',
                     }}
                 ></Stack>
@@ -194,7 +192,8 @@ const PetBrowser = (props) => {
                     height="100px"
                     width={'100%'}
                     sx={{
-                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)`,
+                        backgroundImage:
+                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
                         backgroundRepeat: 'repeat',
                     }}
                 ></Stack>
