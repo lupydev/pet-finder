@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import {
@@ -22,6 +22,7 @@ import ButtonWrapper from './Button/ButtonWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { createPet } from '../../redux/asyncActions/pet/createPet'
+import GMapsApi from './GMapsAutocomplete/GMapsApi'
 import { TiDeleteOutline } from 'react-icons/ti'
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -39,7 +40,7 @@ const FORM_VALIDATION = Yup.object().shape({
     breed: Yup.string().required('Required'),
     age: Yup.string(),
     color: Yup.string().required('Required'),
-    location: Yup.string(),
+    location: Yup.object().required('Required'),
     status: Yup.string(),
     date: Yup.date().required('Required'),
     observation: Yup.string(),
@@ -47,9 +48,10 @@ const FORM_VALIDATION = Yup.object().shape({
 
 export const CreatePostFinal = () => {
     const dispatch = useDispatch()
-    const [loading, setLoading] = React.useState(false)
-    const [images, setImages] = React.useState([])
+    const [loading, setLoading] = useState(false)
+    const [images, setImages] = useState([])
     const { species, breeds } = useSelector((state) => state.pet)
+    const [location, setLocation] = useState({})
 
     const getUserId = () => {
         const user = JSON.parse(window.localStorage.getItem('user'))
@@ -100,7 +102,7 @@ export const CreatePostFinal = () => {
         img: [
             'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
         ],
-        location: '',
+        location: {},
         date: '',
         observation: '',
     }
@@ -111,6 +113,12 @@ export const CreatePostFinal = () => {
     }, [])
 
     const handleSubmit = (values, resetForm) => {
+        if (!Object.entries(location)) {
+            console.log(location, 'location');
+            return
+        }else{
+            values.location = location
+        }
         if (images !== '') {
             values.img = images
         } else {
@@ -143,10 +151,11 @@ export const CreatePostFinal = () => {
                             id="name"
                             name="name"
                             label="Pet name"
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
-                        <DateTimePicker id="date" name="date" />
+                        <DateTimePicker id="date" name="date" size="small" />
                     </Grid>
                     <Grid item xs={2}>
                         <SelectWrapper
@@ -154,6 +163,7 @@ export const CreatePostFinal = () => {
                             name="species"
                             label="Specie"
                             options={species}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -162,6 +172,7 @@ export const CreatePostFinal = () => {
                             name="breed"
                             label="Breed"
                             options={breed}
+                            size="small"
                         />
                     </Grid>
 
@@ -171,6 +182,7 @@ export const CreatePostFinal = () => {
                             name="gender"
                             label="Gender"
                             options={gender}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -179,6 +191,7 @@ export const CreatePostFinal = () => {
                             name="size"
                             label="Size"
                             options={size}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -187,6 +200,7 @@ export const CreatePostFinal = () => {
                             name="age"
                             label="Age"
                             options={age}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -195,6 +209,7 @@ export const CreatePostFinal = () => {
                             name="color"
                             label="Color"
                             options={color}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -204,27 +219,24 @@ export const CreatePostFinal = () => {
                             label="Observation"
                             multiline={true}
                             rows={4}
+                            size="small"
                         />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <Typography>Location</Typography>
-                    </Grid>
                     <Grid item xs={3}>
                         <SelectWrapper
                             id="type"
                             name="type"
                             label="Type"
                             options={types}
+                            size="small"
                         />
                     </Grid>
+                    {/* Gmaps Api */}
                     <Grid item xs={3}>
-                        <TextfieldWrapper
-                            id="location"
-                            name="location"
-                            label="Location"
-                        />
+                        <GMapsApi setLocation={setLocation} name="location" />
                     </Grid>
+
                     <Grid item xs={6}>
                         <TextfieldWrapper
                             id="description"
@@ -232,6 +244,7 @@ export const CreatePostFinal = () => {
                             label="Description"
                             multiline={true}
                             rows={6}
+                            size="small"
                         />
                     </Grid>
 

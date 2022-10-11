@@ -23,7 +23,7 @@ const PetsSchema = new Schema<Pets>({
             required: true,
         },
     ],
-    location: { type: String },
+    location: {country :{type:String}, lat: { type: Number}, long:{type:Number}},
     status: {type: String, default: 'Active' },
     date: { type: Date, required: true },
     img: [
