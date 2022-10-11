@@ -11,6 +11,7 @@ const initialState = {
     LostPetsData: {},
     FoundPetsData: {},
     petDetail: undefined,
+    petsDetails: [],
     species: [],
     breeds: [],
     status: 'loading',

@@ -6,10 +6,11 @@ import { googleLogout } from '@react-oauth/google'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const getUserData = createAsyncThunk('users/', async () => {
-    // const navigate = useNavigate()
+
     const user = JSON.parse(window.localStorage.getItem('user'))
 
     const config = { headers: { token: user.token } }
+    
     try {
         return await axios.get(`${API_ROUTE}/users/${user.id}`, config)
     } catch (err) {
