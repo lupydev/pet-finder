@@ -11,6 +11,10 @@ import {
 } from '../../asyncActions/user/loginGoogle'
 
 import { googleLogout } from '@react-oauth/google'
+import {
+    putEditUser,
+    extraPutEditUser,
+} from '../../asyncActions/user/putEditUser'
 
 const initialState = {
     userData: undefined,
@@ -47,10 +51,11 @@ const userSlice = createSlice({
         ...extraLogin,
         ...extraGetUserData,
         ...extraLoginGoogle,
+        ...extraPutEditUser,
     },
 })
 
-export { createUser, login, getUserData, loginGoogle }
+export { createUser, login, getUserData, loginGoogle, putEditUser }
 
 export const { userIsLogged, logout } = userSlice.actions
 
