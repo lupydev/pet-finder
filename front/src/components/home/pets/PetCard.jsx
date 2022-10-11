@@ -14,9 +14,8 @@ import { GrMap } from 'react-icons/gr'
 import Loading from '../../loading/Loading'
 
 const PetCard = ({ pets }) => {
-
-    function capitalize(text){
-        return text[0].toUpperCase() + text.slice(1).toLowerCase();
+    function capitalize(text) {
+        return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
 
     return pets ? (
@@ -84,25 +83,21 @@ const PetCard = ({ pets }) => {
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
-                                     
-                                    > 
-                                        {
-                                        capitalize(pet.gender)
-                                        }
+                                    >
+                                        {capitalize(pet.gender)}
                                     </Typography>
                                 </Stack>
                             </Stack>
                             <Stack direction="row" width="100%">
-                                <GrMap fontSize='20px' />
-                                    <Typography
-                                        ml='5px'
-                                        noWrap
-                                        variant="body2"
-                                        color="text.secondary"
-                                        
-                                    >
-                                        {capitalize(pet.location)}
-                                    </Typography>
+                                <GrMap fontSize="20px" />
+                                <Typography
+                                    ml="5px"
+                                    noWrap
+                                    variant="body2"
+                                    color="text.secondary"
+                                >
+                                    {pet.location.country}
+                                </Typography>
                             </Stack>
 
                             <Button

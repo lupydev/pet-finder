@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Avatar,
     Box,
@@ -9,9 +9,10 @@ import {
     Typography,
 } from '@mui/material'
 import { IoMdArrowDropdown } from 'react-icons/io'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { logout } from '../../redux/features/user/userSlice'
+import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { getUserData, logout } from '../../redux/features/user/userSlice'
 
 const settings = ['Profile', 'Logout']
 
@@ -30,21 +31,25 @@ const UserMenu = () => {
         setAnchorElUser(null)
     }
 
+    useEffect(() => {
+        dispatch(getUserData())
+    }, [])
+
     const handleClick = (setting) => {
         switch (setting) {
-        case 'Profile':
-            navigate('/profile')
-            break
-        case 'Dashboard':
-            navigate('/user')
-            break
-        case 'Logout':
-            dispatch(logout())
-            navigate('/')
-            break
+            case 'Profile':
+                navigate('/profile')
+                break
+            case 'Dashboard':
+                navigate('/user')
+                break
+            case 'Logout':
+                dispatch(logout())
+                navigate('/')
+                break
 
-        default:
-            break
+            default:
+                break
         }
         setAnchorElUser(null)
     }

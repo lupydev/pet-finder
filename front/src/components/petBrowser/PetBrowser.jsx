@@ -162,6 +162,7 @@ const PetBrowser = (props) => {
                 justifyContent={'center'}
                 flexWrap="wrap"
                 gap="24px"
+                maxWidth='1440px'
             >
                 <PetCard
                     pets={

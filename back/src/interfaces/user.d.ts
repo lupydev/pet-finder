@@ -6,7 +6,7 @@ export interface User {
     img: string
     password: string
     email: string
-    pets?: string
+    pets?: Types.ObjectId[]
     admin: boolean
     externId?: string
     email_verified: boolean

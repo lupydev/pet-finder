@@ -11,6 +11,7 @@ const Profile = () => {
 
     useEffect(() => {
         dispatch(getUserData())
+        
     }, [])
 
     return (
