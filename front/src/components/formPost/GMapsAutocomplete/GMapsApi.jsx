@@ -21,11 +21,11 @@ const GMapsApi = () => {
             if (autocomplete !== null) {
                 const addressInput = autocomplete.getPlace().formatted_address
                 const latitude = autocomplete.getPlace().geometry.location.lat()
-                const longitude = autocomplete
-                    .getPlace()
-                    .geometry.location.lng()
+                const longitude = autocomplete.getPlace().geometry.location.lng()
+                
                 console.log(addressInput, latitude, longitude)
             }
+
         } catch (error) {
             console.log(error)
         }
@@ -35,7 +35,7 @@ const GMapsApi = () => {
         return (
             <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <TextField
-                    sx={{width: '100%'}}
+                    fullWidth={true}
                     type="text"
                     size="small"
                     placeholder="Insert Location"
