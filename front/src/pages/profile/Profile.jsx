@@ -15,27 +15,11 @@ const Profile = () => {
 
     return (
         <div>
-<<<<<<< HEAD
-            <Typography
-                variant="h4"
-                sx={{ textAlign: 'center', margin: '1rem' }}
-            >
-                User Profile
-            </Typography>
-            <div>
-                {status === 'success' && userData ? (
-                    <ProfileDetail />
-                ) : (
-                    'Profile is loading, please reload the page'
-                )}
-            </div>
-=======
             {status === 'success' && userData ? (
                 <ProfileDetail userData={userData} />
             ) : (
                 <Loading />
             )}
->>>>>>> fac77f9733e692314bf0b775d455f0cc7896674e
         </div>
     )
 }

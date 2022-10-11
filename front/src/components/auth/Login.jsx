@@ -9,7 +9,6 @@ import { GoogleLogin } from '@react-oauth/google'
 import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 
-
 const clientSchema = Yup.object().shape({
     email: Yup.string()
         .email('Invalid Email')
@@ -36,7 +35,6 @@ const Login = () => {
         dispatch(login(values))
     }
 
-<<<<<<< HEAD
     useEffect(() => {
         if (userInfo.isLogged) {
             navigate('/')
@@ -44,8 +42,6 @@ const Login = () => {
         }
     }, [userInfo.isLogged])
 
-=======
->>>>>>> fac77f9733e692314bf0b775d455f0cc7896674e
     // useEffect(() => {
     //     if (userInfo.isLogged) {
     //         navigate('/profile')

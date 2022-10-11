@@ -34,7 +34,7 @@ const clientSchema = Yup.object().shape({
 
 const EditProfile = () => {
     const { userData } = useSelector((state) => state.user)
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
@@ -205,6 +205,7 @@ const EditProfile = () => {
                                     placeholder="Password"
                                     id="password"
                                     name="password"
+                                    disabled={true}
                                     sx={{
                                         border: ' 2px solid #BFBFBF',
                                         width: '100%',
