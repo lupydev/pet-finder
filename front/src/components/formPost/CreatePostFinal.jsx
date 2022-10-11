@@ -16,6 +16,7 @@ import ButtonWrapper from './Button/ButtonWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { createPet } from '../../redux/asyncActions/pet/createPet'
+import GMapsApi from './GMapsAutocomplete/GMapsApi'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -89,10 +90,11 @@ export const CreatePostFinal = () => {
                             id="name"
                             name="name"
                             label="Pet name"
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
-                        <DateTimePicker id="date" name="date" />
+                        <DateTimePicker id="date" name="date" size="small" />
                     </Grid>
                     <Grid item xs={2}>
                         <SelectWrapper
@@ -100,6 +102,7 @@ export const CreatePostFinal = () => {
                             name="species"
                             label="Specie"
                             options={species}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -108,6 +111,7 @@ export const CreatePostFinal = () => {
                             name="breed"
                             label="Breed"
                             options={breed}
+                            size="small"
                         />
                     </Grid>
 
@@ -117,6 +121,7 @@ export const CreatePostFinal = () => {
                             name="gender"
                             label="Gender"
                             options={gender}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -125,6 +130,7 @@ export const CreatePostFinal = () => {
                             name="size"
                             label="Size"
                             options={size}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -133,6 +139,7 @@ export const CreatePostFinal = () => {
                             name="age"
                             label="Age"
                             options={age}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -141,6 +148,7 @@ export const CreatePostFinal = () => {
                             name="color"
                             label="Color"
                             options={color}
+                            size="small"
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -150,6 +158,7 @@ export const CreatePostFinal = () => {
                             label="Observation"
                             multiline={true}
                             rows={4}
+                            size="small"
                         />
                     </Grid>
 
@@ -162,15 +171,14 @@ export const CreatePostFinal = () => {
                             name="type"
                             label="Type"
                             options={types}
+                            size="small"
                         />
                     </Grid>
+
                     <Grid item xs={3}>
-                        <TextfieldWrapper
-                            id="location"
-                            name="location"
-                            label="Location"
-                        />
+                        <GMapsApi />
                     </Grid>
+
                     <Grid item xs={6}>
                         <TextfieldWrapper
                             id="description"
@@ -178,6 +186,7 @@ export const CreatePostFinal = () => {
                             label="Description"
                             multiline={true}
                             rows={6}
+                            size="small"
                         />
                     </Grid>
 
