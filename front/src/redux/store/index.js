@@ -5,7 +5,7 @@ import userSlice from '../features/user/userSlice'
 const store = configureStore({
     reducer: {
         pet: PetSlice,
-        user: userSlice
+        user: userSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
