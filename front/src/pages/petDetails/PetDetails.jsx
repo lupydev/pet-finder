@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/loading/Loading'
 import { getPetById } from '../../redux/asyncActions/pet/getPetById'
-import { cleanPetData } from '../../redux/features/pet/PetSlice'
+import { cleanPetData } from '../../redux/features/pet/petSlice'
 
 const PetDetails = () => {
     const { id } = useParams()
