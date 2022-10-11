@@ -1,11 +1,12 @@
 import { Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Loading from '../../components/loading/Loading'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ProfileDetail from './ProfileDetail'
 
 const Profile = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const { status, userData } = useSelector((state) => state.user)
 
     useEffect(() => {
@@ -14,19 +15,11 @@ const Profile = () => {
 
     return (
         <div>
-            <Typography
-                variant="h4"
-                sx={{ textAlign: 'center', margin: '1rem' }}
-            >
-                User Profile
-            </Typography>
-            <div>
-                {status === 'success' && userData ? (
-                    <ProfileDetail userData={userData} />
-                ) : (
-                    'Profile is loading, please reload the page'
-                )}
-            </div>
+            {status === 'success' && userData ? (
+                <ProfileDetail userData={userData} />
+            ) : (
+                <Loading />
+            )}
         </div>
     )
 }

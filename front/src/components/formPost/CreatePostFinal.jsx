@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
-import { Grid, Typography } from '@mui/material'
+import {
+    Box,
+    CircularProgress,
+    Grid,
+    IconButton,
+    Paper,
+    Typography,
+} from '@mui/material'
 import TextfieldWrapper from './Textfield/Textfield'
 import SelectWrapper from './Select/Select'
 import DateTimePicker from './DateTimePicker/DateTimePicker'
-import specie from './Data/Specie/specie.json'
 import gender from './Data/Gender/gender.json'
 import breed from './Data/Breed/breed.json'
 import size from './Data/Size/size.json'
@@ -17,6 +23,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { createPet } from '../../redux/asyncActions/pet/createPet'
 import GMapsApi from './GMapsAutocomplete/GMapsApi'
+import { TiDeleteOutline } from 'react-icons/ti'
+import Swal from 'sweetalert2'
+import axios from 'axios'
+import { Toast } from '../../utils/swalToasts'
+import UploadImages from './UploadImages/UploadImages'
+import { getUserData } from '../../redux/asyncActions/user/getUserData'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -36,11 +48,43 @@ const FORM_VALIDATION = Yup.object().shape({
 
 export const CreatePostFinal = () => {
     const dispatch = useDispatch()
+    const [loading, setLoading] = React.useState(false)
+    const [images, setImages] = React.useState([])
     const { species, breeds } = useSelector((state) => state.pet)
 
     const getUserId = () => {
-        let user = JSON.parse(window.localStorage.getItem('user'))
+        const user = JSON.parse(window.localStorage.getItem('user'))
         return user.id
+    }
+
+    const handleUpload = async (e) => {
+        try {
+            const files = e.target.files
+            for (let img of files) {
+                const formData = new FormData()
+                formData.append('file', files[0])
+                formData.append('upload_preset', 'upload_petfinder')
+                setLoading(true)
+                const { data } = await axios.post(
+                    'https://api.cloudinary.com/v1_1/diyk4to11/image/upload',
+                    formData
+                )
+                const file = data.secure_url
+                setImages((prevState) => [...prevState, file])
+                setLoading(false)
+            }
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Upload failed. Please, try again',
+            })
+        }
+    }
+
+    const handleDeleteImg = (elem) => {
+        setImages((prevState) => prevState.filter((img) => img !== elem))
     }
 
     const INITIAL_FORM_STATE = {
@@ -64,9 +108,19 @@ export const CreatePostFinal = () => {
 
     useEffect(() => {
         dispatch(getSpecies())
+        dispatch(getUserData())
     }, [])
 
     const handleSubmit = (values, resetForm) => {
+        if (images !== '') {
+            values.img = images
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: 'Must contain at least one image',
+            })
+            return
+        }
         dispatch(createPet(values))
         resetForm()
     }
@@ -202,16 +256,13 @@ export const CreatePostFinal = () => {
                     <Grid item xs={6}>
                         <Typography>Pictures</Typography>
                     </Grid>
-                    <Grid item xs={6}>
-                        {/* agregar cloudinary widget */}
-                        {/* <TextfieldWrapper
-                            id="img"
-                            name="img"
-                            label="Pictures"
-                            multiline={true}
-                            rows={6}
-                        /> */}
-                    </Grid>
+                    <UploadImages
+                        handleUpload={handleUpload}
+                        images={images}
+                        handleDeleteImg={handleDeleteImg}
+                        loading={loading}
+                    />
+
                     <Grid item xs={6}>
                         <ButtonWrapper>Submit form</ButtonWrapper>
                     </Grid>

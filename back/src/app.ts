@@ -44,7 +44,7 @@ app.use('/', router)
 
 const connectDB = async () => {
     try {
-        mongoose.connect(db)
+        await mongoose.connect(db)
 
         console.log('Connection successfully')
     } catch (error) {
