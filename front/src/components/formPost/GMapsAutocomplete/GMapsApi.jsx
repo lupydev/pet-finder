@@ -19,13 +19,13 @@ const GMapsApi = ({ setLocation }) => {
     const onPlaceChanged = () => {
         try {
             if (autocomplete !== null) {
-                const addressInput = autocomplete.getPlace().formatted_address
-                const latitude = autocomplete.getPlace().geometry.location.lat()
-                const longitude = autocomplete
+                const country = autocomplete.getPlace().formatted_address
+                const lat = autocomplete.getPlace().geometry.location.lat()
+                const long = autocomplete
                     .getPlace()
                     .geometry.location.lng()
 
-                setLocation({ addressInput, latitude, longitude })
+                setLocation({ country, lat, long })
             }
         } catch (error) {
             console.log(error)

@@ -83,9 +83,6 @@ export const CreatePostFinal = () => {
             })
         }
     }
-    useEffect(() => {
-        console.log(location)
-    }, [location])
 
     const handleDeleteImg = (elem) => {
         setImages((prevState) => prevState.filter((img) => img !== elem))
