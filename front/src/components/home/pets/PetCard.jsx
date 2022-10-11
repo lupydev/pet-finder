@@ -96,7 +96,7 @@ const PetCard = ({ pets }) => {
                                     variant="body2"
                                     color="text.secondary"
                                 >
-                                    {location.country}
+                                    {pet.location.country}
                                 </Typography>
                             </Stack>
 
