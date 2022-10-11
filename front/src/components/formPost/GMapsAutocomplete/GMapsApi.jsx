@@ -7,7 +7,7 @@ const libraries = ['places']
 const GMapsApi = () => {
     const [autocomplete, setAutocomplete] = useState(null)
 
-    const { isLoaded, loadError } = useJsApiLoader({
+    const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: import.meta.env.VITE_APP_GMAPS_API_KEY,
         libraries,
     })
@@ -22,34 +22,27 @@ const GMapsApi = () => {
                 const addressInput = autocomplete.getPlace().formatted_address
                 const latitude = autocomplete.getPlace().geometry.location.lat()
                 const longitude = autocomplete.getPlace().geometry.location.lng()
-                
+
                 console.log(addressInput, latitude, longitude)
             }
-
         } catch (error) {
             console.log(error)
         }
     }
 
-    const renderMap = () => {
-        return (
-            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                <TextField
-                    fullWidth={true}
-                    type="text"
-                    size="small"
-                    placeholder="Insert Location"
-                    required
-                />
-            </Autocomplete>
-        )
-    }
-
-    if (loadError) {
-        return console.log('Map cannot be loaded right now, sorry.')
-    }
-
-    return isLoaded ? renderMap() : 'Error!!'
+    return isLoaded ? (
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+            <TextField
+                fullWidth={true}
+                type="text"
+                size="small"
+                placeholder="Insert Location"
+                required
+            />
+        </Autocomplete>
+    ) : (
+        'Error!!'
+    )
 }
 
 export default GMapsApi

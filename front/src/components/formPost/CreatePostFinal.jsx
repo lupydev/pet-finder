@@ -230,9 +230,9 @@ export const CreatePostFinal = () => {
                     </Grid>
                     {/* Gmaps Api */}
                     <Grid item xs={3}>
-                        <GMapsApi/>
+                        <GMapsApi />
                     </Grid>
-                    
+
                     <Grid item xs={6}>
                         <TextfieldWrapper
                             id="description"
