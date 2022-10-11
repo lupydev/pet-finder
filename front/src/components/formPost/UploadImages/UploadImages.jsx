@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, CircularProgress, Grid, IconButton, Paper } from '@mui/material'
+import { Box, CircularProgress, Grid, IconButton, Paper, TextField } from '@mui/material'
 import { TiDeleteOutline } from 'react-icons/ti'
 
 const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
@@ -8,13 +8,15 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
             {/* agregar cloudinary widget */}
 
             <div style={{ margin: 10 }}>
-                <input
+                <TextField
+                    fullWidth={true}
                     id="image"
                     name="image"
                     type="file"
                     multiple
                     accept="image/*"
                     onChange={(e) => handleUpload(e)}
+                    size="small"
                 />
             </div>
             {images.length ? (
