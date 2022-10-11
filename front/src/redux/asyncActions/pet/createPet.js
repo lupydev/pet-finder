@@ -14,11 +14,11 @@ export const createPet = createAsyncThunk('pet/newPet', async (pet) => {
 
 export const extraCreatePet = {
     [createPet.pending]: (state) => {
-        state.statusCreatePet = 'loading'
+        state.status = 'loading'
     },
     [createPet.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
-            state.statusCreatePet = 'success'
+            state.status = 'success'
             Toast.fire({
                 icon: 'success',
                 title: 'Pet created successfully',
@@ -31,6 +31,6 @@ export const extraCreatePet = {
         }
     },
     [createPet.rejected]: (state) => {
-        state.statusCreatePet = 'failed'
+        state.status = 'failed'
     },
 }

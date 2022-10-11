@@ -3,13 +3,12 @@ import * as Yup from 'yup'
 import { Typography, Button, Stack, Divider } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { login } from '../../redux/asyncActions/user/login'
 import { GoogleLogin } from '@react-oauth/google'
 import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 
-const CLLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID
 
 const clientSchema = Yup.object().shape({
     email: Yup.string()
@@ -27,7 +26,7 @@ const clientSchema = Yup.object().shape({
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { userInfo, status } = useSelector((state) => state.user)
+    const { userInfo } = useSelector((state) => state.user)
 
     const onLoginSuccess = (googleData) => {
         dispatch(loginGoogle(googleData))
@@ -37,6 +36,7 @@ const Login = () => {
         dispatch(login(values))
     }
 
+<<<<<<< HEAD
     useEffect(() => {
         if (userInfo.isLogged) {
             navigate('/')
@@ -44,11 +44,13 @@ const Login = () => {
         }
     }, [userInfo.isLogged])
 
+=======
+>>>>>>> fac77f9733e692314bf0b775d455f0cc7896674e
     // useEffect(() => {
-    //     status === 'success' && (
-    //         <Snack isOpen={true} msg={status} />
-    //     )
-    // }, [status])
+    //     if (userInfo.isLogged) {
+    //         navigate('/profile')
+    //     }
+    // }, [userInfo.isLogged])
 
     return (
         <Stack
@@ -175,7 +177,7 @@ const Login = () => {
                 </Formik>
                 <Stack justifyContent="center" direction="row" gap="10px">
                     <Typography fontSize="16px">
-                        Don't have an account?
+                        Don&apos;t have an account?
                     </Typography>
                     <Typography component={Link} to="/signin" fontSize="16px">
                         Sign Up

@@ -58,13 +58,20 @@
 
 ## Pet
 
-| TYPE   | DETAIL             | ROUTE                                 | SEND                                          |
-| ------ | ------------------ | ------------------------------------- | --------------------------------------------- |
-| GET    | get all lost pets  | http://localhost:PORT/pets/:type      | params: {Lost}                                |
-| GET    | get all found pets | http://localhost:PORT/pets/:type      | params : {Found}                              |
-| POST   | create a pet       | http://localhost:PORT/pets/newPet     | body : accept all Pet Schema                  |
-| PUT    | update a pet       | http://localhost:PORT/pets/update/:id | params : { id }, body : accept all Pet Schema |
-| DELETE | delete a pet       | http://localhost:PORT/pets/delete/:id | params : { id }                               |
+| TYPE   | DETAIL             | ROUTE                                      | SEND                                        |
+| ------ | ------------------ | -------------------------------------      |-------------------------------------------- |
+| GET    | get all lost pets  | http://localhost:PORT/pets/getAll/:type    | params: {Lost}                              |
+| GET    | get all found pets | http://localhost:PORT/pets/getAll/:type    | params : {Found}                            |
+| GET    | get all meet pets  | http://localhost:PORT/pets/getAll/:type    | params : {Meet}                             |
+| POST   | create a pet       | http://localhost:PORT/pets/newPet          | body : accept all Pet Shema                 |
+| PUT    | update a pet       | http://localhost:PORT/pets/update/:id      |params : { id }, body : accept all Pet Schema|
+| DELETE | delete a pet       | http://localhost:PORT/pets/delete/:id      | params : { id }                             |
+
+**Filters**
+| TYPE | DETAIL       | ROUTE                             | SEND                  |
+| ---- | ------------ | --------------------------------- | --------------------- |
+| GET   | get all pets lost or found        | http://localhost:PORT/pets/getAll/:type?key=value      | params :{Found} or{Lost} or {Meet} Query params: Key:{} Value:{} |
+
 
 **Pet Schema**
 
@@ -86,22 +93,31 @@
 | img         | Array of String        | NO       |
 | observation | String                 | NO       |
 
-**Example Routes Pet**
-
--   http://localhost:PORT/pets/Found
--   http://localhost:PORT/pets/Lost
--   http://localhost:PORT/pets/newPet
--   http://localhost:PORT/pets/6334a909f7a60b325e2cb875
--   http://localhost:PORT/pets/update/6334a909f7a60b325e2cb875
--   http://localhost:PORT/pets/delete/6334a909f7a60b325e2cb875
-
 **ENUMS!**
 
 -   gender: ['Male', 'Female','Unknown']
 -   size: ['Small', 'Medium', 'Large']
--   type: ['Lost', 'Found']
+-   type: ['Lost', 'Found', 'Meet']
 -   color: ['White','Black','Brown','LightBrown', 'Grey']
--   StatusPet: ['Active', 'Pause','Deleted','Meet']
+-   StatusPet: ['Active', 'Pause','Deleted']
+
+**Example Routes Pet**
+
+-   http://localhost:PORT/pets/getAll/Found  Brings all status Active
+-   http://localhost:PORT/pets/getAll/Lost  Brings all Status Active
+-   http://localhost:PORT/pets/newPet
+-   http://localhost:PORT/pets/6334a909f7a60b325e2cb875
+-   http://localhost:PORT/pets/update/6334a909f7a60b325e2cb875
+-   http://localhost:PORT/pets/delete/6334a909f7a60b325e2cb875
+-   http://localhost:4000/pets/getAll/Found?name=asc - Order by name ascendent
+-   http://localhost:4000/pets/getAll/Found?name=desc - Order by name descendent
+-   http://localhost:4000/pets/getAll/Found?date=asc - Order by date ascendent
+-   http://localhost:4000/pets/getAll/Found?name=desc - Order by date descendent
+-   http://localhost:4000/pets/getAll/Found?color=Brown - Bring all Found Pets color Brown (color same as ENUM!)
+-   http://localhost:4000/pets/getAll/Found?species=6334982abb516339d5f633f2 - Bring all Found pets by species ID: dog
+-   http://localhost:4000/pets/getAll/Found?breed=633af4fdd1678bf37ffd0c6c - Bring all Fund pets  by breed ID : Mutt
+-   http://localhost:4000/pets/getAll/Lost?gender=Male - Bring all Lost pets by gender Male (gender same as ENUM!)
+-   http://localhost:4000/pets/getAll/Lost?size=Medium - Bring all Lost pets by size Medium (size same as ENUM!)
 
 ## Species
 

@@ -15,6 +15,6 @@ router.use('/species', speciesRoutes)
 
 router.use('/', authRoutes)
 
-router.use('/breeds',breedsRoutes)
+router.use('/breeds', breedsRoutes)
 
 export { router }

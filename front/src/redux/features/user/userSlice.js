@@ -40,8 +40,7 @@ const userSlice = createSlice({
             }
             state.status = 'loading'
 
-            //!Hacer funcion q baja localstorage y si user.goole = tru va a ejecutar googleLogout();
-            //googleLogout()
+            googleLogout()
 
             window.localStorage.removeItem('user')
             state.userData = undefined
