@@ -37,6 +37,9 @@ const petSlice = createSlice({
             state.status = 'loading'
             state.statusBreeds = 'loading'
         },
+        cleanBreeds: (state) => {
+            state.breeds = []
+        }
     },
     extraReducers: {
         ...extraCreatePet,
@@ -61,5 +64,5 @@ export {
     deletePost,
 }
 
-export const { cleanPetData } = petSlice.actions
+export const { cleanPetData,cleanBreeds } = petSlice.actions
 export default petSlice.reducer
