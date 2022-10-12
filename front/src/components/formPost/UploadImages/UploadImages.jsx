@@ -47,6 +47,7 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                                     width: 150,
                                     height: 150,
                                     borderRadius: 4,
+                                    overflow: 'hidden',
                                 }}
                             >
                                 <img src={elem} alt="Not found" height="100%" />

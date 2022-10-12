@@ -3,6 +3,7 @@ import { TextField, MenuItem } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 import { useDispatch } from 'react-redux'
 import { getBreeds } from '../../../redux/asyncActions/pet/getBreeds'
+import { cleanBreeds } from '../../../redux/features/pet/petSlice'
 
 export const SelectWrapper = ({ name, options, ...otherProps }) => {
     const dispatch = useDispatch()
@@ -15,6 +16,8 @@ export const SelectWrapper = ({ name, options, ...otherProps }) => {
         setFieldValue(name, value)
 
         if (e.target.name === 'species') {
+            // dispatch(cleanBreeds())
+            setFieldValue('breed', '')
             dispatch(getBreeds(value))
         }
     }
