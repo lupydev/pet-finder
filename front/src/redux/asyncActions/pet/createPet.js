@@ -7,7 +7,6 @@ export const createPet = createAsyncThunk('pet/newPet', async (pet) => {
     const user = JSON.parse(window.localStorage.getItem('user'))
 
     const config = { headers: { token: user.token } }
-
     try {
         return await axios.post(`${API_ROUTE}/pets/newPet`, pet, config)
     } catch (err) {
