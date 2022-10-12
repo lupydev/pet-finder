@@ -119,7 +119,6 @@ const PetEdit = ({ currentPet }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(editPet({ id: currentPet._id, newData: valuesUpdate }))
-                Swal.fire('Your profile has been updated!')
                 Swal.fire('Your profile has been updated!').then(() =>
                     window.location.reload()
                 )

@@ -7,12 +7,11 @@ import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
 import ProfileDetail from './ProfileDetail'
 
 const Profile = () => {
+    const dispatch = useDispatch()
     const { userData } = useSelector((state) => state.user)
 
-    const dispatch = useDispatch()
-
     useEffect(() => {
-        dispatch(getUserData())
+        userData === undefined && dispatch(getUserData())
     }, [])
 
     return <div>{userData ? <ProfileDetail /> : <Loading />}</div>

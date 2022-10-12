@@ -60,7 +60,6 @@ const EditProfile = ({ userData }) => {
             )
             const file = response.data
             setImage(file.secure_url)
-
             setLoading(false)
         } catch (e) {
             console.error(e)
@@ -84,7 +83,9 @@ const EditProfile = ({ userData }) => {
                 dispatch(
                     putEditUser({ id: userData._id, newData: valuesUpdate })
                 )
-                Swal.fire('Your profile has been updated!')
+                Swal.fire('Your profile has been updated!').then(() =>
+                    window.location.reload()
+                )
                 navigate('/profile')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
