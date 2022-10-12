@@ -3,8 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const deletePost = createAsyncThunk('/pets/delete/', async (id) => {
+    const user = JSON.parse(window.localStorage.getItem('user'))
+
+    const config = { headers: { token: user.token } }
     try {
-        return await axios.delete(`${API_ROUTE}/pets/delete/${id}`)
+        return await axios.delete(`${API_ROUTE}/pets/delete/${id}`, config)
     } catch (err) {
         console.log(err)
     }
