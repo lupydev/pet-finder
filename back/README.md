@@ -86,7 +86,7 @@
 | breed       | Object Id              | YES      |
 | age         | Number                 | NO       |
 | color       | String enum            | YES      |
-| location    | String                 | NO       |
+| location    | Object {country: String, lat: Number, long: Number}                 | NO       |
 | status      | String enum: StatusPet | NO       |
 | date        | Date                   | YES      |
 | img         | Array of String        | NO       |
