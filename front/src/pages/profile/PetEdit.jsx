@@ -1,6 +1,7 @@
 import React from 'react'
 
-const PetEdit = () => {
+const PetEdit = ({ currentPet }) => {
+    console.log(currentPet)
     return <div>PetEdit</div>
 }
 
