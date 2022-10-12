@@ -82,12 +82,12 @@ const RegisterForm = () => {
         dispatch(createUser(values))
     }
 
-    useEffect(() => {
-        if (userInfo.isLogged) {
-            navigate('/profile')
-            // dispatch(getUserInfo())
-        }
-    }, [userInfo.isLogged])
+    // useEffect(() => {
+    //     if (userInfo.isLogged) {
+    //         navigate('/profile')
+    //         // dispatch(getUserInfo())
+    //     }
+    // }, [userInfo.isLogged])
 
     return (
         <Stack

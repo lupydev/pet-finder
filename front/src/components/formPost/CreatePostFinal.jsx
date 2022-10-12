@@ -13,7 +13,7 @@ import TextfieldWrapper from './Textfield/Textfield'
 import SelectWrapper from './Select/Select'
 import DateTimePicker from './DateTimePicker/DateTimePicker'
 import gender from './Data/Gender/gender.json'
-import breed from './Data/Breed/breed.json'
+// import breed from './Data/Breed/breed.json'
 import size from './Data/Size/size.json'
 import age from './Data/Age/age.json'
 import color from './Data/Color/color.json'
@@ -107,16 +107,11 @@ export const CreatePostFinal = () => {
         observation: '',
     }
 
-    useEffect(() => {
-        dispatch(getSpecies())
-        dispatch(getUserData())
-    }, [])
-
     const handleSubmit = (values, resetForm) => {
         if (!Object.entries(location)) {
-            console.log(location, 'location');
+            console.log(location, 'location')
             return
-        }else{
+        } else {
             values.location = location
         }
         if (images !== '') {
@@ -132,6 +127,10 @@ export const CreatePostFinal = () => {
         resetForm()
     }
 
+    useEffect(() => {
+        dispatch(getSpecies())
+        dispatch(getUserData())
+    }, [])
     return (
         <Formik
             initialValues={{ ...INITIAL_FORM_STATE }}
@@ -141,11 +140,37 @@ export const CreatePostFinal = () => {
             }}
         >
             <Form>
-                <Grid container spacing={2} columns={6} margin={3} width={800}>
+                <Grid
+                    container
+                    spacing={2}
+                    columns={6}
+                    margin={3}
+                    maxWidth={800}
+                >
                     <Grid item xs={6}>
-                        <Typography>Pet details</Typography>
+                        <Typography
+                            variant="h3"
+                            color="primary.main"
+                            fontFamily={'Merriweather'}
+                            fontWeight="bold"
+                            textAlign="center"
+                        >
+                            Create Post
+                        </Typography>
                     </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="h6">Pictures</Typography>
 
+                        <UploadImages
+                            handleUpload={handleUpload}
+                            images={images}
+                            handleDeleteImg={handleDeleteImg}
+                            loading={loading}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="h6">Pet details</Typography>
+                    </Grid>
                     <Grid item xs={4}>
                         <TextfieldWrapper
                             id="name"
@@ -171,11 +196,11 @@ export const CreatePostFinal = () => {
                             id="breed"
                             name="breed"
                             label="Breed"
-                            options={breed}
+                            options={breeds}
                             size="small"
+                            disabled={!breeds.length}
                         />
                     </Grid>
-
                     <Grid item xs={2}>
                         <SelectWrapper
                             id="gender"
@@ -222,7 +247,6 @@ export const CreatePostFinal = () => {
                             size="small"
                         />
                     </Grid>
-
                     <Grid item xs={3}>
                         <SelectWrapper
                             id="type"
@@ -236,7 +260,6 @@ export const CreatePostFinal = () => {
                     <Grid item xs={3}>
                         <GMapsApi setLocation={setLocation} name="location" />
                     </Grid>
-
                     <Grid item xs={6}>
                         <TextfieldWrapper
                             id="description"
@@ -247,7 +270,6 @@ export const CreatePostFinal = () => {
                             size="small"
                         />
                     </Grid>
-
                     {/* <Grid item xs={3}>
                         <TextfieldWrapper
                             id="map"
@@ -258,17 +280,7 @@ export const CreatePostFinal = () => {
                         />
                     </Grid> */}
                     <Grid item xs={6}>
-                        <Typography>Pictures</Typography>
-                    </Grid>
-                    <UploadImages
-                        handleUpload={handleUpload}
-                        images={images}
-                        handleDeleteImg={handleDeleteImg}
-                        loading={loading}
-                    />
-
-                    <Grid item xs={6}>
-                        <ButtonWrapper>Submit form</ButtonWrapper>
+                        <ButtonWrapper>Create Post</ButtonWrapper>
                     </Grid>
                 </Grid>
             </Form>
