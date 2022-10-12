@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react'
-import { Box, CircularProgress, Grid, IconButton, Paper, TextField } from '@mui/material'
+import {
+    Box,
+    CircularProgress,
+    Grid,
+    IconButton,
+    Paper,
+    TextField,
+} from '@mui/material'
 import { TiDeleteOutline } from 'react-icons/ti'
 
 const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {

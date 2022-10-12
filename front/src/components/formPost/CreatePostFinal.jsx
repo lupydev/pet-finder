@@ -29,7 +29,6 @@ import axios from 'axios'
 import { Toast } from '../../utils/swalToasts'
 import UploadImages from './UploadImages/UploadImages'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
-import { Navigate, useNavigate } from 'react-router-dom'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -53,8 +52,6 @@ export const CreatePostFinal = () => {
     const [images, setImages] = useState([])
     const { species, breeds } = useSelector((state) => state.pet)
     const [location, setLocation] = useState({})
-
-    const navigate = useNavigate()
 
     const getUserId = () => {
         const user = JSON.parse(window.localStorage.getItem('user'))
@@ -133,7 +130,6 @@ export const CreatePostFinal = () => {
         }
         dispatch(createPet(values))
         resetForm()
-        // navigate('/profile')
     }
 
     return (

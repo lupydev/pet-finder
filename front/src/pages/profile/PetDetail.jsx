@@ -46,7 +46,7 @@ const PetDetail = ({ pets, handleCurrentPet, handleEditPost }) => {
                 >
                     <Grid item xs={6} sx={{ m: 2 }}>
                         <img
-                            src={pets?.img}
+                            src={pets?.img[0]}
                             alt={pets?.name}
                             style={{
                                 height: 180,
