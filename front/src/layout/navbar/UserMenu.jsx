@@ -32,24 +32,24 @@ const UserMenu = () => {
     }
 
     useEffect(() => {
-        dispatch(getUserData())
+        // dispatch(getUserData())
     }, [])
 
     const handleClick = (setting) => {
         switch (setting) {
-            case 'Profile':
-                navigate('/profile')
-                break
-            case 'Dashboard':
-                navigate('/user')
-                break
-            case 'Logout':
-                dispatch(logout())
-                navigate('/')
-                break
+        case 'Profile':
+            navigate('/profile')
+            break
+        case 'Dashboard':
+            navigate('/user')
+            break
+        case 'Logout':
+            dispatch(logout())
+            navigate('/')
+            break
 
-            default:
-                break
+        default:
+            break
         }
         setAnchorElUser(null)
     }
