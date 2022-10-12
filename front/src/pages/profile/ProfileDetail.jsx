@@ -168,6 +168,7 @@ const ProfileDetail = () => {
                 <Box
                     display="flex"
                     justifyContent="center"
+                    flexWrap='wrap'
                     gap={5}
                     mb={5}
                     mt={5}

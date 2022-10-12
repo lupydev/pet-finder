@@ -29,6 +29,7 @@ import axios from 'axios'
 import { Toast } from '../../utils/swalToasts'
 import UploadImages from './UploadImages/UploadImages'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
+import ComboBox from './SelectAutocomplete/ComboBox'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -192,6 +193,14 @@ export const CreatePostFinal = () => {
                         />
                     </Grid>
                     <Grid item xs={2}>
+                        {/* <ComboBox
+                            id="breed"
+                            name="breed"
+                            label="Breed"
+                            options={breeds}
+                            size="small"
+                            disabled={!breeds.length}
+                        /> */}
                         <SelectWrapper
                             id="breed"
                             name="breed"
