@@ -35,12 +35,12 @@ const Login = () => {
         dispatch(login(values))
     }
 
-    useEffect(() => {
-        if (userInfo.isLogged) {
-            navigate('/')
-            dispatch(getUserData())
-        }
-    }, [userInfo.isLogged])
+    // useEffect(() => {
+    //     if (userInfo.isLogged) {
+    //         navigate('/')
+    //         dispatch(getUserData())
+    //     }
+    // }, [userInfo.isLogged])
 
     // useEffect(() => {
     //     if (userInfo.isLogged) {
