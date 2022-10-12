@@ -44,10 +44,6 @@ const ProfileDetail = () => {
         }
     }, [])
 
-    useEffect(() => {
-        console.log(userPets)
-    }, [userPets])
-
     return (
         <Container maxWidth="sm">
             {editPost ? (
