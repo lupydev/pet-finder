@@ -4,7 +4,6 @@ export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const getUserPets = createAsyncThunk('pets/', async (id) => {
     try {
-        console.log(id)
         return await axios.get(`${API_ROUTE}/pets/${id}`)
     } catch (err) {
         console.log(err)
