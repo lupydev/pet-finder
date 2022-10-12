@@ -1,10 +1,10 @@
+import { Autocomplete, TextField } from '@mui/material'
 import React from 'react'
-import { TextField, MenuItem } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 import { useDispatch } from 'react-redux'
 import { getBreeds } from '../../../redux/asyncActions/pet/getBreeds'
 
-export const SelectWrapper = ({ name, options, ...otherProps }) => {
+const ComboBox = ({ name, options, ...otherProps }) => {
     const dispatch = useDispatch()
     const { setFieldValue } = useFormikContext()
 
@@ -22,9 +22,6 @@ export const SelectWrapper = ({ name, options, ...otherProps }) => {
     const configSelect = {
         ...field,
         ...otherProps,
-        select: true,
-        //MUAI creo que esta predefinido
-        // variant: 'outlined'
         fullWidth: true,
         onChange: handleChange,
     }
@@ -35,15 +32,16 @@ export const SelectWrapper = ({ name, options, ...otherProps }) => {
     }
 
     return (
-        <TextField {...configSelect}>
-            {options.map((item) => {
-                return (
-                    <MenuItem key={item._id} value={item._id}>
-                        {item.name}
-                    </MenuItem>
-                )
-            })}
-        </TextField>
+        <Autocomplete
+            disablePortal
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            id="combo-box-demo"
+            name={name}
+            options={options}
+            {...configSelect}
+            renderInput={(params) => <TextField {...params} label="Breed"/>}
+        />
     )
 }
-export default SelectWrapper
+
+export default ComboBox

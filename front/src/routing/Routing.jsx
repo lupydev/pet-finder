@@ -53,17 +53,17 @@ const Routing = () => {
                 element={
                     <PrivateRoute
                         redirectPath={'/profile'}
-                        isAllowed={!userInfo?.isLogged}
+                        isAllowed={!isUserLogged()}
                     />
                 }
             >
                 <Route path="/login" element={<Login />} />
             </Route>
             <Route path="/aboutUs" element={<About />} />
-            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/profile" element={<Profile />} />
             </Route>
-            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/createPost" element={<CreatePostFinal />} />
             </Route>
         </Routes>
