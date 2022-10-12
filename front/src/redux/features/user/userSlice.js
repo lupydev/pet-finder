@@ -16,9 +16,11 @@ import {
     putEditUser,
     extraPutEditUser,
 } from '../../asyncActions/user/putEditUser'
+import {getUserPets, extraGetUserPets} from '../../asyncActions/user/getUserPets'
 
 const initialState = {
     userData: undefined,
+    userPets: [],
     userInfo: { token: '', id: '', isLogged: false, isAdmin: false },
     status: 'loading',
     createUserStatus: 'loading',
@@ -46,19 +48,23 @@ const userSlice = createSlice({
             window.localStorage.removeItem('user')
             state.userData = undefined
         },
+        cleanPetsData: (state) => {
+            state.userPets = []
+        }
     },
     extraReducers: {
         ...extraCreateUser,
         ...extraLogin,
         ...extraGetUserData,
+        ...extraGetUserPets,
         ...extraLoginGoogle,
         ...extraPutEditUser,
         ...extraRenewToken
     },
 })
 
-export { createUser, login, getUserData, loginGoogle, putEditUser, renewToken }
+export { createUser, login, getUserData, getUserPets, loginGoogle, putEditUser, renewToken }
 
-export const { userIsLogged, logout } = userSlice.actions
+export const { userIsLogged, logout, cleanPetsData } = userSlice.actions
 
 export default userSlice.reducer

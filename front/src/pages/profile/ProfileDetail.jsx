@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Container,
     Paper,
@@ -9,10 +9,12 @@ import {
     IconButton,
     Button,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import EditProfile from './EditProfile'
 import PetDetail from './PetDetail'
 import { Link } from 'react-router-dom'
+import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
+import { cleanPetsData } from '../../redux/features/user/userSlice'
 
 const petPost = [
     {
@@ -28,13 +30,29 @@ const petPost = [
 ]
 
 const ProfileDetail = () => {
-    const [editOn, setEditOn] = useState(false)
+    const dispatch = useDispatch()
+    const { userData, userPets } = useSelector((state) => state.user)
 
-    const { userData } = useSelector((state) => state.user)
+    const [editOn, setEditOn] = useState(false)
 
     const handleModeEdit = () => {
         setEditOn(!editOn)
     }
+
+    useEffect(() => {
+        userData.pets.map((pet) => {
+            dispatch(getUserPets(pet))
+        })
+        
+        return ()=>{
+            dispatch(cleanPetsData())
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(userPets)
+    }, [userPets])
+
     return (
         <Container maxWidth="sm">
             {editOn ? (
@@ -153,15 +171,14 @@ const ProfileDetail = () => {
                 </Typography>
                 <Box
                     display="flex"
-                    flexWrap="nowrap"
                     justifyContent="center"
                     gap={5}
                     mb={5}
                     mt={5}
                 >
-                    {petPost?.length ? (
-                        petPost.map((pets, idx) => (
-                            <PetDetail key={idx} pets={pets} />
+                    {userPets.length ? (
+                        userPets.map((pet) => (
+                            <PetDetail key={pet._id} pets={pet} />
                         ))
                     ) : (
                         <Button
