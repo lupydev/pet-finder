@@ -147,33 +147,37 @@ const ProfileDetail = () => {
                     {editOn ? 'Back to profile' : 'Go to edit'}
                 </Button>
             </Box>
-            <Box mt={5} sx={{ textAlign: 'center' }}>
-                <Typography variant="h5" color="text.primary">
-                    <b>My Posts</b>
-                </Typography>
-                <Box
-                    display="flex"
-                    flexWrap="nowrap"
-                    justifyContent="center"
-                    gap={5}
-                    mb={5}
-                    mt={5}
-                >
-                    {petPost?.length ? (
-                        petPost.map((pets, idx) => (
-                            <PetDetail key={idx} pets={pets} />
-                        ))
-                    ) : (
-                        <Button
-                            component={Link}
-                            to="/createPost"
-                            variant="outlined"
-                        >
-                            Make your publication!
-                        </Button>
-                    )}
+            {editOn ? (
+                ''
+            ) : (
+                <Box mt={5} sx={{ textAlign: 'center' }}>
+                    <Typography variant="h5" color="text.primary">
+                        <b>My Posts</b>
+                    </Typography>
+                    <Box
+                        display="flex"
+                        flexWrap="nowrap"
+                        justifyContent="center"
+                        gap={5}
+                        mb={5}
+                        mt={5}
+                    >
+                        {petPost?.length ? (
+                            petPost.map((pets, idx) => (
+                                <PetDetail key={idx} pets={pets} />
+                            ))
+                        ) : (
+                            <Button
+                                component={Link}
+                                to="/createPost"
+                                variant="outlined"
+                            >
+                                Make your publication!
+                            </Button>
+                        )}
+                    </Box>
                 </Box>
-            </Box>
+            )}
         </Container>
     )
 }
