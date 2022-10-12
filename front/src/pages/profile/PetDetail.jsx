@@ -3,7 +3,6 @@ import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai'
 import React from 'react'
 
 const PetDetail = ({ pets }) => {
-    console.log(pets)
 
     const handleOpen = () => {
         console.log('abriste la publi')
@@ -28,7 +27,7 @@ const PetDetail = ({ pets }) => {
                 >
                     <Grid item xs={6} sx={{ m: 2 }}>
                         <img
-                            src={pets?.img}
+                            src={pets?.img[0]}
                             alt={pets?.name}
                             style={{
                                 height: 180,

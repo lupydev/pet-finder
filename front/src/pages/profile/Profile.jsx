@@ -6,18 +6,12 @@ import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ProfileDetail from './ProfileDetail'
 
 const Profile = () => {
-    const dispatch = useDispatch()
-    const { status, userData } = useSelector((state) => state.user)
-
-    useEffect(() => {
-        dispatch(getUserData())
-        
-    }, [])
+    const {userData } = useSelector((state) => state.user)
 
     return (
         <div>
-            {status === 'success' && userData ? (
-                <ProfileDetail userData={userData} />
+            {userData ? (
+                <ProfileDetail />
             ) : (
                 <Loading />
             )}
