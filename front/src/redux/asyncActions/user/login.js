@@ -27,7 +27,7 @@ export const extraLogin = {
                 token: action.payload.data.token,
                 id: action.payload.data.id,
                 isLogged: true,
-                isAdmin: action.payload.data.admin,
+                isAdmin: action.payload.data.admin ? action.payload.data.admin : false,
                 isGoogle: false,
             }
 
