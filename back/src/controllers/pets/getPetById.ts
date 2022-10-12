@@ -7,7 +7,7 @@ const getPetById = async (req: Request, res: Response) => {
         const pet = await Pet.findOne({ _id: id })
             .populate({ path: 'breed', select: '_id name' })
             .populate({ path: 'species', select: '_id name' })
-            .populate({ path: 'userId', select: '_id' })
+            .populate({ path: 'userId', select: '_id nickname fullname img' })
 
         if (pet) {
             return res.status(200).json({ pet, ok: true, msg: 'Pet found' })
