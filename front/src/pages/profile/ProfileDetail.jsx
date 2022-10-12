@@ -15,44 +15,41 @@ import PetDetail from './PetDetail'
 import { Link } from 'react-router-dom'
 import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
 import { cleanPetsData } from '../../redux/features/user/userSlice'
-
-const petPost = [
-    {
-        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664197188/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/iStock-1395952991_ksmp62.jpg',
-        name: 'Firulais',
-        description: 'Lorem ipsum apsam',
-    },
-    {
-        img: 'https://res.cloudinary.com/diyk4to11/image/upload/v1664049169/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Macotas%20Perdidas/adorable-brown-and-white-basenji-dog-smiling-and-giving-high-five-isolated-on-white_pxtf8z.jpg',
-        name: 'Carlito',
-        description: 'Lorem ipsum apsam',
-    },
-]
+import PetEdit from './PetEdit'
 
 const ProfileDetail = () => {
     const dispatch = useDispatch()
+
     const { userData, userPets } = useSelector((state) => state.user)
 
-    const [editOn, setEditOn] = useState(false)
+    const [editProfile, setEditProfile] = useState(false)
+    const [editPost, setEditPost] = useState(false)
+    const [currentPet, setCurrentPet] = React.useState({})
 
     const handleModeEdit = () => {
-        setEditOn(!editOn)
+        setEditProfile(!editProfile)
+    }
+
+    const handleEditPost = () => {
+        setEditPost(!editPost)
     }
 
     useEffect(() => {
         userData.pets.map((pet) => {
             dispatch(getUserPets(pet))
         })
-        
-        return ()=>{
+
+        return () => {
             dispatch(cleanPetsData())
         }
     }, [])
 
     return (
         <Container maxWidth="sm">
-            {editOn ? (
-                <EditProfile />
+            {editPost ? (
+                <PetEdit currentPet={currentPet} />
+            ) : editProfile && !editPost ? (
+                <EditProfile userData={userData} />
             ) : (
                 <Paper
                     elevation={6}
@@ -141,53 +138,67 @@ const ProfileDetail = () => {
                     </Box>
                 </Paper>
             )}
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginTop: '1rem',
-                }}
-            >
-                <Button
-                    onClick={handleModeEdit}
-                    variant="contained"
-                    color="primary"
+
+            {editPost ? (
+                ''
+            ) : (
+                <Box
                     sx={{
-                        borderRadius: 2,
-                        textTransform: 'none',
-                        fontWeight: 'regular',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '1rem',
                     }}
                 >
-                    {editOn ? 'Back to profile' : 'Go to edit'}
-                </Button>
-            </Box>
-            <Box mt={5} sx={{ textAlign: 'center' }}>
-                <Typography variant="h5" color="text.primary">
-                    <b>My Posts</b>
-                </Typography>
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    flexWrap='wrap'
-                    gap={5}
-                    mb={5}
-                    mt={5}
-                >
-                    {userPets.length ? (
-                        userPets.map((pet) => (
-                            <PetDetail key={pet._id} pets={pet} />
-                        ))
-                    ) : (
-                        <Button
-                            component={Link}
-                            to="/createPost"
-                            variant="outlined"
-                        >
-                            Make your publication!
-                        </Button>
-                    )}
+                    <Button
+                        onClick={handleModeEdit}
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            borderRadius: 2,
+                            textTransform: 'none',
+                            fontWeight: 'regular',
+                        }}
+                    >
+                        {editProfile ? 'Back to profile' : 'Go to edit'}
+                    </Button>
                 </Box>
-            </Box>
+            )}
+
+            {editProfile || editPost ? (
+                ''
+            ) : (
+                <Box mt={5} sx={{ textAlign: 'center' }}>
+                    <Typography variant="h5" color="text.primary">
+                        <b>My Posts</b>
+                    </Typography>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        gap={5}
+                        mb={5}
+                        mt={5}
+                    >
+                        {userPets.length ? (
+                            userPets.map((pet) => (
+                                <PetDetail
+                                    key={pet._id}
+                                    pets={pet}
+                                    handleEditPost={handleEditPost}
+                                    handleCurrentPet={setCurrentPet}
+                                />
+                            ))
+                        ) : (
+                            <Button
+                                component={Link}
+                                to="/createPost"
+                                variant="outlined"
+                            >
+                                Make your publication!
+                            </Button>
+                        )}
+                    </Box>
+                </Box>
+            )}
         </Container>
     )
 }

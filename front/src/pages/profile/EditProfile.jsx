@@ -3,6 +3,7 @@ import {
     Avatar,
     Box,
     Button,
+    CircularProgress,
     Stack,
     TextField,
     Typography,
@@ -32,12 +33,11 @@ const clientSchema = Yup.object().shape({
         ),
 })
 
-const EditProfile = () => {
-    const { userData } = useSelector((state) => state.user)
+const EditProfile = ({ userData }) => {
     const navigate = useNavigate()
-
     const dispatch = useDispatch()
 
+    const [loading, setLoading] = useState(false)
     const [image, setImage] = useState(userData.img)
 
     const initialValues = {
@@ -51,12 +51,16 @@ const EditProfile = () => {
             const files = e.target.files
             const data = new FormData()
             data.append('file', files[0])
-            data.append('upload_preset', 'upload_profile')
+            data.append('upload_preset', 'upload_petfinder')
+
+            setLoading(true)
             const response = await axios.post(
                 'https://api.cloudinary.com/v1_1/diyk4to11/image/upload',
                 data
             )
-            setImage(response)
+            const file = response.data
+            setImage(file.secure_url)
+            setLoading(false)
         } catch (e) {
             console.error(e)
         }
@@ -79,7 +83,9 @@ const EditProfile = () => {
                 dispatch(
                     putEditUser({ id: userData._id, newData: valuesUpdate })
                 )
-                Swal.fire('Your profile has been updated!')
+                Swal.fire('Your profile has been updated!').then(() =>
+                    window.location.reload()
+                )
                 navigate('/profile')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
@@ -115,15 +121,19 @@ const EditProfile = () => {
                                         marginBottom: '10px',
                                     }}
                                 >
-                                    <Avatar
-                                        sx={{
-                                            width: 200,
-                                            height: 200,
-                                            marginBottom: '20px',
-                                        }}
-                                        src={userData?.img}
-                                        alt={userData?.nickname}
-                                    />
+                                    {loading ? (
+                                        <CircularProgress />
+                                    ) : (
+                                        <Avatar
+                                            sx={{
+                                                width: 200,
+                                                height: 200,
+                                                marginBottom: '20px',
+                                            }}
+                                            src={image}
+                                            alt={userData?.nickname}
+                                        />
+                                    )}
                                     <TextField
                                         id="profilePicture"
                                         placeholder="Select image"

@@ -7,8 +7,6 @@ export const putEditUser = createAsyncThunk(
     async ({ id, newData }) => {
         const user = JSON.parse(window.localStorage.getItem('user'))
 
-        console.log(id, newData, user.token)
-
         const config = { headers: { token: user.token } }
         try {
             return await axios.put(
