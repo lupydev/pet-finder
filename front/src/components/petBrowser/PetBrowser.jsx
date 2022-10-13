@@ -147,7 +147,7 @@ const PetBrowser = (props) => {
 
     return (
         <>
-            <Title title={props.title} color={props.color} />
+            <Title title={props.title} color={props.color} desc={'Here you can find your Pet'} />
 
             <FilterBar
                 title={props.title}
