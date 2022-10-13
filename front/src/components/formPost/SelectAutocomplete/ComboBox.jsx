@@ -13,17 +13,11 @@ const ComboBox = ({ name, options, ...otherProps }) => {
     const handleChange = (e) => {
         const { value } = e.target
         setFieldValue(name, value)
-
-        if (e.target.name === 'species') {
-            dispatch(getBreeds(value))
-        }
     }
 
     const configSelect = {
-        ...field,
         ...otherProps,
         fullWidth: true,
-        onChange: handleChange,
     }
 
     if (meta && meta.touched && meta.error) {
@@ -33,13 +27,23 @@ const ComboBox = ({ name, options, ...otherProps }) => {
 
     return (
         <Autocomplete
+            getOptionLabel={(option) => {
+                return option.name || null
+            }}
             disablePortal
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            id="combo-box-demo"
+            disableClearable
+            onChange={(e, value) => setFieldValue('breed', value)}
+            isOptionEqualToValue={(option, value) => option.id === value._id}
             name={name}
             options={options}
-            {...configSelect}
-            renderInput={(params) => <TextField {...params} label="Breed"/>}
+            renderInput={(params) => (
+                <TextField
+                    {...configSelect}
+                    {...params}
+                    {...field}
+                    label="Breed"
+                />
+            )}
         />
     )
 }

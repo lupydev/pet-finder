@@ -1,15 +1,34 @@
 import { Box, Grid, IconButton, Paper, Typography } from '@mui/material'
 import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai'
-import React from 'react'
+import React, { useState } from 'react'
+import PetEdit from './PetEdit'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { deletePost } from '../../redux/asyncActions/pet/deletePetPost'
+import Swal from 'sweetalert2'
 
-const PetDetail = ({ pets }) => {
+const PetDetail = ({ pets, handleCurrentPet, handleEditPost }) => {
+    const dispatch = useDispatch()
 
-    const handleOpen = () => {
-        console.log('abriste la publi')
-    }
+    React.useEffect(() => {
+        handleCurrentPet(pets)
+    }, [])
 
     const handleDelete = () => {
-        console.log('eliminaste la publicacion')
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deletePost(pets._id))
+                Swal.fire('Your post has been deleted!').then(() =>
+                    window.location.reload()
+                )
+            }
+        })
     }
 
     return (
@@ -50,7 +69,7 @@ const PetDetail = ({ pets }) => {
                             size="large"
                             color="primary"
                             aria-label="edit"
-                            onClick={handleOpen}
+                            onClick={handleEditPost}
                         >
                             <AiTwotoneEdit />
                         </IconButton>
