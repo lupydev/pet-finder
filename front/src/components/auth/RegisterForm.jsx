@@ -15,6 +15,7 @@ import { createUser } from '../../redux/asyncActions/user/createUser'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { getUserData } from '../../redux/asyncActions/user/getUserData'
 
 const clientSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -82,12 +83,12 @@ const RegisterForm = () => {
         dispatch(createUser(values))
     }
 
-    // useEffect(() => {
-    //     if (userInfo.isLogged) {
-    //         navigate('/profile')
-    //         // dispatch(getUserInfo())
-    //     }
-    // }, [userInfo.isLogged])
+    useEffect(() => {
+        if (userInfo.isLogged) {
+            dispatch(getUserData())
+            navigate('/profile')
+        }
+    }, [userInfo.isLogged])
 
     return (
         <Stack
