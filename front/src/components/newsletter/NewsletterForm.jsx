@@ -25,14 +25,11 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
     const [email, setEmail] = useState('')
 
     const handleSubmit = (event) => {
-        console.log('entro')
         onSubmitted({ EMAIL: email })
         event.preventDefault()
         setEmail('')
     }
-    console.log(status, message)
 
-    console.log(email)
     return (
         <form onSubmit={handleSubmit}>
             <Stack direction="row" alignItems="center" gap="22px">
@@ -45,7 +42,6 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                     id="newsletterEmail"
                     label="Email"
                     variant="outlined"
-                    //type="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                 />

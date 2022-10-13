@@ -5,7 +5,6 @@ import NewsletterForm from './NewsletterForm'
 const URL = import.meta.env.VITE_APP_MAILCHIMP_URL
 
 const NewsletterSubscribe = () => {
-    console.log(URL)
     return (
         <MailchimpSubscribe
             url={URL}
