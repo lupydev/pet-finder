@@ -6,13 +6,10 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deletePost } from '../../redux/asyncActions/pet/deletePetPost'
 import Swal from 'sweetalert2'
+import { editPet } from '../../redux/asyncActions/pet/editPet'
 
 const PetDetail = ({ pets, handleCurrentPet, handleEditPost }) => {
     const dispatch = useDispatch()
-
-    React.useEffect(() => {
-        handleCurrentPet(pets)
-    }, [])
 
     const handleDelete = () => {
         Swal.fire({
@@ -23,7 +20,7 @@ const PetDetail = ({ pets, handleCurrentPet, handleEditPost }) => {
             confirmButtonText: 'Yes',
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(deletePost(pets._id))
+                dispatch(editPet({id: pets._id, newData: { status: 'Deleted'}}))
                 Swal.fire('Your post has been deleted!').then(() =>
                     window.location.reload()
                 )
@@ -69,7 +66,7 @@ const PetDetail = ({ pets, handleCurrentPet, handleEditPost }) => {
                             size="large"
                             color="primary"
                             aria-label="edit"
-                            onClick={handleEditPost}
+                            onClick={() => handleEditPost(pets)}
                         >
                             <AiTwotoneEdit />
                         </IconButton>
