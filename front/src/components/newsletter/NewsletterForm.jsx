@@ -44,7 +44,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                     id="newsletterEmail"
                     label="Email"
                     variant="outlined"
-                    type="email"
+                    //type="email"
                     onChange={(event) => setEmail(event.target.value)}
                 />
 
@@ -65,6 +65,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                 >
                     Suscribe
                 </Button>
+                <br />
 
                 {status === 'sending' && (
                     <Alert severity="info">Sending...</Alert>
