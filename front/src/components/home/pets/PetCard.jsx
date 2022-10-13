@@ -18,7 +18,7 @@ const PetCard = ({ pets }) => {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
 
-    return pets ? (
+    return pets.length ? (
         pets.map((pet) => {
             return (
                 <Card
