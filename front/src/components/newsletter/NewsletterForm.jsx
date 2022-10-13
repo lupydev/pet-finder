@@ -65,17 +65,17 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                 >
                     Suscribe
                 </Button>
-                <br />
-
-                {status === 'sending' && (
-                    <Alert severity="info">Sending...</Alert>
-                )}
-                {status === 'error' && (
-                    <Alert severity="error">{message}</Alert>
-                )}
-                {status === 'success' && (
-                    <Alert severity="success">Subscribed</Alert>
-                )}
+                <Stack>
+                    {status === 'sending' && (
+                        <Alert severity="info">Sending...</Alert>
+                    )}
+                    {status === 'error' && (
+                        <Alert severity="error">{message}</Alert>
+                    )}
+                    {status === 'success' && (
+                        <Alert severity="success">Subscribed</Alert>
+                    )}
+                </Stack>
             </Stack>
         </form>
     )
