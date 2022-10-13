@@ -26,7 +26,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
 
     const handleSubmit = (event) => {
         console.log('entro')
-        onSubmitted(email)
+        onSubmitted({ EMAIL: email })
         event.preventDefault()
     }
     console.log(status, message)
