@@ -5,7 +5,12 @@ import { useDispatch } from 'react-redux'
 import { getBreeds } from '../../../redux/asyncActions/pet/getBreeds'
 import { cleanBreeds } from '../../../redux/features/pet/petSlice'
 
-export const SelectWrapper = ({ name, options, ...otherProps }) => {
+export const SelectWrapper = ({
+    name,
+    options,
+    value = null,
+    ...otherProps
+}) => {
     const dispatch = useDispatch()
     const { setFieldValue } = useFormikContext()
 
@@ -30,6 +35,7 @@ export const SelectWrapper = ({ name, options, ...otherProps }) => {
         // variant: 'outlined'
         fullWidth: true,
         onChange: handleChange,
+        value: value,
     }
 
     if (meta && meta.touched && meta.error) {

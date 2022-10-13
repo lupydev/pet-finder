@@ -8,6 +8,7 @@ import {
     Avatar,
     IconButton,
     Button,
+    Stack,
 } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import EditProfile from './EditProfile'
@@ -24,14 +25,15 @@ const ProfileDetail = () => {
 
     const [editProfile, setEditProfile] = useState(false)
     const [editPost, setEditPost] = useState(false)
-    const [currentPet, setCurrentPet] = React.useState({})
+    const [currentPet, setCurrentPet] = React.useState(undefined)
 
     const handleModeEdit = () => {
         setEditProfile(!editProfile)
     }
-
-    const handleEditPost = () => {
+    
+    const handleEditPost = (pets) => {
         setEditPost(!editPost)
+        setCurrentPet(pets)
     }
 
     useEffect(() => {
@@ -45,8 +47,8 @@ const ProfileDetail = () => {
     }, [])
 
     return (
-        <Container maxWidth="sm">
-            {editPost ? (
+        <Stack maxWidth="1440px">
+            {editPost && currentPet != undefined ? (
                 <PetEdit currentPet={currentPet} />
             ) : editProfile && !editPost ? (
                 <EditProfile userData={userData} />
@@ -174,6 +176,7 @@ const ProfileDetail = () => {
                     <Box
                         display="flex"
                         justifyContent="center"
+                        flexWrap='wrap'
                         gap={5}
                         mb={5}
                         mt={5}
@@ -199,7 +202,7 @@ const ProfileDetail = () => {
                     </Box>
                 </Box>
             )}
-        </Container>
+        </Stack>
     )
 }
 

@@ -55,7 +55,7 @@ const FilterBar = (props) => {
                     sx={{ borderBottomWidth: 3, width: '450px' }}
                 />
                 <Stack direction="row">
-                    <FormControlLabel
+                    {/* <FormControlLabel
                         control={
                             <Checkbox
                                 color={
@@ -68,7 +68,7 @@ const FilterBar = (props) => {
                         name="isReunited"
                         label="Show Reunited"
                         onChange={(e) => props.handleChange(e)}
-                    />
+                    /> */}
                     <Button
                         onClick={props.handleClick}
                         variant="contained"

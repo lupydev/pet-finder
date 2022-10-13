@@ -84,7 +84,7 @@ const EditProfile = ({ userData }) => {
                     putEditUser({ id: userData._id, newData: valuesUpdate })
                 )
                 Swal.fire('Your profile has been updated!').then(() =>
-                    window.location.reload()
+                    navigate('/profile')
                 )
                 navigate('/profile')
             } else if (result.isDenied) {
