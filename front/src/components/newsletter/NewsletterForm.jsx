@@ -33,13 +33,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
 
     console.log(email)
     return (
-        <Stack
-            type="form"
-            direction="row"
-            alignItems="center"
-            gap="22px"
-            onSubmit={handleSubmit}
-        >
+        <Stack type="form" direction="row" alignItems="center" gap="22px">
             <NewsletterEmailTextField
                 sx={{
                     width: '50%',
@@ -67,6 +61,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                     },
                 }}
                 type="submit"
+                onSubmit={handleSubmit}
             >
                 Suscribe
             </Button>
