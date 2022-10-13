@@ -33,45 +33,48 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
 
     console.log(email)
     return (
-        <Stack type="form" direction="row" alignItems="center" gap="22px">
-            <NewsletterEmailTextField
-                sx={{
-                    width: '50%',
-                    backgroundColor: 'primary.light',
-                    borderRadius: '5px',
-                }}
-                id="newsletterEmail"
-                label="Email"
-                variant="outlined"
-                type="email"
-                onChange={(event) => setEmail(event.target.value)}
-            />
+        <form onSubmit={handleSubmit}>
+            <Stack direction="row" alignItems="center" gap="22px">
+                <NewsletterEmailTextField
+                    sx={{
+                        width: '50%',
+                        backgroundColor: 'primary.light',
+                        borderRadius: '5px',
+                    }}
+                    id="newsletterEmail"
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    onChange={(event) => setEmail(event.target.value)}
+                />
 
-            <Button
-                variant="contained"
-                sx={{
-                    color: 'primary.main',
-                    textTransform: 'none',
-                    backgroundColor: 'white',
-                    padding: '1rem',
-                    px: '40px',
-                    height: '56px',
-                    '&:hover': {
-                        backgroundColor: 'secondary.light',
-                    },
-                }}
-                type="submit"
-                onSubmit={handleSubmit}
-            >
-                Suscribe
-            </Button>
+                <Button
+                    variant="contained"
+                    sx={{
+                        color: 'primary.main',
+                        textTransform: 'none',
+                        backgroundColor: 'white',
+                        padding: '1rem',
+                        px: '40px',
+                        height: '56px',
+                        '&:hover': {
+                            backgroundColor: 'secondary.light',
+                        },
+                    }}
+                    type="submit"
+                >
+                    Suscribe
+                </Button>
 
-            {status === 'sending' && <Alert severity="info">Sending...</Alert>}
-            {status === 'error' && <Alert severity="error">{error}</Alert>}
-            {status === 'success' && (
-                <Alert severity="success">Subscribed</Alert>
-            )}
-        </Stack>
+                {status === 'sending' && (
+                    <Alert severity="info">Sending...</Alert>
+                )}
+                {status === 'error' && <Alert severity="error">{error}</Alert>}
+                {status === 'success' && (
+                    <Alert severity="success">Subscribed</Alert>
+                )}
+            </Stack>
+        </form>
     )
 }
 
