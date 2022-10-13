@@ -28,6 +28,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
         console.log('entro')
         onSubmitted({ EMAIL: email })
         event.preventDefault()
+        setEmail('')
     }
     console.log(status, message)
 
@@ -45,6 +46,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                     label="Email"
                     variant="outlined"
                     //type="email"
+                    value={email}
                     onChange={(event) => setEmail(event.target.value)}
                 />
 
