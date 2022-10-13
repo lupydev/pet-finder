@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from '@mui/material'
+import { Alert, Button, Stack, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 
@@ -33,7 +33,13 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
 
     console.log(email)
     return (
-        <form onSubmit={handleSubmit}>
+        <Stack
+            type="form"
+            direction="row"
+            alignItems="center"
+            gap="22px"
+            onSubmit={handleSubmit}
+        >
             <NewsletterEmailTextField
                 sx={{
                     width: '50%',
@@ -65,19 +71,12 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                 Suscribe
             </Button>
 
-            {status === 'sending' && (
-                <div style={{ color: 'blue' }}>sending...</div>
-            )}
-            {status === 'error' && (
-                <div
-                    style={{ color: 'red' }}
-                    dangerouslySetInnerHTML={{ __html: message }}
-                />
-            )}
+            {status === 'sending' && <Alert severity="info">Sending...</Alert>}
+            {status === 'error' && <Alert severity="error">{error}</Alert>}
             {status === 'success' && (
-                <div style={{ color: 'green' }}>Subscribed !</div>
+                <Alert severity="success">Subscribed</Alert>
             )}
-        </form>
+        </Stack>
     )
 }
 
