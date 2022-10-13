@@ -24,16 +24,6 @@ const PetDetails = (props) => {
         }
     }, [])
 
-    useEffect(() => {
-        //verifica si no es undefined y busca los datos del usuario
-        // petDetail !== undefined && dispatch(getUserData(petDetail.userId))
-        // console.log(petDetail) //trae un objeto de la mascota
-    }, [petDetail])
-
-    useEffect(() => {
-    
-    }, [userDetail])
-
     const petDate = new Date(petDetail?.date)
     const petDay = petDate.getDay()
     const monthNames = [
@@ -58,12 +48,10 @@ const PetDetails = (props) => {
         <>
             <Title
                 title={petDetail?.type}
-                color={props.color}
                 desc={'Someone Found'}
                 name={petDetail?.name}
             />
             <Stack
-                
                 sx={{
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -73,23 +61,14 @@ const PetDetails = (props) => {
             >
                 <PetUserContainer
                     description={petDetail?.description}
-                    avatar={petDetail?.userId.img}
-                    name={petDetail?.userId.nickname}
-                    desc={petDetail?.description}
-                    location={petDetail?.location}
                 />
                 <Stack width="100%" px={10} gap="15px">
                     <PetInfo
                         month={petMonth}
                         day={petDay}
                         year={petYear}
-                        location={petDetail?.location}
-                        species={petDetail?.species.name}
-                        gender={petDetail?.gender}
-                        color={petDetail?.color}
-                        size={petDetail?.size}
                     />
-                    <PetLocation />
+                    <PetLocation/>
                 </Stack>
                 {petDetail?.type === 'Lost' ? (
                 <Stack

@@ -49,7 +49,7 @@ const UserDetails = (props) => {
                 alignItems="center"
             >
                 <Avatar
-                    src={props.avatar}
+                    src={petDetail?.userId?.img}
                     sx={{ width: 110, height: 110, ml: '20px' }}
                 />
                 <Stack width="100%">
@@ -64,7 +64,7 @@ const UserDetails = (props) => {
                                 : 'primary'
                         }
                     >
-                        {props.name}
+                        {petDetail?.userId?.nickname}
                     </Typography>
                 </Stack>
             </Stack>

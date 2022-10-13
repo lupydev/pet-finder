@@ -14,14 +14,17 @@ const containerStyle = {
     height: '400px',
 }
 
-const center = {
-    name: 'Monterrey, NL',
-    lat: 25.693596,
-    lng: -100.324392,
-}
+
 
 const PetLocation = () => {
     const { petDetail } = useSelector((state) => state.pet)
+
+    const center = {
+        name: petDetail?.location?.country,
+        lat: petDetail?.location?.lat,
+        lng: petDetail?.location?.long,
+    }
+
     return (
         <Stack width="100%" height="450px" mb='20px' sx={{}}>
             <Stack width="100%" my="25px">
@@ -45,11 +48,11 @@ const PetLocation = () => {
                     mx="auto"
                     color={
                         petDetail?.type.toLowerCase() === 'lost'
-                            ? 'secondary.light'
+                            ? '#ffad82'
                             : 'primary.light'
                     }
                 >
-                    {petDetail?.location}
+                    {petDetail?.location?.country}
                 </Typography>
             </Stack>
             <LoadScript
@@ -58,7 +61,7 @@ const PetLocation = () => {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={15}
+                    zoom={16}
                 >
                     <Marker key={center} position={center}></Marker>
                 </GoogleMap>

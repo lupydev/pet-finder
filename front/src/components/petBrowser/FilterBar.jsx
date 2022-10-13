@@ -250,7 +250,10 @@ const FilterBar = (props) => {
 
                 <FormControl>
                     <Stack width="200px">
-                        {/* <Select
+                    <InputLabel htmlFor="demo-customized-select-native">
+                            {props.principalInputs[2].label}
+                        </InputLabel>
+                        <Select
                             displayEmpty
                             sx={{ height: '45px' }}
                             startAdornment={
@@ -303,7 +306,7 @@ const FilterBar = (props) => {
                                     </em>
                                 </MenuItem>
                             ))}
-                        </Select> */}
+                        </Select>
                         {/* <GMapsApi /> */}
                     </Stack>
                 </FormControl>

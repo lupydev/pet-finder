@@ -90,7 +90,7 @@ const PetInfo = (props) => {
                 } />
                 <Stack justifyContent="flex-start" direction="row" width="49%">
                     <Typography fontSize="15px" component="div" m="0">
-                        {props.location}
+                        {petDetail?.location?.country}
                     </Typography>
                 </Stack>
             </Stack>
@@ -123,7 +123,7 @@ const PetInfo = (props) => {
                             m="0"
                             sx={{ textTransform: 'capitalize' }}
                         >
-                            {props.species}
+                            {petDetail?.species?.name}
                         </Typography>
                     </Stack>
                     <Stack alignItems="center" gap="10px">
@@ -134,7 +134,7 @@ const PetInfo = (props) => {
                             m="0"
                             sx={{ textTransform: 'capitalize' }}
                         >
-                            {props.gender}
+                            {petDetail?.gender}
                         </Typography>
                     </Stack>
                     <Stack alignItems="center" gap="10px">
@@ -145,7 +145,7 @@ const PetInfo = (props) => {
                             m="0"
                             sx={{ textTransform: 'capitalize' }}
                         >
-                            {props.color}
+                            {petDetail?.color}
                         </Typography>
                     </Stack>
                     <Stack alignItems="center" gap="10px">
@@ -156,7 +156,7 @@ const PetInfo = (props) => {
                             m="0"
                             sx={{ textTransform: 'capitalize' }}
                         >
-                            {props.size}
+                            {petDetail?.size}
                         </Typography>
                     </Stack>
                     <Stack alignItems="center" gap="10px">
@@ -167,7 +167,7 @@ const PetInfo = (props) => {
                             m="0"
                             sx={{ textTransform: 'capitalize' }}
                         >
-                            {props.location}
+                            XXXXXX
                         </Typography>
                     </Stack>
                 </Stack>

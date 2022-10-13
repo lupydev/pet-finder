@@ -9,12 +9,7 @@ const PetUserContainer = (props) => {
         <Stack width="100%" px={10} gap="30px" marginTop="20px">
             <Stack direction="row" width="100%" justifyContent='space-evenly' alignItems='center' gap='15px'>
                 <PetCarousel />
-                <UserDetails
-                    avatar={props.avatar}
-                    name={props.name}
-                    desc={props.desc}
-                    location={props.location}
-                />
+                <UserDetails />
             </Stack>
 
             <Stack direction="row" width="100%" >

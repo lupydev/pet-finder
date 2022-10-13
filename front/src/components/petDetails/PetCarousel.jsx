@@ -21,17 +21,6 @@ const PetCarousel = () => {
         petDetail != undefined && loadData()
     }, [petDetail])
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
-
-    // const data = [
-    //     {image: `${petDetail?.img[0]}`},
-    //     {image: `${petDetail?.img[1]}`},
-    //     {image: `${petDetail?.img[2]}`},
-    //     {image: `${petDetail?.img[3]}`},
-    //   ];
-
     return (
         <Stack width="750px" height="330px" sx={{}} mt="10px">
             {data.length && (
