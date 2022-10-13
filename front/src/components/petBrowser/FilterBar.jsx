@@ -24,15 +24,16 @@ import {
     MdPalette,
     MdExpand,
 } from 'react-icons/md'
-import { BsCaretDownFill } from 'react-icons/bs'
+import { BsCaretDownFill, BsSearch } from 'react-icons/bs'
 import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
 import { TbSortDescending } from 'react-icons/tb'
 import { useDispatch, useSelector } from 'react-redux'
+import GMapsApi from '../formPost/GMapsAutocomplete/GMapsApi'
 
 const FilterBar = (props) => {
     const dispatch = useDispatch()
-    const { species, breeds } = useSelector((state) => state.pet)
+    const { petData, species, breeds } = useSelector((state) => state.pet)
 
     return (
         <>
@@ -52,6 +53,38 @@ const FilterBar = (props) => {
                     color="#357abd"
                     sx={{ borderBottomWidth: 3, width: '450px' }}
                 />
+                <Stack direction="row">
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                color={
+                                    props.title.toLowerCase() === 'lost'
+                                        ? 'secondary'
+                                        : 'primary'
+                                }
+                            />
+                        }
+                        name="isReunited"
+                        label="Show Reunited"
+                        onChange={(e) => props.handleChange(e)}
+                    />
+                    <Button
+                        onClick={props.handleClick}
+                        variant="contained"
+                        color={
+                            props.title.toLowerCase() === 'lost'
+                                ? 'secondary'
+                                : 'primary'
+                        }
+                        sx={{
+                            textTransform: 'none',
+                            width: '160px',
+                            borderRadius: '8px',
+                        }}
+                    >
+                        Restart Filters
+                    </Button>
+                </Stack>
             </Stack>
             <Stack
                 px={10}
@@ -59,7 +92,7 @@ const FilterBar = (props) => {
                 direction="row"
                 width="100%"
                 maxWidth="1440px"
-                justifyContent="space-between"
+                justifyContent="space-evenly"
                 flexWrap="wrap"
             >
                 <FormControl>
@@ -89,27 +122,27 @@ const FilterBar = (props) => {
                                 }
                                 let option
                                 switch (selected) {
-                                case '63349820bb516339d5f633f0':
-                                    option = 'Cat'
-                                    break
-                                case '6334982abb516339d5f633f2':
-                                    option = 'Dog'
-                                    break
-                                case '6334984dbb516339d5f633f4':
-                                    option = 'Bird'
-                                    break
-                                case '63349866bb516339d5f633f6':
-                                    option = 'Horse'
-                                    break
-                                case '63349870bb516339d5f633f8':
-                                    option = 'Rabbit'
-                                    break
-                                case '63349899bb516339d5f633fa':
-                                    option = 'Hamster'
-                                    break
-                                case '633498a3bb516339d5f633fc':
-                                    option = 'Others'
-                                    break
+                                    case '63349820bb516339d5f633f0':
+                                        option = 'Cat'
+                                        break
+                                    case '6334982abb516339d5f633f2':
+                                        option = 'Dog'
+                                        break
+                                    case '6334984dbb516339d5f633f4':
+                                        option = 'Bird'
+                                        break
+                                    case '63349866bb516339d5f633f6':
+                                        option = 'Horse'
+                                        break
+                                    case '63349870bb516339d5f633f8':
+                                        option = 'Rabbit'
+                                        break
+                                    case '63349899bb516339d5f633fa':
+                                        option = 'Hamster'
+                                        break
+                                    case '633498a3bb516339d5f633fc':
+                                        option = 'Others'
+                                        break
                                 }
                                 return (
                                     <Typography
@@ -217,7 +250,7 @@ const FilterBar = (props) => {
 
                 <FormControl>
                     <Stack width="200px">
-                        <InputLabel htmlFor="demo-customized-select-native">
+                    <InputLabel htmlFor="demo-customized-select-native">
                             {props.principalInputs[2].label}
                         </InputLabel>
                         <Select
@@ -274,38 +307,28 @@ const FilterBar = (props) => {
                                 </MenuItem>
                             ))}
                         </Select>
+                        {/* <GMapsApi /> */}
                     </Stack>
                 </FormControl>
-
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            color={
-                                props.title.toLowerCase() === 'lost'
-                                    ? 'secondary'
-                                    : 'primary'
-                            }
-                        />
-                    }
-                    label="Show Meet"
-                />
-                {/* <Button
-                    variant="contained"
-                    color={
-                        props.title.toLowerCase() === 'lost'
-                            ? 'secondary'
-                            : 'primary'
-                    }
-                    sx={{
-                        ml: '15px',
-                        borderRadius: '50%',
-                        p: '0',
-                        minHeight: '60px',
-                        minWidth: '60px',
-                    }}
-                >
-                    <BsSearch fontSize="25px" />
-                </Button> */}
+                <Stack direction="row" gap="15px">
+                    <Button
+                        onClick={props.handleSubmit}
+                        endIcon={<BsSearch size="15px" />}
+                        variant="contained"
+                        color={
+                            props.title.toLowerCase() === 'lost'
+                                ? 'secondary'
+                                : 'primary'
+                        }
+                        sx={{
+                            textTransform: 'none',
+                            width: '180px',
+                            borderRadius: '8px',
+                        }}
+                    >
+                        Search
+                    </Button>
+                </Stack>
             </Stack>
 
             <Stack width="100%" maxWidth="1440px">
@@ -344,7 +367,7 @@ const FilterBar = (props) => {
                             transform: 'rotate(180deg)',
                             display: 'flex',
                             flexWrap: 'wrap',
-                            justifyContent: 'space-between',
+                            justifyContent: 'space-evenly',
                             px: 10,
                         }}
                     >

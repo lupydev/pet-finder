@@ -21,7 +21,7 @@ const INITIAL_FILTER = {
     name: '',
     color: '',
     size: '',
-    isRefound: '',
+    isReunited: true,
 }
 
 const principalInputs = [
@@ -96,7 +96,7 @@ const PetBrowser = (props) => {
     const [filter, setFilter] = useState(INITIAL_FILTER)
     const type = props.title
     const [page, setPage] = useState(1)
-    const [perPage, setPerPage] = useState(10)
+    const [perPage, setPerPage] = useState(8)
     const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
     const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
     let max
@@ -110,20 +110,29 @@ const PetBrowser = (props) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
     }
 
-    useEffect(() => {}, [])
+    const handleReset = () => {
+        setFilter(INITIAL_FILTER)
+        dispatch(getPetsBrowser({ type, filter : {...INITIAL_FILTER}} ))
+    }
+
+    const handleSubmit = () => {
+        dispatch(getPetsBrowser({ type, filter }))
+        setPage(1)
+    }
 
     useEffect(() => {
         dispatch(cleanPetData())
-        setPage(1)
-
-        dispatch(getPetsBrowser({ type, filter }))
         dispatch(getSpecies())
+        handleReset()
+        setPage(1)
     }, [props.title])
 
     useEffect(() => {
-        dispatch(getPetsBrowser({ type, filter }))
+        dispatch(getSpecies())
+        handleReset()
         setPage(1)
-    }, [filter])
+
+    }, [])
 
     useEffect(() => {
         Object.entries(LostPetsData).length > 0 &&
@@ -147,7 +156,11 @@ const PetBrowser = (props) => {
 
     return (
         <>
-            <Title title={props.title} color={props.color} />
+            <Title
+                title={props.title}
+                color={props.color}
+                desc={'Here you can find your Pet'}
+            />
 
             <FilterBar
                 title={props.title}
@@ -155,6 +168,8 @@ const PetBrowser = (props) => {
                 extraInputs={extraInputs}
                 handleChange={handleChange}
                 filter={filter}
+                handleClick={handleReset}
+                handleSubmit={handleSubmit}
             />
 
             <Stack
@@ -162,7 +177,7 @@ const PetBrowser = (props) => {
                 justifyContent={'center'}
                 flexWrap="wrap"
                 gap="24px"
-                maxWidth='1440px'
+                maxWidth="1440px"
             >
                 <PetCard
                     pets={
