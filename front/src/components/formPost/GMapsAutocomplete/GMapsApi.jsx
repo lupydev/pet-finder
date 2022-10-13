@@ -31,7 +31,7 @@ const GMapsApi = ({ setLocation }) => {
         }
     }
 
-    return isLoaded ? (
+    return isLoaded && (
         <Autocomplete
             onLoad={onLoad}
             onPlaceChanged={onPlaceChanged}
@@ -47,10 +47,9 @@ const GMapsApi = ({ setLocation }) => {
                 size="small"
                 label="Location*"
                 placeholder=''
+                disabled = {!isLoaded}
             />
         </Autocomplete>
-    ) : (
-        <Loading />
     )
 
 }
