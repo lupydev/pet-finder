@@ -66,7 +66,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                     Suscribe
                 </Button>
             </Stack>
-            <Stack>
+            <Stack marginTop={1}>
                 {status === 'sending' && (
                     <Alert severity="info">Sending...</Alert>
                 )}
