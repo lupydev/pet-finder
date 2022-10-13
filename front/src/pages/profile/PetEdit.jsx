@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import {
+    Autocomplete,
     Box,
+    Chip,
     CircularProgress,
+    FormControl,
     Grid,
     IconButton,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
     Paper,
+    Select,
+    TextField,
     Typography,
 } from '@mui/material'
 import TextfieldWrapper from '../../components/formPost/Textfield/Textfield'
@@ -49,12 +57,7 @@ const FORM_VALIDATION = Yup.object().shape({
 const PetEdit = ({ currentPet }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
-    const { species } = useSelector((state) => state.pet)
-
-    useEffect(() => {
-        dispatch(getSpecies())
-    }, [])
+    const { species, breeds } = useSelector((state) => state.pet)
 
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState(currentPet.img)
@@ -63,18 +66,22 @@ const PetEdit = ({ currentPet }) => {
     const INITIAL_FORM_STATE = {
         name: currentPet?.name,
         description: currentPet?.description,
-        species: currentPet?.species ?? '',
+        species: currentPet?.species.name,
         gender: currentPet?.gender,
         size: currentPet?.size,
         type: currentPet?.type,
-        breed: currentPet?.breed ?? '',
+        breed: currentPet?.breed.name,
         age: currentPet?.age,
         color: currentPet?.color ?? '',
         img: [currentPet.img],
-        location: currentPet?.location,
+        location: currentPet?.location.country,
         date: currentPet?.date,
         observation: currentPet?.observation,
     }
+
+    useEffect(() => {
+        dispatch(getSpecies())
+    }, [])
 
     const handleUpload = async (e) => {
         try {
@@ -102,8 +109,29 @@ const PetEdit = ({ currentPet }) => {
         }
     }
 
-    const handleSubmit = (values) => {
+    const handleSubmit = (values, resetForm) => {
         console.log(values)
+
+        if (Object.entries(location).length > 0) {
+            values.location = location
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: 'The location is required',
+            })
+            return
+        }
+
+        if (images.length) {
+            values.img = images
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: 'Must contain at least one image',
+            })
+            return
+        }
+
         const valuesUpdate = {
             ...values,
             img: images,
@@ -120,13 +148,15 @@ const PetEdit = ({ currentPet }) => {
             if (result.isConfirmed) {
                 dispatch(editPet({ id: currentPet._id, newData: valuesUpdate }))
                 Swal.fire('Your profile has been updated!').then(() =>
-                    window.location.reload()
+                    navigate('/profile')
                 )
                 navigate('/profile')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
             }
         })
+
+        resetForm()
     }
 
     const handleDeleteImg = (elem) => {
@@ -134,146 +164,249 @@ const PetEdit = ({ currentPet }) => {
     }
 
     return (
-        <Formik
-            initialValues={{ ...INITIAL_FORM_STATE }}
-            validationSchema={FORM_VALIDATION}
-            onSubmit={(values) => {
-                handleSubmit(values)
-            }}
-        >
-            <Form>
-                <Grid container spacing={2.5} columns={6} width={700}>
-                    <Grid item xs={6}>
-                        <Typography variant="h6">Edit Pet</Typography>
-                    </Grid>
+        <div>
+            <Formik
+                initialValues={{ ...INITIAL_FORM_STATE }}
+                validationSchema={FORM_VALIDATION}
+                onSubmit={(values, { resetForm }) => {
+                    handleSubmit(values, resetForm)
+                }}
+            >
+                {({
+                    values,
+                    errors,
+                    touched,
+                    setFieldValue,
+                    handleChange,
+                    handleBlur,
+                }) => (
+                    <Form>
+                        <Grid
+                            container
+                            spacing={2}
+                            columns={6}
+                            margin={3}
+                            maxWidth={800}
+                        >
+                            <Grid item xs={6}>
+                                <Typography
+                                    variant="h3"
+                                    color="primary.main"
+                                    fontFamily={'Merriweather'}
+                                    fontWeight="bold"
+                                    textAlign="center"
+                                >
+                                    Edit Post
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="h6">Pictures</Typography>
 
-                    <Grid item xs={4}>
-                        <TextfieldWrapper
-                            id="name"
-                            name="name"
-                            label="Pet name"
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <DateTimePicker id="date" name="date" size="small" />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <SelectWrapper
-                            id="species"
-                            name="species"
-                            label="Specie"
-                            options={species}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <SelectWrapper
-                            id="breed"
-                            name="breed"
-                            label="Breed"
-                            options={breed}
-                            size="small"
-                        />
-                    </Grid>
+                                <UploadImages
+                                    handleUpload={handleUpload}
+                                    images={images}
+                                    handleDeleteImg={handleDeleteImg}
+                                    loading={loading}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="h6">
+                                    Pet details
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextfieldWrapper
+                                    id="name"
+                                    name="name"
+                                    label="Pet name"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <DateTimePicker
+                                    id="date"
+                                    name="date"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <SelectWrapper
+                                    id="species"
+                                    name="species"
+                                    label="Specie"
+                                    options={species}
+                                    value={currentPet?.species}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Autocomplete
+                                    id="breed"
+                                    name="breed"
+                                    options={breeds}
+                                    getOptionLabel={(option) => option.name}
+                                    onChange={(e, value) => {
+                                        setFieldValue(
+                                            'breed',
+                                            value !== null
+                                                ? value._id
+                                                : INITIAL_FORM_STATE.breed
+                                        )
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label="Breeds"
+                                            id="breed"
+                                            error={
+                                                touched.breed && errors.breed
+                                                    ? true
+                                                    : false
+                                            }
+                                            helperText={
+                                                touched.breed &&
+                                                errors.breed &&
+                                                errors.breed
+                                            }
+                                        />
+                                    )}
+                                    disableClearable
+                                    disabled={!breeds.length}
+                                    size="small"
+                                />
 
-                    <Grid item xs={2}>
-                        <SelectWrapper
-                            id="gender"
-                            name="gender"
-                            label="Gender"
-                            options={gender}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <SelectWrapper
-                            id="size"
-                            name="size"
-                            label="Size"
-                            options={size}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <SelectWrapper
-                            id="age"
-                            name="age"
-                            label="Age"
-                            options={age}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <SelectWrapper
-                            id="color"
-                            name="color"
-                            label="Color"
-                            options={color}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextfieldWrapper
-                            id="observation"
-                            name="observation"
-                            label="Observation"
-                            multiline={true}
-                            rows={4}
-                            size="small"
-                        />
-                    </Grid>
+                                {/* <ComboBox
+                                id="breed"
+                                name="breed"
+                                label="Breed"
+                                options={breeds}
+                                size="small"
+                                disabled={!breeds.length}
+                            /> */}
+                            </Grid>
+                            <Grid item xs={2}>
+                                <SelectWrapper
+                                    id="gender"
+                                    name="gender"
+                                    label="Gender"
+                                    options={gender}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <SelectWrapper
+                                    id="size"
+                                    name="size"
+                                    label="Size"
+                                    options={size}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <SelectWrapper
+                                    id="age"
+                                    name="age"
+                                    label="Age"
+                                    options={age}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <FormControl fullWidth size="small">
+                                    <InputLabel>Color</InputLabel>
+                                    <Select
+                                        id="color"
+                                        name="color"
+                                        label="color"
+                                        value={values.color}
+                                        multiple
+                                        onChange={handleChange}
+                                        input={
+                                            <OutlinedInput
+                                                id="select-multiple-chip"
+                                                label="Color"
+                                            />
+                                        }
+                                        renderValue={(selected) => (
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    gap: 0.5,
+                                                }}
+                                            >
+                                                {selected.map((value) => (
+                                                    <Chip
+                                                        key={value}
+                                                        label={value}
+                                                    />
+                                                ))}
+                                            </Box>
+                                        )}
+                                    >
+                                        {color.map((color) => (
+                                            <MenuItem
+                                                key={color._id}
+                                                value={color.name}
+                                            >
+                                                {color.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
 
-                    <Grid item xs={3}>
-                        <SelectWrapper
-                            id="type"
-                            name="type"
-                            label="Type"
-                            options={types}
-                            size="small"
-                        />
-                    </Grid>
-                    {/* Gmaps Api */}
-                    <Grid item xs={3}>
-                        <GMapsApi setLocation={setLocation} name="location" />
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <TextfieldWrapper
-                            id="description"
-                            name="description"
-                            label="Description"
-                            multiline={true}
-                            rows={6}
-                            size="small"
-                        />
-                    </Grid>
-
-                    {/* <Grid item xs={3}>
-                        <TextfieldWrapper
-                            id="map"
-                            name="map"
-                            label="Map"
-                            multiline={true}
-                            rows={6}
-                        />
-                    </Grid> */}
-                    <Grid item xs={6}>
-                        <Typography>Pictures</Typography>
-                    </Grid>
-                    <UploadImages
-                        handleUpload={handleUpload}
-                        handleDeleteImg={handleDeleteImg}
-                        images={images}
-                        loading={loading}
-                    />
-
-                    <Grid item xs={6}>
-                        <ButtonWrapper>Save Changes</ButtonWrapper>
-                    </Grid>
-                </Grid>
-            </Form>
-        </Formik>
+                                {/* <SelectWrapper
+                                id="color"
+                                name="color"
+                                label="Color"
+                                multiple
+                                options={color}
+                                size="small"
+                            /> */}
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextfieldWrapper
+                                    id="observation"
+                                    name="observation"
+                                    label="Observation"
+                                    multiline={true}
+                                    rows={4}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <SelectWrapper
+                                    id="type"
+                                    name="type"
+                                    label="Type"
+                                    options={types}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <GMapsApi
+                                    setLocation={setLocation}
+                                    value={currentPet?.location.country}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextfieldWrapper
+                                    id="description"
+                                    name="description"
+                                    label="Description"
+                                    multiline={true}
+                                    rows={6}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <ButtonWrapper>Save Changes</ButtonWrapper>
+                            </Grid>
+                        </Grid>
+                    </Form>
+                )}
+            </Formik>
+        </div>
     )
 }
 
