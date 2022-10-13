@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Accordion,
     AccordionDetails,
@@ -34,6 +34,7 @@ import GMapsApi from '../formPost/GMapsAutocomplete/GMapsApi'
 const FilterBar = (props) => {
     const dispatch = useDispatch()
     const { petData, species, breeds } = useSelector((state) => state.pet)
+    const [location, setLocation] = useState({})
 
     return (
         <>
@@ -250,7 +251,7 @@ const FilterBar = (props) => {
 
                 <FormControl>
                     <Stack width="200px">
-                    <InputLabel htmlFor="demo-customized-select-native">
+                        <InputLabel htmlFor="demo-customized-select-native">
                             {props.principalInputs[2].label}
                         </InputLabel>
                         <Select
@@ -307,7 +308,7 @@ const FilterBar = (props) => {
                                 </MenuItem>
                             ))}
                         </Select>
-                        {/* <GMapsApi /> */}
+                        {/* <GMapsApi setLocation={setLocation} /> */}
                     </Stack>
                 </FormControl>
                 <Stack direction="row" gap="15px">

@@ -1,5 +1,5 @@
 import { Stack } from '@mui/system'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     GoogleMap,
     InfoWindow,
@@ -14,19 +14,21 @@ const containerStyle = {
     height: '400px',
 }
 
-
-
 const PetLocation = () => {
     const { petDetail } = useSelector((state) => state.pet)
+    const [center, setCenter] = useState(undefined)
 
-    const center = {
-        name: petDetail?.location?.country,
-        lat: petDetail?.location?.lat,
-        lng: petDetail?.location?.long,
-    }
+    useEffect(() => {
+        petDetail != undefined &&
+            setCenter({
+                name: petDetail?.location?.country,
+                lat: petDetail?.location?.lat,
+                lng: petDetail?.location?.long,
+            })
+    }, [petDetail])
 
     return (
-        <Stack width="100%" height="450px" mb='20px' sx={{}}>
+        <Stack width="100%" height="450px" mb="20px" sx={{}}>
             <Stack width="100%" my="25px">
                 <Typography
                     fontSize="22px"
@@ -55,17 +57,19 @@ const PetLocation = () => {
                     {petDetail?.location?.country}
                 </Typography>
             </Stack>
-            <LoadScript
-                googleMapsApiKey={import.meta.env.VITE_APP_GMAPS_API_KEY}
-            >
-                <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={center}
-                    zoom={16}
+            {center != undefined && (
+                <LoadScript
+                    googleMapsApiKey={import.meta.env.VITE_APP_GMAPS_API_KEY}
                 >
-                    <Marker key={center} position={center}></Marker>
-                </GoogleMap>
-            </LoadScript>
+                    <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={center}
+                        zoom={16}
+                    >
+                        <Marker key={center} position={center}></Marker>
+                    </GoogleMap>
+                </LoadScript>
+            )}
         </Stack>
     )
 }
