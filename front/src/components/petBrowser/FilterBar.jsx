@@ -24,11 +24,12 @@ import {
     MdPalette,
     MdExpand,
 } from 'react-icons/md'
-import { BsCaretDownFill } from 'react-icons/bs'
+import { BsCaretDownFill, BsSearch } from 'react-icons/bs'
 import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
 import { TbSortDescending } from 'react-icons/tb'
 import { useDispatch, useSelector } from 'react-redux'
+import GMapsApi from '../formPost/GMapsAutocomplete/GMapsApi'
 
 const FilterBar = (props) => {
     const dispatch = useDispatch()
@@ -52,23 +53,26 @@ const FilterBar = (props) => {
                     color="#357abd"
                     sx={{ borderBottomWidth: 3, width: '450px' }}
                 />
-                <Stack direction='row'>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            color={
-                                props.title.toLowerCase() === 'lost'
-                                    ? 'secondary'
-                                    : 'primary'
-                            }
-                        />
-                    }
-                    label="Show Reunited"
-                />
-                <Button
+                <Stack direction="row">
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                color={
+                                    props.title.toLowerCase() === 'lost'
+                                        ? 'secondary'
+                                        : 'primary'
+                                }
+                            />
+                        }
+                        name="isReunited"
+                        label="Show Reunited"
+                        onChange={(e) => props.handleChange(e)}
+                    />
+                    <Button
+                        onClick={props.handleClick}
                         variant="contained"
                         color={
-                            petData?.type.toLowerCase() === 'lost'
+                            props.title.toLowerCase() === 'lost'
                                 ? 'secondary'
                                 : 'primary'
                         }
@@ -246,10 +250,7 @@ const FilterBar = (props) => {
 
                 <FormControl>
                     <Stack width="200px">
-                        <InputLabel htmlFor="demo-customized-select-native">
-                            {props.principalInputs[2].label}
-                        </InputLabel>
-                        <Select
+                        {/* <Select
                             displayEmpty
                             sx={{ height: '45px' }}
                             startAdornment={
@@ -302,14 +303,17 @@ const FilterBar = (props) => {
                                     </em>
                                 </MenuItem>
                             ))}
-                        </Select>
+                        </Select> */}
+                        {/* <GMapsApi /> */}
                     </Stack>
                 </FormControl>
-                <Stack direction='row' gap='15px'>
+                <Stack direction="row" gap="15px">
                     <Button
+                        onClick={props.handleSubmit}
+                        endIcon={<BsSearch size="15px" />}
                         variant="contained"
                         color={
-                            petData?.type.toLowerCase() === 'lost'
+                            props.title.toLowerCase() === 'lost'
                                 ? 'secondary'
                                 : 'primary'
                         }
@@ -321,25 +325,7 @@ const FilterBar = (props) => {
                     >
                         Search
                     </Button>
-                    
                 </Stack>
-                {/* <Button
-                    variant="contained"
-                    color={
-                        props.title.toLowerCase() === 'lost'
-                            ? 'secondary'
-                            : 'primary'
-                    }
-                    sx={{
-                        ml: '15px',
-                        borderRadius: '50%',
-                        p: '0',
-                        minHeight: '60px',
-                        minWidth: '60px',
-                    }}
-                >
-                    <BsSearch fontSize="25px" />
-                </Button> */}
             </Stack>
 
             <Stack width="100%" maxWidth="1440px">
