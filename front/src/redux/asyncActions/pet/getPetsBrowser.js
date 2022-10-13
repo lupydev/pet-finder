@@ -5,9 +5,11 @@ export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 export const getPetsBrowser = createAsyncThunk(
     'pets/getAll/',
     async (browser = {}) => {
+
         try {
             return await axios.get(
                 `${API_ROUTE}/pets/getAll/${browser.type}?species=${browser.filter.species}&gender=${browser.filter.gender}&city=${browser.filter.city}&date=${browser.filter.date}&name=${browser.filter.name}&color=${browser.filter.color}&size=${browser.filter.size}`
+                // `${API_ROUTE}/pets/getAll/${browser.type}?species=${browser.filter.species}&gender=${browser.filter.gender}&city=${browser.filter.city}&date=${browser.filter.date}&name=${browser.filter.name}&color=${browser.filter.color}&size=${browser.filter.size}?status=${browser.filter.isReunited}`
             )
         } catch (err) {
             console.log(err)

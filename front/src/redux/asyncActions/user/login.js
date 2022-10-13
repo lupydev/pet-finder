@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Toast } from '../../../utils/swalToasts' 
+import { Toast } from '../../../utils/swalToasts'
 
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
@@ -27,7 +27,7 @@ export const extraLogin = {
                 token: action.payload.data.token,
                 id: action.payload.data.id,
                 isLogged: true,
-                isAdmin: action.payload.data.admin,
+                isAdmin: action.payload.data.admin ? action.payload.data.admin : false,
                 isGoogle: false,
             }
 
@@ -39,14 +39,11 @@ export const extraLogin = {
                 icon: 'success',
                 title: 'Signed in successfully',
             })
-        
-            
         } else {
             Toast.fire({
                 icon: 'error',
                 title: action.payload.data.msg,
             })
-        
         }
     },
     [login.rejected]: (state) => {

@@ -4,22 +4,28 @@ import { Toast } from '../../../utils/swalToasts'
 
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
-export const login = createAsyncThunk('renew/', async ({ id, admin }) => {
+export const renewToken = createAsyncThunk('renew/', async () => {
+    const user = JSON.parse(window.localStorage.getItem('user'))
+
+    const config = { headers: { token: user.token } }
+
+    console.log(user, 'entro')
+
     try {
-        return await axios.post(`${API_ROUTE}/renew`, {
-            id,
-            admin,
-        })
+        return await axios.post(
+            `${API_ROUTE}/renew/${user.id}&${user.isAdmin}`,
+            config
+        )
     } catch (err) {
         console.log(err)
     }
 })
 
-export const extraLogin = {
-    [login.pending]: (state) => {
+export const extraRenewToken = {
+    [renewToken.pending]: (state) => {
         state.status = 'loading'
     },
-    [login.fulfilled]: (state, action) => {
+    [renewToken.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
             state.status = 'success'
 
@@ -27,14 +33,15 @@ export const extraLogin = {
                 token: action.payload.data.token,
                 id: action.payload.data.id,
                 isLogged: true,
-                admin: action.payload.data.admin,
+                isAdmin: action.payload.data.admin
+                    ? action.payload.data.admin
+                    : false,
                 isGoogle: false,
             }
 
             state.userInfo = user
 
             window.localStorage.setItem('user', JSON.stringify(user))
-
         } else {
             Toast.fire({
                 icon: 'error',
@@ -42,7 +49,7 @@ export const extraLogin = {
             })
         }
     },
-    [login.rejected]: (state) => {
+    [renewToken.rejected]: (state) => {
         state.status = 'failed'
         state.isLogged = false
     },

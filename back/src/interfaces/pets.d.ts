@@ -12,7 +12,7 @@ export interface Pets {
     breed: Types.ObjectId
     age: number
     color: string[]
-    location: string
+    location: object
     status?: StatusPet
     date?: string
     img: string[]

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from '../pages/home/Home'
 import ContactForm from '../components/contact-form/ContactForm'
 import RegisterForm from '../components/auth/RegisterForm'
@@ -10,6 +10,7 @@ import Profile from '../pages/profile/Profile'
 import { useDispatch, useSelector } from 'react-redux'
 import isUserLogged from '../utils/isUserLogged'
 import { getUserData } from '../redux/asyncActions/user/getUserData'
+import { renewToken } from '../redux/asyncActions/user/renewToken'
 import React, { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
@@ -18,6 +19,7 @@ import { CreatePostFinal } from '../components/formPost/CreatePostFinal'
 const Routing = () => {
     const dispatch = useDispatch()
     const { userInfo } = useSelector((state) => state.user)
+    let location = useLocation()
 
     useEffect(() => {
         if (isUserLogged()) {
@@ -25,6 +27,11 @@ const Routing = () => {
             dispatch(userIsLogged())
         }
     }, [])
+
+    useEffect(() => {
+        // console.log(location)
+        // dispatch(renewToken())
+    }, [location])
 
     return (
         <Routes>
@@ -42,14 +49,21 @@ const Routing = () => {
             <Route path="/lostPets/:id" element={<PetDetails />} />
             <Route path="/contact" element={<ContactForm />} />
             <Route path="/signin" element={<RegisterForm />} />
-            <Route element={<PrivateRoute redirectPath={'/profile'} isAllowed={!userInfo?.isLogged} />}>
+            <Route
+                element={
+                    <PrivateRoute
+                        redirectPath={'/profile'}
+                        isAllowed={!isUserLogged()}
+                    />
+                }
+            >
                 <Route path="/login" element={<Login />} />
             </Route>
             <Route path="/aboutUs" element={<About />} />
-            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/profile" element={<Profile />} />
             </Route>
-            <Route element={<PrivateRoute isAllowed={userInfo?.isLogged} />}>
+            <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/createPost" element={<CreatePostFinal />} />
             </Route>
         </Routes>
