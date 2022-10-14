@@ -47,7 +47,7 @@ const PetDetails = (props) => {
     return (
         <>
             <Title
-                title={petDetail?.type}
+                title={`${petDetail?.type} Pet`}
                 desc={'Someone Found'}
                 name={petDetail?.name}
             />
@@ -59,38 +59,32 @@ const PetDetails = (props) => {
                     maxWidth: '1440px',
                 }}
             >
-                <PetUserContainer
-                    description={petDetail?.description}
-                />
+                <PetUserContainer description={petDetail?.description} />
                 <Stack width="100%" px={10} gap="15px">
-                    <PetInfo
-                        month={petMonth}
-                        day={petDay}
-                        year={petYear}
-                    />
-                    <PetLocation/>
+                    <PetInfo month={petMonth} day={petDay} year={petYear} />
+                    <PetLocation />
                 </Stack>
                 {petDetail?.type === 'Lost' ? (
-                <Stack
-                    height="100px"
-                    width={'100%'}
-                    sx={{
-                        backgroundImage:
-                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)',
-                        backgroundRepeat: 'repeat',
-                    }}
-                ></Stack>
-            ) : (
-                <Stack
-                    height="100px"
-                    width={'100%'}
-                    sx={{
-                        backgroundImage:
-                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
-                        backgroundRepeat: 'repeat',
-                    }}
-                ></Stack>
-            )}
+                    <Stack
+                        height="100px"
+                        width={'100%'}
+                        sx={{
+                            backgroundImage:
+                                'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg)',
+                            backgroundRepeat: 'repeat',
+                        }}
+                    ></Stack>
+                ) : (
+                    <Stack
+                        height="100px"
+                        width={'100%'}
+                        sx={{
+                            backgroundImage:
+                                'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
+                            backgroundRepeat: 'repeat',
+                        }}
+                    ></Stack>
+                )}
             </Stack>
         </>
     )

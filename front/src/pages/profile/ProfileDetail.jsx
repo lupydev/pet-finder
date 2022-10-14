@@ -13,30 +13,64 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import EditProfile from './EditProfile'
 import PetDetail from './PetDetail'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
 import { cleanPetsData } from '../../redux/features/user/userSlice'
 import PetEdit from './PetEdit'
+import PetCard from '../../components/home/pets/PetCard'
+import Swal from 'sweetalert2'
+import { editPet } from '../../redux/asyncActions/pet/editPet'
+import Title from '../../components/petBrowser/Title'
 
 const ProfileDetail = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const { userData, userPets } = useSelector((state) => state.user)
 
     const [editProfile, setEditProfile] = useState(false)
     const [editPost, setEditPost] = useState(false)
-    const [currentPet, setCurrentPet] = React.useState(undefined)
+    const [currentPet, setCurrentPet] = useState(undefined)
 
     const handleModeEdit = () => {
         setEditProfile(!editProfile)
     }
-    
+
+    const handleViewProfile = (pet) => {
+        const type = pet.type.toLowerCase()
+        const id = pet._id
+
+        navigate(`/${type}Pets/${id}`)
+    }
+
     const handleEditPost = (pets) => {
         setEditPost(!editPost)
         setCurrentPet(pets)
     }
 
+    const handleDelete = (pet) => {
+        Swal.fire({
+            title: `Do you really want to delete ${pet.name}?`,
+            icon: 'warning',
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(
+                    editPet({ id: pet._id, newData: { status: 'Deleted' } })
+                )
+                Swal.fire('Your post has been deleted!').then(() =>
+                    userData.pets.map((pet) => {
+                        dispatch(cleanPetsData())
+                        dispatch(getUserPets(pet))
+                    })
+                )
+            }
+        })
+    }
+
     useEffect(() => {
+        dispatch(cleanPetsData())
         userData.pets.map((pet) => {
             dispatch(getUserPets(pet))
         })
@@ -47,78 +81,76 @@ const ProfileDetail = () => {
     }, [])
 
     return (
-        <Stack maxWidth="1440px">
-            {editPost && currentPet != undefined ? (
-                <PetEdit currentPet={currentPet} />
-            ) : editProfile && !editPost ? (
-                <EditProfile userData={userData} />
-            ) : (
-                <Paper
-                    elevation={6}
-                    sx={{
-                        backgroundColor: 'primary.main',
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Box
-                            display="flex"
-                            justifyContent="flex-end"
-                            width="100%"
+        <Stack width="100%" gap={5} alignItems={'center'}>
+            <Title
+                title={'Profile'}
+            />
+            <Stack
+                width="100%"
+                maxWidth="1440px"
+                direction={'row'}
+                alignItems={'flex-start'}
+                justifyContent={'center'}
+                gap={10}
+            >
+                <Stack>
+                    {editPost && currentPet != undefined ? (
+                        <PetEdit currentPet={currentPet} />
+                    ) : editProfile && !editPost ? (
+                        <EditProfile userData={userData} />
+                    ) : (
+                        <Stack
+                            alignItems="center"
+                            justifyContent="space-between"
+                            p="15px"
+                            sx={{
+                                backgroundColor: 'primary.main',
+                                width: '400px',
+                                // height: '600px',
+                                borderRadius: '10px',
+                            }}
+                            gap={2}
                         >
-                            <IconButton
-                                color="primary"
-                                aria-label="edit"
-                            ></IconButton>
-                        </Box>
-                        <Typography variant="h4" marginY={5} color="white">
-                            My Profile
-                        </Typography>
+                            <Avatar
+                                sx={{ width: 200, height: 200 }}
+                                src={userData?.img}
+                                alt={userData?.nickname}
+                            />
 
-                        <Divider variante="middle"></Divider>
-
-                        <Avatar
-                            sx={{ width: 200, height: 200 }}
-                            src={userData?.img}
-                            alt={userData?.nickname}
-                        />
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <Typography
                                 sx={{
                                     p: 1.5,
                                     borderRadius: 3,
                                     bgcolor: 'white',
-                                    marginRight: '1rem',
-                                    marginLeft: '1rem',
+                                    m: 0,
+                                    width: '100%',
                                 }}
                                 border="1px solid gray"
                                 color="text.primary"
                                 marginTop={3}
                             >
-                                <b> Nickname:</b> {userData?.nickname}
+                                <b> Nickname:</b>
+                                <br></br>
+                                {userData?.nickname}
                             </Typography>
-                            {userData?.fullname ? (
+
+                            {userData?.fullname && (
                                 <Typography
                                     sx={{
                                         p: 1.5,
                                         borderRadius: 3,
                                         bgcolor: 'white',
-                                        marginRight: '1rem',
-                                        marginLeft: '1rem',
+                                        m: 0,
+                                        width: '100%',
                                     }}
                                     border="1px solid gray"
                                     color="text.primary"
                                     marginTop={3}
                                 >
-                                    <b> Full Name:</b> {userData?.fullname}
+                                    <b> Full Name:</b>
+                                    <br></br>
+                                    {userData?.fullname}
                                 </Typography>
-                            ) : (
-                                ''
                             )}
 
                             <Typography
@@ -126,82 +158,84 @@ const ProfileDetail = () => {
                                     p: 1.5,
                                     borderRadius: 3,
                                     bgcolor: 'white',
-                                    marginRight: '1rem',
-                                    marginLeft: '1rem',
+                                    m: 0,
+                                    width: '100%',
                                 }}
-                                border="1px solid gray"
                                 color="text.primary"
                                 marginTop={3}
                                 marginBottom={3}
                             >
-                                <b> Email:</b> {userData?.email}
+                                <b> Email:</b>
+                                <br></br>
+                                {userData?.email}
                             </Typography>
-                        </Box>
-                    </Box>
-                </Paper>
-            )}
+                        </Stack>
+                    )}
 
-            {editPost ? (
-                ''
-            ) : (
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginTop: '1rem',
-                    }}
-                >
-                    <Button
-                        onClick={handleModeEdit}
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                            borderRadius: 2,
-                            textTransform: 'none',
-                            fontWeight: 'regular',
-                        }}
-                    >
-                        {editProfile ? 'Back to profile' : 'Go to edit'}
-                    </Button>
-                </Box>
-            )}
-
-            {editProfile || editPost ? (
-                ''
-            ) : (
-                <Box mt={5} sx={{ textAlign: 'center' }}>
-                    <Typography variant="h5" color="text.primary">
-                        <b>My Posts</b>
-                    </Typography>
-                    <Box
-                        display="flex"
-                        justifyContent="center"
-                        flexWrap='wrap'
-                        gap={5}
-                        mb={5}
-                        mt={5}
-                    >
-                        {userPets.length ? (
-                            userPets.map((pet) => (
-                                <PetDetail
-                                    key={pet._id}
-                                    pets={pet}
-                                    handleEditPost={handleEditPost}
-                                    handleCurrentPet={setCurrentPet}
-                                />
-                            ))
-                        ) : (
+                    {editPost ? (
+                        ''
+                    ) : (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '1rem',
+                            }}
+                        >
                             <Button
-                                component={Link}
-                                to="/createPost"
-                                variant="outlined"
+                                onClick={handleModeEdit}
+                                variant="contained"
+                                color="primary"
+                                sx={{
+                                    borderRadius: 2,
+                                    textTransform: 'none',
+                                    fontWeight: 'regular',
+                                }}
                             >
-                                Make your publication!
+                                {editProfile ? 'Back to profile' : 'Go to edit'}
                             </Button>
-                        )}
-                    </Box>
-                </Box>
-            )}
+                        </Box>
+                    )}
+                </Stack>
+                <Stack width="100%">
+                    {editPost ? null : (
+                        <Stack alignItems="center" gap={5}>
+                            <Typography
+                                variant="h4"
+                                color="primary.main"
+                                fontWeight="bold"
+                            >
+                                My Publications
+                            </Typography>
+                            <Stack
+                                direction="row"
+                                justifyContent="center"
+                                flexWrap="wrap"
+                                gap={5}
+                            >
+                                {userPets.length ? (
+                                    <PetCard
+                                        pets={userPets}
+                                        isEdit={true}
+                                        handleEditPost={handleEditPost}
+                                        handleDelete={handleDelete}
+                                        handleViewProfile={handleViewProfile}
+                                    />
+                                ) : (
+                                    <Button
+                                        component={Link}
+                                        to="/createPost"
+                                        variant="outlined"
+                                        sx={{ my: '60px' }}
+                                    >
+                                        Make your publication
+                                    </Button>
+                                )}
+                            </Stack>
+                        </Stack>
+                    )}
+                </Stack>
+            </Stack>
         </Stack>
     )
 }

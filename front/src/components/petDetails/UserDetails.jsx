@@ -6,6 +6,7 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import { Stack } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -132,28 +133,45 @@ const UserDetails = () => {
                                 : 'primary'
                         }
                     >
-                        {petDetail?.userId?.nickname}
+                        {petDetail?.userId?.fullname}
                     </Typography>
                 </Stack>
             </Stack>
-
-            <Button
-                variant="contained"
-                color={
-                    petDetail?.type.toLowerCase() === 'lost'
-                        ? 'secondary'
-                        : 'primary'
-                }
-                sx={{
-                    textTransform: 'none',
-                    borderRadius: '8px',
-                    mx: '10px',
-                }}
-                onClick={handleOpen}
-            >
-                Contact
-            </Button>
-
+            {userInfo.isLogged ? (
+                <Button
+                    variant="contained"
+                    color={
+                        petDetail?.type.toLowerCase() === 'lost'
+                            ? 'secondary'
+                            : 'primary'
+                    }
+                    sx={{
+                        textTransform: 'none',
+                        borderRadius: '8px',
+                        mx: '10px',
+                    }}
+                    onClick={handleOpen}
+                >
+                    Contact
+                </Button>
+            ) : (
+                <Button
+                    variant="contained"
+                    color={
+                        petDetail?.type.toLowerCase() === 'lost'
+                            ? 'secondary'
+                            : 'primary'
+                    }
+                    sx={{
+                        textTransform: 'none',
+                        borderRadius: '8px',
+                        mx: '10px',
+                    }}
+                    onClick={() => navigate('/login')}
+                >
+                    Log in to contact this user
+                </Button>
+            )}
             <Modal
                 open={open}
                 onClose={handleClose}

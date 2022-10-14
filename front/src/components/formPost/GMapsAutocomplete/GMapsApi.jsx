@@ -5,7 +5,7 @@ import Loading from '../../loading/Loading'
 
 const libraries = ['places']
 
-const GMapsApi = ({ setLocation, value=null }) => {
+const GMapsApi = ({ setLocation, value='' }) => {
     const [autocomplete, setAutocomplete] = useState(null)
 
     const { isLoaded } = useJsApiLoader({
@@ -45,10 +45,11 @@ const GMapsApi = ({ setLocation, value=null }) => {
                 fullWidth={true}
                 type="text"
                 size="small"
-                value={value}
-                label="Location*"
+                // value={value}
+                label="Location"
                 placeholder=''
                 disabled = {!isLoaded}
+                required
             />
         </Autocomplete>
     )
