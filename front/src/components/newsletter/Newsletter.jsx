@@ -1,24 +1,7 @@
 import { Box, Stack, TextField, Typography, Button } from '@mui/material'
 import React from 'react'
-import { styled } from '@mui/material/styles'
 
-const NewsletterEmailTextField = styled(TextField)({
-    '& label.Mui-focused': {
-        color: '#fff',
-    },
-
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: '#ccc',
-        },
-        '&:hover fieldset': {
-            borderColor: '#fff',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: '#fff',
-        },
-    },
-})
+import NewsletterSubscribe from './NewsletterSubscribe'
 
 const Newsletter = () => {
     return (
@@ -36,35 +19,7 @@ const Newsletter = () => {
                         iste nulla voluptates ipsum? Porro beatae architecto
                         aliquam dolore.
                     </Typography>
-
-                    <Stack direction='row' alignItems='center' gap='22px'>
-                        <NewsletterEmailTextField
-                            sx={{
-                                width: '50%',
-                                backgroundColor: 'primary.light',
-                                borderRadius: '5px',
-                            }}
-                            id="newsletterEmail"
-                            label="Email"
-                            variant="outlined"
-                            type="email"
-                        />
-
-                        <Button
-                            variant="contained"
-                            sx={{
-                                color: 'primary.main',
-                                textTransform: 'none',
-                                backgroundColor: 'white',
-                                padding: '1rem',
-                                px: '40px',
-                                height: '56px',
-                                '&:hover': {backgroundColor:'secondary.light'},
-                            }}
-                        >
-                            Suscribe
-                        </Button>
-                    </Stack>
+                    <NewsletterSubscribe></NewsletterSubscribe>
                 </Stack>
                 <img
                     style={{

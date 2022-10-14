@@ -132,11 +132,36 @@ const RegisterForm = () => {
                                     px="20px"
                                     width="100%"
                                 >
-                                    <label htmlFor="nickname">Nickname *</label>
+                                    <Stack
+                                        direction="row"
+                                        alignItems="center"
+                                        px="20px"
+                                        width="100%"
+                                        gap="10px"
+                                    >
+                                        {loading ? (
+                                            <CircularProgress />
+                                        ) : (
+                                            <Avatar
+                                                src={image}
+                                                sx={{
+                                                    width: '5rem',
+                                                    height: '5rem',
+                                                }}
+                                            />
+                                        )}
+                                        <TextField
+                                            id="profilePicture"
+                                            placeholder="Upload an image"
+                                            type="file"
+                                            name="profilePicture"
+                                            onChange={(e) => handleUpload(e)}
+                                        />
+                                    </Stack>
                                     <Stack
                                         component={Field}
                                         type="text"
-                                        placeholder="Nickname"
+                                        placeholder="Nickname*"
                                         id="nickname"
                                         name="nickname"
                                         sx={{
@@ -147,6 +172,7 @@ const RegisterForm = () => {
                                             transition: 'border .3s ease',
                                             px: '20px',
                                             fontSize: '20px',
+                                            marginTop: '10px',
                                         }}
                                     />
                                     {errors.nickname && touched.nickname ? (
@@ -164,7 +190,6 @@ const RegisterForm = () => {
                                     px="20px"
                                     width="100%"
                                 >
-                                    <label htmlFor="fullname">Full Name</label>
                                     <Stack
                                         component={Field}
                                         type="text"
@@ -196,13 +221,12 @@ const RegisterForm = () => {
                                     px="20px"
                                     width="100%"
                                 >
-                                    <label htmlFor="email">Email *</label>
                                     <Stack
                                         component={Field}
                                         id="email"
                                         type="email"
                                         name="email"
-                                        placeholder="Email"
+                                        placeholder="Email*"
                                         sx={{
                                             border: ' 2px solid #BFBFBF',
                                             width: '100%',
@@ -228,11 +252,10 @@ const RegisterForm = () => {
                                     px="20px"
                                     width="100%"
                                 >
-                                    <label htmlFor="email">Password *</label>
                                     <Stack
                                         component={Field}
                                         type="password"
-                                        placeholder="Password"
+                                        placeholder="Password*"
                                         id="password"
                                         name="password"
                                         sx={{
@@ -255,32 +278,7 @@ const RegisterForm = () => {
                                         </Typography>
                                     ) : null}
                                 </Stack>
-                                <Stack
-                                    direction="row"
-                                    alignItems="center"
-                                    px="20px"
-                                    width="100%"
-                                    gap="10px"
-                                >
-                                    {loading ? (
-                                        <CircularProgress />
-                                    ) : (
-                                        <Avatar
-                                            src={image}
-                                            sx={{
-                                                width: '5rem',
-                                                height: '5rem',
-                                            }}
-                                        />
-                                    )}
-                                    <TextField
-                                        id="profilePicture"
-                                        placeholder="Upload an image"
-                                        type="file"
-                                        name="profilePicture"
-                                        onChange={(e) => handleUpload(e)}
-                                    />
-                                </Stack>
+
                                 <Button
                                     variant="contained"
                                     color="secondary"
