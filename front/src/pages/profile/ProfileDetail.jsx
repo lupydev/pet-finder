@@ -82,9 +82,7 @@ const ProfileDetail = () => {
 
     return (
         <Stack width="100%" gap={5} alignItems={'center'}>
-            <Title
-                title={'Profile'}
-            />
+            <Title title={'Profile'} />
             <Stack
                 width="100%"
                 maxWidth="1440px"
@@ -197,44 +195,42 @@ const ProfileDetail = () => {
                         </Box>
                     )}
                 </Stack>
-                <Stack width="100%">
-                    {editPost ? null : (
-                        <Stack alignItems="center" gap={5}>
-                            <Typography
-                                variant="h4"
-                                color="primary.main"
-                                fontWeight="bold"
-                            >
-                                My Publications
-                            </Typography>
-                            <Stack
-                                direction="row"
-                                justifyContent="center"
-                                flexWrap="wrap"
-                                gap={5}
-                            >
-                                {userPets.length ? (
-                                    <PetCard
-                                        pets={userPets}
-                                        isEdit={true}
-                                        handleEditPost={handleEditPost}
-                                        handleDelete={handleDelete}
-                                        handleViewProfile={handleViewProfile}
-                                    />
-                                ) : (
-                                    <Button
-                                        component={Link}
-                                        to="/createPost"
-                                        variant="outlined"
-                                        sx={{ my: '60px' }}
-                                    >
-                                        Make your publication
-                                    </Button>
-                                )}
-                            </Stack>
+                {editPost ? null : (
+                    <Stack alignItems="center" gap={5} width="100%">
+                        <Typography
+                            variant="h4"
+                            color="primary.main"
+                            fontWeight="bold"
+                        >
+                            My Publications
+                        </Typography>
+                        <Stack
+                            direction="row"
+                            justifyContent="center"
+                            flexWrap="wrap"
+                            gap={5}
+                        >
+                            {userPets.length ? (
+                                <PetCard
+                                    pets={userPets}
+                                    isEdit={true}
+                                    handleEditPost={handleEditPost}
+                                    handleDelete={handleDelete}
+                                    handleViewProfile={handleViewProfile}
+                                />
+                            ) : (
+                                <Button
+                                    component={Link}
+                                    to="/createPost"
+                                    variant="outlined"
+                                    sx={{ my: '60px' }}
+                                >
+                                    Make your publication
+                                </Button>
+                            )}
                         </Stack>
-                    )}
-                </Stack>
+                    </Stack>
+                )}
             </Stack>
         </Stack>
     )

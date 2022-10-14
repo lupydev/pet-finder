@@ -35,19 +35,6 @@ import UploadImages from './UploadImages/UploadImages'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ComboBox from './SelectAutocomplete/ComboBox'
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-]
-
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
     description: Yup.string(),
@@ -83,7 +70,7 @@ export const CreatePostFinal = () => {
             const files = e.target.files
             for (let img of files) {
                 const formData = new FormData()
-                formData.append('file', files[0])
+                formData.append('file', img)
                 formData.append('upload_preset', 'upload_petfinder')
                 setLoading(true)
                 const { data } = await axios.post(
@@ -150,7 +137,7 @@ export const CreatePostFinal = () => {
 
         resetForm()
 
-        navigate(-1)
+        navigate('/')
     }
 
     useEffect(() => {
