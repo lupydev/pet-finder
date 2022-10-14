@@ -45,7 +45,6 @@ const GMapsApi = ({ setLocation, value='' }) => {
                 fullWidth={true}
                 type="text"
                 size="small"
-                // value={value}
                 label="Location"
                 placeholder=''
                 disabled = {!isLoaded}
