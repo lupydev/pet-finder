@@ -6,13 +6,15 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import { Stack } from '@mui/system'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-
-const UserDetails = (props) => {
+const UserDetails = () => {
+    const navigate = useNavigate()
     const { petDetail } = useSelector((state) => state.pet)
+    const { userInfo } = useSelector((state) => state.user)
     const [open, setOpen] = React.useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
@@ -64,28 +66,45 @@ const UserDetails = (props) => {
                                 : 'primary'
                         }
                     >
-                        {petDetail?.userId?.nickname}
+                        {petDetail?.userId?.fullname}
                     </Typography>
                 </Stack>
             </Stack>
-
-            <Button
-                variant="contained"
-                color={
-                    petDetail?.type.toLowerCase() === 'lost'
-                        ? 'secondary'
-                        : 'primary'
-                }
-                sx={{
-                    textTransform: 'none',
-                    borderRadius: '8px',
-                    mx: '10px',
-                }}
-                onClick={handleOpen}
-            >
-                Contact
-            </Button>
-
+            {userInfo.isLogged ? (
+                <Button
+                    variant="contained"
+                    color={
+                        petDetail?.type.toLowerCase() === 'lost'
+                            ? 'secondary'
+                            : 'primary'
+                    }
+                    sx={{
+                        textTransform: 'none',
+                        borderRadius: '8px',
+                        mx: '10px',
+                    }}
+                    onClick={handleOpen}
+                >
+                    Contact
+                </Button>
+            ) : (
+                <Button
+                    variant="contained"
+                    color={
+                        petDetail?.type.toLowerCase() === 'lost'
+                            ? 'secondary'
+                            : 'primary'
+                    }
+                    sx={{
+                        textTransform: 'none',
+                        borderRadius: '8px',
+                        mx: '10px',
+                    }}
+                    onClick={() => navigate('/login')}
+                >
+                    Log in to contact this user
+                </Button>
+            )}
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -93,13 +112,12 @@ const UserDetails = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Stack
-                    height="850px"
-                    width="540px"
                     alignItems="center"
+                    justifyContent="center"
                     gap="20px"
-                    py="20px"
                     sx={{
-                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1665620097/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo1_iofpbd.png)`,
+                        backgroundImage:
+                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1665620097/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo1_iofpbd.png)',
                         borderRadius: '20px',
                         backgroundColor: '#eff5ff',
                         height: '640px',
@@ -128,39 +146,40 @@ const UserDetails = (props) => {
                                 : 'primary'
                         }
                     >
-                        Contact {props.name}
-                        </Typography>
+                        Contact {petDetail?.userId?.nickname}
+                    </Typography>
 
-                    <FormControl my="15px">
-                        <TextField
-                            label="Name"
-                            variant="outlined"
-                            size="small"
-                        />
-                    </FormControl>
-                    <FormControl my="15px">
-                        <TextField
-                            label="Email"
-                            variant="outlined"
-                            size="small"
-                        />
-                    </FormControl>
-                    <FormControl my="15px">
-                        <TextField
-                            label="Phone"
-                            variant="outlined"
-                            size="small"
-                        />
-                    </FormControl>
-                    <FormControl my="15px">
-                        <TextField
-                            multiline
-                            rows={3}
-                            maxRows={4}
-                            label="Message"
-                            variant="outlined"
-                        />
-                    </FormControl>
+                    <TextField
+                        label="Name"
+                        variant="outlined"
+                        size="small"
+                        sx={{ width: '100%' }}
+                    />
+                    <TextField
+                        label="Email"
+                        variant="outlined"
+                        size="small"
+                        sx={{ width: '100%' }}
+                    />
+                    <TextField
+                        label="Phone"
+                        variant="outlined"
+                        size="small"
+                        sx={{ width: '100%' }}
+                    />
+                    <TextField
+                        multiline
+                        rows={3}
+                        label="Message"
+                        variant="outlined"
+                        sx={{ width: '100%' }}
+                    />
+                    <TextField
+                        type="file"
+                        variant="outlined"
+                        size="small"
+                        sx={{ width: '100%' }}
+                    />
                     <Button
                         variant="contained"
                         color={
@@ -169,7 +188,7 @@ const UserDetails = (props) => {
                                 : 'primary'
                         }
                         sx={{
-                            px: '90px',
+                            // px: '90px',
                             textTransform: 'none',
                             borderRadius: '8px',
                         }}

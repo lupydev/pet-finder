@@ -8,7 +8,7 @@ import { cleanBreeds } from '../../../redux/features/pet/petSlice'
 export const SelectWrapper = ({
     name,
     options,
-    value = null,
+    value = '',
     ...otherProps
 }) => {
     const dispatch = useDispatch()
@@ -35,7 +35,7 @@ export const SelectWrapper = ({
         // variant: 'outlined'
         fullWidth: true,
         onChange: handleChange,
-        value: value,
+        // value: value,
     }
 
     if (meta && meta.touched && meta.error) {

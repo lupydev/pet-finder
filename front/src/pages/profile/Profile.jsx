@@ -14,7 +14,7 @@ const Profile = () => {
         userData === undefined && dispatch(getUserData())
     }, [])
 
-    return <div>{userData ? <ProfileDetail /> : <Loading />}</div>
+    return userData ? <ProfileDetail /> : <Loading />
 }
 
 export default Profile

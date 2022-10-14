@@ -24,13 +24,7 @@ const clientSchema = Yup.object().shape({
     fullname: Yup.string()
         .min(3, 'Full Name is too short')
         .max(25, 'Full Name is too long!'),
-    password: Yup.string()
-        .min(8, 'Password is too short')
-        .max(20, 'Password is too long!')
-        .matches(
-            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
-        ),
+
 })
 
 const EditProfile = ({ userData }) => {
@@ -203,39 +197,7 @@ const EditProfile = ({ userData }) => {
                                     </Typography>
                                 ) : null}
                             </Stack>
-                            <Stack
-                                justifyContent="flex-start"
-                                px="20px"
-                                width="100%"
-                            >
-                                <label htmlFor="email">New Password</label>
-                                <Stack
-                                    component={Field}
-                                    type="password"
-                                    placeholder="Password"
-                                    id="password"
-                                    name="password"
-                                    disabled={true}
-                                    sx={{
-                                        border: ' 2px solid #BFBFBF',
-                                        width: '100%',
-                                        height: '50px',
-                                        borderRadius: '10px',
-                                        transition: 'border .3s ease',
-                                        px: '20px',
-                                        fontSize: '20px',
-                                    }}
-                                />
-                                {errors.password && touched.password ? (
-                                    <Typography
-                                        color="red"
-                                        fontSize="16px"
-                                        mt="5px"
-                                    >
-                                        {errors.password}
-                                    </Typography>
-                                ) : null}
-                            </Stack>
+                            
                             <Button
                                 variant="contained"
                                 color="secondary"
