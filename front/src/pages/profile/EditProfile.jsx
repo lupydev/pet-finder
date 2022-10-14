@@ -3,6 +3,7 @@ import {
     Avatar,
     Box,
     Button,
+    CircularProgress,
     Stack,
     TextField,
     Typography,
@@ -23,21 +24,14 @@ const clientSchema = Yup.object().shape({
     fullname: Yup.string()
         .min(3, 'Full Name is too short')
         .max(25, 'Full Name is too long!'),
-    password: Yup.string()
-        .min(8, 'Password is too short')
-        .max(20, 'Password is too long!')
-        .matches(
-            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
-        ),
+
 })
 
-const EditProfile = () => {
-    const { userData } = useSelector((state) => state.user)
+const EditProfile = ({ userData }) => {
     const navigate = useNavigate()
-
     const dispatch = useDispatch()
 
+    const [loading, setLoading] = useState(false)
     const [image, setImage] = useState(userData.img)
 
     const initialValues = {
@@ -51,12 +45,16 @@ const EditProfile = () => {
             const files = e.target.files
             const data = new FormData()
             data.append('file', files[0])
-            data.append('upload_preset', 'upload_profile')
+            data.append('upload_preset', 'upload_petfinder')
+
+            setLoading(true)
             const response = await axios.post(
                 'https://api.cloudinary.com/v1_1/diyk4to11/image/upload',
                 data
             )
-            setImage(response)
+            const file = response.data
+            setImage(file.secure_url)
+            setLoading(false)
         } catch (e) {
             console.error(e)
         }
@@ -79,7 +77,9 @@ const EditProfile = () => {
                 dispatch(
                     putEditUser({ id: userData._id, newData: valuesUpdate })
                 )
-                Swal.fire('Your profile has been updated!')
+                Swal.fire('Your profile has been updated!').then(() =>
+                    navigate('/profile')
+                )
                 navigate('/profile')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
@@ -115,15 +115,19 @@ const EditProfile = () => {
                                         marginBottom: '10px',
                                     }}
                                 >
-                                    <Avatar
-                                        sx={{
-                                            width: 200,
-                                            height: 200,
-                                            marginBottom: '20px',
-                                        }}
-                                        src={userData?.img}
-                                        alt={userData?.nickname}
-                                    />
+                                    {loading ? (
+                                        <CircularProgress />
+                                    ) : (
+                                        <Avatar
+                                            sx={{
+                                                width: 200,
+                                                height: 200,
+                                                marginBottom: '20px',
+                                            }}
+                                            src={image}
+                                            alt={userData?.nickname}
+                                        />
+                                    )}
                                     <TextField
                                         id="profilePicture"
                                         placeholder="Select image"
@@ -193,39 +197,7 @@ const EditProfile = () => {
                                     </Typography>
                                 ) : null}
                             </Stack>
-                            <Stack
-                                justifyContent="flex-start"
-                                px="20px"
-                                width="100%"
-                            >
-                                <label htmlFor="email">New Password</label>
-                                <Stack
-                                    component={Field}
-                                    type="password"
-                                    placeholder="Password"
-                                    id="password"
-                                    name="password"
-                                    disabled={true}
-                                    sx={{
-                                        border: ' 2px solid #BFBFBF',
-                                        width: '100%',
-                                        height: '50px',
-                                        borderRadius: '10px',
-                                        transition: 'border .3s ease',
-                                        px: '20px',
-                                        fontSize: '20px',
-                                    }}
-                                />
-                                {errors.password && touched.password ? (
-                                    <Typography
-                                        color="red"
-                                        fontSize="16px"
-                                        mt="5px"
-                                    >
-                                        {errors.password}
-                                    </Typography>
-                                ) : null}
-                            </Stack>
+                            
                             <Button
                                 variant="contained"
                                 color="secondary"

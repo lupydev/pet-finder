@@ -11,7 +11,7 @@ const getAllBreedsBySpecies = async (req: Request, res: Response) =>{
         if (breeds.length > 0) {
             return res.status(200).json({ breeds, ok: true, msg: 'All breeds by species in DB' })
         } else {
-            return res.status(404).json({ ok: false, msg: 'No breeds in DB' })
+            return res.status(200).json({ ok: false, msg: 'No breeds in DB' })
         }
 
     } catch (error) {

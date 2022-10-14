@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
 import { TextField, Typography } from '@mui/material'
+import Loading from '../../loading/Loading'
 
 const libraries = ['places']
 
-const GMapsApi = ({ setLocation }) => {
+const GMapsApi = ({ setLocation, value='' }) => {
     const [autocomplete, setAutocomplete] = useState(null)
 
     const { isLoaded } = useJsApiLoader({
@@ -30,8 +31,14 @@ const GMapsApi = ({ setLocation }) => {
         }
     }
 
-    return isLoaded ? (
-        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+    return isLoaded && (
+        <Autocomplete
+            onLoad={onLoad}
+            onPlaceChanged={onPlaceChanged}
+            types={['address']}
+            // types={['(cities)']}
+            // types={['locality']}
+        >
             <TextField
                 id="location"
                 name="location"
@@ -39,10 +46,11 @@ const GMapsApi = ({ setLocation }) => {
                 type="text"
                 size="small"
                 label="Location"
+                placeholder=''
+                disabled = {!isLoaded}
+                required
             />
         </Autocomplete>
-    ) : (
-        'Error!!'
     )
 
 }

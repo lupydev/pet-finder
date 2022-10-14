@@ -6,11 +6,10 @@ import { googleLogout } from '@react-oauth/google'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const getUserData = createAsyncThunk('users/', async () => {
-
     const user = JSON.parse(window.localStorage.getItem('user'))
 
     const config = { headers: { token: user.token } }
-    
+
     try {
         return await axios.get(`${API_ROUTE}/users/${user.id}`, config)
     } catch (err) {
@@ -30,6 +29,9 @@ export const extraGetUserData = {
             state.userData = action.payload.data.user
         } else {
             state.userInfo.isLogged = false
+            console.log('el token ha vencido')
+            googleLogout()
+            window.localStorage.removeItem('user')
         }
         state.status = 'success'
     },

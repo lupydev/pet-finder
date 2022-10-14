@@ -6,19 +6,21 @@ import {
     CardContent,
     Avatar,
     Stack,
+    IconButton,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
 import { FaTransgender } from 'react-icons/fa'
 import { GrMap } from 'react-icons/gr'
 import Loading from '../../loading/Loading'
+import { AiFillDelete, AiFillEye, AiTwotoneEdit } from 'react-icons/ai'
 
-const PetCard = ({ pets }) => {
+const PetCard = ({ pets, isEdit = false, handleViewProfile, handleEditPost, handleDelete }) => {
     function capitalize(text) {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
 
-    return pets ? (
+    return pets.length ? (
         pets.map((pet) => {
             return (
                 <Card
@@ -96,27 +98,60 @@ const PetCard = ({ pets }) => {
                                     variant="body2"
                                     color="text.secondary"
                                 >
-                                    {pet.location.country}
+                                    {pet.location?.country}
                                 </Typography>
                             </Stack>
-
-                            <Button
-                                component={Link}
-                                to={`/${pet.type.toLowerCase()}Pets/${pet._id}`}
-                                variant="contained"
-                                color={
-                                    pet.type.toLowerCase() === 'lost'
-                                        ? 'secondary'
-                                        : 'primary'
-                                }
-                                sx={{
-                                    textTransform: 'none',
-                                    width: '140px',
-                                    borderRadius: '8px',
-                                }}
-                            >
-                                More Details
-                            </Button>
+                            {isEdit ? (
+                                <Stack direction="row" justifyContent="center">
+                                    <IconButton
+                                        size="large"
+                                        color="primary"
+                                        aria-label="delete"
+                                        onClick={() => handleViewProfile(pet)}
+                                    >
+                                        <AiFillEye />
+                                    </IconButton>
+                                    <IconButton
+                                        size="large"
+                                        color="primary"
+                                        aria-label="edit"
+                                        onClick={() => handleEditPost(pet)}
+                                    >
+                                        <AiTwotoneEdit />
+                                    </IconButton>
+                                    <IconButton
+                                        size="large"
+                                        // color="secondary"
+                                        aria-label="delete"
+                                        onClick={() => handleDelete(pet)}
+                                        sx={{
+                                            color:'red'
+                                        }}
+                                    >
+                                        <AiFillDelete />
+                                    </IconButton>
+                                </Stack>
+                            ) : (
+                                <Button
+                                    component={Link}
+                                    to={`/${pet.type.toLowerCase()}Pets/${
+                                        pet._id
+                                    }`}
+                                    variant="contained"
+                                    color={
+                                        pet.type.toLowerCase() === 'lost'
+                                            ? 'secondary'
+                                            : 'primary'
+                                    }
+                                    sx={{
+                                        textTransform: 'none',
+                                        width: '140px',
+                                        borderRadius: '8px',
+                                    }}
+                                >
+                                    More Details
+                                </Button>
+                            )}
                         </Stack>
                     </CardContent>
                 </Card>
