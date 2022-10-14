@@ -31,8 +31,8 @@ const PetCarousel = () => {
                     radius="10px"
                     dots={false}
                     automatic={false}
-                    slideBackgroundColor="darkgrey"
-                    slideImageFit="cover"
+                    slideBackgroundColor="#dbdbdb"
+                    slideImageFit="contain"
                     thumbnails={false}
                     thumbnailWidth="100px"
                 />

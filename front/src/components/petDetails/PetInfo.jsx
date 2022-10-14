@@ -159,7 +159,7 @@ const PetInfo = (props) => {
                             {petDetail?.size}
                         </Typography>
                     </Stack>
-                    <Stack alignItems="center" gap="10px">
+                    {/* <Stack alignItems="center" gap="10px">
                         <FaQuestionCircle fontSize="20px"/>
                         <Typography
                             fontSize="15px"
@@ -169,7 +169,7 @@ const PetInfo = (props) => {
                         >
                             XXXXXX
                         </Typography>
-                    </Stack>
+                    </Stack> */}
                 </Stack>
             </Stack>
             <Stack
