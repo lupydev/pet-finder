@@ -8,16 +8,83 @@ import {
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { Stack } from '@mui/system'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Formik, useFormik } from 'formik'
+import * as yup from 'yup'
+import { Toast } from '../../utils/swalToasts'
+import emailjs from '@emailjs/browser'
 
 const UserDetails = () => {
-    const navigate = useNavigate()
     const { petDetail } = useSelector((state) => state.pet)
-    const { userInfo } = useSelector((state) => state.user)
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
+
+    const validationSchema = yup.object({
+        name: yup
+            .string()
+            .matches(/^[A-Za-z\s]+$/g, '* Letters only')
+            .required('Name is required.'),
+        email: yup
+            .string()
+            .email('Enter a valid email.')
+            .required('Email is required.'),
+        phone: yup
+            .number()
+            .typeError('Only numbers')
+            .required('Phone is required.'),
+        message: yup
+            .string()
+            .required('Please enter a message.')
+            .max(255, 'Message is too long.'),
+    })
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            phone: '',
+            message: '',
+        },
+        onSubmit: (values, { resetForm }) => {
+            try {
+                console.log(values)
+                emailjs
+                    .send(
+                        import.meta.env.VITE_APP_SERVICE_ID,
+                        import.meta.env.VITE_APP_TEMPLATE_CONTACT_USER_ID,
+                        values,
+                        import.meta.env.VITE_APP_USER_ID
+                    )
+                    .then(() => {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Email sended successfully.',
+                        })
+                        resetForm()
+                    })
+            } catch (err) {
+                console.log(err)
+                Toast.fire({
+                    icon: 'error',
+                    title: 'There is an error sending the message.',
+                })
+            } 
+
+        },
+        validationSchema: validationSchema,
+    })
+
     const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    useEffect(() => {
+        const { resetForm } = formik
+
+        resetForm();
+
+    }, [open])
 
     return (
         <Stack
@@ -116,18 +183,17 @@ const UserDetails = () => {
                     justifyContent="center"
                     gap="20px"
                     sx={{
-                        backgroundImage:
-                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1665620097/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo1_iofpbd.png)',
+                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1665698751/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo_vhobkl.png)`,
                         borderRadius: '20px',
                         backgroundColor: '#eff5ff',
-                        height: '640px',
-                        width: '400px',
+
+                        width: '410px',
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                         boxShadow: 24,
-                        p: 4,
+                        p: 6,
                     }}
                 >
                     <img
@@ -148,47 +214,166 @@ const UserDetails = () => {
                     >
                         Contact {petDetail?.userId?.nickname}
                     </Typography>
-
-                    <TextField
-                        label="Name"
-                        variant="outlined"
-                        size="small"
-                        sx={{ width: '100%' }}
-                    />
-                    <TextField
-                        label="Email"
-                        variant="outlined"
-                        size="small"
-                        sx={{ width: '100%' }}
-                    />
-                    <TextField
-                        label="Phone"
-                        variant="outlined"
-                        size="small"
-                        sx={{ width: '100%' }}
-                    />
-                    <TextField
-                        multiline
-                        rows={3}
-                        label="Message"
-                        variant="outlined"
-                        sx={{ width: '100%' }}
-                    />
-                    <Button
-                        variant="contained"
-                        color={
-                            petDetail?.type.toLowerCase() === 'lost'
-                                ? 'secondary'
-                                : 'primary'
-                        }
-                        sx={{
-                            // px: '90px',
-                            textTransform: 'none',
-                            borderRadius: '8px',
-                        }}
-                    >
-                        Send
-                    </Button>
+                    <Formik>
+                        {({ errors, touched }) => (
+                            <form onSubmit={formik.handleSubmit}>
+                                <FormControl sx={{ gap: '3px' }}>
+                                    <TextField
+                                        label="Name"
+                                        id="name"
+                                        name="name"
+                                        variant="outlined"
+                                        size="small"
+                                        value={formik.values.name}
+                                        onChange={formik.handleChange}
+                                        error={
+                                            formik.touched.name &&
+                                            Boolean(formik.errors.name)
+                                        }
+                                        helperText={
+                                            formik.touched.name &&
+                                            formik.errors.name
+                                        }
+                                        onBlur={formik.handleBlur}
+                                        inputProps={{ style: { fontSize: 16 } }}
+                                        InputLabelProps={{
+                                            style: { fontSize: 16 },
+                                        }}
+                                    />
+                                    {formik.errors.name &&
+                                    formik.touched.name ? (
+                                        <Typography>{errors.name}</Typography>
+                                    ) : (
+                                        <Typography
+                                            sx={{ opacity: 0 }}
+                                            fontSize="18px"
+                                        >
+                                            .
+                                        </Typography>
+                                    )}
+                                    <TextField
+                                        label="Email"
+                                        id="email"
+                                        name="email"
+                                        variant="outlined"
+                                        size="small"
+                                        value={formik.values.email}
+                                        onChange={formik.handleChange}
+                                        error={
+                                            formik.touched.email &&
+                                            Boolean(formik.errors.email)
+                                        }
+                                        helperText={
+                                            formik.touched.email &&
+                                            formik.errors.email
+                                        }
+                                        onBlur={formik.handleBlur}
+                                        inputProps={{ style: { fontSize: 16 } }}
+                                        InputLabelProps={{
+                                            style: { fontSize: 16 },
+                                        }}
+                                    />
+                                    {formik.errors.email &&
+                                    formik.touched.email ? (
+                                        <Typography>{errors.email}</Typography>
+                                    ) : (
+                                        <Typography
+                                            sx={{ opacity: 0 }}
+                                            fontSize="18px"
+                                        >
+                                            .
+                                        </Typography>
+                                    )}
+                                    <TextField
+                                        label="Phone"
+                                        id="phone"
+                                        name="phone"
+                                        variant="outlined"
+                                        size="small"
+                                        value={formik.values.phone}
+                                        onChange={formik.handleChange}
+                                        error={
+                                            formik.touched.phone &&
+                                            Boolean(formik.errors.phone)
+                                        }
+                                        helperText={
+                                            formik.touched.phone &&
+                                            formik.errors.phone
+                                        }
+                                        onBlur={formik.handleBlur}
+                                        inputProps={{ style: { fontSize: 16 } }}
+                                        InputLabelProps={{
+                                            style: { fontSize: 16 },
+                                        }}
+                                    />
+                                    {formik.errors.phone &&
+                                    formik.touched.phone ? (
+                                        <Typography>{errors.phone}</Typography>
+                                    ) : (
+                                        <Typography
+                                            sx={{ opacity: 0 }}
+                                            fontSize="18px"
+                                        >
+                                            .
+                                        </Typography>
+                                    )}
+                                    <TextField
+                                        id="message"
+                                        name="message"
+                                        multiline
+                                        rows={2}
+                                        label="Message"
+                                        variant="outlined"
+                                        value={formik.values.message}
+                                        onChange={formik.handleChange}
+                                        error={
+                                            formik.touched.message &&
+                                            Boolean(formik.errors.message)
+                                        }
+                                        helperText={
+                                            formik.touched.message &&
+                                            formik.errors.message
+                                        }
+                                        onBlur={formik.handleBlur}
+                                        inputProps={{ style: { fontSize: 16 } }}
+                                        InputLabelProps={{
+                                            style: { fontSize: 16 },
+                                        }}
+                                    />
+                                    {formik.errors.message &&
+                                    formik.touched.message ? (
+                                        <Typography>
+                                            {errors.message}
+                                        </Typography>
+                                    ) : (
+                                        <Typography
+                                            sx={{ opacity: 0 }}
+                                            fontSize="17px"
+                                        >
+                                            .
+                                        </Typography>
+                                    )}
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        color={
+                                            petDetail?.type.toLowerCase() ===
+                                            'lost'
+                                                ? 'secondary'
+                                                : 'primary'
+                                        }
+                                        sx={{
+                                            px: '90px',
+                                            textTransform: 'none',
+                                            borderRadius: '8px',
+                                        }}
+                                    >
+                                        Send
+                                    </Button>
+                                </FormControl>
+                            </form>
+                        )}
+                    </Formik>
                 </Stack>
             </Modal>
         </Stack>
