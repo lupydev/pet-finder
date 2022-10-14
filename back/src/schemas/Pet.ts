@@ -13,7 +13,7 @@ const PetsSchema = new Schema<Pets>({
         default: 'Unknown',
     },
     size: { type: String, enum: ['Small', 'Medium', 'Large'], required: true },
-    type: { type: String, enum: ['Lost', 'Found', 'Meet'], required: true },
+    type: { type: String, enum: ['Lost', 'Found'], required: true },
     breed: { type: Schema.Types.ObjectId, ref: 'Breed', required: true },
     age: { type: Number },
     color: [
@@ -34,6 +34,7 @@ const PetsSchema = new Schema<Pets>({
         },
     ],
     observation: { type: String },
+    meet: {type:Boolean, default:false},
     createdAt: { type: Date, default: Date.now },
 })
 
