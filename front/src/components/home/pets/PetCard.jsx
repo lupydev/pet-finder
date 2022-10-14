@@ -121,9 +121,12 @@ const PetCard = ({ pets, isEdit = false, handleViewProfile, handleEditPost, hand
                                     </IconButton>
                                     <IconButton
                                         size="large"
-                                        color="secondary"
+                                        // color="secondary"
                                         aria-label="delete"
                                         onClick={() => handleDelete(pet)}
+                                        sx={{
+                                            color:'red'
+                                        }}
                                     >
                                         <AiFillDelete />
                                     </IconButton>
