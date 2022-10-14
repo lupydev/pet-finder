@@ -34,6 +34,7 @@ import { Toast } from '../../utils/swalToasts'
 import UploadImages from './UploadImages/UploadImages'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ComboBox from './SelectAutocomplete/ComboBox'
+import { editPet } from '../../redux/asyncActions/pet/editPet'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -51,18 +52,41 @@ const FORM_VALIDATION = Yup.object().shape({
     observation: Yup.string(),
 })
 
-export const CreatePostFinal = () => {
+export const PublicationForm = ({ selectedPet }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-    const [images, setImages] = useState([])
+    const [images, setImages] = useState(selectedPet ? selectedPet.img : [])
     const { species, breeds } = useSelector((state) => state.pet)
-    const [location, setLocation] = useState({})
+    const [location, setLocation] = useState(
+        selectedPet ? selectedPet.location : {}
+    )
     const now = new Date().toISOString().substring(0, 10)
 
     const getUserId = () => {
         const user = JSON.parse(window.localStorage.getItem('user'))
         return user.id
+    }
+
+    const INITIAL_FORM_STATE = {
+        userId: getUserId(),
+        img: selectedPet
+            ? selectedPet.img
+            : [
+                  'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
+              ],
+        name: selectedPet ? selectedPet?.name : '',
+        species: selectedPet ? selectedPet?.species._id : '',
+        breed: selectedPet ? selectedPet?.breed._id : '',
+        gender: selectedPet ? selectedPet?.gender : '',
+        size: selectedPet ? selectedPet?.size : '',
+        age: selectedPet ? selectedPet?.age : '',
+        date: selectedPet ? selectedPet?.date.substring(0, 10) : '',
+        color: selectedPet ? selectedPet?.color : [],
+        observation: selectedPet ? selectedPet?.observation : '',
+        type: selectedPet ? selectedPet?.type : '',
+        location: selectedPet ? selectedPet?.location : {},
+        description: selectedPet ? selectedPet?.description : '',
     }
 
     const handleUpload = async (e) => {
@@ -95,25 +119,6 @@ export const CreatePostFinal = () => {
         setImages((prevState) => prevState.filter((img) => img !== elem))
     }
 
-    const INITIAL_FORM_STATE = {
-        name: '',
-        userId: getUserId(),
-        description: '',
-        species: '',
-        gender: '',
-        size: '',
-        type: '',
-        breed: '',
-        age: '',
-        color: [],
-        img: [
-            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
-        ],
-        location: {},
-        date: '',
-        observation: '',
-    }
-
     const handleSubmit = (values, resetForm) => {
         if (Object.entries(location).length > 0) {
             values.location = location
@@ -133,16 +138,20 @@ export const CreatePostFinal = () => {
             })
             return
         }
-        dispatch(createPet(values))
+
+        if (selectedPet) {
+            dispatch(editPet({ id: selectedPet._id, newData: values }))
+            navigate(-1)
+        } else {
+            dispatch(createPet(values))
+            navigate('/')
+        }
 
         resetForm()
-
-        navigate('/')
     }
 
     useEffect(() => {
         dispatch(getSpecies())
-        dispatch(getUserData())
     }, [])
 
     return (
@@ -177,7 +186,7 @@ export const CreatePostFinal = () => {
                                 fontWeight="bold"
                                 textAlign="center"
                             >
-                                Create Post
+                                {selectedPet ? 'Edit' : 'Create'} Post
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -253,15 +262,6 @@ export const CreatePostFinal = () => {
                                 disabled={!breeds.length}
                                 size="small"
                             />
-
-                            {/* <ComboBox
-                                id="breed"
-                                name="breed"
-                                label="Breed"
-                                options={breeds}
-                                size="small"
-                                disabled={!breeds.length}
-                            /> */}
                         </Grid>
                         <Grid item xs={2}>
                             <SelectWrapper
@@ -333,15 +333,6 @@ export const CreatePostFinal = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-
-                            {/* <SelectWrapper
-                                id="color"
-                                name="color"
-                                label="Color"
-                                multiple
-                                options={color}
-                                size="small"
-                            /> */}
                         </Grid>
                         <Grid item xs={6}>
                             <TextfieldWrapper
@@ -362,8 +353,12 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
+                        {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
                         <Grid item xs={3}>
-                            <GMapsApi setLocation={setLocation} />
+                            <GMapsApi
+                                setLocation={setLocation}
+                                placeholder={selectedPet?.location.country}
+                            />
                         </Grid>
                         <Grid item xs={6}>
                             <TextfieldWrapper
@@ -376,7 +371,9 @@ export const CreatePostFinal = () => {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <ButtonWrapper>Create Post</ButtonWrapper>
+                            <ButtonWrapper>
+                                {selectedPet ? 'Edit' : 'Create'} Post
+                            </ButtonWrapper>
                         </Grid>
                     </Grid>
                 </Form>

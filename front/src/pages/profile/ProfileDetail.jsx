@@ -21,6 +21,7 @@ import PetCard from '../../components/home/pets/PetCard'
 import Swal from 'sweetalert2'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
 import Title from '../../components/petBrowser/Title'
+import { PublicationForm } from '../../components/formPost/PublicationForm'
 
 const ProfileDetail = () => {
     const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const ProfileDetail = () => {
 
     const [editProfile, setEditProfile] = useState(false)
     const [editPost, setEditPost] = useState(false)
-    const [currentPet, setCurrentPet] = useState(undefined)
+    const [selectedPet, setSelectedPet] = useState(undefined)
 
     const handleModeEdit = () => {
         setEditProfile(!editProfile)
@@ -45,7 +46,7 @@ const ProfileDetail = () => {
 
     const handleEditPost = (pets) => {
         setEditPost(!editPost)
-        setCurrentPet(pets)
+        setSelectedPet(pets)
     }
 
     const handleDelete = (pet) => {
@@ -92,8 +93,8 @@ const ProfileDetail = () => {
                 gap={10}
             >
                 <Stack>
-                    {editPost && currentPet != undefined ? (
-                        <PetEdit currentPet={currentPet} />
+                    {editPost && selectedPet != undefined ? (
+                        <PublicationForm selectedPet={selectedPet} />
                     ) : editProfile && !editPost ? (
                         <EditProfile userData={userData} />
                     ) : (

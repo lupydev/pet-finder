@@ -14,7 +14,7 @@ import { renewToken } from '../redux/asyncActions/user/renewToken'
 import React, { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
-import { CreatePostFinal } from '../components/formPost/CreatePostFinal'
+import { PublicationForm } from '../components/formPost/PublicationForm'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -64,7 +64,7 @@ const Routing = () => {
                 <Route path="/profile" element={<Profile />} />
             </Route>
             <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
-                <Route path="/createPost" element={<CreatePostFinal />} />
+                <Route path="/createPost" element={<PublicationForm />} />
             </Route>
         </Routes>
     )
