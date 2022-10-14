@@ -29,8 +29,7 @@ const Routing = () => {
     }, [])
 
     useEffect(() => {
-        // console.log(location)
-        // dispatch(renewToken())
+        userInfo.isLogged && dispatch(renewToken())
     }, [location])
 
     return (
