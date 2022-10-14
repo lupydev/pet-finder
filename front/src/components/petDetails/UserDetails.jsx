@@ -17,6 +17,7 @@ import emailjs from '@emailjs/browser'
 
 const UserDetails = () => {
     const { petDetail } = useSelector((state) => state.pet)
+    const { userInfo } = useSelector((state) => state.user)
     const [open, setOpen] = useState(false)
 
     const validationSchema = yup.object({
