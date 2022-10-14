@@ -54,7 +54,7 @@ const ContactForm = () => {
             emailjs
                 .send(
                     import.meta.env.VITE_APP_SERVICE_ID,
-                    import.meta.env.VITE_APP_TEMPLATE_ID,
+                    import.meta.env.VITE_APP_TEMPLATE_CONTACT_FORM_ID,
                     values,
                     import.meta.env.VITE_APP_USER_ID
                 )
