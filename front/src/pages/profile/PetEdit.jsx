@@ -37,6 +37,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { useNavigate } from 'react-router-dom'
+import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -63,25 +64,54 @@ const PetEdit = ({ currentPet }) => {
     const [images, setImages] = useState(currentPet.img)
     const [location, setLocation] = useState({})
 
+    // const INITIAL_FORM_STATE = {
+    //     name: currentPet?.name,
+    //     description: currentPet?.description,
+    //     species: currentPet?.species._id,
+    //     gender: currentPet?.gender,
+    //     size: currentPet?.size,
+    //     type: currentPet?.type,
+    //     breed: currentPet?.breed._id,
+    //     age: currentPet?.age,
+    //     color: currentPet?.color,
+    //     img: currentPet.img,
+    //     location: currentPet?.location.country,
+    //     date: currentPet?.date.substring(0, 10),
+    //     observation: currentPet?.observation,
+    // }
+
+    const getUserId = () => {
+        const user = JSON.parse(window.localStorage.getItem('user'))
+        return user.id
+    }
+
     const INITIAL_FORM_STATE = {
-        name: currentPet?.name,
-        description: currentPet?.description,
-        species: currentPet?.species.name,
-        gender: currentPet?.gender,
-        size: currentPet?.size,
-        type: currentPet?.type,
-        breed: currentPet?.breed.name,
-        age: currentPet?.age,
-        color: currentPet?.color ?? '',
-        img: [currentPet.img],
-        location: currentPet?.location.country,
-        date: currentPet?.date,
-        observation: currentPet?.observation,
+        name: '',
+        userId: getUserId(),
+        description: '',
+        species: '',
+        gender: '',
+        size: '',
+        type: '',
+        breed: '',
+        age: '',
+        color: [],
+        img: [
+            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
+        ],
+        location: {},
+        date: '',
+        observation: '',
     }
 
     useEffect(() => {
         dispatch(getSpecies())
+        console.log(currentPet)
     }, [])
+
+    useEffect(() => {
+        dispatch(getBreeds(currentPet?.species._id))
+    }, [species])
 
     const handleUpload = async (e) => {
         try {
@@ -112,51 +142,51 @@ const PetEdit = ({ currentPet }) => {
     const handleSubmit = (values, resetForm) => {
         console.log(values)
 
-        if (Object.entries(location).length > 0) {
-            values.location = location
-        } else {
-            Toast.fire({
-                icon: 'error',
-                title: 'The location is required',
-            })
-            return
-        }
+        // if (Object.entries(location).length > 0) {
+        //     values.location = location
+        // } else {
+        //     Toast.fire({
+        //         icon: 'error',
+        //         title: 'The location is required',
+        //     })
+        //     return
+        // }
 
-        if (images.length) {
-            values.img = images
-        } else {
-            Toast.fire({
-                icon: 'error',
-                title: 'Must contain at least one image',
-            })
-            return
-        }
+        // if (images.length) {
+        //     values.img = images
+        // } else {
+        //     Toast.fire({
+        //         icon: 'error',
+        //         title: 'Must contain at least one image',
+        //     })
+        //     return
+        // }
 
-        const valuesUpdate = {
-            ...values,
-            img: images,
-        }
+        // const valuesUpdate = {
+        //     ...values,
+        //     img: images,
+        // }
 
-        Swal.fire({
-            title: 'Are you sure?',
-            icon: 'warning',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Save',
-            denyButtonText: `Don't save`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                dispatch(editPet({ id: currentPet._id, newData: valuesUpdate }))
-                Swal.fire('Your profile has been updated!').then(() =>
-                    navigate('/profile')
-                )
-                navigate('/profile')
-            } else if (result.isDenied) {
-                Swal.fire('Changes are not saved', '', 'info')
-            }
-        })
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     icon: 'warning',
+        //     showDenyButton: true,
+        //     showCancelButton: true,
+        //     confirmButtonText: 'Save',
+        //     denyButtonText: `Don't save`,
+        // }).then((result) => {
+        //     if (result.isConfirmed) {
+        //         dispatch(editPet({ id: currentPet._id, newData: valuesUpdate }))
+        //         Swal.fire('Your profile has been updated!').then(() =>
+        //             navigate('/profile')
+        //         )
+        //         navigate('/profile')
+        //     } else if (result.isDenied) {
+        //         Swal.fire('Changes are not saved', '', 'info')
+        //     }
+        // })
 
-        resetForm()
+        // resetForm()
     }
 
     const handleDeleteImg = (elem) => {
@@ -169,6 +199,7 @@ const PetEdit = ({ currentPet }) => {
                 initialValues={{ ...INITIAL_FORM_STATE }}
                 validationSchema={FORM_VALIDATION}
                 onSubmit={(values, { resetForm }) => {
+                    console.log(values)
                     handleSubmit(values, resetForm)
                 }}
             >
@@ -235,7 +266,6 @@ const PetEdit = ({ currentPet }) => {
                                     name="species"
                                     label="Specie"
                                     options={species}
-                                    value={currentPet?.species}
                                     size="small"
                                 />
                             </Grid>

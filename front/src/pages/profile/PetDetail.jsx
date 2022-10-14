@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, Paper, Typography } from '@mui/material'
+import { Box, Grid, IconButton, Paper, Stack, Typography } from '@mui/material'
 import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai'
 import React, { useState } from 'react'
 import PetEdit from './PetEdit'
@@ -20,7 +20,9 @@ const PetDetail = ({ pets, handleCurrentPet, handleEditPost }) => {
             confirmButtonText: 'Yes',
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(editPet({id: pets._id, newData: { status: 'Deleted'}}))
+                dispatch(
+                    editPet({ id: pets._id, newData: { status: 'Deleted' } })
+                )
                 Swal.fire('Your post has been deleted!').then(() =>
                     window.location.reload()
                 )
@@ -29,59 +31,48 @@ const PetDetail = ({ pets, handleCurrentPet, handleEditPost }) => {
     }
 
     return (
-        <Box>
-            <Box
-                component={Paper}
-                sx={{ height: 400, width: 300, borderRadius: 5 }}
-                elevation={5}
-            >
-                <Grid
-                    container
-                    direction="column"
-                    textAlign="center"
-                    spacing={2}
+        <Stack
+            alignItems="center"
+            component={Paper}
+            sx={{ height: 400, width: 300, borderRadius: 5 }}
+            elevation={5}
+            p="10px"
+        >
+            <img
+                src={pets?.img[0]}
+                alt={pets?.name}
+                style={{
+                    height: 180,
+                    width: 200,
+                    objectFit: 'cover',
+                    borderRadius: 5,
+                }}
+            />
+            <Typography gutterBottom variant="h5">
+                <b>{pets?.name}</b>
+            </Typography>
+            <Typography gutterBottom variant="body1">
+                <b>{pets?.description}</b>
+            </Typography>
+            <Stack direction="row">
+                <IconButton
+                    size="large"
+                    color="primary"
+                    aria-label="edit"
+                    onClick={() => handleEditPost(pets)}
                 >
-                    <Grid item xs={6} sx={{ m: 2 }}>
-                        <img
-                            src={pets?.img[0]}
-                            alt={pets?.name}
-                            style={{
-                                height: 180,
-                                width: 200,
-                                objectFit: 'cover',
-                                borderRadius: 5,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Typography gutterBottom variant="h5">
-                            <b>{pets?.name}</b>
-                        </Typography>
-                        <Typography gutterBottom variant="body1">
-                            <b>{pets?.description}</b>
-                        </Typography>
-                    </Grid>
-                    <Grid>
-                        <IconButton
-                            size="large"
-                            color="primary"
-                            aria-label="edit"
-                            onClick={() => handleEditPost(pets)}
-                        >
-                            <AiTwotoneEdit />
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            color="secondary"
-                            aria-label="delete"
-                            onClick={handleDelete}
-                        >
-                            <AiFillDelete />
-                        </IconButton>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Box>
+                    <AiTwotoneEdit />
+                </IconButton>
+                <IconButton
+                    size="large"
+                    color="secondary"
+                    aria-label="delete"
+                    onClick={handleDelete}
+                >
+                    <AiFillDelete />
+                </IconButton>
+            </Stack>
+        </Stack>
     )
 }
 

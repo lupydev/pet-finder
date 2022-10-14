@@ -8,7 +8,6 @@ import { cleanBreeds } from '../../../redux/features/pet/petSlice'
 export const SelectWrapper = ({
     name,
     options,
-    value = null,
     ...otherProps
 }) => {
     const dispatch = useDispatch()
@@ -19,10 +18,10 @@ export const SelectWrapper = ({
     const handleChange = (e) => {
         const { value } = e.target
         setFieldValue(name, value)
+        console.log(value, 'select value');
 
         if (e.target.name === 'species') {
-            // dispatch(cleanBreeds())
-            setFieldValue('breed', '')
+            dispatch(cleanBreeds())
             dispatch(getBreeds(value))
         }
     }
@@ -31,11 +30,8 @@ export const SelectWrapper = ({
         ...field,
         ...otherProps,
         select: true,
-        //MUAI creo que esta predefinido
-        // variant: 'outlined'
         fullWidth: true,
         onChange: handleChange,
-        value: value,
     }
 
     if (meta && meta.touched && meta.error) {

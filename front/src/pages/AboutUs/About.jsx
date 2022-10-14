@@ -1,8 +1,12 @@
 import React from 'react'
-import { Stack, Typography, Grid, Button } from '@mui/material'
+import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
+import PetCard from '../../components/home/pets/PetCard'
+import { useSelector } from 'react-redux'
 
 const About = () => {
+    const { userPets } = useSelector((state) => state.user)
+
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
             <Typography
@@ -51,7 +55,10 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
+                    <img
+                        width="100px"
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg"
+                    />
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
@@ -76,7 +83,10 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
+                    <img
+                        width="100px"
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg"
+                    />
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
@@ -101,7 +111,10 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
+                    <img
+                        width="100px"
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg"
+                    />
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
@@ -113,6 +126,12 @@ const About = () => {
                     </Button>
                 </Stack>
             </Grid>
+            <Typography color="primary.main" variant="h3" textAlign="center">
+                Pets Reunited
+            </Typography>
+            <Box>
+                <PetCard pets={userPets} isReunited={true} />
+            </Box>
         </Stack>
     )
 }

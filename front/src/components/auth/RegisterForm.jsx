@@ -4,6 +4,8 @@ import {
     Box,
     Button,
     CircularProgress,
+    IconButton,
+    InputAdornment,
     Stack,
     TextField,
     Typography,
@@ -48,9 +50,9 @@ const initialValues = {
 const RegisterForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { userInfo } = useSelector((state) => state.user)
     const [loading, setLoading] = useState(false)
     const [image, setImage] = useState('')
-    const { userInfo } = useSelector((state) => state.user)
 
     const handleUpload = async (e) => {
         try {
@@ -110,12 +112,9 @@ const RegisterForm = () => {
             <Stack
                 width="500px"
                 borderRadius="20px"
-                display="flex"
-                direction="column"
                 gap="20px"
-                padding="10px"
+                padding="30px"
                 boxShadow="3"
-                paddingY="35px"
             >
                 <Formik
                     initialValues={initialValues}
@@ -128,37 +127,28 @@ const RegisterForm = () => {
                     {({ handleSubmit, errors, touched }) => (
                         <Form onSubmit={handleSubmit}>
                             <Stack alignItems="center" gap="20px">
-                                <Stack
-                                    justifyContent="flex-start"
-                                    px="20px"
-                                    width="100%"
-                                >
-                                    <Stack
-                                        direction="row"
-                                        alignItems="center"
-                                        px="20px"
-                                        width="100%"
-                                        gap="10px"
-                                    >
-                                        {loading ? (
-                                            <CircularProgress />
-                                        ) : (
-                                            <Avatar
-                                                src={image}
-                                                sx={{
-                                                    width: '5rem',
-                                                    height: '5rem',
-                                                }}
-                                            />
-                                        )}
-                                        <TextField
-                                            id="profilePicture"
-                                            placeholder="Upload an image"
-                                            type="file"
-                                            name="profilePicture"
-                                            onChange={(e) => handleUpload(e)}
+                                <Stack alignItems="center" width="100%" gap={2}>
+                                    {loading ? (
+                                        <CircularProgress />
+                                    ) : (
+                                        <Avatar
+                                            src={image}
+                                            sx={{
+                                                width: '12rem',
+                                                height: '12rem',
+                                            }}
                                         />
-                                    </Stack>
+                                    )}
+                                    <TextField
+                                        id="profilePicture"
+                                        placeholder="Upload an image"
+                                        type="file"
+                                        size="small"
+                                        name="profilePicture"
+                                        onChange={(e) => handleUpload(e)}
+                                    />
+                                </Stack>
+                                <Stack justifyContent="flex-start" width="100%">
                                     <Stack
                                         component={Field}
                                         type="text"
@@ -186,11 +176,7 @@ const RegisterForm = () => {
                                         </Typography>
                                     ) : null}
                                 </Stack>
-                                <Stack
-                                    justifyContent="flex-start"
-                                    px="20px"
-                                    width="100%"
-                                >
+                                <Stack justifyContent="flex-start" width="100%">
                                     <Stack
                                         component={Field}
                                         type="text"
@@ -217,11 +203,7 @@ const RegisterForm = () => {
                                         </Typography>
                                     ) : null}
                                 </Stack>
-                                <Stack
-                                    justifyContent="flex-start"
-                                    px="20px"
-                                    width="100%"
-                                >
+                                <Stack justifyContent="flex-start" width="100%">
                                     <Stack
                                         component={Field}
                                         id="email"
@@ -248,17 +230,14 @@ const RegisterForm = () => {
                                         </Typography>
                                     ) : null}
                                 </Stack>
-                                <Stack
-                                    justifyContent="flex-start"
-                                    px="20px"
-                                    width="100%"
-                                >
+                                <Stack justifyContent="flex-start" width="100%">
                                     <Stack
                                         component={Field}
                                         type="password"
                                         placeholder="Password*"
                                         id="password"
                                         name="password"
+                                        
                                         sx={{
                                             border: ' 2px solid #BFBFBF',
                                             width: '100%',
