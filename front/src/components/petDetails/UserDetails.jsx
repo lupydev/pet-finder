@@ -14,8 +14,10 @@ import { Formik, useFormik } from 'formik'
 import * as yup from 'yup'
 import { Toast } from '../../utils/swalToasts'
 import emailjs from '@emailjs/browser'
+import Loading from '../loading/Loading'
 
 const UserDetails = () => {
+    const navigate = useNavigate()
     const { petDetail } = useSelector((state) => state.pet)
     const { userInfo } = useSelector((state) => state.user)
     const [open, setOpen] = useState(false)
@@ -69,8 +71,7 @@ const UserDetails = () => {
                     icon: 'error',
                     title: 'There is an error sending the message.',
                 })
-            } 
-
+            }
         },
         validationSchema: validationSchema,
     })
@@ -83,8 +84,7 @@ const UserDetails = () => {
     useEffect(() => {
         const { resetForm } = formik
 
-        resetForm();
-
+        resetForm()
     }, [open])
 
     return (
@@ -98,46 +98,52 @@ const UserDetails = () => {
                 borderRadius: '5px',
             }}
         >
-            <Stack
-                direction="row"
-                width="100%"
-                minWidth="250px"
-                height="150px"
-                border="solid 3px"
-                borderColor={
-                    petDetail?.type.toLowerCase() === 'lost'
-                        ? 'secondary'
-                        : 'primary'
-                }
-                sx={{
-                    borderColor:
+            {petDetail != undefined ? (
+                <Stack
+                    direction="row"
+                    width="100%"
+                    minWidth="250px"
+                    height="150px"
+                    border="solid 3px"
+                    borderColor={
                         petDetail?.type.toLowerCase() === 'lost'
-                            ? 'secondary.main'
-                            : 'primary.main',
-                }}
-                borderRadius="10px"
-                alignItems="center"
-            >
-                <Avatar
-                    src={petDetail?.userId?.img}
-                    sx={{ width: 110, height: 110, ml: '20px' }}
-                />
-                <Stack width="100%">
-                    <Typography
-                        fontSize="25px"
-                        component="div"
-                        fontWeight={'bold'}
-                        mx="auto"
-                        color={
+                            ? 'secondary'
+                            : 'primary'
+                    }
+                    sx={{
+                        borderColor:
                             petDetail?.type.toLowerCase() === 'lost'
-                                ? 'secondary'
-                                : 'primary'
-                        }
-                    >
-                        {petDetail?.userId?.fullname}
-                    </Typography>
+                                ? 'secondary.main'
+                                : 'primary.main',
+                    }}
+                    borderRadius="10px"
+                    alignItems="center"
+                >
+                    <Avatar
+                        src={petDetail?.userId?.img}
+                        sx={{ width: 110, height: 110, ml: '20px' }}
+                    />
+                    <Stack width="100%">
+                        <Typography
+                            fontSize="25px"
+                            component="div"
+                            fontWeight={'bold'}
+                            mx="auto"
+                            color={
+                                petDetail?.type.toLowerCase() === 'lost'
+                                    ? 'secondary'
+                                    : 'primary'
+                            }
+                        >
+                            {petDetail?.userId?.fullname}
+                        </Typography>
+                    </Stack>
                 </Stack>
-            </Stack>
+            ) : (
+                <Stack alignItems="center">
+                    <Loading />
+                </Stack>
+            )}
             {userInfo.isLogged ? (
                 <Button
                     variant="contained"
