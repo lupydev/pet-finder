@@ -17,5 +17,6 @@ export interface Pets {
     date?: string
     img: string[]
     observation?: string
+    meet:boolean
     createdAt?:string
 }
