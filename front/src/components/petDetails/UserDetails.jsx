@@ -174,12 +174,6 @@ const UserDetails = () => {
                         variant="outlined"
                         sx={{ width: '100%' }}
                     />
-                    <TextField
-                        type="file"
-                        variant="outlined"
-                        size="small"
-                        sx={{ width: '100%' }}
-                    />
                     <Button
                         variant="contained"
                         color={
