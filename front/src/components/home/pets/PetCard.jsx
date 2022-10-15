@@ -38,7 +38,6 @@ const PetCard = ({
                     }}
                     key={pet._id}
                 >
-                    {isReunited ? 'testeando' : 'asd'}
                     <CardContent
                         sx={{
                             borderRadius: '8px',
@@ -109,6 +108,7 @@ const PetCard = ({
                                     {pet.location?.country}
                                 </Typography>
                             </Stack>
+                            {isReunited ? 'testeando' : 'asd'}
                             {isEdit ? (
                                 <Stack direction="row" justifyContent="center">
                                     <IconButton

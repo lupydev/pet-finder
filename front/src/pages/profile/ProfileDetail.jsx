@@ -27,6 +27,8 @@ const ProfileDetail = () => {
     const navigate = useNavigate()
 
     const { userData, userPets } = useSelector((state) => state.user)
+    console.log(userData)
+    console.log(userPets)
 
     const [editProfile, setEditProfile] = useState(false)
     const [editPost, setEditPost] = useState(false)

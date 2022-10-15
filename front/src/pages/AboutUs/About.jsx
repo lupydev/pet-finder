@@ -1,11 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import PetCard from '../../components/home/pets/PetCard'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
+import Loading from '../../components/loading/Loading'
+import { getUserData } from '../../redux/asyncActions/user/getUserData'
+import { cleanPetsData } from '../../redux/features/user/userSlice'
 
 const About = () => {
-    const { userPets } = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+
+    const { userPets, userData } = useSelector((state) => state.user)
+    console.log(userData)
+    console.log(userPets)
+
+    useEffect(() => {
+        userData === undefined && dispatch(getUserData())
+
+        dispatch(cleanPetsData())
+        userData.pets.map((pet) => {
+            dispatch(getUserPets(pet))
+        })
+
+        return () => {
+            dispatch(cleanPetsData())
+        }
+    }, [])
 
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
@@ -129,8 +150,12 @@ const About = () => {
             <Typography color="primary.main" variant="h3" textAlign="center">
                 Pets Reunited
             </Typography>
-            <Box>
-                <PetCard pets={userPets} isReunited={true} />
+            <Box ml={20}>
+                {userData ? (
+                    <PetCard pets={userPets} isReunited={true} />
+                ) : (
+                    <Loading />
+                )}
             </Box>
         </Stack>
     )
