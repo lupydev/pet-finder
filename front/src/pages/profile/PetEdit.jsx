@@ -64,45 +64,49 @@ const PetEdit = ({ currentPet }) => {
     const [images, setImages] = useState(currentPet.img)
     const [location, setLocation] = useState({})
 
-    // const INITIAL_FORM_STATE = {
-    //     name: currentPet?.name,
-    //     description: currentPet?.description,
-    //     species: currentPet?.species._id,
-    //     gender: currentPet?.gender,
-    //     size: currentPet?.size,
-    //     type: currentPet?.type,
-    //     breed: currentPet?.breed._id,
-    //     age: currentPet?.age,
-    //     color: currentPet?.color,
-    //     img: currentPet.img,
-    //     location: currentPet?.location.country,
-    //     date: currentPet?.date.substring(0, 10),
-    //     observation: currentPet?.observation,
-    // }
+    const INITIAL_FORM_STATE = {
+        name: currentPet ? currentPet?.name : '',
+        description: currentPet ? currentPet?.description : getUserId(),
+        species: currentPet ? currentPet?.species._id : '',
+        gender: currentPet ? currentPet?.gender : '',
+        size: currentPet ? currentPet?.size : '',
+        type: currentPet ? currentPet?.type : '',
+        breed: currentPet ? currentPet?.breed._id : '',
+        age: currentPet ? currentPet?.age : '',
+        color: currentPet ? currentPet?.color : [],
+        img: currentPet
+            ? currentPet.img
+            : [
+                'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
+            ],
+        location: currentPet ? currentPet?.location: {},
+        date: currentPet ? currentPet?.date.substring(0, 10) : '',
+        observation: currentPet ? currentPet?.observation : '',
+    }
 
     const getUserId = () => {
         const user = JSON.parse(window.localStorage.getItem('user'))
         return user.id
     }
 
-    const INITIAL_FORM_STATE = {
-        name: '',
-        userId: getUserId(),
-        description: '',
-        species: '',
-        gender: '',
-        size: '',
-        type: '',
-        breed: '',
-        age: '',
-        color: [],
-        img: [
-            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
-        ],
-        location: {},
-        date: '',
-        observation: '',
-    }
+    // const INITIAL_FORM_STATE = {
+    //     name: '',
+    //     userId: getUserId(),
+    //     description: '',
+    //     species: '',
+    //     gender: '',
+    //     size: '',
+    //     type: '',
+    //     breed: '',
+    //     age: '',
+    //     color: [],
+    //     img: [
+    //         'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
+    //     ],
+    //     location: {},
+    //     date: '',
+    //     observation: '',
+    // }
 
     useEffect(() => {
         dispatch(getSpecies())

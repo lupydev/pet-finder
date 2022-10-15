@@ -7,6 +7,7 @@ import {
     Avatar,
     Stack,
     IconButton,
+    Tooltip,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
@@ -15,7 +16,13 @@ import { GrMap } from 'react-icons/gr'
 import Loading from '../../loading/Loading'
 import { AiFillDelete, AiFillEye, AiTwotoneEdit } from 'react-icons/ai'
 
-const PetCard = ({ pets, isEdit = false, handleViewProfile, handleEditPost, handleDelete }) => {
+const PetCard = ({
+    pets,
+    isEdit = false,
+    handleViewProfile,
+    handleEditPost,
+    handleDelete,
+}) => {
     function capitalize(text) {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
@@ -92,14 +99,16 @@ const PetCard = ({ pets, isEdit = false, handleViewProfile, handleEditPost, hand
                             </Stack>
                             <Stack direction="row" width="100%">
                                 <GrMap fontSize="20px" />
-                                <Typography
-                                    ml="5px"
-                                    noWrap
-                                    variant="body2"
-                                    color="text.secondary"
-                                >
-                                    {pet.location?.country}
-                                </Typography>
+                                <Tooltip title={pet.location?.country}>
+                                    <Typography
+                                        ml="5px"
+                                        noWrap
+                                        variant="body2"
+                                        color="text.secondary"
+                                    >
+                                        {pet.location?.country}
+                                    </Typography>
+                                </Tooltip>
                             </Stack>
                             {isEdit ? (
                                 <Stack direction="row" justifyContent="center">
@@ -125,7 +134,7 @@ const PetCard = ({ pets, isEdit = false, handleViewProfile, handleEditPost, hand
                                         aria-label="delete"
                                         onClick={() => handleDelete(pet)}
                                         sx={{
-                                            color:'red'
+                                            color: 'red',
                                         }}
                                     >
                                         <AiFillDelete />
@@ -158,7 +167,10 @@ const PetCard = ({ pets, isEdit = false, handleViewProfile, handleEditPost, hand
             )
         })
     ) : (
-        <Loading />
+        <img
+            src="https://res.cloudinary.com/diyk4to11/image/upload/v1665798878/there_no_data_jrjnmm.png"
+            width="400px"
+        />
     )
 }
 

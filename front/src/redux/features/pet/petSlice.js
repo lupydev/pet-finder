@@ -15,13 +15,14 @@ import {
 } from '../../asyncActions/pet/deletePetPost'
 
 const initialState = {
-    LostPetsData: {},
-    FoundPetsData: {},
+    LostPetsData: [],
+    FoundPetsData: [],
     petDetail: undefined,
     petsDetails: [],
     species: [],
     breeds: [],
     status: 'loading',
+    statusSpecies: 'loading',
     statusBreeds: 'loading',
     error: '',
 }
@@ -35,11 +36,12 @@ const petSlice = createSlice({
             state.FoundPetsData = {}
             state.petDetail = undefined
             state.status = 'loading'
+            state.statusSpecies = 'loading'
             state.statusBreeds = 'loading'
         },
         cleanBreeds: (state) => {
             state.breeds = []
-        }
+        },
     },
     extraReducers: {
         ...extraCreatePet,
@@ -64,5 +66,5 @@ export {
     deletePost,
 }
 
-export const { cleanPetData,cleanBreeds } = petSlice.actions
+export const { cleanPetData, cleanBreeds } = petSlice.actions
 export default petSlice.reducer

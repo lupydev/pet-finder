@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
-import { TextField, Typography } from '@mui/material'
-import Loading from '../../loading/Loading'
+import { TextField } from '@mui/material'
+import { libraries } from '../../../utils/gMapLibraries'
 
-const libraries = ['places']
-
-const GMapsApi = ({ setLocation, value='' }) => {
+const GMapsApi = ({
+    setLocation,
+    placeholder = 'Select any Location',
+    types = ['address'],
+    label = 'Location',
+    autocompleteRef
+}) => {
     const [autocomplete, setAutocomplete] = useState(null)
+
 
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: import.meta.env.VITE_APP_GMAPS_API_KEY,
@@ -27,32 +32,38 @@ const GMapsApi = ({ setLocation, value='' }) => {
                 setLocation({ country, lat, long })
             }
         } catch (error) {
-            console.log(error)
+            autocompleteRef.current.value = ''
+            setLocation(undefined)
         }
     }
 
-    return isLoaded && (
-        <Autocomplete
-            onLoad={onLoad}
-            onPlaceChanged={onPlaceChanged}
-            types={['address']}
-            // types={['(cities)']}
-            // types={['locality']}
-        >
-            <TextField
-                id="location"
-                name="location"
-                fullWidth={true}
-                type="text"
-                size="small"
-                label="Location"
-                placeholder=''
-                disabled = {!isLoaded}
-                required
-            />
-        </Autocomplete>
+    return (
+        isLoaded && (
+            <Autocomplete
+                onLoad={onLoad}
+                onPlaceChanged={onPlaceChanged}
+                // types={['address']}
+                // types={['(cities)']}
+                types={types}
+            >
+                <TextField
+                    id="location"
+                    name="location"
+                    fullWidth={true}
+                    type="text"
+                    size="small"
+                    label={label}
+                    placeholder={placeholder}
+                    disabled={!isLoaded}
+                    required={label === 'Location'}
+                    onChange={(e) =>
+                        e.target.value === '' && setLocation(undefined)
+                    }
+                    inputRef={autocompleteRef}
+                />
+            </Autocomplete>
+        )
     )
-
 }
 
 export default GMapsApi

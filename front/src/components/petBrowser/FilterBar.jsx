@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
     Accordion,
     AccordionDetails,
@@ -10,15 +10,12 @@ import {
     Select,
     Stack,
     Typography,
-    TextField,
     InputAdornment,
-    OutlinedInput,
     FormControlLabel,
     Checkbox,
     Divider,
 } from '@mui/material'
 import {
-    MdExpandMore,
     MdPets,
     MdDateRange,
     MdPalette,
@@ -26,15 +23,25 @@ import {
 } from 'react-icons/md'
 import { BsCaretDownFill, BsSearch } from 'react-icons/bs'
 import { FaTransgender } from 'react-icons/fa'
-import { GrMap } from 'react-icons/gr'
 import { TbSortDescending } from 'react-icons/tb'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import GMapsApi from '../formPost/GMapsAutocomplete/GMapsApi'
 
-const FilterBar = (props) => {
-    const dispatch = useDispatch()
-    const { petData, species, breeds } = useSelector((state) => state.pet)
-    const [location, setLocation] = useState({})
+const FilterBar = ({
+    title,
+    principalInputs,
+    extraInputs,
+    showReunited,
+    setLocation,
+    setShowReunited,
+    filter,
+    handleChange,
+    handleClick,
+    handleShowReunited,
+    handleSubmit,
+    autocompleteRef,
+}) => {
+    const { species } = useSelector((state) => state.pet)
 
     return (
         <>
@@ -55,25 +62,26 @@ const FilterBar = (props) => {
                     sx={{ borderBottomWidth: 3, width: '450px' }}
                 />
                 <Stack direction="row">
-                    {/* <FormControlLabel
+                    <FormControlLabel
                         control={
                             <Checkbox
                                 color={
-                                    props.title.toLowerCase() === 'lost'
+                                    title.toLowerCase() === 'lost'
                                         ? 'secondary'
                                         : 'primary'
                                 }
+                                checked={showReunited}
                             />
                         }
                         name="isReunited"
                         label="Show Reunited"
-                        onChange={(e) => props.handleChange(e)}
-                    /> */}
+                        onChange={handleShowReunited}
+                    />
                     <Button
-                        onClick={props.handleClick}
+                        onClick={handleClick}
                         variant="contained"
                         color={
-                            props.title.toLowerCase() === 'lost'
+                            title.toLowerCase() === 'lost'
                                 ? 'secondary'
                                 : 'primary'
                         }
@@ -99,7 +107,7 @@ const FilterBar = (props) => {
                 <FormControl>
                     <Stack width="200px">
                         <InputLabel htmlFor="demo-customized-select-native">
-                            {props.principalInputs[0].label}
+                            {principalInputs[0].label}
                         </InputLabel>
                         <Select
                             displayEmpty
@@ -156,14 +164,14 @@ const FilterBar = (props) => {
                                 )
                             }}
                             color={
-                                props.title.toLowerCase() === 'lost'
+                                title.toLowerCase() === 'lost'
                                     ? 'secondary'
                                     : 'primary'
                             }
-                            onChange={(event) => props.handleChange(event)}
-                            label={props.principalInputs[0].label}
-                            name={props.principalInputs[0].name}
-                            value={props.filter['species']}
+                            onChange={(event) => handleChange(event)}
+                            label={principalInputs[0].label}
+                            name={principalInputs[0].name}
+                            value={filter['species']}
                         >
                             {species.length > 0 &&
                                 species.map((specie) => (
@@ -190,7 +198,7 @@ const FilterBar = (props) => {
                 <FormControl>
                     <Stack width="200px">
                         <InputLabel htmlFor="demo-customized-select-native">
-                            {props.principalInputs[1].label}
+                            {principalInputs[1].label}
                         </InputLabel>
                         <Select
                             displayEmpty
@@ -223,16 +231,16 @@ const FilterBar = (props) => {
                                 )
                             }}
                             color={
-                                props.title.toLowerCase() === 'lost'
+                                title.toLowerCase() === 'lost'
                                     ? 'secondary'
                                     : 'primary'
                             }
-                            onChange={(event) => props.handleChange(event)}
-                            label={props.principalInputs[1].label}
-                            name={props.principalInputs[1].name}
-                            value={props.filter['gender']}
+                            onChange={(event) => handleChange(event)}
+                            label={principalInputs[1].label}
+                            name={principalInputs[1].name}
+                            value={filter['gender']}
                         >
-                            {props.principalInputs[1].values.map((item) => (
+                            {principalInputs[1].values.map((item) => (
                                 <MenuItem key={item} value={item}>
                                     <em>
                                         <Typography
@@ -251,73 +259,22 @@ const FilterBar = (props) => {
 
                 <FormControl>
                     <Stack width="200px">
-                        <InputLabel htmlFor="demo-customized-select-native">
-                            {props.principalInputs[2].label}
-                        </InputLabel>
-                        <Select
-                            displayEmpty
-                            sx={{ height: '45px' }}
-                            startAdornment={
-                                <InputAdornment position="start">
-                                    <GrMap />
-                                </InputAdornment>
-                            }
-                            renderValue={(selected) => {
-                                if (selected.length === 0) {
-                                    return (
-                                        <Typography
-                                            pt="4px"
-                                            fontSize="15px"
-                                            ml="5px"
-                                        >
-                                            Choose city
-                                        </Typography>
-                                    )
-                                }
-                                return (
-                                    <Typography
-                                        pt="4px"
-                                        fontSize="15px"
-                                        ml="5px"
-                                    >
-                                        {selected}
-                                    </Typography>
-                                )
-                            }}
-                            color={
-                                props.title.toLowerCase() === 'lost'
-                                    ? 'secondary'
-                                    : 'primary'
-                            }
-                            onChange={(event) => props.handleChange(event)}
-                            label={props.principalInputs[2].label}
-                            name={props.principalInputs[2].name}
-                            value={props.filter['city']}
-                        >
-                            {props.principalInputs[2].values.map((item) => (
-                                <MenuItem key={item} value={item}>
-                                    <em>
-                                        <Typography
-                                            pt="4px"
-                                            fontSize="15px"
-                                            ml="5px"
-                                        >
-                                            {item}
-                                        </Typography>
-                                    </em>
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        {/* <GMapsApi setLocation={setLocation} /> */}
+                        <GMapsApi
+                            setLocation={setLocation}
+                            types={['locality']}
+                            label={'City'}
+                            placeholder={'Select any City'}
+                            autocompleteRef={autocompleteRef}
+                        />
                     </Stack>
                 </FormControl>
                 <Stack direction="row" gap="15px">
                     <Button
-                        onClick={props.handleSubmit}
+                        onClick={handleSubmit}
                         endIcon={<BsSearch size="15px" />}
                         variant="contained"
                         color={
-                            props.title.toLowerCase() === 'lost'
+                            title.toLowerCase() === 'lost'
                                 ? 'secondary'
                                 : 'primary'
                         }
@@ -340,7 +297,7 @@ const FilterBar = (props) => {
                         sx={{
                             transform: 'rotate(180deg)',
                             color:
-                                props.title.toLowerCase() === 'lost'
+                                title.toLowerCase() === 'lost'
                                     ? 'secondary.main'
                                     : 'primary.main',
                             fontWeight: 'bold',
@@ -351,7 +308,7 @@ const FilterBar = (props) => {
                             <BsCaretDownFill
                                 sx={{
                                     color:
-                                        props.title.toLowerCase() === 'lost'
+                                        title.toLowerCase() === 'lost'
                                             ? 'secondary.main'
                                             : 'primary.main',
                                 }}
@@ -375,7 +332,7 @@ const FilterBar = (props) => {
                         <FormControl>
                             <Stack width="200px">
                                 <InputLabel htmlFor="demo-customized-select-native">
-                                    {props.extraInputs[0].label}
+                                    {extraInputs[0].label}
                                 </InputLabel>
                                 <Select
                                     displayEmpty
@@ -409,18 +366,16 @@ const FilterBar = (props) => {
                                         )
                                     }}
                                     color={
-                                        props.title.toLowerCase() === 'lost'
+                                        title.toLowerCase() === 'lost'
                                             ? 'secondary'
                                             : 'primary'
                                     }
-                                    onChange={(event) =>
-                                        props.handleChange(event)
-                                    }
-                                    label={props.extraInputs[0].label}
-                                    name={props.extraInputs[0].name}
-                                    value={props.filter['date']}
+                                    onChange={(event) => handleChange(event)}
+                                    label={extraInputs[0].label}
+                                    name={extraInputs[0].name}
+                                    value={filter['date']}
                                 >
-                                    {props.extraInputs[0].values.map((item) => (
+                                    {extraInputs[0].values.map((item) => (
                                         <MenuItem
                                             key={item.value}
                                             value={item.value}
@@ -442,7 +397,7 @@ const FilterBar = (props) => {
                         <FormControl>
                             <Stack width="200px">
                                 <InputLabel htmlFor="demo-customized-select-native">
-                                    {props.extraInputs[1].label}
+                                    {extraInputs[1].label}
                                 </InputLabel>
                                 <Select
                                     displayEmpty
@@ -476,18 +431,16 @@ const FilterBar = (props) => {
                                         )
                                     }}
                                     color={
-                                        props.title.toLowerCase() === 'lost'
+                                        title.toLowerCase() === 'lost'
                                             ? 'secondary'
                                             : 'primary'
                                     }
-                                    onChange={(event) =>
-                                        props.handleChange(event)
-                                    }
-                                    label={props.extraInputs[1].label}
-                                    name={props.extraInputs[1].name}
-                                    value={props.filter['name']}
+                                    onChange={(event) => handleChange(event)}
+                                    label={extraInputs[1].label}
+                                    name={extraInputs[1].name}
+                                    value={filter['name']}
                                 >
-                                    {props.extraInputs[1].values.map((item) => (
+                                    {extraInputs[1].values.map((item) => (
                                         <MenuItem
                                             key={item.value}
                                             value={item.value}
@@ -509,7 +462,7 @@ const FilterBar = (props) => {
                         <FormControl>
                             <Stack width="200px">
                                 <InputLabel htmlFor="demo-customized-select-native">
-                                    {props.extraInputs[2].label}
+                                    {extraInputs[2].label}
                                 </InputLabel>
                                 <Select
                                     displayEmpty
@@ -542,18 +495,16 @@ const FilterBar = (props) => {
                                         )
                                     }}
                                     color={
-                                        props.title.toLowerCase() === 'lost'
+                                        title.toLowerCase() === 'lost'
                                             ? 'secondary'
                                             : 'primary'
                                     }
-                                    onChange={(event) =>
-                                        props.handleChange(event)
-                                    }
-                                    label={props.extraInputs[2].label}
-                                    name={props.extraInputs[2].name}
-                                    value={props.filter['color']}
+                                    onChange={(event) => handleChange(event)}
+                                    label={extraInputs[2].label}
+                                    name={extraInputs[2].name}
+                                    value={filter['color']}
                                 >
-                                    {props.extraInputs[2].values.map((item) => (
+                                    {extraInputs[2].values.map((item) => (
                                         <MenuItem
                                             key={item.value}
                                             value={item.value}
@@ -575,7 +526,7 @@ const FilterBar = (props) => {
                         <FormControl>
                             <Stack width="200px">
                                 <InputLabel htmlFor="demo-customized-select-native">
-                                    {props.extraInputs[3].label}
+                                    {extraInputs[3].label}
                                 </InputLabel>
                                 <Select
                                     displayEmpty
@@ -608,18 +559,16 @@ const FilterBar = (props) => {
                                         )
                                     }}
                                     color={
-                                        props.title.toLowerCase() === 'lost'
+                                        title.toLowerCase() === 'lost'
                                             ? 'secondary'
                                             : 'primary'
                                     }
-                                    onChange={(event) =>
-                                        props.handleChange(event)
-                                    }
-                                    label={props.extraInputs[3].label}
-                                    name={props.extraInputs[3].name}
-                                    value={props.filter['size']}
+                                    onChange={(event) => handleChange(event)}
+                                    label={extraInputs[3].label}
+                                    name={extraInputs[3].name}
+                                    value={filter['size']}
                                 >
-                                    {props.extraInputs[3].values.map((item) => (
+                                    {extraInputs[3].values.map((item) => (
                                         <MenuItem
                                             key={item.value}
                                             value={item.value}

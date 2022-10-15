@@ -18,7 +18,6 @@ export const SelectWrapper = ({
     const handleChange = (e) => {
         const { value } = e.target
         setFieldValue(name, value)
-        console.log(value, 'select value');
 
         if (e.target.name === 'species') {
             dispatch(cleanBreeds())
