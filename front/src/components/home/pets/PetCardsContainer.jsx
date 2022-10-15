@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import { getPets } from '../../../redux/asyncActions/pet/getPets'
+import Loading from '../../loading/Loading'
 
 const PetCardsContainer = (props) => {
     const dispatch = useDispatch()
     const type = props.title
-    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
+    const { LostPetsData, FoundPetsData, status } = useSelector(
+        (state) => state.pet
+    )
     const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
     const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
 
@@ -17,13 +20,13 @@ const PetCardsContainer = (props) => {
     }, [])
 
     useEffect(() => {
-        Object.entries(LostPetsData).length > 0 &&
-            setLimitedLostPetsData(LostPetsData.pets.slice(0, 4))
+        LostPetsData?.length > 0 &&
+            setLimitedLostPetsData(LostPetsData.slice(0, 4))
     }, [LostPetsData])
 
     useEffect(() => {
-        Object.entries(FoundPetsData).length > 0 &&
-            setLimitedFoundPetsData(FoundPetsData.pets.slice(0, 4))
+        FoundPetsData?.length > 0 &&
+            setLimitedFoundPetsData(FoundPetsData.slice(0, 4))
     }, [FoundPetsData])
 
     return (
@@ -38,13 +41,17 @@ const PetCardsContainer = (props) => {
                 {props.title} Pets
             </Typography>
             <Stack direction="row" justifyContent={'center'} gap="24px">
-                <PetCard
-                    pets={
-                        type === 'Lost'
-                            ? limitedLostPetsData
-                            : limitedFoundPetsData
-                    }
-                />
+                {status === 'success' ? (
+                    <PetCard
+                        pets={
+                            type === 'Lost'
+                                ? limitedLostPetsData
+                                : limitedFoundPetsData
+                        }
+                    />
+                ) : (
+                    <Loading />
+                )}
             </Stack>
             <Button
                 component={Link}

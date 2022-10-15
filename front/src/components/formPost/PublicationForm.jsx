@@ -35,6 +35,7 @@ import UploadImages from './UploadImages/UploadImages'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ComboBox from './SelectAutocomplete/ComboBox'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
+import Loading from '../loading/Loading'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -154,7 +155,7 @@ export const PublicationForm = ({ selectedPet }) => {
         dispatch(getSpecies())
     }, [])
 
-    return (
+    return species.length ? (
         <Formik
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
@@ -379,5 +380,7 @@ export const PublicationForm = ({ selectedPet }) => {
                 </Form>
             )}
         </Formik>
+    ) : (
+        <Loading />
     )
 }

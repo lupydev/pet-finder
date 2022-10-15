@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import PetCard from '../home/pets/PetCard'
 import Title from './Title'
@@ -12,6 +12,7 @@ import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
 import { cleanPetData } from '../../redux/features/pet/petSlice'
 import { Paginationn } from './Pagination'
 import Loading from '../loading/Loading'
+import { useRef } from 'react'
 
 const INITIAL_FILTER = {
     species: '',
@@ -90,20 +91,63 @@ const extraInputs = [
 
 const PetBrowser = (props) => {
     const dispatch = useDispatch()
-    const { LostPetsData, FoundPetsData, species, breeds } = useSelector(
+    const { LostPetsData, FoundPetsData, status } = useSelector(
         (state) => state.pet
     )
     const [filter, setFilter] = useState(INITIAL_FILTER)
     const type = props.title
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(8)
-    const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
+    const [limitedLostPetsData, setLimitedPetsData] = useState([])
     const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
-    let max
-    if (type === 'Lost') {
-        max = LostPetsData.pets?.length / perPage
-    } else {
-        max = FoundPetsData.pets?.length / perPage
+    const [location, setLocation] = useState(undefined)
+    const [showReunited, setShowReunited] = useState(true)
+    const [max, setMax] = useState(0)
+    const [dataFiltered, setDataFiltered] = useState([])
+
+    const autocompleteRef = useRef(null)
+
+    const setMaxPages = () => {
+        setMax(dataFiltered.length / perPage)
+    }
+
+    const filterLocation = () => {
+        let filterArray = []
+        let found = false
+
+        const loc = location.country.toLowerCase().split(',')
+
+        for (const pet of dataFiltered) {
+            // separar en calle, ciudad, pais
+            let petLoc = pet.location.country.toLowerCase().split(',')
+            found = false
+
+            if (loc.at(-1) === petLoc.at(-1)) {
+                // eliminar pais de la coincidencia
+                petLoc.pop()
+
+                // [PET LOCATION]
+                for (const petStreet of petLoc) {
+                    // [INPUT LOCATION]
+                    for (const locStreet of loc) {
+                        if (petStreet.includes(locStreet)) {
+                            found = true
+                            break
+                        }
+                    }
+
+                    if (found) {
+                        break
+                    }
+                }
+
+                if (found) {
+                    filterArray.push(pet)
+                }
+            }
+        }
+
+        return filterArray
     }
 
     const handleChange = (e) => {
@@ -112,7 +156,16 @@ const PetBrowser = (props) => {
 
     const handleReset = () => {
         setFilter(INITIAL_FILTER)
-        dispatch(getPetsBrowser({ type, filter : {...INITIAL_FILTER}} ))
+        setLocation(undefined)
+        if (autocompleteRef.current !== null) {
+            autocompleteRef.current.value = ''
+        }
+        dispatch(getPetsBrowser({ type, filter: { ...INITIAL_FILTER } }))
+    }
+
+    const handleShowReunited = () => {
+        setShowReunited(!showReunited)
+        handleSubmit()
     }
 
     const handleSubmit = () => {
@@ -121,8 +174,14 @@ const PetBrowser = (props) => {
     }
 
     useEffect(() => {
+        setMaxPages()
+        if (dataFiltered?.length === 0) {
+            setLimitedPetsData([])
+        }
+    }, [dataFiltered])
+
+    useEffect(() => {
         dispatch(cleanPetData())
-        dispatch(getSpecies())
         handleReset()
         setPage(1)
     }, [props.title])
@@ -131,28 +190,54 @@ const PetBrowser = (props) => {
         dispatch(getSpecies())
         handleReset()
         setPage(1)
-
     }, [])
 
     useEffect(() => {
-        Object.entries(LostPetsData).length > 0 &&
-            setLimitedLostPetsData(
-                LostPetsData.pets.slice(
-                    (page - 1) * perPage,
-                    (page - 1) * perPage + perPage
+        if (LostPetsData?.length > 0 || FoundPetsData?.length > 0) {
+            if (LostPetsData?.length > 0) {
+                setDataFiltered(LostPetsData)
+            } else {
+                setDataFiltered(FoundPetsData)
+            }
+
+            if (location !== undefined) {
+                setDataFiltered(filterLocation())
+            }
+
+            if (!showReunited) {
+                setDataFiltered(
+                    dataFiltered.filter((pet) => pet.meet === false)
                 )
-            )
-    }, [page, LostPetsData])
+            }
+
+            setMaxPages()
+        } else {
+            setLimitedPetsData([])
+        }
+    }, [LostPetsData, FoundPetsData])
 
     useEffect(() => {
-        Object.entries(FoundPetsData).length > 0 &&
-            setLimitedFoundPetsData(
-                FoundPetsData.pets.slice(
+        if (dataFiltered?.length > 0) {
+            setLimitedPetsData(
+                dataFiltered.slice(
                     (page - 1) * perPage,
                     (page - 1) * perPage + perPage
                 )
             )
-    }, [page, FoundPetsData])
+        }
+    }, [page, dataFiltered])
+
+    // useEffect(() => {
+    //     FoundPetsData?.length > 0
+    //         ? setLimitedFoundPetsData(
+    //               FoundPetsData.slice(
+    //                   (page - 1) * perPage,
+    //                   (page - 1) * perPage + perPage
+    //               )
+    //           )
+    //         : setLimitedFoundPetsData([])
+    //     setMaxPages(FoundPetsData)
+    // }, [page, FoundPetsData])
 
     return (
         <>
@@ -165,10 +250,15 @@ const PetBrowser = (props) => {
                 title={props.title}
                 principalInputs={principalInputs}
                 extraInputs={extraInputs}
-                handleChange={handleChange}
+                setLocation={setLocation}
+                showReunited={showReunited}
+                setShowReunited={setShowReunited}
                 filter={filter}
+                handleChange={handleChange}
                 handleClick={handleReset}
+                handleShowReunited={handleShowReunited}
                 handleSubmit={handleSubmit}
+                autocompleteRef={autocompleteRef}
             />
 
             <Stack
@@ -178,13 +268,11 @@ const PetBrowser = (props) => {
                 gap="24px"
                 maxWidth="1440px"
             >
-                <PetCard
-                    pets={
-                        type === 'Lost'
-                            ? limitedLostPetsData
-                            : limitedFoundPetsData
-                    }
-                />
+                {status === 'success' ? (
+                    <PetCard pets={limitedLostPetsData} />
+                ) : (
+                    <Loading />
+                )}
             </Stack>
 
             {max > 1 ? (
