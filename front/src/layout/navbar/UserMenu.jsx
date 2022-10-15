@@ -14,10 +14,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getUserData, logout } from '../../redux/features/user/userSlice'
 
-const settings = ['Profile', 'Logout']
-
 const UserMenu = () => {
-    const { userData } = useSelector((state) => state.user)
+    const { userData, userInfo } = useSelector((state) => state.user)
+    const [menuItems, setMenuItems] = useState(['Profile', 'Logout'])
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -32,16 +31,18 @@ const UserMenu = () => {
     }
 
     useEffect(() => {
-        // dispatch(getUserData())
-    }, [])
+        userInfo.isAdmin
+            ? setMenuItems(['Profile', 'Admin Dashboard', 'Logout'])
+            : setMenuItems(['Profile', 'Logout'])
+    }, [userInfo.isAdmin])
 
     const handleClick = (setting) => {
         switch (setting) {
         case 'Profile':
             navigate('/profile')
             break
-        case 'Dashboard':
-            navigate('/user')
+        case 'Admin Dashboard':
+            navigate('/Admin')
             break
         case 'Logout':
             dispatch(logout())
@@ -57,7 +58,7 @@ const UserMenu = () => {
     return (
         userData !== undefined && (
             <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
+                <Tooltip title="Open menu">
                     <Button
                         onClick={handleOpenUserMenu}
                         startIcon={<IoMdArrowDropdown color="black" />}
@@ -82,14 +83,9 @@ const UserMenu = () => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                 >
-                    {settings.map((setting) => (
-                        <MenuItem
-                            key={setting}
-                            onClick={() => handleClick(setting)}
-                        >
-                            <Typography textAlign="center">
-                                {setting}
-                            </Typography>
+                    {menuItems.map((item) => (
+                        <MenuItem key={item} onClick={() => handleClick(item)}>
+                            <Typography textAlign="center">{item}</Typography>
                         </MenuItem>
                     ))}
                 </Menu>

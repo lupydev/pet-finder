@@ -22,6 +22,7 @@ import Swal from 'sweetalert2'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
 import Title from '../../components/petBrowser/Title'
 import { PublicationForm } from '../../components/formPost/PublicationForm'
+import { BsArrowLeftShort } from 'react-icons/bs'
 
 const ProfileDetail = () => {
     const dispatch = useDispatch()
@@ -94,7 +95,20 @@ const ProfileDetail = () => {
             >
                 <Stack>
                     {editPost && selectedPet != undefined ? (
-                        <PublicationForm selectedPet={selectedPet} />
+                        <Stack alignItems="center">
+                            <Button
+                                variant="contained"
+                                startIcon={<BsArrowLeftShort size='24px' />}
+                                onClick={() => setEditPost(!editPost)}
+                                sx={{
+                                    alignSelf: 'flex-start',
+                                    textTransform: 'none',
+                                }}
+                            >
+                                Back
+                            </Button>
+                            <PublicationForm selectedPet={selectedPet} />
+                        </Stack>
                     ) : editProfile && !editPost ? (
                         <EditProfile userData={userData} />
                     ) : (
@@ -171,9 +185,7 @@ const ProfileDetail = () => {
                         </Stack>
                     )}
 
-                    {editPost ? (
-                        ''
-                    ) : (
+                    {editPost ? null : (
                         <Box
                             sx={{
                                 display: 'flex',

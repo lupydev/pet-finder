@@ -15,6 +15,7 @@ import React, { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
 import { PublicationForm } from '../components/formPost/PublicationForm'
+import Admin from '../pages/admin/Admin'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -64,6 +65,15 @@ const Routing = () => {
             </Route>
             <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/createPost" element={<PublicationForm />} />
+            </Route>
+            <Route
+                element={
+                    <PrivateRoute
+                        isAllowed={isUserLogged() && userInfo.isAdmin}
+                    />
+                }
+            >
+                <Route path="/admin" element={<Admin />} />
             </Route>
         </Routes>
     )
