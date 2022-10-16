@@ -339,7 +339,7 @@ const ProfileDetail = () => {
                             >
                                 Back
                             </Button>
-                            <PublicationForm selectedPet={selectedPet} />
+                            <PetEdit currentPet={selectedPet} />
                         </Stack>
                     ) : editProfile && !editPost ? (
                         <EditProfile userData={userData} />
