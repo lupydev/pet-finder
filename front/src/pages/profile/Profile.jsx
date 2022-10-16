@@ -9,6 +9,7 @@ import { MdPets } from 'react-icons/md'
 import { HiUserCircle, HiOutlineBell, HiOutlineTrash } from 'react-icons/hi'
 import { TbMessages } from 'react-icons/tb'
 import UnderConstruction from './sideCards/underConstruction/UnderConstruction'
+import PublicationsCard from './sideCards/publications/PublicationsCard'
 
 const menuItems = [
     { id: 'profile', title: 'Profile', icon: <HiUserCircle size="22px" /> },
@@ -37,7 +38,7 @@ const menuItems = [
 const Profile = () => {
     const dispatch = useDispatch()
     const { userData } = useSelector((state) => state.user)
-    const [view, setView] = useState(menuItems[0].id)
+    const [view, setView] = useState(menuItems[2].id)
 
     useEffect(() => {
         userData === undefined && dispatch(getUserData())
@@ -47,7 +48,7 @@ const Profile = () => {
         <ProfileDetail menuItems={menuItems} view={view} setView={setView}>
             {view === 'profile' && <ProfileCard />}
             {view === 'messages' && <UnderConstruction />}
-            {view === 'publications' && <UnderConstruction />}
+            {view === 'publications' && <PublicationsCard />}
             {view === 'notifications' && <UnderConstruction />}
             {view === 'myPets' && <UnderConstruction />}
             {view === 'deleteProfile' && <UnderConstruction />}

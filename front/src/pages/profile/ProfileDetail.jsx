@@ -88,16 +88,6 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
         })
     }
 
-    useEffect(() => {
-        dispatch(cleanPetsData())
-        userData.pets.map((pet) => {
-            dispatch(getUserPets(pet))
-        })
-
-        return () => {
-            dispatch(cleanPetsData())
-        }
-    }, [])
 
     return (
         <Stack width="100%" height="100%" gap={5} alignItems={'center'}>
@@ -202,6 +192,7 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
                     {/* Side Card */}
                     <Stack
                         width="750px"
+                        minHeight='450px'
                         backgroundColor="#FDFEFF"
                         py="50px"
                         px="26px"
