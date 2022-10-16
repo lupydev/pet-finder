@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react'
 import {
     GoogleMap,
     InfoWindow,
-    LoadScript,
     Marker,
+    useLoadScript,
 } from '@react-google-maps/api'
 import { Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { libraries } from '../../utils/gMapLibraries'
 
 const containerStyle = {
     width: '100%',
@@ -18,8 +19,14 @@ const PetLocation = () => {
     const { petDetail } = useSelector((state) => state.pet)
     const [center, setCenter] = useState(undefined)
 
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: import.meta.env.VITE_APP_GMAPS_API_KEY,
+        libraries,
+        // ...otherOptions
+    })
+
     useEffect(() => {
-        petDetail != undefined &&
+        petDetail !== undefined &&
             setCenter({
                 name: petDetail?.location?.country,
                 lat: petDetail?.location?.lat,
@@ -57,18 +64,14 @@ const PetLocation = () => {
                     {petDetail?.location?.country}
                 </Typography>
             </Stack>
-            {center != undefined && (
-                <LoadScript
-                    googleMapsApiKey={import.meta.env.VITE_APP_GMAPS_API_KEY}
+            {center != undefined && isLoaded && (
+                <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    zoom={16}
                 >
-                    <GoogleMap
-                        mapContainerStyle={containerStyle}
-                        center={center}
-                        zoom={16}
-                    >
-                        <Marker key={center} position={center}></Marker>
-                    </GoogleMap>
-                </LoadScript>
+                    <Marker key={center} position={center}></Marker>
+                </GoogleMap>
             )}
         </Stack>
     )
