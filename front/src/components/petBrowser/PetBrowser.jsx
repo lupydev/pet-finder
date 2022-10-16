@@ -112,7 +112,7 @@ const PetBrowser = (props) => {
 
     const handleReset = () => {
         setFilter(INITIAL_FILTER)
-        dispatch(getPetsBrowser({ type, filter : {...INITIAL_FILTER}} ))
+        dispatch(getPetsBrowser({ type, filter: { ...INITIAL_FILTER } }))
     }
 
     const handleSubmit = () => {
@@ -131,7 +131,6 @@ const PetBrowser = (props) => {
         dispatch(getSpecies())
         handleReset()
         setPage(1)
-
     }, [])
 
     useEffect(() => {

@@ -8,9 +8,12 @@ import { getPets } from '../../../redux/asyncActions/pet/getPets'
 const PetCardsContainer = (props) => {
     const dispatch = useDispatch()
     const type = props.title
-    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
+    const { LostPetsData, FoundPetsData, MeetPetsData } = useSelector(
+        (state) => state.pet
+    )
     const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
     const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
+    const [limitedMeetPetsData, setLimitedMeetPetsData] = useState([])
 
     useEffect(() => {
         dispatch(getPets(type))
@@ -25,6 +28,11 @@ const PetCardsContainer = (props) => {
         Object.entries(FoundPetsData).length > 0 &&
             setLimitedFoundPetsData(FoundPetsData.pets.slice(0, 4))
     }, [FoundPetsData])
+
+    useEffect(() => {
+        Object.entries(limitedMeetPetsData).length > 0 &&
+            setLimitedMeetPetsData(MeetPetsData.pets.slice(0, 4))
+    }, [limitedMeetPetsData])
 
     return (
         <Stack gap="25px">
@@ -42,7 +50,9 @@ const PetCardsContainer = (props) => {
                     pets={
                         type === 'Lost'
                             ? limitedLostPetsData
-                            : limitedFoundPetsData
+                            : type === 'Found'
+                            ? limitedFoundPetsData
+                            : limitedMeetPetsData
                     }
                 />
             </Stack>

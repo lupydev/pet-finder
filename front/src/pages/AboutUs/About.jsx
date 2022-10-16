@@ -1,32 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
-import PetCard from '../../components/home/pets/PetCard'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
-import Loading from '../../components/loading/Loading'
-import { getUserData } from '../../redux/asyncActions/user/getUserData'
-import { cleanPetsData } from '../../redux/features/user/userSlice'
+import { getPets } from '../../redux/asyncActions/pet/getPets'
+import PetCardsContainer from '../../components/home/pets/PetCardsContainer'
 
-const About = () => {
+const About = (props) => {
     const dispatch = useDispatch()
+    const { MeetPetsData } = useSelector((state) => state.pet)
 
-    const { userPets, userData } = useSelector((state) => state.user)
-    console.log(userData)
-    console.log(userPets)
+    const type = props.title
+    console.log(type)
 
     useEffect(() => {
-        userData === undefined && dispatch(getUserData())
-
-        dispatch(cleanPetsData())
-        userData.pets.map((pet) => {
-            dispatch(getUserPets(pet))
-        })
-
-        return () => {
-            dispatch(cleanPetsData())
-        }
+        dispatch(getPets(type))
     }, [])
+
+    console.log(MeetPetsData)
 
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
@@ -147,15 +137,8 @@ const About = () => {
                     </Button>
                 </Stack>
             </Grid>
-            <Typography color="primary.main" variant="h3" textAlign="center">
-                Pets Reunited
-            </Typography>
             <Box ml={20}>
-                {userData ? (
-                    <PetCard pets={userPets} isReunited={true} />
-                ) : (
-                    <Loading />
-                )}
+                <PetCardsContainer title="Meet" color="primary" />
             </Box>
         </Stack>
     )

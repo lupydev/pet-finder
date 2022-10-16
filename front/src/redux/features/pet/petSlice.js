@@ -17,6 +17,7 @@ import {
 const initialState = {
     LostPetsData: {},
     FoundPetsData: {},
+    MeetPetsData: {},
     petDetail: undefined,
     petsDetails: [],
     species: [],
@@ -33,13 +34,14 @@ const petSlice = createSlice({
         cleanPetData: (state) => {
             state.LostPetsData = {}
             state.FoundPetsData = {}
+            state.MeetPetsData = {}
             state.petDetail = undefined
             state.status = 'loading'
             state.statusBreeds = 'loading'
         },
         cleanBreeds: (state) => {
             state.breeds = []
-        }
+        },
     },
     extraReducers: {
         ...extraCreatePet,
@@ -64,5 +66,5 @@ export {
     deletePost,
 }
 
-export const { cleanPetData,cleanBreeds } = petSlice.actions
+export const { cleanPetData, cleanBreeds } = petSlice.actions
 export default petSlice.reducer
