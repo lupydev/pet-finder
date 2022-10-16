@@ -98,7 +98,7 @@ const ProfileDetail = () => {
                         <Stack alignItems="center">
                             <Button
                                 variant="contained"
-                                startIcon={<BsArrowLeftShort size='24px' />}
+                                startIcon={<BsArrowLeftShort size="24px" />}
                                 onClick={() => setEditPost(!editPost)}
                                 sx={{
                                     alignSelf: 'flex-start',
@@ -107,7 +107,7 @@ const ProfileDetail = () => {
                             >
                                 Back
                             </Button>
-                            <PublicationForm selectedPet={selectedPet} />
+                            <PetEdit currentPet={selectedPet} />
                         </Stack>
                     ) : editProfile && !editPost ? (
                         <EditProfile userData={userData} />

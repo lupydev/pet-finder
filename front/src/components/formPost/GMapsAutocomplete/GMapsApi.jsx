@@ -5,13 +5,13 @@ import { libraries } from '../../../utils/gMapLibraries'
 
 const GMapsApi = ({
     setLocation,
+    value = '',
     placeholder = 'Select any Location',
     types = ['address'],
     label = 'Location',
-    autocompleteRef
+    autocompleteRef,
 }) => {
     const [autocomplete, setAutocomplete] = useState(null)
-
 
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: import.meta.env.VITE_APP_GMAPS_API_KEY,
@@ -53,7 +53,7 @@ const GMapsApi = ({
                     type="text"
                     size="small"
                     label={label}
-                    placeholder={placeholder}
+                    placeholder={(value === '' && placeholder) || value}
                     disabled={!isLoaded}
                     required={label === 'Location'}
                     onChange={(e) =>
