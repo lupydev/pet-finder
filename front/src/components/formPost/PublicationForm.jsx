@@ -142,7 +142,7 @@ export const PublicationForm = ({ selectedPet }) => {
 
         if (selectedPet) {
             dispatch(editPet({ id: selectedPet._id, newData: values }))
-            navigate(-1)
+            navigate('/profile')
         } else {
             dispatch(createPet(values))
             navigate('/')
