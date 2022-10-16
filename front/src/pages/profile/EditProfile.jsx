@@ -24,7 +24,6 @@ const clientSchema = Yup.object().shape({
     fullname: Yup.string()
         .min(3, 'Full Name is too short')
         .max(25, 'Full Name is too long!'),
-
 })
 
 const EditProfile = ({ userData }) => {
@@ -71,7 +70,7 @@ const EditProfile = ({ userData }) => {
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: 'Save',
-            denyButtonText: `Don't save`,
+            denyButtonText: "Don't save",
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(
@@ -197,7 +196,7 @@ const EditProfile = ({ userData }) => {
                                     </Typography>
                                 ) : null}
                             </Stack>
-                            
+
                             <Button
                                 variant="contained"
                                 color="secondary"
