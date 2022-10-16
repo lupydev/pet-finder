@@ -14,8 +14,6 @@ import {
     ToggleButton,
 } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import EditProfile from './EditProfile'
-import PetDetail from './PetDetail'
 import { Link, useNavigate } from 'react-router-dom'
 import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
 import { cleanPetsData } from '../../redux/features/user/userSlice'
@@ -32,41 +30,13 @@ import { TbMessages } from 'react-icons/tb'
 import { AiFillCamera, AiFillEdit } from 'react-icons/ai'
 import { Form } from 'formik'
 
-const menuItems = [
-    { id: 'profile', title: 'Profile', icon: <HiUserCircle size="22px" /> },
-    {
-        id: 'messages',
-        title: 'Messages',
-        icon: <TbMessages size="22px" />,
-    },
-    {
-        id: 'publications',
-        title: 'Publications',
-        icon: <BsImages size="22px" />,
-    },
-    {
-        id: 'notifications',
-        title: 'Notifications',
-        icon: <HiOutlineBell size="22px" />,
-    },
-    { id: 'myPets', title: 'My Pets', icon: <MdPets /> },
-    {
-        id: 'deleteProfile',
-        title: 'Delete Profile',
-        icon: <HiOutlineTrash size="22px" />,
-    },
-]
-
-const ProfileDetail = () => {
+const ProfileDetail = ({ menuItems, view, setView, children }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const { userData, userPets } = useSelector((state) => state.user)
 
-    const [edit, setEdit] = useState(false)
-    const [editPost, setEditPost] = useState(false)
     const [selectedPet, setSelectedPet] = useState(undefined)
-    const [view, setView] = useState(menuItems[0].id)
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
 
@@ -78,12 +48,8 @@ const ProfileDetail = () => {
         }
     }, [userData])
 
-    const handleEditMode = () => {
-        setEdit(!edit)
-    }
-
     const handleMenuChange = (event, nextView) => {
-        setView(nextView)
+        nextView && setView(nextView)
     }
 
     const handleViewProfile = (pet) => {
@@ -243,85 +209,7 @@ const ProfileDetail = () => {
                         borderRadius={5}
                         gap="30px"
                     >
-                        <Stack
-                            direction="row"
-                            alignItems="center"
-                            justifyContent="space-between"
-                        >
-                            <Typography variant="h5" fontWeight="bold">
-                                This is your Profile
-                            </Typography>
-                            <IconButton
-                                sx={{
-                                    backgroundColor: '#3981BF',
-                                    '&:hover': {
-                                        backgroundColor: '#569cd9',
-                                    },
-                                }}
-                                color="primary"
-                                onClick={handleEditMode}
-                            >
-                                <AiFillEdit color="white" />
-                            </IconButton>
-                        </Stack>
-                        {edit ? (
-                            <EditProfile
-                                userData={userData}
-                                setEdit={setEdit}
-                            />
-                        ) : (
-                            <>
-                                <Stack direction="row" alignItems={'center'}>
-                                    <Typography
-                                        fontWeight="bold"
-                                        sx={{ opacity: '.5' }}
-                                        width="20%"
-                                    >
-                                        Nickname
-                                    </Typography>
-
-                                    <Typography>{userData.nickname}</Typography>
-                                </Stack>
-                                <Stack direction="row" alignItems={'center'}>
-                                    <Typography
-                                        fontWeight="bold"
-                                        width="20%"
-                                        sx={{ opacity: '.5' }}
-                                    >
-                                        Full Name
-                                    </Typography>
-
-                                    <Typography>{userData.fullname}</Typography>
-                                </Stack>
-
-                                <Stack direction="row">
-                                    <Typography
-                                        fontWeight="bold"
-                                        width="20%"
-                                        sx={{ opacity: '.5' }}
-                                    >
-                                        About You
-                                    </Typography>
-                                    <Typography width="80%">
-                                        Lorem ipsum dolor sit amet. In
-                                        voluptatem dolor in nihil dolorem in
-                                        nihil quasi ut repellendus tenetur et
-                                        facere quia cum rerum molestiae. Et
-                                        praesentium Quis in pariatur nostrum sit
-                                    </Typography>
-                                </Stack>
-                                <Stack direction="row" mb="45px">
-                                    <Typography
-                                        fontWeight="bold"
-                                        width="20%"
-                                        sx={{ opacity: '.5' }}
-                                    >
-                                        Country
-                                    </Typography>
-                                    <Typography>Argentina</Typography>
-                                </Stack>
-                            </>
-                        )}
+                        {children}
                     </Stack>
                     {/* End Side Card  */}
                 </Stack>

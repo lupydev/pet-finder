@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { putEditUser } from '../../redux/asyncActions/user/putEditUser'
+import { putEditUser } from '../../../../redux/asyncActions/user/putEditUser' 
 import { useNavigate } from 'react-router-dom'
 import { AiFillCamera } from 'react-icons/ai'
 
@@ -157,7 +157,7 @@ const EditProfile = ({ userData, setEdit }) => {
                                     touched.nickname && Boolean(errors.nickname)
                                 }
                                 helperText={
-                                    touched.nickname ? errors.nickname : ' '
+                                    touched.nickname && Boolean(errors.nickname) ?errors.nickname : ' '
                                 }
                                 onBlur={handleBlur}
                             ></TextField>
@@ -185,7 +185,7 @@ const EditProfile = ({ userData, setEdit }) => {
                                     touched.fullname && Boolean(errors.fullname)
                                 }
                                 helperText={
-                                    touched.fullname ? errors.fullname : ' '
+                                    touched.fullname && Boolean(errors.fullname) ? errors.fullname : ' '
                                 }
                                 onBlur={handleBlur}
                             ></TextField>
