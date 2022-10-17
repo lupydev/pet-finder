@@ -39,11 +39,12 @@ const PetCardsContainer = (props) => {
     return (
         <Stack gap="25px">
             <Typography
-                variant="h3"
+                variant={type === 'Reunited' ? 'h4' : 'h3'}
                 color={props.color}
                 fontFamily={'Merriweather'}
                 fontWeight="bold"
                 px="30px"
+                sx={type === 'Reunited' ? { px: '0px' } : ''}
             >
                 {props.title} Pets
             </Typography>
@@ -60,43 +61,47 @@ const PetCardsContainer = (props) => {
                     <Loading />
                 )}
             </Stack>
-            <Button
-                component={Link}
-                to={`/${props.title.toLowerCase()}Pets`}
-                variant="contained"
-                color={
-                    props.title.toLowerCase() === 'lost'
-                        ? 'secondary'
-                        : props.title.toLowerCase() === 'found'
-                        ? 'primary'
-                        : 'terciary'
-                }
-                sx={
-                    ({
-                        textTransform: 'none',
-                        px: '100px',
-                        mx: 'auto',
-                        borderRadius: '8px',
-                    },
-                    type === 'Reunited'
-                        ? {
-                              color: 'terciary.dark',
-                              background: '#b6eeba',
-                              textTransform: 'none',
-                              px: '100px',
-                              mx: 'auto',
-                              borderRadius: '8px',
-                          }
-                        : {
-                              textTransform: 'none',
-                              px: '100px',
-                              mx: 'auto',
-                              borderRadius: '8px',
-                          })
-                }
-            >
-                View all {props.title.toLowerCase()} pets
-            </Button>
+            {type === 'Reunited' ? (
+                ''
+            ) : (
+                <Button
+                    component={Link}
+                    to={`/${props.title.toLowerCase()}Pets`}
+                    variant="contained"
+                    color={
+                        props.title.toLowerCase() === 'lost'
+                            ? 'secondary'
+                            : props.title.toLowerCase() === 'found'
+                            ? 'primary'
+                            : 'terciary'
+                    }
+                    sx={
+                        ({
+                            textTransform: 'none',
+                            px: '100px',
+                            mx: 'auto',
+                            borderRadius: '8px',
+                        },
+                        type === 'Reunited'
+                            ? {
+                                  color: 'terciary.dark',
+                                  background: '#b6eeba',
+                                  textTransform: 'none',
+                                  px: '100px',
+                                  mx: 'auto',
+                                  borderRadius: '8px',
+                              }
+                            : {
+                                  textTransform: 'none',
+                                  px: '100px',
+                                  mx: 'auto',
+                                  borderRadius: '8px',
+                              })
+                    }
+                >
+                    View all {props.title.toLowerCase()} pets
+                </Button>
+            )}
         </Stack>
     )
 }

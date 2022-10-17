@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
 import PetCardsContainer from '../../components/home/pets/PetCardsContainer'
 import SvgCard from './SvgCard'
+import { Paginationn } from '../../components/petBrowser/Pagination'
 
 const About = (props) => {
     const dispatch = useDispatch()
@@ -161,7 +162,22 @@ const About = (props) => {
                 </Stack>
             </Grid>
             <Stack gap={10} maxWidth="1440px" width="100%">
-                <PetCardsContainer title="Reunited" color="primary" />
+                <Box mt={4}>
+                    <PetCardsContainer title="Reunited" color="primary" />
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Paginationn />
+                </Box>
+            </Stack>
+            <Stack>
+                <Typography
+                    variant="h4"
+                    color="primary.main"
+                    fontFamily={'Merriweather'}
+                    fontWeight="bold"
+                >
+                    Our Team!
+                </Typography>
             </Stack>
         </Stack>
     )
