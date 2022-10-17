@@ -209,6 +209,7 @@ const PetEdit = ({ selectedPet }) => {
                             margin={0}
                             width="100%"
                             maxWidth={800}
+                            padding={3}
                         >
                             <Grid item xs={6} width="100%">
                                 <Typography
@@ -221,7 +222,7 @@ const PetEdit = ({ selectedPet }) => {
                                     Edit Post
                                 </Typography>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} sm={3}>
                                 <Typography variant="h6">Pictures</Typography>
 
                                 <UploadImages
@@ -232,12 +233,12 @@ const PetEdit = ({ selectedPet }) => {
                                     onChange={(e) => setImages(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} md={6}>
                                 <Typography variant="h6">
                                     Pet details
                                 </Typography>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={6} sm={3}>
                                 <TextfieldWrapper
                                     id="name"
                                     name="name"
@@ -245,14 +246,14 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={3}>
                                 <DateTimePicker
                                     id="date"
                                     name="date"
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={3}>
                                 <TextField
                                     fullWidth
                                     select
@@ -273,7 +274,7 @@ const PetEdit = ({ selectedPet }) => {
                                     ))}
                                 </TextField>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={3}>
                                 <Autocomplete
                                     id="breed"
                                     name="breed"
@@ -308,7 +309,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={3}>
                                 <SelectWrapper
                                     id="gender"
                                     name="gender"
@@ -317,7 +318,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={3}>
                                 <SelectWrapper
                                     id="size"
                                     name="size"
@@ -326,7 +327,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={3}>
                                 <SelectWrapper
                                     id="age"
                                     name="age"
@@ -335,7 +336,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={3}>
                                 <FormControl fullWidth size="small">
                                     <InputLabel>Color</InputLabel>
                                     <Select
@@ -389,7 +390,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} sm={3}>
                                 <SelectWrapper
                                     id="type"
                                     name="type"
@@ -398,7 +399,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} sm={3}>
                                 <GMapsApi
                                     setLocation={setLocation}
                                     value={selectedPet.location.country}
