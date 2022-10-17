@@ -1,9 +1,28 @@
 import { Typography } from '@mui/material'
 import { Stack } from '@mui/system'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdPets, MdPerson } from 'react-icons/md'
+import { useSelector } from 'react-redux'
 
 export const AdminBoxes = () => {
+    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
+    const [allPets, setAllPets] = useState([])
+    const [reunitedPets, setReunitedPets] = useState([])
+
+    useEffect(() => {
+        if (LostPetsData.length > 0 && FoundPetsData.length > 0) {
+            setAllPets([...FoundPetsData, ...LostPetsData])
+        }
+    }, [LostPetsData, FoundPetsData])
+
+    useEffect(() => {
+        if (allPets.length > 0) {
+
+            setReunitedPets(allPets.filter((pet)=>pet.meet))
+
+        }
+    }, [allPets])
+
     return (
         <Stack
             direction="row"
@@ -29,7 +48,7 @@ export const AdminBoxes = () => {
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
                     >
-                        15
+                        {LostPetsData.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
                         <MdPets />
@@ -54,7 +73,7 @@ export const AdminBoxes = () => {
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
                     >
-                        25
+                        {FoundPetsData.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
                         <MdPets />
@@ -86,7 +105,7 @@ export const AdminBoxes = () => {
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
                     >
-                        1
+                        {reunitedPets.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
                         <MdPets />
@@ -111,7 +130,7 @@ export const AdminBoxes = () => {
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
                     >
-                        5
+                        Untracked
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
                         <MdPerson />

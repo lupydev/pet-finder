@@ -1,22 +1,21 @@
 import { DataGrid } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 
 export default function AdminUser({ renderControl, setRenderControl }) {
-  //   const { allUsers } = useSelector((state) => state.pet)
-  //   const [loading, setLoading] = useState(true)
-  //   const dispatch = useDispatch()
+    //   const { allUsers } = useSelector((state) => state.pet)
+    //   const [loading, setLoading] = useState(true)
+    //   const dispatch = useDispatch()
 
-  //   useEffect(() => {
-  //     dispatch(getAllUsers())
-  // }, [])
+    //   useEffect(() => {
+    //     dispatch(getAllUsers())
+    // }, [])
 
-  //   useEffect(() => {
-  //     console.log(allUsers)
-  //   }, [allUsers])
-    
+    //   useEffect(() => {
+    //     console.log(allUsers)
+    //   }, [allUsers])
 
     // useEffect(() => {
     //     dispatch(getAdoptablePets())
@@ -122,7 +121,7 @@ export default function AdminUser({ renderControl, setRenderControl }) {
     return (
         <>
             <DataGrid
-                rows={2}
+                rows={[]}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}

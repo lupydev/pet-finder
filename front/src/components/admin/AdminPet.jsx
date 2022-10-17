@@ -162,7 +162,7 @@ export default function AdminPets({ renderControl, setRenderControl }) {
                             backgroundColor: '#3981BF',
                             '&:hover': { backgroundColor: '#9CC0DF' },
                         }}
-                        onClick={(e) => handleEdit(e, params)}
+                        // onClick={(e) => handleEdit(e, params)}
                         size="small"
                     >
                         <AiFillEdit color="white" />

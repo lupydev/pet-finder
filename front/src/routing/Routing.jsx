@@ -69,21 +69,12 @@ const Routing = () => {
             <Route
                 element={
                     <PrivateRoute
-                        isAllowed={(isUserLogged() && userInfo.isAdmin) ? true : false}
+                        isAllowed={(isUserLogged() && userInfo?.isAdmin) ? true : false}
                     />
                 }
             >
                 <Route path="/admin" element={<Admin />} />
             </Route>
-            {/* <Route
-                element={
-                    <PrivateRoute
-                        isAllowed={isUserLogged() && userInfo.isAdmin}
-                    />
-                }
-            > */}
-                <Route path="/admin" element={<Admin />} />
-            {/* </Route> */}
         </Routes>
     )
 }
