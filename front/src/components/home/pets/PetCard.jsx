@@ -48,6 +48,7 @@ const PetCard = ({
                         <Stack
                             alignItems="center"
                             justifyContent="center"
+                            flexDirection="row"
                             sx={{
                                 backgroundColor:
                                     pet.type.toLowerCase() === 'lost'
@@ -75,6 +76,16 @@ const PetCard = ({
                                     }}
                                 />
                             </Box>
+                            {pet?.meet && (
+                                <img
+                                    src="https://res.cloudinary.com/diyk4to11/image/upload/v1666028425/Imagenes%20Dise%C3%B1o%20UX/Logo/Pawprint-Heart-Reunited_ilrgru.svg"
+                                    alt="meet"
+                                    style={{
+                                        transform: 'rotate(329deg)',
+                                        width: '83px',
+                                    }}
+                                />
+                            )}
                         </Stack>
                         <Stack p="11px" gap="11px">
                             <Typography

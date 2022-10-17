@@ -5,17 +5,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
 import PetCardsContainer from '../../components/home/pets/PetCardsContainer'
 import SvgCard from './SvgCard'
-import { Paginationn } from '../../components/petBrowser/Pagination'
+import OurTeamContainer from './OurTeamContainer'
 
 const About = (props) => {
     const dispatch = useDispatch()
     const { MeetPetsData } = useSelector((state) => state.pet)
 
     const type = props.title
+    console.log(type)
 
     useEffect(() => {
         dispatch(getPets(type))
     }, [])
+
+    console.log(MeetPetsData)
 
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
@@ -105,7 +108,9 @@ const About = (props) => {
                         }}
                     >
                         <SvgCard />
-                        <Typography color="secundary">Found pets</Typography>
+                        <Typography color="secundary.main">
+                            Found pets
+                        </Typography>
                     </Box>
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -159,22 +164,8 @@ const About = (props) => {
                 </Stack>
             </Grid>
             <Stack gap={10} maxWidth="1440px" width="100%">
-                <Box mt={4}>
-                    <PetCardsContainer title="Reunited" color="primary" />
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Paginationn />
-                </Box>
-            </Stack>
-            <Stack>
-                <Typography
-                    variant="h4"
-                    color="primary.main"
-                    fontFamily={'Merriweather'}
-                    fontWeight="bold"
-                >
-                    Our Team!
-                </Typography>
+                <PetCardsContainer title="Reunited" color="primary" />
+                <OurTeamContainer />
             </Stack>
         </Stack>
     )
