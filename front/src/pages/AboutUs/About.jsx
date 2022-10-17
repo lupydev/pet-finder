@@ -12,13 +12,10 @@ const About = (props) => {
     const { MeetPetsData } = useSelector((state) => state.pet)
 
     const type = props.title
-    console.log(type)
 
     useEffect(() => {
         dispatch(getPets(type))
     }, [])
-
-    console.log(MeetPetsData)
 
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>

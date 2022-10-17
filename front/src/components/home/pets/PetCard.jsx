@@ -27,7 +27,6 @@ const PetCard = ({
     function capitalize(text) {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
-    console.log(pets)
     return pets.length ? (
         pets.map((pet) => {
             return (
@@ -177,7 +176,7 @@ const PetCard = ({
                                     to={`/${pet.type.toLowerCase()}Pets/${
                                         pet._id
                                     }`}
-                                    variant="contained"
+                                    variant={pet?.meet ? 'text' : 'contained'}
                                     color={
                                         pet.type.toLowerCase() === 'lost'
                                             ? 'secondary'
@@ -197,7 +196,7 @@ const PetCard = ({
                                         })
                                     }
                                 >
-                                    More Details
+                                    {pet?.meet ? 'View More' : 'More Details'}
                                 </Button>
                             )}
                         </Stack>

@@ -35,7 +35,6 @@ const PetCardsContainer = (props) => {
             setLimitedMeetPetsData(MeetPetsData.pets.slice(0, 4))
     }, [limitedMeetPetsData])
 
-    console.log(limitedFoundPetsData)
     return (
         <Stack gap="25px">
             <Typography
