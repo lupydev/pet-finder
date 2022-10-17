@@ -32,8 +32,6 @@ export const extraGetUserData = {
                 isLogged:true,
                 isAdmin:  action.payload.data.user.admin
             }
-
-            console.log(state.userInfo);
             state.userData = action.payload.data.user
         } else {
             state.userInfo.isLogged = false
