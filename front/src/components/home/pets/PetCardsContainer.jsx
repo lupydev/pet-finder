@@ -55,7 +55,6 @@ const PetCardsContainer = (props) => {
                                 ? limitedLostPetsData
                                 : limitedFoundPetsData
                         }
-                        isMeet={true}
                     />
                 ) : (
                     <Loading />
@@ -72,12 +71,29 @@ const PetCardsContainer = (props) => {
                         ? 'primary'
                         : 'terciary'
                 }
-                sx={{
-                    textTransform: 'none',
-                    px: '100px',
-                    mx: 'auto',
-                    borderRadius: '8px',
-                }}
+                sx={
+                    ({
+                        textTransform: 'none',
+                        px: '100px',
+                        mx: 'auto',
+                        borderRadius: '8px',
+                    },
+                    type === 'Reunited'
+                        ? {
+                              color: 'terciary.dark',
+                              background: '#b6eeba',
+                              textTransform: 'none',
+                              px: '100px',
+                              mx: 'auto',
+                              borderRadius: '8px',
+                          }
+                        : {
+                              textTransform: 'none',
+                              px: '100px',
+                              mx: 'auto',
+                              borderRadius: '8px',
+                          })
+                }
             >
                 View all {props.title.toLowerCase()} pets
             </Button>

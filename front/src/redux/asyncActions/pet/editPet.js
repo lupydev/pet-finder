@@ -27,10 +27,9 @@ export const extraEditPet = {
     },
     [editPet.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
-            state.status = 'success'
             Toast.fire({
                 icon: 'success',
-                title: 'Pet created successfully',
+                title: 'Pet updated successfully',
             })
         } else {
             Toast.fire({
@@ -38,6 +37,7 @@ export const extraEditPet = {
                 title: action.payload.data.msg,
             })
         }
+        state.status = 'success'
     },
     [editPet.rejected]: (state) => {
         state.status = 'failed'

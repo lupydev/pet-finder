@@ -23,6 +23,7 @@ const initialState = {
     species: [],
     breeds: [],
     status: 'loading',
+    statusCreate: 'loading',
     statusSpecies: 'loading',
     statusBreeds: 'loading',
     error: '',

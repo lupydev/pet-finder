@@ -26,9 +26,9 @@ const Theme = ({ children }) => {
                 light: '#FEF0E9',
             },
             terciary: {
-                main: '#11c00b',
-                dark: '#1f9b00',
-                light: '#54d15e',
+                main: '#2eaa2a',
+                dark: '#197003',
+                light: '#b6eeba',
             },
         },
         typography: {

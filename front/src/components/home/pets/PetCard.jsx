@@ -8,6 +8,7 @@ import {
     Stack,
     IconButton,
     Tooltip,
+    Box,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
@@ -19,7 +20,6 @@ import { AiFillDelete, AiFillEye, AiTwotoneEdit } from 'react-icons/ai'
 const PetCard = ({
     pets,
     isEdit = false,
-    isMeet = false,
     handleViewProfile,
     handleEditPost,
     handleDelete,
@@ -60,17 +60,22 @@ const PetCard = ({
                                 borderRadius: '8px',
                             }}
                         >
-                            <Avatar
-                                src={pet.img[0]}
-                                sx={{
-                                    width: '170px',
-                                    height: '170px',
-                                    borderColor:
-                                        pet.type !== 'Meet'
-                                            ? 'primary.main'
-                                            : '',
-                                }}
-                            />
+                            <Box
+                                sx={
+                                    pet?.meet && {
+                                        border: ' 4px solid green',
+                                        borderRadius: '7rem',
+                                    }
+                                }
+                            >
+                                <Avatar
+                                    src={pet.img[0]}
+                                    sx={{
+                                        width: '170px',
+                                        height: '170px',
+                                    }}
+                                />
+                            </Box>
                         </Stack>
                         <Stack p="11px" gap="11px">
                             <Typography
@@ -87,14 +92,15 @@ const PetCard = ({
                                     gap: '6px',
                                 }}
                             >
-                                {pet.name}{' '}
-                                {isMeet && (
+                                {pet.name}
+                                {pet?.meet && (
                                     <Typography
                                         fontSize="14px"
+                                        padding="2px"
                                         color="terciary.dark"
                                         backgroundColor="terciary.light"
                                     >
-                                        Refounded
+                                        Reunited
                                     </Typography>
                                 )}
                             </Typography>
@@ -179,11 +185,17 @@ const PetCard = ({
                                             ? 'primary'
                                             : 'terciary'
                                     }
-                                    sx={{
-                                        textTransform: 'none',
-                                        width: '140px',
-                                        borderRadius: '8px',
-                                    }}
+                                    sx={
+                                        ({
+                                            textTransform: 'none',
+                                            width: '140px',
+                                            borderRadius: '8px',
+                                        },
+                                        pet?.meet && {
+                                            color: 'terciary.dark',
+                                            background: '#b6eeba',
+                                        })
+                                    }
                                 >
                                     More Details
                                 </Button>

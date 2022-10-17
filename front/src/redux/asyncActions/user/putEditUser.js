@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Toast } from '../../../utils/swalToasts'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const putEditUser = createAsyncThunk(
@@ -25,9 +26,19 @@ export const extraPutEditUser = {
         state.status = 'loading'
     },
     [putEditUser.fulfilled]: (state, action) => {
+        if (action.payload.data.ok) {
+            Toast.fire({
+                icon: 'success',
+                title: 'User updated successfully',
+            })
+            state.userData = action.payload.data.userUpdated
+        }else{
+            Toast.fire({
+                icon: 'error',
+                title: 'Can not update the user',
+            })
+        }
         state.status = 'success'
-        console.log(action.payload.data)
-        state.userData = action.payload.data.userUpdated
     },
     [putEditUser.rejected]: (state, action) => {
         state.status = 'failed'
