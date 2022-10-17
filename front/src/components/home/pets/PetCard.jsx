@@ -8,6 +8,7 @@ import {
     Stack,
     IconButton,
     Tooltip,
+    Box,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
@@ -26,7 +27,6 @@ const PetCard = ({
     function capitalize(text) {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
-
     return pets.length ? (
         pets.map((pet) => {
             return (
@@ -52,15 +52,29 @@ const PetCard = ({
                                 backgroundColor:
                                     pet.type.toLowerCase() === 'lost'
                                         ? 'secondary.light'
-                                        : 'primary.light',
+                                        : pet.type.toLowerCase() === 'found'
+                                        ? 'primary.light'
+                                        : '',
                                 height: '200px',
                                 borderRadius: '8px',
                             }}
                         >
-                            <Avatar
-                                src={pet.img[0]}
-                                sx={{ width: '170px', height: '170px' }}
-                            />
+                            <Box
+                                sx={
+                                    pet?.meet && {
+                                        border: ' 4px solid green',
+                                        borderRadius: '7rem',
+                                    }
+                                }
+                            >
+                                <Avatar
+                                    src={pet.img[0]}
+                                    sx={{
+                                        width: '170px',
+                                        height: '170px',
+                                    }}
+                                />
+                            </Box>
                         </Stack>
                         <Stack p="11px" gap="11px">
                             <Typography
@@ -70,8 +84,24 @@ const PetCard = ({
                                 component="div"
                                 fontWeight={'bold'}
                                 m="0"
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: '6px',
+                                }}
                             >
                                 {pet.name}
+                                {pet?.meet && (
+                                    <Typography
+                                        fontSize="14px"
+                                        padding="2px"
+                                        color="terciary.dark"
+                                        backgroundColor="terciary.light"
+                                    >
+                                        Reunited
+                                    </Typography>
+                                )}
                             </Typography>
                             <Stack w="100%" direction="row" display="flex">
                                 <Stack direction="row" width="50%">
@@ -146,19 +176,27 @@ const PetCard = ({
                                     to={`/${pet.type.toLowerCase()}Pets/${
                                         pet._id
                                     }`}
-                                    variant="contained"
+                                    variant={pet?.meet ? 'text' : 'contained'}
                                     color={
                                         pet.type.toLowerCase() === 'lost'
                                             ? 'secondary'
-                                            : 'primary'
+                                            : pet.type.toLowerCase() === 'found'
+                                            ? 'primary'
+                                            : 'terciary'
                                     }
-                                    sx={{
-                                        textTransform: 'none',
-                                        width: '140px',
-                                        borderRadius: '8px',
-                                    }}
+                                    sx={
+                                        ({
+                                            textTransform: 'none',
+                                            width: '140px',
+                                            borderRadius: '8px',
+                                        },
+                                        pet?.meet && {
+                                            color: 'terciary.dark',
+                                            background: '#b6eeba',
+                                        })
+                                    }
                                 >
-                                    More Details
+                                    {pet?.meet ? 'View More' : 'More Details'}
                                 </Button>
                             )}
                         </Stack>
