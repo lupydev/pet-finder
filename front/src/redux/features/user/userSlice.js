@@ -17,14 +17,17 @@ import {
     extraPutEditUser,
 } from '../../asyncActions/user/putEditUser'
 import {getUserPets, extraGetUserPets} from '../../asyncActions/user/getUserPets'
+import { getAllUsers,extraGetAllUsers  } from '../../asyncActions/user/getAllUsers'
 
 const initialState = {
     userData: undefined,
+    allUsers: [],
     userPets: [],
     userInfo: { token: '', id: '', isLogged: false, isAdmin: false },
     status: 'loading',
     statusUsers: 'loading',
     createUserStatus: 'loading',
+    deleteStatus: 'loading',
     error: '',
 }
 
@@ -60,11 +63,12 @@ const userSlice = createSlice({
         ...extraGetUserPets,
         ...extraLoginGoogle,
         ...extraPutEditUser,
-        ...extraRenewToken
+        ...extraRenewToken,
+        ...extraGetAllUsers
     },
 })
 
-export { createUser, login, getUserData, getUserPets, loginGoogle, putEditUser, renewToken }
+export { createUser, login, getUserData,getAllUsers, getUserPets, loginGoogle, putEditUser, renewToken }
 
 export const { userIsLogged, logout, cleanPetsData } = userSlice.actions
 

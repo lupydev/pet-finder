@@ -1,16 +1,17 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
 import { useTheme } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
 import { Stack } from '@mui/material'
 import { MdPets, MdPerson } from 'react-icons/md'
 import AdminBoxes from './AdminBoxes'
 import AdminUser from './AdminUser'
 import AdminPets from './AdminPet'
+import { useDispatch } from 'react-redux'
+import { getPets } from '../../redux/asyncActions/pet/getPets'
+import { getAllUsers } from '../../redux/asyncActions/user/getAllUsers'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -23,15 +24,9 @@ function TabPanel(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
-            {value === index && <Stack width='100%'>{children}</Stack>}
+            {value === index && <Stack width="100%">{children}</Stack>}
         </div>
     )
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
 }
 
 function a11yProps(index) {
@@ -42,8 +37,8 @@ function a11yProps(index) {
 }
 
 export default function AdminDashboard() {
-    const theme = useTheme()
-    const [value, setValue] = React.useState(0)
+    const dispatch = useDispatch()
+    const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
@@ -52,6 +47,12 @@ export default function AdminDashboard() {
     const handleChangeIndex = (index) => {
         setValue(index)
     }
+
+    useEffect(() => {
+        dispatch(getPets('Lost'))
+        dispatch(getPets('Found'))
+        dispatch(getAllUsers())
+    }, [])
 
     return (
         <Stack
@@ -95,7 +96,7 @@ export default function AdminDashboard() {
             </AppBar>
 
             <TabPanel value={value} index={0}>
-                <AdminPets />
+                <AdminPets value={value} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <AdminUser />

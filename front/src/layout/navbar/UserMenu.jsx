@@ -42,7 +42,7 @@ const UserMenu = () => {
             navigate('/profile')
             break
         case 'Admin Dashboard':
-            navigate('/Admin')
+            navigate('/admin')
             break
         case 'Logout':
             dispatch(logout())
