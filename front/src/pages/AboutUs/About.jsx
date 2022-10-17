@@ -1,8 +1,22 @@
-import React from 'react'
-import { Stack, Typography, Grid, Button } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPets } from '../../redux/asyncActions/pet/getPets'
+import PetCardsContainer from '../../components/home/pets/PetCardsContainer'
+import SvgCard from './SvgCard'
+import { Paginationn } from '../../components/petBrowser/Pagination'
 
-const About = () => {
+const About = (props) => {
+    const dispatch = useDispatch()
+    const { MeetPetsData } = useSelector((state) => state.pet)
+
+    const type = props.title
+
+    useEffect(() => {
+        dispatch(getPets(type))
+    }, [])
+
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
             <Typography
@@ -25,12 +39,6 @@ const About = () => {
                 eveniet? Ratione reiciendis, est dolores repudiandae officia
                 aliquid sapiente, id odit vero dolorem culpa.
             </Typography>
-            <Stack>
-                <img
-                    src="https://res.cloudinary.com/diyk4to11/image/upload/v1664324514/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint-line_tjw4x6.svg"
-                    alt="footprint"
-                />
-            </Stack>
             <Typography color="primary.main" variant="h3" textAlign="center">
                 Our services
             </Typography>
@@ -51,17 +59,30 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                        }}
+                    >
+                        <SvgCard />
+                        <Typography color="secundary.main">
+                            Lost Pets
+                        </Typography>
+                    </Box>
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
-                        Odio, omnis esse facere quisquam, fugit quaerat mollitia
-                        aliquid facilis reprehenderit nesciunt, amet corrupti!
                     </Typography>
                     <Button
                         component={Link}
                         to="/lostPets"
-                        sx={{ color: 'secundary.main' }}
+                        sx={{
+                            color: 'secundary.main',
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                        }}
                     >
                         Lost pets
                     </Button>
@@ -76,17 +97,28 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                        }}
+                    >
+                        <SvgCard />
+                        <Typography color="secundary">Found pets</Typography>
+                    </Box>
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
-                        Odio, omnis esse facere quisquam, fugit quaerat mollitia
-                        aliquid facilis reprehenderit nesciunt, amet corrupti!
                     </Typography>
                     <Button
                         component={Link}
                         to="/foundPets"
-                        sx={{ color: 'primary.main' }}
+                        sx={{
+                            color: 'primary.main',
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                        }}
                     >
                         Found pets
                     </Button>
@@ -101,18 +133,49 @@ const About = () => {
                         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                     }}
                 >
-                    <img width='100px' src='https://res.cloudinary.com/diyk4to11/image/upload/v1664416145/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/pawprint_10_daijqn.svg'/>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                        }}
+                    >
+                        <SvgCard />
+                        <Typography color="secundary.main">
+                            Post a lost pet
+                        </Typography>
+                    </Box>
                     <Typography>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Vel saepe consectetur iste maxime explicabo fuga quidem!
-                        Odio, omnis esse facere quisquam, fugit quaerat mollitia
-                        aliquid facilis reprehenderit nesciunt, amet corrupti!
                     </Typography>
-                    <Button component={Link} to="/createPost">
+                    <Button
+                        sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                        component={Link}
+                        to="/createPost"
+                    >
                         Post a lost pet
                     </Button>
                 </Stack>
             </Grid>
+            <Stack gap={10} maxWidth="1440px" width="100%">
+                <Box mt={4}>
+                    <PetCardsContainer title="Reunited" color="primary" />
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Paginationn />
+                </Box>
+            </Stack>
+            <Stack>
+                <Typography
+                    variant="h4"
+                    color="primary.main"
+                    fontFamily={'Merriweather'}
+                    fontWeight="bold"
+                >
+                    Our Team!
+                </Typography>
+            </Stack>
         </Stack>
     )
 }

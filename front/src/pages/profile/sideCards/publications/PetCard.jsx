@@ -1,7 +1,7 @@
 import { Stack, Avatar, Button, Typography, styled, Chip } from '@mui/material'
 import React from 'react'
 import Swal from 'sweetalert2'
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { editPet } from '../../../../redux/asyncActions/pet/editPet'
 
 const CustomButton = styled(Button)(({ theme }) => ({
@@ -18,7 +18,6 @@ const CustomButton = styled(Button)(({ theme }) => ({
 const PetCard = ({ pet }) => {
     const dispatch = useDispatch()
 
-
     const handleClick = (e) => {
         Swal.fire({
             title:
@@ -31,12 +30,11 @@ const PetCard = ({ pet }) => {
             confirmButtonText: 'Yes, I found it!',
         }).then((result) => {
             if (result.isConfirmed) {
-
-                let petValues = {...pet}
+                let petValues = { ...pet }
 
                 petValues.meet = !petValues.meet
 
-                dispatch(editPet({id: pet._id,newData: petValues}))
+                dispatch(editPet({ id: pet._id, newData: petValues }))
 
                 Swal.fire(
                     'Congratulations!',

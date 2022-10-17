@@ -17,6 +17,7 @@ import {
 const initialState = {
     LostPetsData: [],
     FoundPetsData: [],
+    MeetPetsData: [],
     petDetail: undefined,
     petsDetails: [],
     species: [],
@@ -33,11 +34,11 @@ const petSlice = createSlice({
     initialState,
     reducers: {
         cleanPetData: (state) => {
-            state.LostPetsData = []
-            state.FoundPetsData = []
+            state.LostPetsData = {}
+            state.FoundPetsData = {}
+            state.MeetPetsData = {}
             state.petDetail = undefined
             state.status = 'loading'
-            state.statusCreate = 'loading'
             state.statusSpecies = 'loading'
             state.statusBreeds = 'loading'
         },
