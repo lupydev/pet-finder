@@ -36,11 +36,11 @@ const PetCardsContainer = (props) => {
                 color={props.color}
                 fontFamily={'Merriweather'}
                 fontWeight="bold"
-                px="30px"
+                px="40px"
             >
                 {props.title} Pets
             </Typography>
-            <Stack direction="row" justifyContent={'center'} gap="24px">
+            <Stack direction="row" flexWrap='wrap' justifyContent={'center'} gap="24px">
                 {status === 'success' ? (
                     <PetCard
                         pets={

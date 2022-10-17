@@ -35,7 +35,7 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
             <Stack direction="row" alignItems="center" gap="22px">
                 <NewsletterEmailTextField
                     sx={{
-                        width: '50%',
+                        width: '60%',
                         backgroundColor: 'primary.light',
                         borderRadius: '5px',
                     }}
