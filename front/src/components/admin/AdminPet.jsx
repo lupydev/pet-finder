@@ -6,17 +6,27 @@ import { getPets } from '../../redux/asyncActions/pet/getPets'
 import LinearProgress from '@mui/material/LinearProgress'
 import { HiOutlineTrash } from 'react-icons/hi'
 import { AiFillEdit } from 'react-icons/ai'
+import PetEdit from '../../pages/profile/PetEdit'
 
 export default function AdminPets({ renderControl, setRenderControl }) {
     const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const dispatch = useDispatch()
     const [allPets, setAllPets] = useState([])
     const [loading, setLoading] = useState(true)
+    const [edit, setEdit] = useState(false)
+    const [selectedPet, setSelectedPet] = useState(undefined)
+
 
     // useEffect(() => {
     //     dispatch(getPets('Lost'))
     //     dispatch(getPets('Found'))
     // }, [])
+
+    const handleEditClick = (pet) => {
+        setEdit(!edit)
+        setSelectedPet(pet)
+        console.log(pet);
+    }
 
     useEffect(() => {
         if (LostPetsData.length > 0 && FoundPetsData.length > 0) {
@@ -44,6 +54,7 @@ export default function AdminPets({ renderControl, setRenderControl }) {
     const rows = allPets?.map((pet, index) => ({
         _id: pet._id,
         id: index + 1,
+        userId: pet.userId,
         name: pet.name,
         specie: pet.species.name,
         breed: pet.breed.name,
@@ -162,7 +173,7 @@ export default function AdminPets({ renderControl, setRenderControl }) {
                             backgroundColor: '#3981BF',
                             '&:hover': { backgroundColor: '#9CC0DF' },
                         }}
-                        // onClick={(e) => handleEdit(e, params)}
+                        onClick={(e) => handleEditClick(params.row)}
                         size="small"
                     >
                         <AiFillEdit color="white" />
@@ -171,7 +182,9 @@ export default function AdminPets({ renderControl, setRenderControl }) {
         },
     ]
 
-    return (
+    return edit ? (
+        <PetEdit selectedPet={selectedPet}/>
+    ) : (
         <DataGrid
             components={{
                 LoadingOverlay: LinearProgress,

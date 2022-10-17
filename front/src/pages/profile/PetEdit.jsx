@@ -71,7 +71,7 @@ const PetEdit = ({ selectedPet }) => {
 
     let INITIAL_FORM_STATE = {
         name: selectedPet?.name,
-        userId: selectedPet?.userId._id,
+        userId: selectedPet?.userId._id ? selectedPet?.userId._id : selectedPet?.userId ,
         description: selectedPet?.description,
         species: species2,
         gender: selectedPet?.gender,
