@@ -10,8 +10,8 @@ import {
 import { getSpecies, extraGetSpecies } from '../../asyncActions/pet/getSpecies'
 import { getBreeds, extraGetBreeds } from '../../asyncActions/pet/getBreeds'
 import {
-    deletePost,
-    extraDeletePost,
+    deletePetPost,
+    extraDeletePetPost,
 } from '../../asyncActions/pet/deletePetPost'
 
 const initialState = {
@@ -25,6 +25,7 @@ const initialState = {
     statusCreate: 'loading',
     statusSpecies: 'loading',
     statusBreeds: 'loading',
+    statusDelete: 'loading',
     error: '',
 }
 
@@ -38,6 +39,7 @@ const petSlice = createSlice({
             state.petDetail = undefined
             state.status = 'loading'
             state.statusCreate = 'loading'
+            state.statusDelete = 'loading'
             state.statusSpecies = 'loading'
             state.statusBreeds = 'loading'
         },
@@ -53,7 +55,7 @@ const petSlice = createSlice({
         ...extraEditPet,
         ...extraGetSpecies,
         ...extraGetBreeds,
-        ...extraDeletePost,
+        ...extraDeletePetPost,
     },
 })
 
@@ -65,7 +67,7 @@ export {
     editPet,
     getSpecies,
     getBreeds,
-    deletePost,
+    deletePetPost,
 }
 
 export const { cleanPetData, cleanBreeds } = petSlice.actions

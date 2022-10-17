@@ -1,12 +1,13 @@
 import { DataGrid } from '@mui/x-data-grid'
-import { Button, IconButton } from '@mui/material'
+import { Avatar, Button, IconButton } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import { getAllUsers } from '../../redux/asyncActions/user/getAllUsers'
 import { HiOutlineTrash } from 'react-icons/hi'
+import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai'
 
-export default function AdminUser({ renderControl, setRenderControl }) {
+export default function AdminUser() {
     const dispatch = useDispatch()
     const { allUsers } = useSelector((state) => state.user)
     const [loading, setLoading] = useState(true)
@@ -15,9 +16,9 @@ export default function AdminUser({ renderControl, setRenderControl }) {
     //     dispatch(getAllUsers())
     // },[])
 
-    useEffect(() =>{
+    useEffect(() => {
         allUsers.length > 0 && setLoading(false)
-    },[allUsers])
+    }, [allUsers])
 
     // useEffect(() => {
     //     dispatch(getAdoptablePets())
@@ -34,6 +35,7 @@ export default function AdminUser({ renderControl, setRenderControl }) {
     const rows = allUsers?.map((user, index) => ({
         id: index + 1,
         _id: user._id,
+        avatar: user.img,
         nickname: user.nickname,
         name: user.fullname,
         email: user.email,
@@ -41,13 +43,13 @@ export default function AdminUser({ renderControl, setRenderControl }) {
         status: user.status,
     }))
 
-    // const handleDelete = (e, params) => {
-    //     params.row.status = 'Deleted'
-    //     const _id = params.row._id
-    //     const { id, ...values } = params.row
+    const handleDelete = (e, params) => {
+        params.row.status = 'Deleted'
+        const _id = params.row._id
+        const { id, ...values } = params.row
 
-    //     dispatch(editPetAdoption({ _id, values }))
-    // }
+        dispatch(editPetAdoption({ _id, values }))
+    }
     // const handleEdit = (e, params) => {
     //     setRenderControl({
     //         ...renderControl,
@@ -57,42 +59,75 @@ export default function AdminUser({ renderControl, setRenderControl }) {
     //     })
     // }
 
+    const handleChangeStatus = (e, params) => {
+        e.stopPropagation()
+        const { _id } = params.row
+        Swal.fire({
+            title: 'Do you want to change status of this user?',
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(setNewAdmin(id))
+                handleUpdate(id)
+            }
+        })
+    }
+
     const columns = [
+        {
+            field: 'avatar',
+            headerName: '',
+            editable: true,
+            width: 60,
+            renderCell: (cell) =>
+                cell.value ? (
+                    <Avatar src={cell.value} />
+                ) : (
+                    <Avatar />
+                ),
+        },
         {
             field: 'nickname',
             headerName: 'Nickname',
             editable: true,
-            flex:1
+            flex: 1,
         },
         {
             field: 'name',
             headerName: 'Name',
             editable: true,
-            flex:1
+            flex: 1,
         },
         {
             field: 'email',
             headerName: 'Email',
             editable: true,
-            flex:1
-        },
-
-        {
-            field: 'admin',
-            headerName: 'Admin',
-            editable: true,
-            flex:1
+            flex: 1,
         },
         {
             field: 'status',
             headerName: 'Status',
             editable: true,
-            flex:1
+            width: 150,
+        },
+        {
+            field: 'admin',
+            headerName: 'Admin',
+            editable: true,
+            width: 80,
+            align: 'center',
+            renderCell: (cell) =>
+                cell.value ? (
+                    <AiFillCheckCircle color="green" />
+                ) : (
+                    <AiFillCloseCircle color="red" />
+                ),
         },
         {
             field: 'deleteAction',
             headerName: 'Delete',
-
             align: 'center',
             sortable: false,
             renderCell: (params) =>
@@ -109,24 +144,24 @@ export default function AdminUser({ renderControl, setRenderControl }) {
                     </IconButton>
                 ) : null,
         },
-        // {
-        //     field: 'editAction',
-        //     headerName: 'Edit',
-
-        //     align: 'center',
-        //     sortable: false,
-        //     renderCell: (params) =>
-        //         petsAdoption?.id !== params.row.id ? (
-        //             <Button
-        //                 variant="contained"
-        //                 color="success"
-        //                 onClick={(e) => handleEdit(e, params)}
-        //                 size="small"
-        //             >
-        //                 Edit
-        //             </Button>
-        //         ) : null,
-        // },
+        {
+            field: 'toAdminAction',
+            headerName: 'Change Status',
+            width: 120,
+            align: 'center',
+            sortable: false,
+            renderCell: (params) =>
+                allUsers?.id !== params.row.id ? (
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={(e) => handleChangeStatus(e, params)}
+                        sx={{ textTransform: 'none', fontSize: '12px' }}
+                    >
+                        {params.row.admin ? 'To User' : 'To Admin'}
+                    </Button>
+                ) : null,
+        },
     ]
 
     return (
@@ -135,7 +170,6 @@ export default function AdminUser({ renderControl, setRenderControl }) {
                 LoadingOverlay: LinearProgress,
             }}
             loading={loading}
-
             rows={rows}
             columns={columns}
             pageSize={5}

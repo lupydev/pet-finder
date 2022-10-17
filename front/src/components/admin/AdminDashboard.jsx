@@ -96,7 +96,7 @@ export default function AdminDashboard() {
             </AppBar>
 
             <TabPanel value={value} index={0}>
-                <AdminPets />
+                <AdminPets value={value} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <AdminUser />

@@ -27,6 +27,7 @@ const initialState = {
     status: 'loading',
     statusUsers: 'loading',
     createUserStatus: 'loading',
+    deleteStatus: 'loading',
     error: '',
 }
 

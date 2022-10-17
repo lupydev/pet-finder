@@ -5,14 +5,20 @@ import { Link } from 'react-router-dom'
 
 const AboutUs = () => {
     return (
-        <Box sx={{ backgroundColor: '#3981BF' }}>
-            <Grid
-                display="grid"
-                gridTemplateColumns="55% 45%"
-                alignContent="center"
+        <Stack
+            direction="row"
+            width="100%"
+            justifyContent="center"
+            sx={{ backgroundColor: '#3981BF' }}
+        >
+            <Stack
+                direction="row"
                 height="100%"
+                maxWidth="1440px"
+                justifyContent="space-between"
             >
                 <Stack
+                    width="55%"
                     sx={{
                         alignSelf: 'center',
                         justifySelf: 'end',
@@ -54,6 +60,7 @@ const AboutUs = () => {
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
+                                alignItems: 'center',
                                 color: 'secondary.light',
                                 fontWeight: '700',
                                 textTransform: 'none',
@@ -69,6 +76,7 @@ const AboutUs = () => {
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
+                                alignItems: 'center',
                                 color: 'secondary.light',
                                 fontWeight: '700',
                                 textTransform: 'none',
@@ -94,17 +102,18 @@ const AboutUs = () => {
                         </Button>
                     </Stack>
                 </Stack>
-
-                <img
-                    style={{
-                        width: '100%',
-                        clipPath: 'circle(62.9% at 60% 50%)',
-                    }}
-                    src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg"
-                    alt="img-aboutus"
-                />
-            </Grid>
-        </Box>
+                <Stack width={{ xs: '100%', md: '55%' }}>
+                    <img
+                        width="100%"
+                        style={{
+                            clipPath: 'circle(62.9% at 60% 50%)',
+                        }}
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg"
+                        alt="img-aboutus"
+                    />
+                </Stack>
+            </Stack>
+        </Stack>
     )
 }
 

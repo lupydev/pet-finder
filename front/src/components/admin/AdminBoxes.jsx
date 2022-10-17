@@ -46,11 +46,12 @@ export const AdminBoxes = () => {
                     <Typography
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
+                        color='#F16C1F'
                     >
                         {LostPetsData.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
-                        <MdPets />
+                        <MdPets color='#F16C1F' />
                         <Typography
                             fontSize={{ xs: '13px', sm: '18px' }}
                             fontWeight="bold"
@@ -71,11 +72,12 @@ export const AdminBoxes = () => {
                     <Typography
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
+                        color='#357ABD'
                     >
                         {FoundPetsData.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
-                        <MdPets />
+                        <MdPets color='#357ABD' />
                         <Typography
                             fontSize={{ xs: '13px', sm: '18px' }}
                             fontWeight="bold"
@@ -103,11 +105,12 @@ export const AdminBoxes = () => {
                     <Typography
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
+                        color='#30dd87'
                     >
                         {reunitedPets.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
-                        <MdPets />
+                        <MdPets color='#30dd87' />
                         <Typography
                             fontSize={{ xs: '13px', sm: '18px' }}
                             fontWeight="bold"
