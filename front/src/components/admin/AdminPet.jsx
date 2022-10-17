@@ -1,7 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid'
 import { IconButton } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
 import LinearProgress from '@mui/material/LinearProgress'
 import { HiOutlineTrash } from 'react-icons/hi'
@@ -12,7 +12,6 @@ export default function AdminPets({ renderControl, setRenderControl }) {
     const dispatch = useDispatch()
     const [allPets, setAllPets] = useState([])
     const [loading, setLoading] = useState(true)
-    
 
     useEffect(() => {
         dispatch(getPets('Lost'))
@@ -20,18 +19,15 @@ export default function AdminPets({ renderControl, setRenderControl }) {
     }, [])
 
     useEffect(() => {
-        if (
-            Object.entries(LostPetsData).length > 0 &&
-            Object.entries(FoundPetsData).length > 0
-        ) {
-            setAllPets([...FoundPetsData.pets, ...LostPetsData.pets])
+        if (LostPetsData.length > 0 && FoundPetsData.length > 0) {
+            // console.log(LostPetsData, 'LOST',FoundPetsData, 'FOUND' );
+            setAllPets([...FoundPetsData, ...LostPetsData])
         }
     }, [LostPetsData, FoundPetsData])
 
     useEffect(() => {
         allPets.length > 0 && setLoading(false)
     }, [allPets])
-        
 
     // useEffect(() => {
     //     dispatch(getAdoptablePets())
@@ -142,11 +138,14 @@ export default function AdminPets({ renderControl, setRenderControl }) {
             renderCell: (params) =>
                 allPets?.id !== params.row.id ? (
                     <IconButton
-                        sx={{ backgroundColor: '#f21a1a', '&:hover': {backgroundColor: '#ff6d6d' }}}
+                        sx={{
+                            backgroundColor: '#f21a1a',
+                            '&:hover': { backgroundColor: '#ff6d6d' },
+                        }}
                         onClick={(e) => handleDelete(e, params)}
                         size="small"
                     >
-                       < HiOutlineTrash color='white' />
+                        <HiOutlineTrash color="white" />
                     </IconButton>
                 ) : null,
         },
@@ -157,31 +156,32 @@ export default function AdminPets({ renderControl, setRenderControl }) {
             align: 'center',
             sortable: false,
             renderCell: (params) =>
-                allPets?.id !== params.row.id  ? (
+                allPets?.id !== params.row.id ? (
                     <IconButton
-                        sx={{ backgroundColor: '#3981BF', '&:hover': {backgroundColor: '#9CC0DF' }}}
+                        sx={{
+                            backgroundColor: '#3981BF',
+                            '&:hover': { backgroundColor: '#9CC0DF' },
+                        }}
                         onClick={(e) => handleEdit(e, params)}
                         size="small"
                     >
-                       < AiFillEdit color='white' />
+                        <AiFillEdit color="white" />
                     </IconButton>
                 ) : null,
         },
     ]
 
     return (
-        allPets.length > 0 && (
-            <DataGrid
-                components={{
-                    LoadingOverlay: LinearProgress,
-                }}
-                loading={loading}
-                rows={rows}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                autoHeight={true}
-            />
-        )
+        <DataGrid
+            components={{
+                LoadingOverlay: LinearProgress,
+            }}
+            loading={loading}
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            autoHeight={true}
+        />
     )
 }

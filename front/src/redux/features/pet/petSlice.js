@@ -33,8 +33,8 @@ const petSlice = createSlice({
     initialState,
     reducers: {
         cleanPetData: (state) => {
-            state.LostPetsData = {}
-            state.FoundPetsData = {}
+            state.LostPetsData = []
+            state.FoundPetsData = []
             state.petDetail = undefined
             state.status = 'loading'
             state.statusCreate = 'loading'
