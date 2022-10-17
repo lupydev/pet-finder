@@ -5,14 +5,27 @@ import { Link } from 'react-router-dom'
 
 const AboutUs = () => {
     return (
-        <Box sx={{ backgroundColor: '#3981BF' }}>
-            <Grid
-                display="grid"
-                gridTemplateColumns="55% 45%"
-                alignContent="center"
+        <Stack
+            direction="row"
+            width="100%"
+            justifyContent="center"
+            sx={{ backgroundColor: '#3981BF' }}
+            height={{ xs: 'auto', md: '500px' }}
+            
+
+        >
+            <Stack
+                direction={{ xs: 'column', md: 'row' }}
                 height="100%"
+                width="100%"
+                maxWidth="1440px"
+                justifyContent="space-between"
+                gap= '30px'
             >
                 <Stack
+                    pl="40px"
+                    py={{ xs: '20px', md: '0px' }}
+                    width={{ sx: '100%', md: '55%' }}
                     sx={{
                         alignSelf: 'center',
                         justifySelf: 'end',
@@ -94,17 +107,26 @@ const AboutUs = () => {
                         </Button>
                     </Stack>
                 </Stack>
-
-                <img
-                    style={{
-                        width: '100%',
-                        clipPath: 'circle(62.9% at 60% 50%)',
+                <Stack
+                    justifyContent="center"
+                    width={{ xs: '100%', md: '55%' }}
+                    height={{ xs: '400px', md: '100%' }}
+                   
+                    sx={{
+                        clipPath: {
+                            xs: 'none',
+                            md: 'circle(62.9% at 60% 50%)',
+                        },
+                        overflow: 'hidden',
+                        backgroundImage:
+                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg)',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
                     }}
-                    src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049165/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/the-pretty-girl-embarcing-cat-and-dog_vortpf.jpg"
-                    alt="img-aboutus"
                 />
-            </Grid>
-        </Box>
+            </Stack>
+        </Stack>
     )
 }
 

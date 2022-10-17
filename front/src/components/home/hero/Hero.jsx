@@ -9,7 +9,7 @@ const Hero = () => {
             alignItems="center"
             position="relative"
             justifyContent="flex-end"
-            height="500px"
+            height={{ xs: 'auto', md: '500px' }}
         >
             <Stack position="absolute" zIndex={-1} left="0" top="0">
                 <img
@@ -24,12 +24,13 @@ const Hero = () => {
                 />
             </Stack>
             <Stack
-                direction="row"
+                direction={{ xs: 'column', md: 'row' }}
                 alignItems="flex-end"
                 gap={10}
                 maxWidth="1440px"
+                py="20px"
             >
-                <Stack width="100%" gap={3}>
+                <Stack width="100%" gap={3} pl='40px'>
                     <Typography
                         variant="h1"
                         fontWeight="bold"
@@ -53,15 +54,17 @@ const Hero = () => {
                         variant="contained"
                         color="primary"
                         sx={{
+                            alignSelf:{xs:'center', md:'auto'},
+                            width: {xs:'200px', md:'auto'},
                             borderRadius: 2,
                             textTransform: 'none',
                             fontWeight: 'regular',
                         }}
                     >
-                        Post Lost Pet
+                        Create a Post
                     </Button>
                 </Stack>
-                <Stack width="100%">
+                <Stack width="100%" display={{ xs: 'none', md: 'flex' }}>
                     <img
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664418265/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/res-console.cloudinary-removebg-preview_xq0yo7.png"
                         width="100%"
