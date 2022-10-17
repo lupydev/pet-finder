@@ -20,7 +20,7 @@ export const extraCreateUser = {
         if (action.payload.data.ok) {
             state.createUserStatus = 'success'
 
-            console.log(action.payload.data);
+            console.log(action.payload.data)
 
             let user = {
                 token: action.payload.data.token,
@@ -34,6 +34,11 @@ export const extraCreateUser = {
             Toast.fire({
                 icon: 'success',
                 title: `${action.payload.data.msg} and signed in successfully`,
+            })
+        } else if (!action.payload.data.ok) {
+            Toast.fire({
+                icon: 'error',
+                title: `${action.payload.data.msg}`,
             })
         }
     },

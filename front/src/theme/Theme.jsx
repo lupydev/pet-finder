@@ -25,6 +25,11 @@ const Theme = ({ children }) => {
                 dark: '#DD6F10',
                 light: '#FEF0E9',
             },
+            terciary: {
+                main: '#2eaa2a',
+                dark: '#197003',
+                light: '#b6eeba',
+            },
         },
         typography: {
             htmlFontSize: 10,

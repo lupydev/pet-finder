@@ -5,11 +5,13 @@ import NewsletterSubscribe from './NewsletterSubscribe'
 
 const Newsletter = () => {
     return (
-        <Box sx={{ backgroundColor: '#3981BF', height: '50vh' }}>
-            <Box sx={{ display: 'flex' }}>
+        <Box sx={{ backgroundColor: '#3981BF' }}>
+            <Stack direction={{xs:'column', md:'row'}}>
                 <Stack
                     color="secondary.light"
-                    sx={{ padding: '0 5rem', justifyContent: 'center' }}
+                    justifyContent= 'center'
+                    px='40px'
+                    py='20px'
                 >
                     <h2>Newsletter</h2>
                     <Typography sx={{ paddingBottom: '2rem' }}>
@@ -31,7 +33,7 @@ const Newsletter = () => {
                     src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049161/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-1333195606_yldfxa.jpg"
                     alt="NewsletterImage"
                 />
-            </Box>
+            </Stack>
         </Box>
     )
 }
