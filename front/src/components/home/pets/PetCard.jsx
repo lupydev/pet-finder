@@ -19,6 +19,7 @@ import { AiFillDelete, AiFillEye, AiTwotoneEdit } from 'react-icons/ai'
 
 const PetCard = ({
     pets,
+    petsReunited,
     isEdit = false,
     handleViewProfile,
     handleEditPost,
@@ -53,9 +54,7 @@ const PetCard = ({
                                 backgroundColor:
                                     pet.type.toLowerCase() === 'lost'
                                         ? 'secondary.light'
-                                        : pet.type.toLowerCase() === 'found'
-                                        ? 'primary.light'
-                                        : '',
+                                        : 'primary.light',
                                 height: '200px',
                                 borderRadius: '8px',
                             }}

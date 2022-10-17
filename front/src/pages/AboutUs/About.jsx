@@ -1,24 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { getPets } from '../../redux/asyncActions/pet/getPets'
+import { useSelector, useDispatch } from 'react-redux'
 import PetCardsContainer from '../../components/home/pets/PetCardsContainer'
 import SvgCard from './SvgCard'
 import OurTeamContainer from './OurTeamContainer'
+import { getPets } from '../../redux/asyncActions/pet/getPets'
 
-const About = (props) => {
+const About = () => {
+    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const dispatch = useDispatch()
-    const { MeetPetsData } = useSelector((state) => state.pet)
-
-    const type = props.title
-    console.log(type)
+    const [allPets, setAllPets] = useState([])
+    const [petsMeet, setPetsMeet] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        dispatch(getPets(type))
+        dispatch(getPets('Found'))
+        dispatch(getPets('Lost'))
     }, [])
 
-    console.log(MeetPetsData)
+    useEffect(() => {
+        if (LostPetsData?.length > 0 && FoundPetsData?.length > 0) {
+            setAllPets([...FoundPetsData, ...LostPetsData])
+        }
+    }, [LostPetsData, FoundPetsData])
+
+    useEffect(() => {
+        allPets?.length > 0 && setLoading(false)
+    }, [allPets])
+
+    useEffect(() => {
+        if (allPets.length > 0) {
+            setPetsMeet(allPets.filter((pet) => pet.meet))
+        }
+    }, [allPets])
+
+    console.log(petsMeet)
 
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
@@ -164,7 +181,11 @@ const About = (props) => {
                 </Stack>
             </Grid>
             <Stack gap={10} maxWidth="1440px" width="100%">
-                <PetCardsContainer title="Reunited" color="primary" />
+                <PetCardsContainer
+                    petsMeet={petsMeet}
+                    title="Reunited"
+                    color="primary"
+                />
                 <OurTeamContainer />
             </Stack>
         </Stack>

@@ -17,9 +17,7 @@ export const AdminBoxes = () => {
 
     useEffect(() => {
         if (allPets.length > 0) {
-
-            setReunitedPets(allPets.filter((pet)=>pet.meet))
-
+            setReunitedPets(allPets.filter((pet) => pet.meet))
         }
     }, [allPets])
 

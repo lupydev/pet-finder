@@ -9,12 +9,12 @@ import Loading from '../../loading/Loading'
 const PetCardsContainer = (props) => {
     const dispatch = useDispatch()
     const type = props.title
+    const petsReunited = props.petsMeet
     const { LostPetsData, FoundPetsData, status } = useSelector(
         (state) => state.pet
     )
     const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
     const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
-    const [limitedMeetPetsData, setLimitedMeetPetsData] = useState([])
 
     useEffect(() => {
         dispatch(getPets(type))
@@ -30,37 +30,39 @@ const PetCardsContainer = (props) => {
             setLimitedFoundPetsData(FoundPetsData.slice(0, 4))
     }, [FoundPetsData])
 
-    useEffect(() => {
-        Object.entries(limitedMeetPetsData).length > 0 &&
-            setLimitedMeetPetsData(MeetPetsData.pets.slice(0, 4))
-    }, [limitedMeetPetsData])
-
     return (
         <Stack gap="25px">
             <Typography
-                variant={type === 'Reunited' ? 'h4' : 'h3'}
+                variant={petsReunited === true ? 'h4' : 'h3'}
                 color={props.color}
                 fontFamily={'Merriweather'}
                 fontWeight="bold"
                 px="40px"
-                sx={type === 'Reunited' ? { px: '0px' } : ''}
+                sx={petsReunited === true ? { px: '0px' } : ''}
             >
                 {props.title} Pets
             </Typography>
-            <Stack direction="row" flexWrap='wrap' justifyContent={'center'} gap="24px">
+            <Stack
+                direction="row"
+                flexWrap="wrap"
+                justifyContent={'center'}
+                gap="24px"
+            >
                 {status === 'success' ? (
                     <PetCard
                         pets={
                             type === 'Lost'
                                 ? limitedLostPetsData
-                                : limitedFoundPetsData
+                                : type === 'Found'
+                                ? limitedFoundPetsData
+                                : petsReunited
                         }
                     />
                 ) : (
                     <Loading />
                 )}
             </Stack>
-            {type === 'Reunited' ? (
+            {petsReunited === true ? (
                 ''
             ) : (
                 <Button
@@ -81,7 +83,7 @@ const PetCardsContainer = (props) => {
                             mx: 'auto',
                             borderRadius: '8px',
                         },
-                        type === 'Reunited'
+                        petsReunited === true
                             ? {
                                   color: 'terciary.dark',
                                   background: '#b6eeba',
