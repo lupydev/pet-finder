@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import {
     Box,
+    Button,
     CircularProgress,
     Grid,
     IconButton,
@@ -9,6 +10,7 @@ import {
 } from '@mui/material'
 import { TiDeleteOutline } from 'react-icons/ti'
 import { Stack } from '@mui/system'
+import { AiFillCamera } from 'react-icons/ai'
 
 const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
     return (
@@ -56,16 +58,20 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                     {loading && <CircularProgress />}
                 </Paper>
             ) : null}
-            <TextField
-                fullWidth={true}
+
+            <Button
                 id="image"
                 name="image"
-                type="file"
-                multiple={true}
-                accept="image/*"
-                onChange={(e) => handleUpload(e)}
+                variant="outlined"
+                component="label"
                 size="small"
-            />
+                startIcon={<AiFillCamera />}
+                sx={{ textTransform: 'none', mt: '10px' }}
+                onChange={(e) => handleUpload(e)}
+            >
+                Upload Images
+                <input hidden accept="image/*" type="file" multiple />
+            </Button>
         </Grid>
     )
 }

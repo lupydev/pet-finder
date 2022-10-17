@@ -22,6 +22,7 @@ const initialState = {
     species: [],
     breeds: [],
     status: 'loading',
+    statusCreate: 'loading',
     statusSpecies: 'loading',
     statusBreeds: 'loading',
     error: '',
@@ -36,6 +37,7 @@ const petSlice = createSlice({
             state.FoundPetsData = {}
             state.petDetail = undefined
             state.status = 'loading'
+            state.statusCreate = 'loading'
             state.statusSpecies = 'loading'
             state.statusBreeds = 'loading'
         },

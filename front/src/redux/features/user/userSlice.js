@@ -23,6 +23,7 @@ const initialState = {
     userPets: [],
     userInfo: { token: '', id: '', isLogged: false, isAdmin: false },
     status: 'loading',
+    statusUsers: 'loading',
     createUserStatus: 'loading',
     error: '',
 }

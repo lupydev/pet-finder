@@ -90,7 +90,7 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
 
 
     return (
-        <Stack width="100%" height="100%" gap={5} alignItems={'center'}>
+        <Stack width="100%"  gap={5} alignItems={'center'}>
             <Title title={'Account'} desc={`Hi ${userData.nickname}!`} />
             <Stack
                 width="100%"

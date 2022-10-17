@@ -1,18 +1,27 @@
 import { IconButton, Typography } from '@mui/material'
 import { Stack } from '@mui/system'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillEdit } from 'react-icons/ai'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import EditProfile from './EditProfile'
 
 const Profile = () => {
-    const { userData, userPets } = useSelector((state) => state.user)
+    const { userData, userPets, allUsers } = useSelector((state) => state.user)
+    const dispatch= useDispatch();
 
     const [edit, setEdit] = useState(false)
 
     const handleEditMode = () => {
         setEdit(!edit)
     }
+
+    // useEffect(() =>{
+    //     dispatch(getAllUsers())
+    // },[])
+
+    // useEffect(() =>{
+    //     console.log(allUsers)
+    // },[allUsers])
 
     return (
         <>
