@@ -5,6 +5,7 @@ import { MdPets, MdPerson } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 
 export const AdminBoxes = () => {
+    const { allUsers } = useSelector((state) => state.user)
     const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const [allPets, setAllPets] = useState([])
     const [reunitedPets, setReunitedPets] = useState([])
@@ -17,9 +18,7 @@ export const AdminBoxes = () => {
 
     useEffect(() => {
         if (allPets.length > 0) {
-
             setReunitedPets(allPets.filter((pet)=>pet.meet))
-
         }
     }, [allPets])
 
@@ -130,7 +129,7 @@ export const AdminBoxes = () => {
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
                     >
-                        Untracked
+                        {allUsers.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
                         <MdPerson />

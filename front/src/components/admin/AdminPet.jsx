@@ -13,10 +13,10 @@ export default function AdminPets({ renderControl, setRenderControl }) {
     const [allPets, setAllPets] = useState([])
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        dispatch(getPets('Lost'))
-        dispatch(getPets('Found'))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getPets('Lost'))
+    //     dispatch(getPets('Found'))
+    // }, [])
 
     useEffect(() => {
         if (LostPetsData.length > 0 && FoundPetsData.length > 0) {
