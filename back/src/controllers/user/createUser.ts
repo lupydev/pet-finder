@@ -3,6 +3,8 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import { generateJWT } from '../../utils/jwt'
 import axios from 'axios'
+import { getTemplateWelcome } from '../../utils/getTemplateWelcome'
+import { sendEmail } from '../../utils/sendEmail'
 
 const createUser = async (req: Request, res: Response) => {
     const userData = req.body
@@ -35,6 +37,9 @@ const createUser = async (req: Request, res: Response) => {
 
         //*Generate JWT
         const token = await generateJWT(newUser.id, newUser.admin)
+
+        //Mail bienvenida
+        sendEmail(userData.email, getTemplateWelcome())
 
         await newUser.save()
 
