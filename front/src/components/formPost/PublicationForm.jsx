@@ -58,7 +58,7 @@ export const PublicationForm = ({ selectedPet }) => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState(selectedPet ? selectedPet.img : [])
-    const { species, breeds } = useSelector((state) => state.pet)
+    const { species, breeds, statusCreate } = useSelector((state) => state.pet)
     const [location, setLocation] = useState(
         selectedPet ? selectedPet.location : {}
     )
@@ -142,7 +142,7 @@ export const PublicationForm = ({ selectedPet }) => {
 
         if (selectedPet) {
             dispatch(editPet({ id: selectedPet._id, newData: values }))
-            navigate(-1)
+            navigate('/profile')
         } else {
             dispatch(createPet(values))
             navigate('/')
@@ -154,6 +154,10 @@ export const PublicationForm = ({ selectedPet }) => {
     useEffect(() => {
         dispatch(getSpecies())
     }, [])
+
+    useEffect(() => {
+        statusCreate ==='success' && dispatch(getUserData())
+    }, [statusCreate])
 
     return species.length ? (
         <Formik
