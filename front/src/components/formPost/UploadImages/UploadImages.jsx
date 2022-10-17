@@ -13,7 +13,7 @@ import { Stack } from '@mui/system'
 const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
     return (
         <Grid item xs={6}>
-            {images.length ? (
+            {images.length || loading ? (
                 <Paper
                     sx={{
                         display: 'flex',
@@ -29,6 +29,7 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                             position="relative"
                             border="1px solid rgba(0, 0, 0, 0.2)"
                             borderRadius="8px"
+                            overflow="hidden"
                         >
                             <IconButton
                                 style={{
@@ -46,8 +47,6 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                                 sx={{
                                     width: 150,
                                     height: 150,
-                                    borderRadius: 4,
-                                    overflow: 'hidden',
                                 }}
                             >
                                 <img src={elem} alt="Not found" height="100%" />
@@ -57,18 +56,16 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                     {loading && <CircularProgress />}
                 </Paper>
             ) : null}
-            <div style={{ margin: 10 }}>
-                <TextField
-                    fullWidth={true}
-                    id="image"
-                    name="image"
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={(e) => handleUpload(e)}
-                    size="small"
-                />
-            </div>
+            <TextField
+                fullWidth={true}
+                id="image"
+                name="image"
+                type="file"
+                multiple={true}
+                accept="image/*"
+                onChange={(e) => handleUpload(e)}
+                size="small"
+            />
         </Grid>
     )
 }

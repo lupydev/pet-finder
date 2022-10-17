@@ -9,13 +9,8 @@ export const renewToken = createAsyncThunk('renew/', async () => {
 
     const config = { headers: { token: user.token } }
 
-    console.log(user, 'entro')
-
     try {
-        return await axios.post(
-            `${API_ROUTE}/renew/${user.id}&${user.isAdmin}`,
-            config
-        )
+        return await axios.post(`${API_ROUTE}/renew/`, {}, config)
     } catch (err) {
         console.log(err)
     }
@@ -36,16 +31,15 @@ export const extraRenewToken = {
                 isAdmin: action.payload.data.admin
                     ? action.payload.data.admin
                     : false,
-                isGoogle: false,
             }
 
-            state.userInfo = user
+            state.userInfo = { ...state.userInfo, ...user }
 
             window.localStorage.setItem('user', JSON.stringify(user))
         } else {
             Toast.fire({
                 icon: 'error',
-                title: action.payload.data.msg,
+                title: 'Error',
             })
         }
     },

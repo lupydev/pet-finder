@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import { getPets } from '../../../redux/asyncActions/pet/getPets'
+import Loading from '../../loading/Loading'
 
 const PetCardsContainer = (props) => {
     const dispatch = useDispatch()
     const type = props.title
-    const { LostPetsData, FoundPetsData, MeetPetsData } = useSelector(
+    const { LostPetsData, FoundPetsData, status } = useSelector(
         (state) => state.pet
     )
     const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
@@ -20,13 +21,13 @@ const PetCardsContainer = (props) => {
     }, [])
 
     useEffect(() => {
-        Object.entries(LostPetsData).length > 0 &&
-            setLimitedLostPetsData(LostPetsData.pets.slice(0, 4))
+        LostPetsData?.length > 0 &&
+            setLimitedLostPetsData(LostPetsData.slice(0, 4))
     }, [LostPetsData])
 
     useEffect(() => {
-        Object.entries(FoundPetsData).length > 0 &&
-            setLimitedFoundPetsData(FoundPetsData.pets.slice(0, 4))
+        FoundPetsData?.length > 0 &&
+            setLimitedFoundPetsData(FoundPetsData.slice(0, 4))
     }, [FoundPetsData])
 
     useEffect(() => {
@@ -34,6 +35,7 @@ const PetCardsContainer = (props) => {
             setLimitedMeetPetsData(MeetPetsData.pets.slice(0, 4))
     }, [limitedMeetPetsData])
 
+    console.log(limitedFoundPetsData)
     return (
         <Stack gap="25px">
             <Typography
@@ -46,15 +48,18 @@ const PetCardsContainer = (props) => {
                 {props.title} Pets
             </Typography>
             <Stack direction="row" justifyContent={'center'} gap="24px">
-                <PetCard
-                    pets={
-                        type === 'Lost'
-                            ? limitedLostPetsData
-                            : type === 'Found'
-                            ? limitedFoundPetsData
-                            : limitedMeetPetsData
-                    }
-                />
+                {status === 'success' ? (
+                    <PetCard
+                        pets={
+                            type === 'Lost'
+                                ? limitedLostPetsData
+                                : limitedFoundPetsData
+                        }
+                        isMeet={true}
+                    />
+                ) : (
+                    <Loading />
+                )}
             </Stack>
             <Button
                 component={Link}
@@ -63,7 +68,9 @@ const PetCardsContainer = (props) => {
                 color={
                     props.title.toLowerCase() === 'lost'
                         ? 'secondary'
-                        : 'primary'
+                        : props.title.toLowerCase() === 'found'
+                        ? 'primary'
+                        : 'terciary'
                 }
                 sx={{
                     textTransform: 'none',

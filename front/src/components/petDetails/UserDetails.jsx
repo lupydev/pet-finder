@@ -190,7 +190,7 @@ const UserDetails = () => {
                     justifyContent="center"
                     gap="20px"
                     sx={{
-                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1665698751/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo_vhobkl.png)`,
+                        backgroundImage: 'url(https://res.cloudinary.com/diyk4to11/image/upload/v1665698751/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo_vhobkl.png)',
                         borderRadius: '20px',
                         backgroundColor: '#eff5ff',
 
@@ -249,15 +249,15 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.name &&
                                     formik.touched.name ? (
-                                        <Typography>{errors.name}</Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="18px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>{errors.name}</Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="18px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <TextField
                                         label="Email"
                                         id="email"
@@ -282,15 +282,15 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.email &&
                                     formik.touched.email ? (
-                                        <Typography>{errors.email}</Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="18px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>{errors.email}</Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="18px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <TextField
                                         label="Phone"
                                         id="phone"
@@ -315,15 +315,15 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.phone &&
                                     formik.touched.phone ? (
-                                        <Typography>{errors.phone}</Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="18px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>{errors.phone}</Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="18px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <TextField
                                         id="message"
                                         name="message"
@@ -349,17 +349,17 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.message &&
                                     formik.touched.message ? (
-                                        <Typography>
-                                            {errors.message}
-                                        </Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="17px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>
+                                                {errors.message}
+                                            </Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="17px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <Button
                                         type="submit"
                                         variant="contained"

@@ -21,6 +21,8 @@ import PetCard from '../../components/home/pets/PetCard'
 import Swal from 'sweetalert2'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
 import Title from '../../components/petBrowser/Title'
+import { PublicationForm } from '../../components/formPost/PublicationForm'
+import { BsArrowLeftShort } from 'react-icons/bs'
 
 const ProfileDetail = () => {
     const dispatch = useDispatch()
@@ -30,7 +32,7 @@ const ProfileDetail = () => {
 
     const [editProfile, setEditProfile] = useState(false)
     const [editPost, setEditPost] = useState(false)
-    const [currentPet, setCurrentPet] = useState(undefined)
+    const [selectedPet, setSelectedPet] = useState(undefined)
 
     const handleModeEdit = () => {
         setEditProfile(!editProfile)
@@ -45,7 +47,7 @@ const ProfileDetail = () => {
 
     const handleEditPost = (pets) => {
         setEditPost(!editPost)
-        setCurrentPet(pets)
+        setSelectedPet(pets)
     }
 
     const handleDelete = (pet) => {
@@ -92,8 +94,21 @@ const ProfileDetail = () => {
                 gap={10}
             >
                 <Stack>
-                    {editPost && currentPet != undefined ? (
-                        <PetEdit currentPet={currentPet} />
+                    {editPost && selectedPet != undefined ? (
+                        <Stack alignItems="center">
+                            <Button
+                                variant="contained"
+                                startIcon={<BsArrowLeftShort size="24px" />}
+                                onClick={() => setEditPost(!editPost)}
+                                sx={{
+                                    alignSelf: 'flex-start',
+                                    textTransform: 'none',
+                                }}
+                            >
+                                Back
+                            </Button>
+                            <PetEdit currentPet={selectedPet} />
+                        </Stack>
                     ) : editProfile && !editPost ? (
                         <EditProfile userData={userData} />
                     ) : (
@@ -170,9 +185,7 @@ const ProfileDetail = () => {
                         </Stack>
                     )}
 
-                    {editPost ? (
-                        ''
-                    ) : (
+                    {editPost ? null : (
                         <Box
                             sx={{
                                 display: 'flex',

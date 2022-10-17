@@ -7,6 +7,7 @@ import {
     Avatar,
     Stack,
     IconButton,
+    Tooltip,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
@@ -18,7 +19,7 @@ import { AiFillDelete, AiFillEye, AiTwotoneEdit } from 'react-icons/ai'
 const PetCard = ({
     pets,
     isEdit = false,
-    isReunited = false,
+    isMeet = false,
     handleViewProfile,
     handleEditPost,
     handleDelete,
@@ -26,7 +27,7 @@ const PetCard = ({
     function capitalize(text) {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
-
+    console.log(pets)
     return pets.length ? (
         pets.map((pet) => {
             return (
@@ -52,14 +53,23 @@ const PetCard = ({
                                 backgroundColor:
                                     pet.type.toLowerCase() === 'lost'
                                         ? 'secondary.light'
-                                        : 'primary.light',
+                                        : pet.type.toLowerCase() === 'found'
+                                        ? 'primary.light'
+                                        : '',
                                 height: '200px',
                                 borderRadius: '8px',
                             }}
                         >
                             <Avatar
                                 src={pet.img[0]}
-                                sx={{ width: '170px', height: '170px' }}
+                                sx={{
+                                    width: '170px',
+                                    height: '170px',
+                                    borderColor:
+                                        pet.type !== 'Meet'
+                                            ? 'primary.main'
+                                            : '',
+                                }}
                             />
                         </Stack>
                         <Stack p="11px" gap="11px">
@@ -70,8 +80,23 @@ const PetCard = ({
                                 component="div"
                                 fontWeight={'bold'}
                                 m="0"
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: '6px',
+                                }}
                             >
-                                {pet.name}
+                                {pet.name}{' '}
+                                {isMeet && (
+                                    <Typography
+                                        fontSize="14px"
+                                        color="terciary.dark"
+                                        backgroundColor="terciary.light"
+                                    >
+                                        Refounded
+                                    </Typography>
+                                )}
                             </Typography>
                             <Stack w="100%" direction="row" display="flex">
                                 <Stack direction="row" width="50%">
@@ -99,16 +124,17 @@ const PetCard = ({
                             </Stack>
                             <Stack direction="row" width="100%">
                                 <GrMap fontSize="20px" />
-                                <Typography
-                                    ml="5px"
-                                    noWrap
-                                    variant="body2"
-                                    color="text.secondary"
-                                >
-                                    {pet.location?.country}
-                                </Typography>
+                                <Tooltip title={pet.location?.country}>
+                                    <Typography
+                                        ml="5px"
+                                        noWrap
+                                        variant="body2"
+                                        color="text.secondary"
+                                    >
+                                        {pet.location?.country}
+                                    </Typography>
+                                </Tooltip>
                             </Stack>
-                            {isReunited ? 'testeando' : 'asd'}
                             {isEdit ? (
                                 <Stack direction="row" justifyContent="center">
                                     <IconButton
@@ -149,7 +175,9 @@ const PetCard = ({
                                     color={
                                         pet.type.toLowerCase() === 'lost'
                                             ? 'secondary'
-                                            : 'primary'
+                                            : pet.type.toLowerCase() === 'found'
+                                            ? 'primary'
+                                            : 'terciary'
                                     }
                                     sx={{
                                         textTransform: 'none',
@@ -166,7 +194,10 @@ const PetCard = ({
             )
         })
     ) : (
-        <Loading />
+        <img
+            src="https://res.cloudinary.com/diyk4to11/image/upload/v1665798878/there_no_data_jrjnmm.png"
+            width="400px"
+        />
     )
 }
 

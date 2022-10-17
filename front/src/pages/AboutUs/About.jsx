@@ -137,9 +137,9 @@ const About = (props) => {
                     </Button>
                 </Stack>
             </Grid>
-            <Box ml={20}>
+            <Stack gap={10} maxWidth="1440px" width="100%">
                 <PetCardsContainer title="Meet" color="primary" />
-            </Box>
+            </Stack>
         </Stack>
     )
 }
