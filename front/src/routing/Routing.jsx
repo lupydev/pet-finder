@@ -15,6 +15,7 @@ import React, { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
 import { CreatePostFinal } from '../components/formPost/CreatePostFinal'
+import Admin from '../pages/admin/Admin'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -29,8 +30,7 @@ const Routing = () => {
     }, [])
 
     useEffect(() => {
-        // console.log(location)
-        // dispatch(renewToken())
+        userInfo.isLogged && dispatch(renewToken())
     }, [location])
 
     return (
@@ -66,6 +66,15 @@ const Routing = () => {
             <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/createPost" element={<CreatePostFinal />} />
             </Route>
+            {/* <Route
+                element={
+                    <PrivateRoute
+                        isAllowed={isUserLogged() && userInfo.isAdmin}
+                    />
+                }
+            > */}
+                <Route path="/admin" element={<Admin />} />
+            {/* </Route> */}
         </Routes>
     )
 }

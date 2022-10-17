@@ -26,10 +26,15 @@ export const extraGetUserData = {
     },
     [getUserData.fulfilled]: (state, action) => {
         if (action.payload?.data.ok) {
+            state.userInfo = {
+                ...state.userInfo,
+                id: action.payload.data.user._id,
+                isLogged: true,
+                isAdmin: action.payload.data.user.admin,
+            }
             state.userData = action.payload.data.user
         } else {
             state.userInfo.isLogged = false
-            console.log('el token ha vencido')
             googleLogout()
             window.localStorage.removeItem('user')
         }
