@@ -101,184 +101,267 @@ const RegisterForm = () => {
                 gap: '20px',
             }}
         >
-            <Typography
-                variant="h3"
-                color="secondary"
-                fontFamily={'Merriweather'}
-                fontWeight="bold"
-            >
-                Register
-            </Typography>
             <Stack
-                width="500px"
-                borderRadius="20px"
-                gap="20px"
-                padding="30px"
-                boxShadow="3"
+                direction="row"
+                width="100%"
+                sx={{ backgroundColor: 'primary.main' }}
+                height="125px"
+                gap="4px"
+                alignItems="center"
+                justifyContent="center"
             >
-                <Formik
-                    initialValues={initialValues}
-                    onSubmit={(values) => {
-                        handleSubmit(values)
-                    }}
-                    enableReinitialize={true}
-                    validationSchema={clientSchema}
+                <Stack
+                    spacing={0}
+                    position="relative"
+                    justifyContent="center"
+                    width="100%"
+                    maxWidth="1440px"
+                    height="125px"
+                    overflow="hidden"
+                    ml={10}
                 >
-                    {({
-                        handleSubmit,
-                        errors,
-                        touched,
-                        values,
-                        handleChange,
-                        handleBlur,
-                    }) => (
-                        <Form onSubmit={handleSubmit}>
-                            <Stack alignItems="center" gap="20px">
-                                <Stack alignItems="center" width="100%" gap={2}>
-                                    {loading ? (
-                                        <CircularProgress />
-                                    ) : (
-                                        <Avatar
-                                            src={image}
-                                            sx={{
-                                                width: '6rem',
-                                                height: '6rem',
-                                            }}
-                                        />
-                                    )}
-                                    <TextField
-                                        id="profilePicture"
-                                        placeholder="Upload an image"
-                                        type="file"
-                                        size="small"
-                                        name="profilePicture"
-                                        onChange={(e) => handleUpload(e)}
-                                    />
-                                </Stack>
-                                <Stack justifyContent="flex-start" width="100%">
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        error={
-                                            touched.nickname && errors.nickname
-                                                ? true
-                                                : false
-                                        }
-                                        type="text"
-                                        name="nickname"
-                                        margin="dense"
-                                        label="nickname"
-                                        helperText={
-                                            touched.nickname &&
-                                            errors.nickname &&
-                                            errors.nickname
-                                        }
-                                        size="small"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.nickname}
-                                    />
-                                </Stack>
-                                <Stack justifyContent="flex-start" width="100%">
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        error={
-                                            touched.fullname && errors.fullname
-                                                ? true
-                                                : false
-                                        }
-                                        type="text"
-                                        name="fullname"
-                                        margin="dense"
-                                        label="fullname"
-                                        helperText={
-                                            touched.fullname &&
-                                            errors.fullname &&
-                                            errors.fullname
-                                        }
-                                        size="small"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.fullname}
-                                    />
-                                </Stack>
-                                <Stack justifyContent="flex-start" width="100%">
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        error={
-                                            touched.email && errors.email
-                                                ? true
-                                                : false
-                                        }
-                                        type="email"
-                                        name="email"
-                                        margin="dense"
-                                        label="Email"
-                                        placeholder="email@example.com"
-                                        helperText={
-                                            touched.email &&
-                                            errors.email &&
-                                            errors.email
-                                        }
-                                        size="small"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.email}
-                                    />
-                                </Stack>
-                                <Stack justifyContent="flex-start" width="100%">
-                                    <TextField
-                                        sx={{ width: '100%' }}
-                                        error={
-                                            touched.password && errors.password
-                                                ? true
-                                                : false
-                                        }
-                                        type="password"
-                                        name="password"
-                                        margin="dense"
-                                        label="Password"
-                                        helperText={
-                                            touched.password &&
-                                            errors.password &&
-                                            errors.password
-                                        }
-                                        size="small"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.password}
-                                    />
-                                </Stack>
+                    <Typography fontSize="20px" color="white" fontWeight="">
+                        Sign Up
+                    </Typography>
 
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    
-                                    type="submit"
-                                    sx={{
-                                        mt: '10px',
-                                        color: 'white',
-                                        textTransform: 'none',
-                                        width: '100px',
-                                        fontSize: '16px',
-                                    }}
-                                    size="small"
-                                >
-                                    Sign Up
-                                </Button>
-                            </Stack>
-                        </Form>
-                    )}
-                </Formik>
-                <Stack justifyContent="center" direction="row" gap="10px">
-                    {' '}
-                    <Typography fontSize="16px">
-                        Already have an account?
+                    <Typography variant="h5" color="white" fontWeight="bold">
+                        Welcome On Board!
                     </Typography>
-                    <Typography component={Link} to="/login" fontSize="16px">
-                        Login
-                    </Typography>
+
+                    <Stack position="absolute" right={0}>
+                        <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1665012764/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellas_q9ukes.png" />
+                    </Stack>
                 </Stack>
             </Stack>
+
+            <Stack
+                alignItems="center"
+                justifyContent="space-between"
+                mt={3}
+                direction="row"
+            >
+                <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
+                    <img
+                        width="100%"
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
+                        alt="img"
+                    />
+                </Stack>
+                <Stack width={{ xs: '100%', md: '400px' }} margin="0 auto">
+                    <Formik
+                        initialValues={initialValues}
+                        onSubmit={(values) => {
+                            handleSubmit(values)
+                        }}
+                        enableReinitialize={true}
+                        validationSchema={clientSchema}
+                    >
+                        {({
+                            handleSubmit,
+                            errors,
+                            touched,
+                            values,
+                            handleChange,
+                            handleBlur,
+                        }) => (
+                            <Form onSubmit={handleSubmit}>
+                                <Stack
+                                    alignItems="start"
+                                    gap="10px"
+                                    margin={{ xs: '0 2rem', md: 'auto' }}
+                                >
+                                    <Typography fontSize="20px" variant="h5">
+                                        <b>Sign Up</b>
+                                    </Typography>
+                                    <Typography
+                                        fontSize="14px"
+                                        color="primary.main"
+                                    >
+                                        Please fill your information bellow
+                                    </Typography>
+                                    <Stack
+                                        alignItems="center"
+                                        width="100%"
+                                        gap={2}
+                                    >
+                                        {loading ? (
+                                            <CircularProgress />
+                                        ) : (
+                                            <Avatar
+                                                src={image}
+                                                sx={{
+                                                    width: '6rem',
+                                                    height: '6rem',
+                                                }}
+                                            />
+                                        )}
+                                        <TextField
+                                            id="profilePicture"
+                                            placeholder="Upload an image"
+                                            type="file"
+                                            size="small"
+                                            name="profilePicture"
+                                            onChange={(e) => handleUpload(e)}
+                                        />
+                                    </Stack>
+                                    <Stack
+                                        justifyContent="flex-start"
+                                        width="100%"
+                                    >
+                                        <TextField
+                                            sx={{ width: '100%' }}
+                                            error={
+                                                touched.nickname &&
+                                                errors.nickname
+                                                    ? true
+                                                    : false
+                                            }
+                                            type="text"
+                                            name="nickname"
+                                            margin="dense"
+                                            label="nickname"
+                                            helperText={
+                                                touched.nickname &&
+                                                errors.nickname &&
+                                                errors.nickname
+                                            }
+                                            size="small"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.nickname}
+                                        />
+                                    </Stack>
+                                    <Stack
+                                        justifyContent="flex-start"
+                                        width="100%"
+                                    >
+                                        <TextField
+                                            sx={{ width: '100%' }}
+                                            error={
+                                                touched.fullname &&
+                                                errors.fullname
+                                                    ? true
+                                                    : false
+                                            }
+                                            type="text"
+                                            name="fullname"
+                                            margin="dense"
+                                            label="fullname"
+                                            helperText={
+                                                touched.fullname &&
+                                                errors.fullname &&
+                                                errors.fullname
+                                            }
+                                            size="small"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.fullname}
+                                        />
+                                    </Stack>
+                                    <Stack
+                                        justifyContent="flex-start"
+                                        width="100%"
+                                    >
+                                        <TextField
+                                            sx={{ width: '100%' }}
+                                            error={
+                                                touched.email && errors.email
+                                                    ? true
+                                                    : false
+                                            }
+                                            type="email"
+                                            name="email"
+                                            margin="dense"
+                                            label="email"
+                                            placeholder="email@example.com"
+                                            helperText={
+                                                touched.email &&
+                                                errors.email &&
+                                                errors.email
+                                            }
+                                            size="small"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.email}
+                                        />
+                                    </Stack>
+                                    <Stack
+                                        justifyContent="flex-start"
+                                        width="100%"
+                                    >
+                                        <TextField
+                                            sx={{ width: '100%' }}
+                                            error={
+                                                touched.password &&
+                                                errors.password
+                                                    ? true
+                                                    : false
+                                            }
+                                            type="password"
+                                            name="password"
+                                            margin="dense"
+                                            label="password"
+                                            helperText={
+                                                touched.password &&
+                                                errors.password &&
+                                                errors.password
+                                            }
+                                            size="small"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.password}
+                                        />
+                                    </Stack>
+
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        type="submit"
+                                        sx={{
+                                            mt: '10px',
+                                            color: 'white',
+                                            textTransform: 'none',
+                                            width: '100px',
+                                            fontSize: '16px',
+                                            alignSelf: 'end',
+                                        }}
+                                        size="small"
+                                    >
+                                        Sign Up
+                                    </Button>
+                                </Stack>
+                            </Form>
+                        )}
+                    </Formik>
+                    <Stack
+                        justifyContent="center"
+                        direction="row"
+                        gap="10px"
+                        margin="1rem 0"
+                    >
+                        {' '}
+                        <Typography fontSize="16px">
+                            Already have an account?
+                        </Typography>
+                        <Typography
+                            component={Link}
+                            to="/login"
+                            fontSize="16px"
+                        >
+                            Login
+                        </Typography>
+                    </Stack>
+                </Stack>
+            </Stack>
+            <Stack
+                height="100px"
+                width={'100%'}
+                sx={{
+                    backgroundImage:
+                        'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
+                    backgroundRepeat: 'repeat',
+                }}
+            ></Stack>
         </Stack>
     )
 }
