@@ -1,132 +1,192 @@
 import { DataGrid } from '@mui/x-data-grid'
-import { Button } from '@mui/material'
+import { Avatar, Button, IconButton } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
-import React,{ useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
+import { getAllUsers } from '../../redux/asyncActions/user/getAllUsers'
+import { HiOutlineTrash } from 'react-icons/hi'
+import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai'
+import { getUserById } from '../../redux/asyncActions/user/getUserById'
+import Swal from 'sweetalert2'
+import { deleteUserData } from '../../redux/asyncActions/user/deleteUserData'
+import { putEditUser } from '../../redux/asyncActions/user/putEditUser'
+import { toggleUserAdmin } from '../../redux/asyncActions/user/toggleUserAdmin'
 
-export default function AdminUser({ renderControl, setRenderControl }) {
-    //   const { allUsers } = useSelector((state) => state.pet)
-    //   const [loading, setLoading] = useState(true)
-    //   const dispatch = useDispatch()
+export default function AdminUser() {
+    const dispatch = useDispatch()
+    const { allUsers, selectedUser, statusDelete } = useSelector(
+        (state) => state.user
+    )
+    const [loading, setLoading] = useState(true)
+    const [statusButton, setStatusButton] = useState(false)
+    const [deleteButton, setDeleteButton] = useState(false)
 
-    //   useEffect(() => {
-    //     dispatch(getAllUsers())
-    // }, [])
+    const handleClickDelete = (user) => {
+        // console.log(user);
+        dispatch(getUserById(user._id))
+        setDeleteButton(true)
+    }
 
-    //   useEffect(() => {
-    //     console.log(allUsers)
-    //   }, [allUsers])
+    const deleteUser = (user) => {
+        Swal.fire({
+            title: `Do you really want to Delete ${user.nickname}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: 'Do not delete',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteUserData(user._id))
+            }
+        })
+        setDeleteButton(false)
+    }
 
-    // useEffect(() => {
-    //     dispatch(getAdoptablePets())
-    //     if (statusCreate === 'success') {
-    //         swal({
-    //             title: 'Your Pet has been Deleted!',
-    //             icon: 'success',
-    //             button: 'Ok!',
-    //         })
-    //         dispatch(cleanStatusCreate())
-    //     }
-    // }, [statusCreate])
+    const handleChangeStatus = (user) => {
+        Swal.fire({
+            title: `Do you want to change status of ${user.nickname}?`,
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const newUser = { ...user, admin: !user.admin }
+                console.log(newUser, 'NewUser')
+                dispatch(toggleUserAdmin({ id: user._id, newData: {admin:!user.admin} }))
+            }
+        })
+    }
 
-    // const rows = petDetails?.map((user, index) => ({
-    //     _id: user._id,
-    //     name: user.fullname,
-    //     email: user.email,
-    //     admin: user.admin,
-    //     status: user.status,
-    // }))
+    useEffect(() => {
+        if (statusDelete === 'success') {
+            dispatch(getAllUsers())
+            setLoading(true)
+        }
+    }, [statusDelete])
 
-    // const handleDelete = (e, params) => {
-    //     params.row.status = 'Deleted'
-    //     const _id = params.row._id
-    //     const { id, ...values } = params.row
+    useEffect(() => {
+        allUsers.length > 0 && setLoading(false)
+    }, [allUsers])
 
-    //     dispatch(editPetAdoption({ _id, values }))
-    // }
-    // const handleEdit = (e, params) => {
-    //     setRenderControl({
-    //         ...renderControl,
-    //         shelterEditPetInfo: petsAdoption[params.id - 1],
-    //         shelterPets: false,
-    //         shelterEditPet: true,
-    //     })
-    // }
+    useEffect(() => {
+        if (selectedUser !== undefined) {
+            if (statusButton) {
+                handleChangeStatus(selectedUser)
+            }
+            if (deleteButton) {
+                deleteUser(selectedUser)
+            }
+        }
+    }, [selectedUser])
+
+    const rows = allUsers?.map((user, index) => ({
+        id: index + 1,
+        _id: user._id,
+        avatar: user.img,
+        nickname: user.nickname,
+        name: user.fullname,
+        email: user.email,
+        admin: user.admin,
+        status: user.status,
+    }))
 
     const columns = [
         {
+            field: 'avatar',
+            headerName: '',
+            editable: false,
+            width: 60,
+            renderCell: (cell) =>
+                cell.value ? <Avatar src={cell.value} /> : <Avatar />,
+        },
+        {
+            field: 'nickname',
+            headerName: 'Nickname',
+            editable: false,
+            width:220,
+        },
+        {
             field: 'name',
             headerName: 'Name',
-
-            editable: true,
+            editable: false,
+            width:260,
         },
         {
             field: 'email',
             headerName: 'Email',
-
-            editable: true,
-        },
-
-        {
-            field: 'admin',
-            headerName: 'Admin',
-
-            editable: true,
+            editable: false,
+            width:330,
         },
         {
             field: 'status',
             headerName: 'Status',
-
-            editable: true,
+            editable: false,
+            width: 120,
+        },
+        {
+            field: 'admin',
+            headerName: 'Admin',
+            editable: false,
+            width: 80,
+            align: 'center',
+            renderCell: (cell) =>
+                cell.value ? (
+                    <AiFillCheckCircle color="green" size='26px' />
+                ) : (
+                    <AiFillCloseCircle color="red" size='26px'  />
+                ),
         },
         {
             field: 'deleteAction',
             headerName: 'Delete',
-
+            align: 'center',
+            sortable: false,
+            width: 80,
+            renderCell: (params) =>
+                allUsers?.id !== params.row.id ? (
+                    <IconButton
+                        sx={{
+                            backgroundColor: '#f21a1a',
+                            '&:hover': { backgroundColor: '#ff6d6d' },
+                        }}
+                        onClick={() => handleClickDelete(params.row)}
+                        size="small"
+                    >
+                        <HiOutlineTrash color="white" />
+                    </IconButton>
+                ) : null,
+        },
+        {
+            field: 'toAdminAction',
+            headerName: 'Change Status',
+            width: 120,
             align: 'center',
             sortable: false,
             renderCell: (params) =>
-                petsAdoption?.id !== params.row.id ? (
+                allUsers?.id !== params.row.id ? (
                     <Button
-                        variant="contained"
-                        color="error"
-                        onClick={(e) => handleDelete(e, params)}
+                        variant="outlined"
                         size="small"
-                        style={{ width: '15px' }}
+                        onClick={() => handleChangeStatus(params.row)}
+                        sx={{ textTransform: 'none', fontSize: '12px' }}
                     >
-                        Delete
+                        {params.row.admin ? 'To User' : 'To Admin'}
                     </Button>
                 ) : null,
         },
-        // {
-        //     field: 'editAction',
-        //     headerName: 'Edit',
-
-        //     align: 'center',
-        //     sortable: false,
-        //     renderCell: (params) =>
-        //         petsAdoption?.id !== params.row.id ? (
-        //             <Button
-        //                 variant="contained"
-        //                 color="success"
-        //                 onClick={(e) => handleEdit(e, params)}
-        //                 size="small"
-        //             >
-        //                 Edit
-        //             </Button>
-        //         ) : null,
-        // },
     ]
 
     return (
-        <>
-            <DataGrid
-                rows={[]}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                autoHeight={true}
-            />
-        </>
+        <DataGrid
+            components={{
+                LoadingOverlay: LinearProgress,
+            }}
+            loading={loading}
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            autoHeight={true}
+        />
     )
 }

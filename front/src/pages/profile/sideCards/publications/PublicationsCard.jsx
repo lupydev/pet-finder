@@ -1,19 +1,27 @@
 import { Button, Typography } from '@mui/material'
 import { Stack } from '@mui/system'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Loading from '../../../../components/loading/Loading'
 import { getUserPets } from '../../../../redux/asyncActions/user/getUserPets'
 import { cleanPetsData } from '../../../../redux/features/user/userSlice'
+import PetEdit from '../../PetEdit'
 import PetCard from './PetCard'
 
 const PublicationsCard = () => {
     const dispatch = useDispatch()
     const { userData, userPets, status } = useSelector((state) => state.user)
+    const { statusUpdate } = useSelector((state) => state.pet)
+    const [edit, setEdit] = useState(false)
+    const [selectedPet, setSelectedPet] = useState(undefined)
+
+    const handleEditClick = (pet) => {
+        setEdit(!edit)
+        setSelectedPet(pet)
+    }
 
     useEffect(() => {
-        dispatch(cleanPetsData())
         userData.pets.map((pet) => {
             dispatch(getUserPets(pet))
         })
@@ -23,7 +31,22 @@ const PublicationsCard = () => {
         }
     }, [])
 
-    return (
+    useEffect(() => {
+        if (statusUpdate === 'success') {
+            dispatch(cleanPetsData())
+            userData !== undefined &&
+                userData.pets.map((pet) => {
+                    dispatch(getUserPets(pet))
+                })
+        }
+        return () => {
+            dispatch(cleanPetsData())
+        }
+    }, [statusUpdate])
+
+    return edit ? (
+        <PetEdit selectedPet={selectedPet} setEdit={setEdit} />
+    ) : (
         <>
             <Typography variant="h5" fontWeight="bold">
                 These are your publications
@@ -39,7 +62,11 @@ const PublicationsCard = () => {
                 {status === 'success' ? (
                     userPets.length > 0 ? (
                         userPets.map((pet) => (
-                            <PetCard key={pet._id} pet={pet} />
+                            <PetCard
+                                key={pet._id}
+                                pet={pet}
+                                handleEditClick={handleEditClick}
+                            />
                         ))
                     ) : (
                         <Button

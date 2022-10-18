@@ -67,6 +67,7 @@ const AboutUs = () => {
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
+                                alignItems: 'center',
                                 color: 'secondary.light',
                                 fontWeight: '700',
                                 textTransform: 'none',
@@ -82,6 +83,7 @@ const AboutUs = () => {
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
+                                alignItems: 'center',
                                 color: 'secondary.light',
                                 fontWeight: '700',
                                 textTransform: 'none',

@@ -17,20 +17,29 @@ const OurTeamContainer = () => {
             >
                 Our Team!
             </Typography>
-            <Grid
-                display="grid"
+            <Stack
+                direction="row"
                 maxWidth="1024px"
-                gridTemplateColumns="1fr 1fr 1fr"
                 gap={5}
                 margin="0 auto"
                 mt={6}
+                alignItems="center"
             >
-                {team.map((item) => (
-                    <Box key={item._id}>
-                        <TeamCard person={item} />
-                    </Box>
-                ))}
-            </Grid>
+                <Stack gap="30px">
+                    <TeamCard />
+                    <TeamCard />
+                    <TeamCard />
+                </Stack>
+                <Stack gap="30px">
+                    <TeamCard />
+                    <TeamCard />
+                </Stack>
+                <Stack gap="30px">
+                    <TeamCard />
+                    <TeamCard />
+                    <TeamCard />
+                </Stack>
+            </Stack>
         </Box>
     )
 }

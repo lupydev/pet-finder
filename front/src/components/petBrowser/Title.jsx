@@ -20,7 +20,7 @@ const Title = ({ title, desc = '', name }) => {
                 maxWidth="1440px"
                 height="125px"
                 overflow="hidden"
-                ml={10}
+                ml={{xs: 3, sm: 5, md: 10}}
             >
                 {desc !== '' ? (
                     <>

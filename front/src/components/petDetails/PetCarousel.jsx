@@ -22,12 +22,12 @@ const PetCarousel = () => {
     }, [petDetail])
 
     return (
-        <Stack width="750px" height="330px" sx={{}} mt="10px">
+        <Stack width={{xs: '100%', sm: '50%', md:'750px'}} height='280px' sx={{}} mt="10px">
             {data.length && (
                 <Carousel
                     data={data}
-                    width="750px"
-                    height="330px"
+                    width={{xs: '100%', sm: '50%', md:'750px'}}
+                    height='270px'
                     radius="10px"
                     dots={false}
                     automatic={false}
@@ -35,6 +35,7 @@ const PetCarousel = () => {
                     slideImageFit="contain"
                     thumbnails={false}
                     thumbnailWidth="100px"
+                    
                 />
             )}
         </Stack>

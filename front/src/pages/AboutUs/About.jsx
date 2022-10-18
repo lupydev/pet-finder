@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import PetCardsContainer from '../../components/home/pets/PetCardsContainer'
+import PetCardsReunitedContainer from './PetCardsReunitedContainer' 
 import SvgCard from './SvgCard'
 import OurTeamContainer from './OurTeamContainer'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
@@ -11,7 +11,7 @@ const About = () => {
     const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const dispatch = useDispatch()
     const [allPets, setAllPets] = useState([])
-    const [petsMeet, setPetsMeet] = useState([])
+    const [pets, setPets] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const About = () => {
 
     useEffect(() => {
         if (allPets.length > 0) {
-            setPetsMeet(allPets.filter((pet) => pet.meet))
+            setPets(allPets.filter((pet) => pet.meet))
         }
     }, [allPets])
 
@@ -179,8 +179,8 @@ const About = () => {
                 </Stack>
             </Grid>
             <Stack gap={10} maxWidth="1440px" width="100%">
-                <PetCardsContainer
-                    petsMeet={petsMeet}
+                <PetCardsReunitedContainer
+                    pets={pets}
                     title="Reunited"
                     color="primary"
                 />

@@ -9,7 +9,6 @@ import Loading from '../../loading/Loading'
 const PetCardsContainer = (props) => {
     const dispatch = useDispatch()
     const type = props.title
-    const petsReunited = props.petsMeet
     const { LostPetsData, FoundPetsData, status } = useSelector(
         (state) => state.pet
     )
@@ -38,19 +37,15 @@ const PetCardsContainer = (props) => {
                 ).slice(0, 4)
             )
     }, [FoundPetsData])
+
     return (
-        <Stack gap="25px">
+        <Stack gap="40px">
             <Typography
-                variant={petsReunited?.length > 0 ? 'h4' : 'h3'}
+                variant={'h3'}
                 color={props.color}
                 fontFamily={'Merriweather'}
                 fontWeight="bold"
                 px="40px"
-                sx={
-                    petsReunited?.length > 0
-                        ? { px: '0px', marginLeft: '140px' }
-                        : ''
-                }
             >
                 {props.title} Pets
             </Typography>
@@ -65,56 +60,31 @@ const PetCardsContainer = (props) => {
                         pets={
                             type === 'Lost'
                                 ? limitedLostPetsData
-                                : type === 'Found'
-                                ? limitedFoundPetsData
-                                : petsReunited
+                                : limitedFoundPetsData
                         }
                     />
                 ) : (
                     <Loading />
                 )}
             </Stack>
-            {petsReunited?.length > 0 ? (
-                ''
-            ) : (
-                <Button
-                    component={Link}
-                    to={`/${props.title.toLowerCase()}Pets`}
-                    variant="contained"
-                    color={
-                        props.title.toLowerCase() === 'lost'
-                            ? 'secondary'
-                            : props.title.toLowerCase() === 'found'
-                            ? 'primary'
-                            : 'terciary'
-                    }
-                    sx={
-                        ({
-                            textTransform: 'none',
-                            px: '100px',
-                            mx: 'auto',
-                            borderRadius: '8px',
-                        },
-                        petsReunited?.length > 0
-                            ? {
-                                  color: 'terciary.dark',
-                                  background: '#b6eeba',
-                                  textTransform: 'none',
-                                  px: '100px',
-                                  mx: 'auto',
-                                  borderRadius: '8px',
-                              }
-                            : {
-                                  textTransform: 'none',
-                                  px: '100px',
-                                  mx: 'auto',
-                                  borderRadius: '8px',
-                              })
-                    }
-                >
-                    View all {props.title.toLowerCase()} pets
-                </Button>
-            )}
+            <Button
+                component={Link}
+                to={`/${props.title.toLowerCase()}Pets`}
+                variant="contained"
+                color={
+                    props.title.toLowerCase() === 'lost'
+                        ? 'secondary'
+                        : 'primary'
+                }
+                sx={{
+                    textTransform: 'none',
+                    px: '100px',
+                    mx: 'auto',
+                    borderRadius: '8px',
+                }}
+            >
+                View all {props.title.toLowerCase()} pets
+            </Button>
         </Stack>
     )
 }

@@ -3,10 +3,12 @@ import { Stack } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { AiFillEdit } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
+import { getAllUsers } from '../../../../redux/asyncActions/user/getAllUsers'
+import { getUserData } from '../../../../redux/asyncActions/user/getUserData'
 import EditProfile from './EditProfile'
 
 const Profile = () => {
-    const { userData, userPets, allUsers } = useSelector((state) => state.user)
+    const { userData } = useSelector((state) => state.user)
     const dispatch= useDispatch();
 
     const [edit, setEdit] = useState(false)
@@ -15,13 +17,9 @@ const Profile = () => {
         setEdit(!edit)
     }
 
-    // useEffect(() =>{
-    //     dispatch(getAllUsers())
-    // },[])
-
-    // useEffect(() =>{
-    //     console.log(allUsers)
-    // },[allUsers])
+    useEffect(() =>{
+        dispatch(getUserData())
+    },[])
 
     return (
         <>

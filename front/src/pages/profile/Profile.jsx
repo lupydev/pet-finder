@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../components/loading/Loading'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
-import ProfileDetail from './ProfileDetail'
+import ProfileContainer from './ProfileContainer'
 import ProfileCard from './sideCards/profile/ProfileCard'
 import { BsImages } from 'react-icons/bs'
 import { MdPets } from 'react-icons/md'
@@ -12,16 +12,16 @@ import UnderConstruction from './sideCards/underConstruction/UnderConstruction'
 import PublicationsCard from './sideCards/publications/PublicationsCard'
 
 const menuItems = [
+    {
+        id: 'publications',
+        title: 'Publications',
+        icon: <BsImages size="22px" />,
+    },
     { id: 'profile', title: 'Profile', icon: <HiUserCircle size="22px" /> },
     {
         id: 'messages',
         title: 'Messages',
         icon: <TbMessages size="22px" />,
-    },
-    {
-        id: 'publications',
-        title: 'Publications',
-        icon: <BsImages size="22px" />,
     },
     {
         id: 'notifications',
@@ -38,21 +38,21 @@ const menuItems = [
 const Profile = () => {
     const dispatch = useDispatch()
     const { userData } = useSelector((state) => state.user)
-    const [view, setView] = useState(menuItems[2].id)
+    const [view, setView] = useState(menuItems[0].id)
 
     useEffect(() => {
-        userData === undefined && dispatch(getUserData())
+        dispatch(getUserData())
     }, [])
 
     return userData ? (
-        <ProfileDetail menuItems={menuItems} view={view} setView={setView}>
+        <ProfileContainer menuItems={menuItems} view={view} setView={setView}>
+            {view === 'publications' && <PublicationsCard />}
             {view === 'profile' && <ProfileCard />}
             {view === 'messages' && <UnderConstruction />}
-            {view === 'publications' && <PublicationsCard />}
             {view === 'notifications' && <UnderConstruction />}
             {view === 'myPets' && <UnderConstruction />}
             {view === 'deleteProfile' && <UnderConstruction />}
-        </ProfileDetail>
+        </ProfileContainer>
     ) : (
         <Loading />
     )

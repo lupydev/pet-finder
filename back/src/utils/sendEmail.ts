@@ -1,3 +1,4 @@
+import { emailPassword, emailApi } from './constants'
 import nodemailer from 'nodemailer'
 
 const transporter = nodemailer.createTransport({
@@ -7,17 +8,17 @@ const transporter = nodemailer.createTransport({
         rejectUnauthorized: false,
     },
     auth: {
-        user: 'nocountry.s4.11.mern@gmail.com',
-        pass: 'eanbexrdhwhoptya',
+        user: emailApi,
+        pass: emailPassword,
     },
 })
 
-export const sendEmail = async (email: any, template: any) => {
+export const sendEmail = async (email: any, template: any, sub: any) => {
     await transporter.sendMail({
-        from: 'PetFinder <nocountry.s4.11.mern@gmail.com>', // sender address
+        from: `PetFinder <${email}>`, // sender address
         to: email, // list of receivers
-        subject: 'Bienvenido ✔', // Subject line
-        text: 'Bienvenido', // plain text body
+        subject: sub, // Subject line
+        text: sub, // plain text body
         html: template, // html body
     })
 }

@@ -1,8 +1,13 @@
 import { Stack, Avatar, Button, Typography, styled, Chip } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Swal from 'sweetalert2'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { editPet } from '../../../../redux/asyncActions/pet/editPet'
+import { useNavigate } from 'react-router-dom'
+import {
+    cleanPetsData,
+    getUserPets,
+} from '../../../../redux/features/user/userSlice'
 
 const CustomButton = styled(Button)(({ theme }) => ({
     color: theme.palette.secondary.main,
@@ -15,10 +20,13 @@ const CustomButton = styled(Button)(({ theme }) => ({
     },
 }))
 
-const PetCard = ({ pet }) => {
+const PetCard = ({ pet, handleEditClick }) => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { userData } = useSelector((state) => state.user)
+    const { statusUpdate } = useSelector((state) => state.pet)
 
-    const handleClick = (e) => {
+    const handleStatusClick = (e) => {
         Swal.fire({
             title:
                 pet?.type === 'Lost'
@@ -26,7 +34,6 @@ const PetCard = ({ pet }) => {
                     : 'Did you find the owner of this pet?',
             showCancelButton: true,
             confirmButtonColor: '#3981BF',
-            cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, I found it!',
         }).then((result) => {
             if (result.isConfirmed) {
@@ -35,15 +42,14 @@ const PetCard = ({ pet }) => {
                 petValues.meet = !petValues.meet
 
                 dispatch(editPet({ id: pet._id, newData: petValues }))
-
-                Swal.fire(
-                    'Congratulations!',
-                    "We're happy to hear that!.",
-                    'success'
-                )
             }
         })
     }
+
+    const handleClick = () => {
+        navigate(`/${pet.type.toLowerCase()}Pets/${pet._id}`)
+    }
+
     const getColor = () => {
         if (pet.meet) {
             return '#D0F5E1'
@@ -52,6 +58,16 @@ const PetCard = ({ pet }) => {
         }
         return 'primary.light'
     }
+
+    const getAltColor = () => {
+        if (pet.meet) {
+            return '#2e7d32'
+        } else if (pet?.type === 'Lost') {
+            return 'secondary.main'
+        }
+        return 'primary.main'
+    }
+
     return (
         <Stack
             width="260px"
@@ -62,7 +78,6 @@ const PetCard = ({ pet }) => {
             sx={{
                 '&:hover': {
                     transform: 'scale(1.02)',
-                    cursor: 'pointer',
                     transition: 'all .2s',
                 },
             }}
@@ -73,6 +88,14 @@ const PetCard = ({ pet }) => {
                 p="40px"
                 backgroundColor={getColor}
                 borderRadius="8px"
+                onClick={handleClick}
+                sx={{
+                    transition: 'all .3s',
+                    '&:hover': {
+                        backgroundColor:  getAltColor ,
+                    },
+                    cursor: 'pointer',
+                }}
             >
                 <Avatar
                     src={pet?.img[0]}
@@ -101,11 +124,15 @@ const PetCard = ({ pet }) => {
                         textTransform: 'none',
                     }}
                     fullWidth
-                    onClick={handleClick}
+                    onClick={handleStatusClick}
                 >
                     Status
                 </Button>
-                <CustomButton variant="contained" sx={{}} fullWidth>
+                <CustomButton
+                    variant="contained"
+                    onClick={() => handleEditClick(pet)}
+                    fullWidth
+                >
                     Edit
                 </CustomButton>
             </Stack>

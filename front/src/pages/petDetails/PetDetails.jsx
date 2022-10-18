@@ -60,7 +60,7 @@ const PetDetails = (props) => {
                 }}
             >
                 <PetUserContainer description={petDetail?.description} />
-                <Stack width="100%" px={10} gap="15px">
+                <Stack width="100%" px={{xs: 3, sm: 5, md: 10}} gap="15px">
                     <PetInfo month={petMonth} day={petDay} year={petYear} />
                     <PetLocation />
                 </Stack>
