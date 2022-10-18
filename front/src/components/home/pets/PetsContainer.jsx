@@ -4,7 +4,7 @@ import PetCardsContainer from './PetCardsContainer'
 
 const PetsContainer = () => {
     return (
-        <Stack gap={10} maxWidth='1440px' width='100%'>
+        <Stack gap={5} maxWidth='1440px' width='100%'>
             <PetCardsContainer title="Lost" color="secondary" />
             <Stack
                 height="100px"
