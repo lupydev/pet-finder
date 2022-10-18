@@ -58,10 +58,10 @@ const Login = () => {
 
     return (
         <Stack
-        justifyContent= 'center'
-        alignItems= 'center'
-        width= '100%'
-        gap= '20px'
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            gap="20px"
         >
             <Stack
                 direction="row"
@@ -96,15 +96,20 @@ const Login = () => {
                 </Stack>
             </Stack>
 
-            <Stack alignItems="center" justifyContent='space-between' mt={3} direction='row'>
-                <Stack width='50%' display={{ xs: 'none', md: 'flex' }}>
+            <Stack
+                alignItems="center"
+                justifyContent="space-between"
+                mt={3}
+                direction="row"
+            >
+                <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
                     <img
                         width="100%"
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
                         alt="img"
                     />
                 </Stack>
-                <Stack width={{xs:'100%', md:'400px'}} margin='0 auto'>
+                <Stack width={{ xs: '100%', md: '400px' }} margin="0 auto">
                     <Formik
                         initialValues={{
                             email: '',
@@ -124,12 +129,12 @@ const Login = () => {
                         }) => {
                             return (
                                 <Form onSubmit={handleSubmit}>
-                                    <Stack alignItems="start" gap="20px">
+                                    <Stack alignItems="start" gap="10px">
                                         <Typography
                                             fontSize="20px"
                                             variant="h5"
                                         >
-                                            Log In
+                                            <b>Log In</b>
                                         </Typography>
                                         <Typography
                                             fontSize="14px"
@@ -137,7 +142,7 @@ const Login = () => {
                                         >
                                             Please fill your information bellow
                                         </Typography>
-                                        <Stack width='100%'>
+                                        <Stack width="100%">
                                             <TextField
                                                 sx={{ width: '100%' }}
                                                 error={
@@ -149,7 +154,7 @@ const Login = () => {
                                                 type="email"
                                                 name="email"
                                                 margin="dense"
-                                                label="Email"
+                                                label="email"
                                                 placeholder="email@example.com"
                                                 helperText={
                                                     touched.email &&
@@ -163,7 +168,7 @@ const Login = () => {
                                             />
                                         </Stack>
 
-                                        <Stack width='100%'>
+                                        <Stack width="100%">
                                             <TextField
                                                 sx={{ width: '100%' }}
                                                 error={
@@ -175,7 +180,7 @@ const Login = () => {
                                                 type="password"
                                                 name="password"
                                                 margin="dense"
-                                                label="Password"
+                                                label="password"
                                                 helperText={
                                                     touched.password &&
                                                     errors.password &&
@@ -236,6 +241,15 @@ const Login = () => {
                     />
                 </Stack>
             </Stack>
+            <Stack
+                height="100px"
+                width={'100%'}
+                sx={{
+                    backgroundImage:
+                        'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
+                    backgroundRepeat: 'repeat',
+                }}
+            ></Stack>
         </Stack>
     )
 }
