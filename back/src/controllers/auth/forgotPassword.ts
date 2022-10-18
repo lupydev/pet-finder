@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import User from '../../schemas/User'
 import jwt from 'jsonwebtoken'
-import { secretKeyReset } from '../../utils/constants'
+import { secretKey } from '../../utils/constants'
 import { sendEmail } from '../../utils/sendEmail'
 import { baseUrl } from '../../../src/utils/constants'
 import { getTemplateForgotPassword } from '../../utils/getTemplateForgotPassword'
@@ -15,8 +15,8 @@ const forgotPassword = async (req: Request, res: Response) => {
         }
         const id = user._id
         //creo nuevo token
-        const token = jwt.sign({ email, id }, secretKeyReset, {
-            expiresIn: '30s',
+        const token = jwt.sign({ email, id }, secretKey, {
+            expiresIn: '10m',
         })
 
         //guardo el token nuevo en base de datos
