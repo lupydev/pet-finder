@@ -1,26 +1,79 @@
 import { DataGrid } from '@mui/x-data-grid'
-import { IconButton } from '@mui/material'
+import { IconButton, Stack, Typography } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
 import LinearProgress from '@mui/material/LinearProgress'
 import { HiOutlineTrash } from 'react-icons/hi'
-import { AiFillEdit } from 'react-icons/ai'
+import {
+    AiFillCheckCircle,
+    AiFillCloseCircle,
+    AiFillEdit,
+} from 'react-icons/ai'
+import PetEdit from '../../pages/profile/PetEdit'
+import { getPetById } from '../../redux/asyncActions/pet/getPetById'
+import { deletePetPost } from '../../redux/asyncActions/pet/deletePetPost'
+import Swal from 'sweetalert2'
 
-export default function AdminPets({ renderControl, setRenderControl }) {
-    const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
+export default function AdminPets({ value }) {
+    const { petDetail, LostPetsData, FoundPetsData, statusDelete } =
+        useSelector((state) => state.pet)
     const dispatch = useDispatch()
     const [allPets, setAllPets] = useState([])
     const [loading, setLoading] = useState(true)
+    const [edit, setEdit] = useState(false)
+    const [selectedPet, setSelectedPet] = useState(undefined)
+    const [editButton, setEditButton] = useState(false)
+    const [deleteButton, setDeleteButton] = useState(false)
+
+    const handleEditClick = (pet) => {
+        dispatch(getPetById(pet._id))
+        setEditButton(!editButton)
+    }
+
+    const handleDelete = (pet) => {
+        // params.row.status = 'Deleted'
+        dispatch(getPetById(pet._id))
+        setDeleteButton(true)
+    }
+
+    const deletePet = (pet) => {
+        Swal.fire({
+            title: `Do you really want to Delete ${pet.name}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: 'Do not delete',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deletePetPost(pet._id))
+            }
+        })
+        setDeleteButton(false)
+    }
 
     useEffect(() => {
-        dispatch(getPets('Lost'))
-        dispatch(getPets('Found'))
-    }, [])
+        if (statusDelete === 'success') {
+            dispatch(getPets('Lost'))
+            dispatch(getPets('Found'))
+            setLoading(true)
+        }
+    }, [statusDelete])
+
+    useEffect(() => {
+        if (petDetail !== undefined) {
+            if (editButton) {
+                setEdit(!edit)
+            }
+            if (deleteButton) {
+                deletePet(petDetail)
+            }
+            setSelectedPet(petDetail)
+        }
+    }, [petDetail])
 
     useEffect(() => {
         if (LostPetsData.length > 0 && FoundPetsData.length > 0) {
-            // console.log(LostPetsData, 'LOST',FoundPetsData, 'FOUND' );
             setAllPets([...FoundPetsData, ...LostPetsData])
         }
     }, [LostPetsData, FoundPetsData])
@@ -29,21 +82,14 @@ export default function AdminPets({ renderControl, setRenderControl }) {
         allPets.length > 0 && setLoading(false)
     }, [allPets])
 
-    // useEffect(() => {
-    //     dispatch(getAdoptablePets())
-    //     if (statusCreate === 'success') {
-    //         swal({
-    //             title: 'Your Pet has been Deleted!',
-    //             icon: 'success',
-    //             button: 'Ok!',
-    //         })
-    //         dispatch(cleanStatusCreate())
-    //     }
-    // }, [statusCreate])
+    useEffect(() => {
+        setEdit(false)
+    }, [value])
 
     const rows = allPets?.map((pet, index) => ({
         _id: pet._id,
         id: index + 1,
+        userId: pet.userId,
         name: pet.name,
         specie: pet.species.name,
         breed: pet.breed.name,
@@ -57,77 +103,75 @@ export default function AdminPets({ renderControl, setRenderControl }) {
         meet: pet.meet,
     }))
 
-    // const handleDelete = (e, params) => {
-    //     params.row.status = 'Deleted'
-    //     const _id = params.row._id
-    //     const { id, ...values } = params.row
-
-    //     dispatch(editPetAdoption({ _id, values }))
-    // }
-    // const handleEdit = (e, params) => {
-    //     setRenderControl({
-    //         ...renderControl,
-    //         shelterEditPetInfo: petsAdoption[params.id - 1],
-    //         shelterPets: false,
-    //         shelterEditPet: true,
-    //     })
-    // }
-
     const columns = [
         {
             field: 'name',
             headerName: 'Name',
-            editable: true,
+            editable: false,
         },
         {
             field: 'specie',
             headerName: 'Specie',
-            editable: true,
+            editable: false,
+            renderCell: (cell) =>
+                cell.value ? (
+                    <Typography textTransform="capitalize" fontSize="16px">
+                        {cell.value}
+                    </Typography>
+                ) : null,
         },
         {
             field: 'breed',
             headerName: 'Breed',
-            editable: true,
+            editable: false,
         },
         {
             field: 'gender',
             headerName: 'Gender',
-            editable: true,
+            editable: false,
         },
         {
             field: 'size',
             headerName: 'Size',
-            editable: true,
+            editable: false,
         },
         {
             field: 'age',
             headerName: 'Age',
-            editable: true,
+            editable: false,
         },
         {
             field: 'color',
             headerName: 'Color',
-            editable: true,
+            editable: false,
         },
         {
             field: 'type',
             headerName: 'Type',
-            editable: true,
+            editable: false,
         },
         {
             field: 'location',
             headerName: 'Location',
-            editable: true,
+            editable: false,
         },
         {
             field: 'status',
             headerName: 'Status',
-            editable: true,
+            editable: false,
         },
         {
             field: 'meet',
             headerName: 'Reunited',
-            editable: true,
+            editable: false,
+            width: 80,
+            align: 'center',
+            renderCell: (cell) =>
+                cell.value ? (
+                    <AiFillCheckCircle color="green" />
+                ) : (
+                    <AiFillCloseCircle color="red" />
+                ),
         },
         {
             field: 'deleteAction',
@@ -142,7 +186,7 @@ export default function AdminPets({ renderControl, setRenderControl }) {
                             backgroundColor: '#f21a1a',
                             '&:hover': { backgroundColor: '#ff6d6d' },
                         }}
-                        onClick={(e) => handleDelete(e, params)}
+                        onClick={(e) => handleDelete(params.row)}
                         size="small"
                     >
                         <HiOutlineTrash color="white" />
@@ -162,7 +206,7 @@ export default function AdminPets({ renderControl, setRenderControl }) {
                             backgroundColor: '#3981BF',
                             '&:hover': { backgroundColor: '#9CC0DF' },
                         }}
-                        // onClick={(e) => handleEdit(e, params)}
+                        onClick={(e) => handleEditClick(params.row)}
                         size="small"
                     >
                         <AiFillEdit color="white" />
@@ -171,7 +215,17 @@ export default function AdminPets({ renderControl, setRenderControl }) {
         },
     ]
 
-    return (
+    return edit ? (
+        <Stack
+            p="40px"
+            width="100%"
+            alignItems="center"
+            boxShadow={4}
+            sx={{ borderRadius: '0px 0px 10px 10px' }}
+        >
+            <PetEdit selectedPet={selectedPet} />
+        </Stack>
+    ) : (
         <DataGrid
             components={{
                 LoadingOverlay: LinearProgress,

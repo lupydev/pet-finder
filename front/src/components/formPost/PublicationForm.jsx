@@ -180,8 +180,8 @@ export const PublicationForm = ({ selectedPet }) => {
                         container
                         spacing={2}
                         columns={6}
-                        margin={selectedPet ? 0 : 3}
                         maxWidth={800}
+                        padding={3}
                     >
                         <Grid item xs={6}>
                             <Typography
@@ -194,7 +194,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 {selectedPet ? 'Edit' : 'Create'} Post
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} sm={3}>
                             <Typography variant="h6">Pictures</Typography>
 
                             <UploadImages
@@ -204,10 +204,10 @@ export const PublicationForm = ({ selectedPet }) => {
                                 loading={loading}
                             />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} md={6}>
                             <Typography variant="h6">Pet details</Typography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6} sm={3}>
                             <TextfieldWrapper
                                 id="name"
                                 name="name"
@@ -215,7 +215,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={3}>
                             <DateTimePicker
                                 id="date"
                                 name="date"
@@ -223,7 +223,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 min={now}
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={3}>
                             <SelectWrapper
                                 id="species"
                                 name="species"
@@ -232,7 +232,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={3}>
                             <Autocomplete
                                 id="breed"
                                 name="breed"
@@ -268,7 +268,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={3}>
                             <SelectWrapper
                                 id="gender"
                                 name="gender"
@@ -277,7 +277,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={3}>
                             <SelectWrapper
                                 id="size"
                                 name="size"
@@ -286,7 +286,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={3}>
                             <SelectWrapper
                                 id="age"
                                 name="age"
@@ -295,7 +295,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={3}>
                             <FormControl fullWidth size="small">
                                 <InputLabel>Color</InputLabel>
                                 <Select
@@ -349,7 +349,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={6} sm={3}>
                             <SelectWrapper
                                 id="type"
                                 name="type"
@@ -359,7 +359,7 @@ export const PublicationForm = ({ selectedPet }) => {
                             />
                         </Grid>
                         {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
-                        <Grid item xs={3}>
+                        <Grid item xs={6} sm={3}>
                             <GMapsApi
                                 setLocation={setLocation}
                                 placeholder={selectedPet?.location.country}

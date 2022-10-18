@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
-export const getAllUsers = createAsyncThunk('users/', async () => {
+export const getAllUsers = createAsyncThunk('users/getAll', async () => {
     const user = JSON.parse(window.localStorage.getItem('user'))
 
     const config = { headers: { token: user.token } }
@@ -21,7 +21,7 @@ export const extraGetAllUsers = {
     },
     [getAllUsers.fulfilled]: (state, action) => {
         if (action.payload?.data.ok) {
-            state.allUsers = action.payload.data.allUser
+            state.allUsers = action.payload.data.allUsers
         } else {
             state.allUsers = []
         }

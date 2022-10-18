@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Toast } from '../../../utils/swalToasts'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
-export const deletePost = createAsyncThunk('/pets/delete/', async (id) => {
+export const deletePetPost = createAsyncThunk('/pets/delete/', async (id) => {
     const user = JSON.parse(window.localStorage.getItem('user'))
 
     const config = { headers: { token: user.token } }
+
     try {
         return await axios.delete(`${API_ROUTE}/pets/delete/${id}`, config)
     } catch (err) {
@@ -13,16 +15,26 @@ export const deletePost = createAsyncThunk('/pets/delete/', async (id) => {
     }
 })
 
-export const extraDeletePost = {
-    [deletePost.pending]: (state) => {
-        state.status = 'loading'
-        state.openModal = true
+export const extraDeletePetPost = {
+    [deletePetPost.pending]: (state) => {
+        state.statusDelete = 'loading'
     },
-    [deletePost.fulfilled]: (state, action) => {
-        state.petDetail = action.payload.data.pet
-        state.status = 'success'
+    [deletePetPost.fulfilled]: (state, action) => {
+        if (action.payload.data.ok) {
+            Toast.fire({
+                icon: 'success',
+                title: 'Pet deleted successfully',
+            })
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: action.payload.data.msg,
+            })
+        }
+
+        state.statusDelete = 'success'
     },
-    [deletePost.rejected]: (state) => {
-        state.status = 'failed'
+    [deletePetPost.rejected]: (state) => {
+        state.statusDelete = 'failed'
     },
 }

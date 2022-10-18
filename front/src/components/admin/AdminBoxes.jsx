@@ -5,6 +5,7 @@ import { MdPets, MdPerson } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 
 export const AdminBoxes = () => {
+    const { allUsers } = useSelector((state) => state.user)
     const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const [allPets, setAllPets] = useState([])
     const [reunitedPets, setReunitedPets] = useState([])
@@ -17,7 +18,7 @@ export const AdminBoxes = () => {
 
     useEffect(() => {
         if (allPets.length > 0) {
-            setReunitedPets(allPets.filter((pet) => pet.meet))
+            setReunitedPets(allPets.filter((pet)=>pet.meet))
         }
     }, [allPets])
 
@@ -45,11 +46,12 @@ export const AdminBoxes = () => {
                     <Typography
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
+                        color='#F16C1F'
                     >
                         {LostPetsData.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
-                        <MdPets />
+                        <MdPets color='#F16C1F' />
                         <Typography
                             fontSize={{ xs: '13px', sm: '18px' }}
                             fontWeight="bold"
@@ -70,11 +72,12 @@ export const AdminBoxes = () => {
                     <Typography
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
+                        color='#357ABD'
                     >
                         {FoundPetsData.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
-                        <MdPets />
+                        <MdPets color='#357ABD' />
                         <Typography
                             fontSize={{ xs: '13px', sm: '18px' }}
                             fontWeight="bold"
@@ -102,11 +105,12 @@ export const AdminBoxes = () => {
                     <Typography
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
+                        color='#30dd87'
                     >
                         {reunitedPets.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
-                        <MdPets />
+                        <MdPets color='#30dd87' />
                         <Typography
                             fontSize={{ xs: '13px', sm: '18px' }}
                             fontWeight="bold"
@@ -128,7 +132,7 @@ export const AdminBoxes = () => {
                         fontSize={{ xs: '35px', sm: '50px' }}
                         fontWeight="bold"
                     >
-                        Untracked
+                        {allUsers.length}
                     </Typography>
                     <Stack direction="row" alignItems="center" gap="5px">
                         <MdPerson />

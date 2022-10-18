@@ -1,34 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import {
-    Container,
-    Paper,
-    Box,
     Typography,
-    Divider,
     Avatar,
-    IconButton,
-    Button,
     Stack,
-    TextField,
     ToggleButtonGroup,
     ToggleButton,
 } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
 import { cleanPetsData } from '../../redux/features/user/userSlice'
-import PetEdit from './PetEdit'
-import PetCard from '../../components/home/pets/PetCard'
 import Swal from 'sweetalert2'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
 import Title from '../../components/petBrowser/Title'
-import { PublicationForm } from '../../components/formPost/PublicationForm'
-import { BsArrowLeftShort, BsImages } from 'react-icons/bs'
-import { MdPets } from 'react-icons/md'
-import { HiUserCircle, HiOutlineBell, HiOutlineTrash } from 'react-icons/hi'
-import { TbMessages } from 'react-icons/tb'
-import { AiFillCamera, AiFillEdit } from 'react-icons/ai'
-import { Form } from 'formik'
 
 const ProfileDetail = ({ menuItems, view, setView, children }) => {
     const dispatch = useDispatch()
@@ -88,9 +72,8 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
         })
     }
 
-
     return (
-        <Stack width="100%"  gap={5} alignItems={'center'}>
+        <Stack width="100%" gap={5} alignItems={'center'}>
             <Title title={'Account'} desc={`Hi ${userData.nickname}!`} />
             <Stack
                 width="100%"
@@ -192,7 +175,7 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
                     {/* Side Card */}
                     <Stack
                         width="750px"
-                        minHeight='450px'
+                        minHeight="450px"
                         backgroundColor="#FDFEFF"
                         py="50px"
                         px="26px"
@@ -204,157 +187,6 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
                     </Stack>
                     {/* End Side Card  */}
                 </Stack>
-                {/* <Stack>
-                    {editPost && selectedPet != undefined ? (
-                        <Stack alignItems="center">
-                            <Button
-                                variant="contained"
-                                startIcon={<BsArrowLeftShort size="24px" />}
-                                onClick={() => setEditPost(!editPost)}
-                                sx={{
-                                    alignSelf: 'flex-start',
-                                    textTransform: 'none',
-                                }}
-                            >
-                                Back
-                            </Button>
-                            <PetEdit currentPet={selectedPet} />
-                        </Stack>
-                    ) : editProfile && !editPost ? (
-                        <EditProfile userData={userData} />
-                    ) : (
-                        <Stack
-                            alignItems="center"
-                            justifyContent="space-between"
-                            p="15px"
-                            sx={{
-                                backgroundColor: 'primary.main',
-                                width: '400px',
-                                // height: '600px',
-                                borderRadius: '10px',
-                            }}
-                            gap={2}
-                        >
-                            <Avatar
-                                sx={{ width: 200, height: 200 }}
-                                src={userData?.img}
-                                alt={userData?.nickname}
-                            />
-
-                            <Typography
-                                sx={{
-                                    p: 1.5,
-                                    borderRadius: 3,
-                                    bgcolor: 'white',
-                                    m: 0,
-                                    width: '100%',
-                                }}
-                                border="1px solid gray"
-                                color="text.primary"
-                                marginTop={3}
-                            >
-                                <b> Nickname:</b>
-                                <br></br>
-                                {userData?.nickname}
-                            </Typography>
-
-                            {userData?.fullname && (
-                                <Typography
-                                    sx={{
-                                        p: 1.5,
-                                        borderRadius: 3,
-                                        bgcolor: 'white',
-                                        m: 0,
-                                        width: '100%',
-                                    }}
-                                    border="1px solid gray"
-                                    color="text.primary"
-                                    marginTop={3}
-                                >
-                                    <b> Full Name:</b>
-                                    <br></br>
-                                    {userData?.fullname}
-                                </Typography>
-                            )}
-
-                            <Typography
-                                sx={{
-                                    p: 1.5,
-                                    borderRadius: 3,
-                                    bgcolor: 'white',
-                                    m: 0,
-                                    width: '100%',
-                                }}
-                                color="text.primary"
-                                marginTop={3}
-                                marginBottom={3}
-                            >
-                                <b> Email:</b>
-                                <br></br>
-                                {userData?.email}
-                            </Typography>
-                        </Stack>
-                    )}
-
-                    {editPost ? null : (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                marginTop: '1rem',
-                            }}
-                        >
-                            <Button
-                                onClick={handleModeEdit}
-                                variant="contained"
-                                color="primary"
-                                sx={{
-                                    borderRadius: 2,
-                                    textTransform: 'none',
-                                    fontWeight: 'regular',
-                                }}
-                            >
-                                {editProfile ? 'Back to profile' : 'Go to edit'}
-                            </Button>
-                        </Box>
-                    )}
-                </Stack>
-                {editPost ? null : (
-                    <Stack alignItems="center" gap={5} width="100%">
-                        <Typography
-                            variant="h4"
-                            color="primary.main"
-                            fontWeight="bold"
-                        >
-                            My Publications
-                        </Typography>
-                        <Stack
-                            direction="row"
-                            justifyContent="center"
-                            flexWrap="wrap"
-                            gap={5}
-                        >
-                            {userPets.length > 0 ? (
-                                <PetCard
-                                    pets={userPets}
-                                    isEdit={true}
-                                    handleEditPost={handleEditPost}
-                                    handleDelete={handleDelete}
-                                    handleViewProfile={handleViewProfile}
-                                />
-                            ) : (
-                                <Button
-                                    component={Link}
-                                    to="/createPost"
-                                    variant="outlined"
-                                    sx={{ my: '60px' }}
-                                >
-                                    Make your publication
-                                </Button>
-                            )}
-                        </Stack>
-                    </Stack>
-                )} */}
             </Stack>
             <Stack
                 height="100px"

@@ -3,6 +3,7 @@ import React from 'react'
 import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
 import { editPet } from '../../../../redux/asyncActions/pet/editPet'
+import { useNavigate } from 'react-router-dom'
 
 const CustomButton = styled(Button)(({ theme }) => ({
     color: theme.palette.secondary.main,
@@ -15,10 +16,11 @@ const CustomButton = styled(Button)(({ theme }) => ({
     },
 }))
 
-const PetCard = ({ pet }) => {
+const PetCard = ({ pet, handleEditClick }) => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const handleClick = (e) => {
+    const handleStatusClick = (e) => {
         Swal.fire({
             title:
                 pet?.type === 'Lost'
@@ -44,6 +46,11 @@ const PetCard = ({ pet }) => {
             }
         })
     }
+
+    const handleClick = () => {
+        navigate(`/${pet.type.toLowerCase()}Pets/${pet._id}`)
+    }
+
     const getColor = () => {
         if (pet.meet) {
             return '#D0F5E1'
@@ -52,6 +59,7 @@ const PetCard = ({ pet }) => {
         }
         return 'primary.light'
     }
+
     return (
         <Stack
             width="260px"
@@ -62,7 +70,6 @@ const PetCard = ({ pet }) => {
             sx={{
                 '&:hover': {
                     transform: 'scale(1.02)',
-                    cursor: 'pointer',
                     transition: 'all .2s',
                 },
             }}
@@ -73,6 +80,17 @@ const PetCard = ({ pet }) => {
                 p="40px"
                 backgroundColor={getColor}
                 borderRadius="8px"
+                onClick={handleClick}
+                sx={{
+                    transition: 'all .3s',
+                    '&:hover': {
+                        backgroundColor:
+                            pet.type === 'Lost'
+                                ? 'secondary.main'
+                                : 'primary.main',
+                    },
+                    cursor: 'pointer',
+                }}
             >
                 <Avatar
                     src={pet?.img[0]}
@@ -101,11 +119,15 @@ const PetCard = ({ pet }) => {
                         textTransform: 'none',
                     }}
                     fullWidth
-                    onClick={handleClick}
+                    onClick={handleStatusClick}
                 >
                     Status
                 </Button>
-                <CustomButton variant="contained" sx={{}} fullWidth>
+                <CustomButton
+                    variant="contained"
+                    onClick={() => handleEditClick(pet)}
+                    fullWidth
+                >
                     Edit
                 </CustomButton>
             </Stack>
