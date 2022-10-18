@@ -3,11 +3,12 @@ import User from '../../schemas/User'
 import jwt from 'jsonwebtoken'
 import { secretKeyReset } from '../../utils/constants'
 import { sendEmail } from '../../utils/sendEmail'
+import { baseUrl } from '../../../src/utils/constants'
 
 const forgotPassword = async (req: Request, res: Response) => {
-    const {email} = req.body
+    const { email } = req.body
     try {
-        const user = await User.findOne({ email: email})//Compruebo que usuario exista
+        const user = await User.findOne({ email: email }) //Compruebo que usuario exista
         if (!user) {
             return res.status(200).json({ ok: false, msg: 'Email not found' })
         }
@@ -16,19 +17,25 @@ const forgotPassword = async (req: Request, res: Response) => {
         const token = jwt.sign({ email, id }, secretKeyReset, {
             expiresIn: '30s',
         })
-        
-        //guardo el token nuevo en base de datos 
-        
-        const userUpdate = await User.findOneAndUpdate({email: email},{resetLink:token})
-        
-        if(!userUpdate){
-            return res.status(400).json({msj:'reset password link error'})
+
+        //guardo el token nuevo en base de datos
+
+        const userUpdate = await User.findOneAndUpdate(
+            { email: email },
+            { resetLink: token }
+        )
+
+        if (!userUpdate) {
+            return res.status(400).json({ msj: 'reset password link error' })
         }
-    
+
         //envio email con nodemailer
-        sendEmail( userUpdate.email, `<p>https://localhost:4000/forgot-pass/${token}</p>`,'Forgot Password')
-        return res.json({msg:'Email sent, kindly follow the instructions'})
-        
+        sendEmail(
+            userUpdate.email,
+            `<p>${baseUrl}/forgot-pass/${token}</p>`,
+            'Forgot Password'
+        )
+        return res.json({ msg: 'Email sent, kindly follow the instructions' })
     } catch (error) {
         console.log(error)
         return res.status(404).json({
