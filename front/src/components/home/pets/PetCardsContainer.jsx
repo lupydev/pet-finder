@@ -15,21 +15,29 @@ const PetCardsContainer = (props) => {
     )
     const [limitedLostPetsData, setLimitedLostPetsData] = useState([])
     const [limitedFoundPetsData, setLimitedFoundPetsData] = useState([])
-
     useEffect(() => {
         dispatch(getPets(type))
     }, [])
-
     useEffect(() => {
         LostPetsData?.length > 0 &&
-            setLimitedLostPetsData(LostPetsData.slice(0, 4))
+            setLimitedLostPetsData(
+                LostPetsData.filter(
+                    (pet) => pet.type === 'Lost' && pet.meet !== true
+                ).slice(0, 4)
+            )
+        // setLimitedLostPetsData(LostPetsData.slice(0, 4))
     }, [LostPetsData])
 
     useEffect(() => {
         FoundPetsData?.length > 0 &&
-            setLimitedFoundPetsData(FoundPetsData.slice(0, 4))
+            setLimitedFoundPetsData(
+                FoundPetsData.filter(
+                    (pet) => pet.type === 'Found' && pet.meet !== true
+                ).slice(0, 4)
+            )
     }, [FoundPetsData])
 
+    console.log(limitedLostPetsData)
     return (
         <Stack gap="25px">
             <Typography

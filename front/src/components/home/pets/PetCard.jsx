@@ -28,6 +28,7 @@ const PetCard = ({
     function capitalize(text) {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
+
     return pets.length ? (
         pets.map((pet) => {
             return (
@@ -54,7 +55,9 @@ const PetCard = ({
                                 backgroundColor:
                                     pet.type.toLowerCase() === 'lost'
                                         ? 'secondary.light'
-                                        : 'primary.light',
+                                        : pet.type.toLowerCase() === 'lost'
+                                        ? 'primary.light'
+                                        : '',
                                 height: '200px',
                                 borderRadius: '8px',
                             }}
