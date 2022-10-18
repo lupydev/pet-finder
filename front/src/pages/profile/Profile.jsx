@@ -12,12 +12,12 @@ import UnderConstruction from './sideCards/underConstruction/UnderConstruction'
 import PublicationsCard from './sideCards/publications/PublicationsCard'
 
 const menuItems = [
+    { id: 'profile', title: 'Profile', icon: <HiUserCircle size="22px" /> },
     {
         id: 'publications',
         title: 'Publications',
         icon: <BsImages size="22px" />,
     },
-    { id: 'profile', title: 'Profile', icon: <HiUserCircle size="22px" /> },
     {
         id: 'messages',
         title: 'Messages',
@@ -46,8 +46,8 @@ const Profile = () => {
 
     return userData ? (
         <ProfileContainer menuItems={menuItems} view={view} setView={setView}>
-            {view === 'publications' && <PublicationsCard />}
             {view === 'profile' && <ProfileCard />}
+            {view === 'publications' && <PublicationsCard />}
             {view === 'messages' && <UnderConstruction />}
             {view === 'notifications' && <UnderConstruction />}
             {view === 'myPets' && <UnderConstruction />}
