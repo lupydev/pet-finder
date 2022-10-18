@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik'
 import {
     Autocomplete,
     Box,
+    Button,
     Chip,
     CircularProgress,
     FormControl,
@@ -57,7 +58,7 @@ const FORM_VALIDATION = Yup.object().shape({
 })
 
 // eslint-disable-next-line react/prop-types
-const PetEdit = ({ selectedPet }) => {
+const PetEdit = ({ selectedPet, setEdit }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { species, breeds } = useSelector((state) => state.pet)
@@ -67,7 +68,6 @@ const PetEdit = ({ selectedPet }) => {
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState(selectedPet?.img)
     const [location, setLocation] = useState({})
-
 
     let INITIAL_FORM_STATE = {
         name: selectedPet?.name,
@@ -138,43 +138,24 @@ const PetEdit = ({ selectedPet }) => {
         //     return
         // }
 
-        // if (images.length) {
-        //     values.img = images
-        // } else {
-        //     Toast.fire({
-        //         icon: 'error',
-        //         title: 'Must contain at least one image',
-        //     })
-        //     return
-        // }
+        if (images.length) {
+            values.img = images
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: 'Must contain at least one image',
+            })
+            return
+        }
 
         const valuesUpdate = {
             ...values,
             img: images,
         }
 
-        Swal.fire({
-            title: 'Are you sure?',
-            icon: 'warning',
-            
-            showCancelButton: true,
-            confirmButtonText: 'Save',
-            denyButtonText: 'Do not save',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                dispatch(
-                    editPet({ id: selectedPet._id, newData: valuesUpdate })
-                )
-                Swal.fire('Your Pet has been updated!').then(() =>
-                    // navigate(`/lostPets/${selectedPet._id}`)
-                    navigate('/profile')
-                )
-                navigate('/profile')
-                // navigate(`/lostPets/${selectedPet._id}`)
-            } else if (result.isDenied) {
-                Swal.fire('Changes are not saved', '', 'info')
-            }
-        })
+        dispatch(editPet({ id: selectedPet._id, newData: valuesUpdate }))
+        
+        setEdit(false)
 
         resetForm()
     }
@@ -221,7 +202,7 @@ const PetEdit = ({ selectedPet }) => {
                                     Edit Post
                                 </Typography>
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6}>
                                 <Typography variant="h6">Pictures</Typography>
 
                                 <UploadImages
@@ -232,12 +213,12 @@ const PetEdit = ({ selectedPet }) => {
                                     onChange={(e) => setImages(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item xs={6} md={6}>
+                            <Grid item xs={6}>
                                 <Typography variant="h6">
                                     Pet details
                                 </Typography>
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={4}>
                                 <TextfieldWrapper
                                     id="name"
                                     name="name"
@@ -245,14 +226,14 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={2}>
                                 <DateTimePicker
                                     id="date"
                                     name="date"
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={2}>
                                 <TextField
                                     fullWidth
                                     select
@@ -273,7 +254,7 @@ const PetEdit = ({ selectedPet }) => {
                                     ))}
                                 </TextField>
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={2}>
                                 <Autocomplete
                                     id="breed"
                                     name="breed"
@@ -308,7 +289,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={2}>
                                 <SelectWrapper
                                     id="gender"
                                     name="gender"
@@ -317,7 +298,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={2}>
                                 <SelectWrapper
                                     id="size"
                                     name="size"
@@ -326,7 +307,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={2}>
                                 <SelectWrapper
                                     id="age"
                                     name="age"
@@ -335,7 +316,7 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6} sm={3}>
+                            <Grid item xs={6} sm={2}>
                                 <FormControl fullWidth size="small">
                                     <InputLabel>Color</InputLabel>
                                     <Select
@@ -414,8 +395,20 @@ const PetEdit = ({ selectedPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                <ButtonWrapper>Save Changes</ButtonWrapper>
+                            <Grid item xs={3}>
+                                <ButtonWrapper color="success">
+                                    Save Changes
+                                </ButtonWrapper>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    fullWidth
+                                    onClick={() => setEdit(false)}
+                                >
+                                    Cancel
+                                </Button>
                             </Grid>
                         </Grid>
                     </Form>

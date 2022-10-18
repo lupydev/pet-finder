@@ -8,7 +8,7 @@ import { getUserData } from '../../../../redux/asyncActions/user/getUserData'
 import EditProfile from './EditProfile'
 
 const Profile = () => {
-    const { userData, userPets, allUsers } = useSelector((state) => state.user)
+    const { userData } = useSelector((state) => state.user)
     const dispatch= useDispatch();
 
     const [edit, setEdit] = useState(false)

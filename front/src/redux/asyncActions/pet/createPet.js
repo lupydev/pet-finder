@@ -16,7 +16,7 @@ export const createPet = createAsyncThunk('pet/newPet', async (pet) => {
 
 export const extraCreatePet = {
     [createPet.pending]: (state) => {
-        state.status = 'loading'
+        state.statusCreate = 'loading'
     },
     [createPet.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
@@ -30,9 +30,9 @@ export const extraCreatePet = {
                 title: action.payload.data.msg,
             })
         }
-        state.status = 'success'
+        state.statusCreate = 'success'
     },
     [createPet.rejected]: (state) => {
-        state.status = 'failed'
+        state.statusCreate = 'failed'
     },
 }

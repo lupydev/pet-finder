@@ -6,71 +6,31 @@ import {
     ToggleButtonGroup,
     ToggleButton,
 } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { getUserPets } from '../../redux/asyncActions/user/getUserPets'
-import { cleanPetsData } from '../../redux/features/user/userSlice'
-import Swal from 'sweetalert2'
-import { editPet } from '../../redux/asyncActions/pet/editPet'
+import { useSelector } from 'react-redux'
 import Title from '../../components/petBrowser/Title'
 
-const ProfileDetail = ({ menuItems, view, setView, children }) => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-
-    const { userData, userPets } = useSelector((state) => state.user)
-
-    const [selectedPet, setSelectedPet] = useState(undefined)
+const ProfileContainer = ({ menuItems, view, setView, children }) => {
+    const { userData  } = useSelector((state) => state.user)
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
 
+    const handleMenuChange = (event, nextView) => {
+        nextView && setView(nextView)
+    }
+
     useEffect(() => {
-        if (userData != undefined) {
+        if (userData !== undefined) {
             const [name, lastName, ...rest] = userData.fullname.split(' ')
             setName(name)
             setLastName(lastName)
         }
     }, [userData])
 
-    const handleMenuChange = (event, nextView) => {
-        nextView && setView(nextView)
-    }
+    useEffect(()=>{
 
-    const handleViewProfile = (pet) => {
-        const type = pet.type.toLowerCase()
-        const id = pet._id
 
-        navigate(`/${type}Pets/${id}`)
-    }
 
-    const handleEditPost = (pets) => {
-        setEditPost(!editPost)
-        setSelectedPet(pets)
-    }
-
-    const handleDelete = (pet) => {
-        Swal.fire({
-            title: `Do you really want to delete ${pet.name}?`,
-            icon: 'warning',
-            showDenyButton: true,
-            confirmButtonText: 'Yes',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                dispatch(
-                    editPet({ id: pet._id, newData: { status: 'Deleted' } })
-                )
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Your post has been deleted',
-                }).then(() =>
-                    userData.pets.map((pet) => {
-                        dispatch(cleanPetsData())
-                        dispatch(getUserPets(pet))
-                    })
-                )
-            }
-        })
-    }
+    })
 
     return (
         <Stack width="100%" gap={5} alignItems={'center'}>
@@ -142,7 +102,6 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
                             >
                                 {menuItems.map((item) => (
                                     <ToggleButton
-                                        // component={ToggleButton}
                                         key={item.id}
                                         value={item.id}
                                         color="primary"
@@ -201,4 +160,4 @@ const ProfileDetail = ({ menuItems, view, setView, children }) => {
     )
 }
 
-export default ProfileDetail
+export default ProfileContainer

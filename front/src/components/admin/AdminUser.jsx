@@ -103,25 +103,25 @@ export default function AdminUser() {
             field: 'nickname',
             headerName: 'Nickname',
             editable: false,
-            flex: 1,
+            width:220,
         },
         {
             field: 'name',
             headerName: 'Name',
             editable: false,
-            flex: 1,
+            width:260,
         },
         {
             field: 'email',
             headerName: 'Email',
             editable: false,
-            flex: 1,
+            width:330,
         },
         {
             field: 'status',
             headerName: 'Status',
             editable: false,
-            width: 150,
+            width: 120,
         },
         {
             field: 'admin',
@@ -131,9 +131,9 @@ export default function AdminUser() {
             align: 'center',
             renderCell: (cell) =>
                 cell.value ? (
-                    <AiFillCheckCircle color="green" />
+                    <AiFillCheckCircle color="green" size='26px' />
                 ) : (
-                    <AiFillCloseCircle color="red" />
+                    <AiFillCloseCircle color="red" size='26px'  />
                 ),
         },
         {
@@ -141,6 +141,7 @@ export default function AdminUser() {
             headerName: 'Delete',
             align: 'center',
             sortable: false,
+            width: 80,
             renderCell: (params) =>
                 allUsers?.id !== params.row.id ? (
                     <IconButton

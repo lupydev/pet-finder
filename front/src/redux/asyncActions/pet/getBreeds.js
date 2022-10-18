@@ -12,17 +12,17 @@ export const getBreeds = createAsyncThunk('breeds/', async (species) => {
 
 export const extraGetBreeds = {
     [getBreeds.pending]: (state) => {
-        state.statusBreeds = 'loading'
+        state.status = 'loading'
     },
     [getBreeds.fulfilled]: (state, action) => {
         if (action.payload) {
             if (action.payload.data.ok) {
-                state.statusBreeds = 'success'
+                state.status = 'success'
                 state.breeds = action.payload.data.breeds
             }
         }
     },
     [getBreeds.rejected]: (state) => {
-        state.statusBreeds = 'failed'
+        state.status = 'failed'
     },
 }

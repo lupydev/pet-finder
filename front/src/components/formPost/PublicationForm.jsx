@@ -57,11 +57,9 @@ export const PublicationForm = ({ selectedPet }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-    const [images, setImages] = useState(selectedPet ? selectedPet.img : [])
+    const [images, setImages] = useState([])
     const { species, breeds, statusCreate } = useSelector((state) => state.pet)
-    const [location, setLocation] = useState(
-        selectedPet ? selectedPet.location : {}
-    )
+    const [location, setLocation] = useState({})
     const now = new Date().toISOString().substring(0, 10)
 
     const getUserId = () => {
@@ -71,23 +69,21 @@ export const PublicationForm = ({ selectedPet }) => {
 
     const INITIAL_FORM_STATE = {
         userId: getUserId(),
-        img: selectedPet
-            ? selectedPet.img
-            : [
-                  'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
-              ],
-        name: selectedPet ? selectedPet?.name : '',
-        species: selectedPet ? selectedPet?.species._id : '',
-        breed: selectedPet ? selectedPet?.breed._id : '',
-        gender: selectedPet ? selectedPet?.gender : '',
-        size: selectedPet ? selectedPet?.size : '',
-        age: selectedPet ? selectedPet?.age : '',
-        date: selectedPet ? selectedPet?.date.substring(0, 10) : '',
-        color: selectedPet ? selectedPet?.color : [],
-        observation: selectedPet ? selectedPet?.observation : '',
-        type: selectedPet ? selectedPet?.type : '',
-        location: selectedPet ? selectedPet?.location : {},
-        description: selectedPet ? selectedPet?.description : '',
+        img: [
+            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
+        ],
+        name: '',
+        species: '',
+        breed: '',
+        gender: '',
+        size: '',
+        age: '',
+        date: '',
+        color: [],
+        observation: '',
+        type: '',
+        location: {},
+        description: '',
     }
 
     const handleUpload = async (e) => {
@@ -140,13 +136,7 @@ export const PublicationForm = ({ selectedPet }) => {
             return
         }
 
-        if (selectedPet) {
-            dispatch(editPet({ id: selectedPet._id, newData: values }))
-            navigate('/profile')
-        } else {
-            dispatch(createPet(values))
-            navigate('/')
-        }
+        dispatch(createPet(values))
 
         resetForm()
     }
@@ -156,7 +146,10 @@ export const PublicationForm = ({ selectedPet }) => {
     }, [])
 
     useEffect(() => {
-        statusCreate ==='success' && dispatch(getUserData())
+        if (statusCreate === 'success') {
+            dispatch(getUserData())
+            navigate('/profile')
+        }
     }, [statusCreate])
 
     return species.length ? (
@@ -191,10 +184,10 @@ export const PublicationForm = ({ selectedPet }) => {
                                 fontWeight="bold"
                                 textAlign="center"
                             >
-                                {selectedPet ? 'Edit' : 'Create'} Post
+                                Create Post
                             </Typography>
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6}>
                             <Typography variant="h6">Pictures</Typography>
 
                             <UploadImages
@@ -204,10 +197,10 @@ export const PublicationForm = ({ selectedPet }) => {
                                 loading={loading}
                             />
                         </Grid>
-                        <Grid item xs={6} md={6}>
+                        <Grid item xs={6}>
                             <Typography variant="h6">Pet details</Typography>
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={4}>
                             <TextfieldWrapper
                                 id="name"
                                 name="name"
@@ -215,7 +208,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={2}>
                             <DateTimePicker
                                 id="date"
                                 name="date"
@@ -223,7 +216,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 min={now}
                             />
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="species"
                                 name="species"
@@ -232,7 +225,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={2}>
                             <Autocomplete
                                 id="breed"
                                 name="breed"
@@ -268,7 +261,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="gender"
                                 name="gender"
@@ -277,7 +270,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="size"
                                 name="size"
@@ -286,7 +279,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="age"
                                 name="age"
@@ -295,7 +288,7 @@ export const PublicationForm = ({ selectedPet }) => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={6} sm={3}>
+                        <Grid item xs={6} sm={2}>
                             <FormControl fullWidth size="small">
                                 <InputLabel>Color</InputLabel>
                                 <Select
@@ -360,10 +353,7 @@ export const PublicationForm = ({ selectedPet }) => {
                         </Grid>
                         {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
                         <Grid item xs={6} sm={3}>
-                            <GMapsApi
-                                setLocation={setLocation}
-                                placeholder={selectedPet?.location.country}
-                            />
+                            <GMapsApi setLocation={setLocation} />
                         </Grid>
                         <Grid item xs={6}>
                             <TextfieldWrapper
@@ -376,9 +366,7 @@ export const PublicationForm = ({ selectedPet }) => {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <ButtonWrapper>
-                                {selectedPet ? 'Edit' : 'Create'} Post
-                            </ButtonWrapper>
+                            <ButtonWrapper>Create Post</ButtonWrapper>
                         </Grid>
                     </Grid>
                 </Form>
