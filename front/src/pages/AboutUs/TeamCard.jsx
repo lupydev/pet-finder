@@ -6,8 +6,8 @@ import {
     Stack,
     Typography,
 } from '@mui/material'
-
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
+import team from './team.json'
 import React from 'react'
 
 const TeamCard = ({ person }) => {

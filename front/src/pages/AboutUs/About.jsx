@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import PetCardsReunitedContainer from './PetCardsReunitedContainer' 
+import PetCardsContainer from '../../components/home/pets/PetCardsContainer'
 import SvgCard from './SvgCard'
 import OurTeamContainer from './OurTeamContainer'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
+import PetCardsReunitedContainer from './PetCardsReunitedContainer'
 
 const About = () => {
     const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const dispatch = useDispatch()
     const [allPets, setAllPets] = useState([])
-    const [pets, setPets] = useState([])
+    const [petsMeet, setPetsMeet] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -31,9 +32,11 @@ const About = () => {
 
     useEffect(() => {
         if (allPets.length > 0) {
-            setPets(allPets.filter((pet) => pet.meet))
+            setPetsMeet(allPets.filter((pet) => pet.meet))
         }
     }, [allPets])
+
+    console.log(petsMeet)
 
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
@@ -180,7 +183,7 @@ const About = () => {
             </Grid>
             <Stack gap={10} maxWidth="1440px" width="100%">
                 <PetCardsReunitedContainer
-                    pets={pets}
+                    petsMeet={petsMeet}
                     title="Reunited"
                     color="primary"
                 />

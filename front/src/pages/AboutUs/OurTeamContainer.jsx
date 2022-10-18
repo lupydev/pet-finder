@@ -10,36 +10,25 @@ const OurTeamContainer = () => {
                 variant="h4"
                 color="primary.main"
                 fontFamily={'Merriweather'}
-                fontWeight="bold"
-                sx={{
-                    paddingLeft: '40px',
-                }}
+                textAlign="center"
             >
                 Our Team!
             </Typography>
-            <Stack
-                direction="row"
-                maxWidth="1024px"
-                gap={5}
-                margin="0 auto"
-                mt={6}
-                alignItems="center"
-            >
-                <Stack gap="30px">
-                    <TeamCard />
-                    <TeamCard />
-                    <TeamCard />
+            {team.map((person) => (
+                <Stack
+                    direction="row"
+                    maxWidth="1024px"
+                    gap={5}
+                    margin="0 auto"
+                    mt={6}
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
+                    <Stack>
+                        <TeamCard person={person} />
+                    </Stack>
                 </Stack>
-                <Stack gap="30px">
-                    <TeamCard />
-                    <TeamCard />
-                </Stack>
-                <Stack gap="30px">
-                    <TeamCard />
-                    <TeamCard />
-                    <TeamCard />
-                </Stack>
-            </Stack>
+            ))}
         </Box>
     )
 }
