@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { secretKeyReset } from '../../utils/constants'
 import { sendEmail } from '../../utils/sendEmail'
 import { baseUrl } from '../../../src/utils/constants'
+import { getTemplateForgotPassword } from '../../utils/getTemplateForgotPassword'
 
 const forgotPassword = async (req: Request, res: Response) => {
     const { email } = req.body
@@ -32,7 +33,7 @@ const forgotPassword = async (req: Request, res: Response) => {
         //envio email con nodemailer
         sendEmail(
             userUpdate.email,
-            `<p>${baseUrl}/forgot-pass/${token}</p>`,
+            getTemplateForgotPassword(baseUrl),
             'Forgot Password'
         )
         return res.json({ msg: 'Email sent, kindly follow the instructions' })
