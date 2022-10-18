@@ -10,7 +10,7 @@ import {
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
 import React from 'react'
 
-const TeamCard = () => {
+const TeamCard = ({ person }) => {
     return (
         <Card
             sx={{
@@ -28,6 +28,7 @@ const TeamCard = () => {
             >
                 <Stack alignItems="center" justifyContent="center">
                     <Avatar
+                        src={person?.img}
                         sx={{
                             width: '170px',
                             height: '170px',
@@ -50,13 +51,13 @@ const TeamCard = () => {
                             gap: '6px',
                         }}
                     >
-                        {'Francisco Rey'}
+                        {person?.fullname}
                         <Typography
                             fontSize="14px"
                             padding="2px"
                             color="#9b9fa0"
                         >
-                            Front End Developer
+                            {person?.rol}
                         </Typography>
                     </Typography>
                     <Box

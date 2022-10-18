@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
-import Loading from '../../components/loading/Loading'
 import TeamCard from './TeamCard'
+import team from './team.json'
 
 const OurTeamContainer = () => {
     return (
@@ -11,6 +11,9 @@ const OurTeamContainer = () => {
                 color="primary.main"
                 fontFamily={'Merriweather'}
                 fontWeight="bold"
+                sx={{
+                    paddingLeft: '40px',
+                }}
             >
                 Our Team!
             </Typography>
@@ -22,14 +25,11 @@ const OurTeamContainer = () => {
                 margin="0 auto"
                 mt={6}
             >
-                <TeamCard />
-                <TeamCard />
-                <TeamCard />
-                <TeamCard />
-                <TeamCard />
-                <TeamCard />
-                <TeamCard />
-                <TeamCard />
+                {team.map((item) => (
+                    <Box key={item._id}>
+                        <TeamCard person={item} />
+                    </Box>
+                ))}
             </Grid>
         </Box>
     )

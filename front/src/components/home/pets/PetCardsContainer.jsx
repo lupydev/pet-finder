@@ -28,6 +28,8 @@ const PetCardsContainer = (props) => {
         // setLimitedLostPetsData(LostPetsData.slice(0, 4))
     }, [LostPetsData])
 
+    // console.log(petsReunited.slice(0, 4))
+
     useEffect(() => {
         FoundPetsData?.length > 0 &&
             setLimitedFoundPetsData(
@@ -36,17 +38,19 @@ const PetCardsContainer = (props) => {
                 ).slice(0, 4)
             )
     }, [FoundPetsData])
-
-    console.log(limitedLostPetsData)
     return (
         <Stack gap="25px">
             <Typography
-                variant={petsReunited === true ? 'h4' : 'h3'}
+                variant={petsReunited?.length > 0 ? 'h4' : 'h3'}
                 color={props.color}
                 fontFamily={'Merriweather'}
                 fontWeight="bold"
                 px="40px"
-                sx={petsReunited === true ? { px: '0px' } : ''}
+                sx={
+                    petsReunited?.length > 0
+                        ? { px: '0px', marginLeft: '140px' }
+                        : ''
+                }
             >
                 {props.title} Pets
             </Typography>
@@ -70,7 +74,7 @@ const PetCardsContainer = (props) => {
                     <Loading />
                 )}
             </Stack>
-            {petsReunited === true ? (
+            {petsReunited?.length > 0 ? (
                 ''
             ) : (
                 <Button
@@ -91,7 +95,7 @@ const PetCardsContainer = (props) => {
                             mx: 'auto',
                             borderRadius: '8px',
                         },
-                        petsReunited === true
+                        petsReunited?.length > 0
                             ? {
                                   color: 'terciary.dark',
                                   background: '#b6eeba',

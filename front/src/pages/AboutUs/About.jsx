@@ -35,8 +35,6 @@ const About = () => {
         }
     }, [allPets])
 
-    console.log(petsMeet)
-
     return (
         <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
             <Typography
