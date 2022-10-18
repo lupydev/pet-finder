@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import User from '../../schemas/User'
 import jwt from 'jsonwebtoken'
 import { secretKeyReset } from '../../utils/constants'
-//import { sendRecover } from '../../utils/sendEmail'
+import { sendEmail } from '../../utils/sendEmail'
 
 const forgotPassword = async (req: Request, res: Response) => {
     const {email} = req.body
@@ -11,24 +11,22 @@ const forgotPassword = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(200).json({ ok: false, msg: 'Email not found' })
         }
-        const password = user.password
         const id = user._id
         //creo nuevo token
-        const token = jwt.sign({ email, password, id }, secretKeyReset, {
+        const token = jwt.sign({ email, id }, secretKeyReset, {
             expiresIn: '30s',
         })
         
         //guardo el token nuevo en base de datos 
         
-        const userUpdate = await User.findOneAndUpdate({email: email},{token})
+        const userUpdate = await User.findOneAndUpdate({email: email},{resetLink:token})
         
         if(!userUpdate){
             return res.status(400).json({msj:'reset password link error'})
-        }else{
-        //envio email con nodemailer
-            //sendRecover(email,token)
-            //return res.json({msg:'Email sent, kindly follow the instructions'})
         }
+        //envio email con nodemailer
+        sendEmail( userUpdate.email, `<p>https://localhost:4000/forgot-pass/${token}</p>`)
+        return res.json({msg:'Email sent, kindly follow the instructions'})
         
     } catch (error) {
         console.log(error)
