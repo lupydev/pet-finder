@@ -12,12 +12,14 @@ const transporter = nodemailer.createTransport({
     },
 })
 
-export const sendEmail = async (email: any, template: any) => {
+export const sendEmail = async (email:any, template: any, sub:any) => {
     await transporter.sendMail({
         from: 'PetFinder <nocountry.s4.11.mern@gmail.com>', // sender address
         to: email, // list of receivers
-        subject: 'Bienvenido ✔', // Subject line
-        text: 'Bienvenido', // plain text body
+        subject: sub, // Subject line
         html: template, // html body
     })
 }
+
+
+
