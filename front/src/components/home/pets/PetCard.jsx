@@ -201,7 +201,7 @@ const PetCard = ({
                                         textTransform: 'none',
                                         width: '140px',
                                         borderRadius: '8px',
-                                        color: 'terciary.dark',
+                                        color: pet.meet ? 'terciary.dark': 'white',
                                     }}
                                 >
                                     More Details
