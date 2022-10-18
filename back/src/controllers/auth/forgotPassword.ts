@@ -27,7 +27,7 @@ const forgotPassword = async (req: Request, res: Response) => {
         )
 
         if (!userUpdate) {
-            return res.status(400).json({ msj: 'reset password link error' })
+            return res.status(200).json({ok:false, msg: 'reset password link error' })
         }
 
         //envio email con nodemailer
@@ -36,10 +36,10 @@ const forgotPassword = async (req: Request, res: Response) => {
             getTemplateForgotPassword(baseUrl, token),
             'Forgot Password'
         )
-        return res.json({ msg: 'Email sent, kindly follow the instructions' })
+        return res.json({ ok:true, msg: 'Email sent, kindly follow the instructions' })
     } catch (error) {
         console.log(error)
-        return res.status(404).json({
+        return res.status(200).json({
             ok: false,
             msg: 'An error occured, contact an administrator',
         })
