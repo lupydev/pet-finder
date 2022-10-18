@@ -1,12 +1,10 @@
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import { Typography, Button, Stack, Divider, TextField } from '@mui/material'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import React, { useEffect } from 'react'
-import { login } from '../../redux/asyncActions/user/login'
-import { GoogleLogin } from '@react-oauth/google'
-import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
+import { Typography, Button, Stack, TextField } from '@mui/material'
+import { Link, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import React from 'react'
+import { forgotPassword } from '../../redux/asyncActions/user/forgotPassword'
 
 const passwordSchema = Yup.object().shape({
     password: Yup.string()
@@ -23,14 +21,12 @@ const passwordSchema = Yup.object().shape({
 
 const ForgotPassword = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const { token } = useParams()
 
-    console.log(token);
-
     const handleSubmit = (values) => {
-        dispatch(login(values))
+        const { password } = values
+        dispatch(forgotPassword(password, token))
     }
 
     return (
