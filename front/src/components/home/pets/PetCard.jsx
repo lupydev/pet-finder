@@ -9,6 +9,7 @@ import {
     IconButton,
     Tooltip,
     Box,
+    Chip,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { MdPets } from 'react-icons/md'
@@ -19,7 +20,6 @@ import { AiFillDelete, AiFillEye, AiTwotoneEdit } from 'react-icons/ai'
 
 const PetCard = ({
     pets,
-    petsReunited,
     isEdit = false,
     handleViewProfile,
     handleEditPost,
@@ -51,24 +51,22 @@ const PetCard = ({
                             alignItems="center"
                             justifyContent="center"
                             flexDirection="row"
+                            position="relative"
                             sx={{
-                                backgroundColor:
-                                    pet.type.toLowerCase() === 'lost'
-                                        ? 'secondary.light'
-                                        : pet.type.toLowerCase() === 'lost'
-                                        ? 'primary.light'
-                                        : '',
+                                backgroundColor: pet.meet
+                                    ? ''
+                                    : pet.type === 'Lost'
+                                    ? 'secondary.light'
+                                    : 'primary.light',
                                 height: '200px',
                                 borderRadius: '8px',
                             }}
                         >
-                            <Box
-                                sx={
-                                    pet?.meet && {
-                                        border: ' 4px solid green',
-                                        borderRadius: '7rem',
-                                    }
-                                }
+                            <Stack
+                                sx={{
+                                    border: pet.meet && '4px solid #2eaa2a',
+                                    borderRadius: '7rem',
+                                }}
                             >
                                 <Avatar
                                     src={pet.img[0]}
@@ -77,16 +75,18 @@ const PetCard = ({
                                         height: '170px',
                                     }}
                                 />
-                            </Box>
+                            </Stack>
                             {pet?.meet && (
-                                <img
-                                    src="https://res.cloudinary.com/diyk4to11/image/upload/v1666028425/Imagenes%20Dise%C3%B1o%20UX/Logo/Pawprint-Heart-Reunited_ilrgru.svg"
-                                    alt="meet"
-                                    style={{
-                                        transform: 'rotate(329deg)',
-                                        width: '83px',
-                                    }}
-                                />
+                                <Stack position="absolute" right="0" bottom="0">
+                                    <img
+                                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1666107770/Pawprint-Heart-Reunited_xqt1rq.svg"
+                                        alt="meet"
+                                        style={{
+                                            transform:'rotate(329deg)',
+                                            width: '65px',
+                                        }}
+                                    />
+                                </Stack>
                             )}
                         </Stack>
                         <Stack p="11px" gap="11px">
@@ -100,20 +100,20 @@ const PetCard = ({
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    gap: '6px',
+                                    justifyContent: 'flex-start',
+                                    gap: '16px',
                                 }}
                             >
                                 {pet.name}
                                 {pet?.meet && (
-                                    <Typography
-                                        fontSize="14px"
-                                        padding="2px"
-                                        color="terciary.dark"
-                                        backgroundColor="terciary.light"
-                                    >
-                                        Reunited
-                                    </Typography>
+                                    <Chip
+                                        label="Reunited"
+                                        size="small"
+                                        sx={{
+                                            backgroundColor: 'terciary.main',
+                                            color: 'terciary.dark',
+                                        }}
+                                    />
                                 )}
                             </Typography>
                             <Stack w="100%" direction="row" display="flex">
@@ -189,27 +189,22 @@ const PetCard = ({
                                     to={`/${pet.type.toLowerCase()}Pets/${
                                         pet._id
                                     }`}
-                                    variant={pet?.meet ? 'text' : 'contained'}
+                                    variant={'contained'}
                                     color={
-                                        pet.type.toLowerCase() === 'lost'
+                                        pet.meet
+                                            ? 'terciary'
+                                            : pet.type === 'Lost'
                                             ? 'secondary'
-                                            : pet.type.toLowerCase() === 'found'
-                                            ? 'primary'
-                                            : 'terciary'
+                                            : 'primary'
                                     }
-                                    sx={
-                                        ({
-                                            textTransform: 'none',
-                                            width: '140px',
-                                            borderRadius: '8px',
-                                        },
-                                        pet?.meet && {
-                                            color: 'terciary.dark',
-                                            background: '#b6eeba',
-                                        })
-                                    }
+                                    sx={{
+                                        textTransform: 'none',
+                                        width: '140px',
+                                        borderRadius: '8px',
+                                        color: 'terciary.dark',
+                                    }}
                                 >
-                                    {pet?.meet ? 'View More' : 'More Details'}
+                                    More Details
                                 </Button>
                             )}
                         </Stack>
