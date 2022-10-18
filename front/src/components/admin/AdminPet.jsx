@@ -32,7 +32,6 @@ export default function AdminPets({ value }) {
     }
 
     const handleDelete = (pet) => {
-        // params.row.status = 'Deleted'
         dispatch(getPetById(pet._id))
         setDeleteButton(true)
     }
@@ -186,7 +185,7 @@ export default function AdminPets({ value }) {
                             backgroundColor: '#f21a1a',
                             '&:hover': { backgroundColor: '#ff6d6d' },
                         }}
-                        onClick={(e) => handleDelete(params.row)}
+                        onClick={() => handleDelete(params.row)}
                         size="small"
                     >
                         <HiOutlineTrash color="white" />

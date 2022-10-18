@@ -127,7 +127,6 @@ const PetEdit = ({ selectedPet }) => {
     const handleSubmit = (values, resetForm) => {
         values.img = images
         values.breed = breeds2
-        console.log(values)
 
         // if (Object.entries(location).length > 0) {
         //     values.location = location
