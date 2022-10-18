@@ -33,7 +33,7 @@ const forgotPassword = async (req: Request, res: Response) => {
         //envio email con nodemailer
         sendEmail(
             userUpdate.email,
-            getTemplateForgotPassword(baseUrl),
+            getTemplateForgotPassword(baseUrl, token),
             'Forgot Password'
         )
         return res.json({ msg: 'Email sent, kindly follow the instructions' })
