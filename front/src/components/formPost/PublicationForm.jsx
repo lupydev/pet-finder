@@ -34,6 +34,8 @@ import { Toast } from '../../utils/swalToasts'
 import UploadImages from './UploadImages/UploadImages'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ComboBox from './SelectAutocomplete/ComboBox'
+import { editPet } from '../../redux/asyncActions/pet/editPet'
+import Loading from '../loading/Loading'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -51,18 +53,37 @@ const FORM_VALIDATION = Yup.object().shape({
     observation: Yup.string(),
 })
 
-export const CreatePostFinal = () => {
+export const PublicationForm = ({ selectedPet }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState([])
-    const { species, breeds } = useSelector((state) => state.pet)
+    const { species, breeds, statusCreate } = useSelector((state) => state.pet)
     const [location, setLocation] = useState({})
     const now = new Date().toISOString().substring(0, 10)
 
     const getUserId = () => {
         const user = JSON.parse(window.localStorage.getItem('user'))
         return user.id
+    }
+
+    const INITIAL_FORM_STATE = {
+        userId: getUserId(),
+        img: [
+            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
+        ],
+        name: '',
+        species: '',
+        breed: '',
+        gender: '',
+        size: '',
+        age: '',
+        date: '',
+        color: [],
+        observation: '',
+        type: '',
+        location: {},
+        description: '',
     }
 
     const handleUpload = async (e) => {
@@ -95,25 +116,6 @@ export const CreatePostFinal = () => {
         setImages((prevState) => prevState.filter((img) => img !== elem))
     }
 
-    const INITIAL_FORM_STATE = {
-        name: '',
-        userId: getUserId(),
-        description: '',
-        species: '',
-        gender: '',
-        size: '',
-        type: '',
-        breed: '',
-        age: '',
-        color: [],
-        img: [
-            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
-        ],
-        location: {},
-        date: '',
-        observation: '',
-    }
-
     const handleSubmit = (values, resetForm) => {
         if (Object.entries(location).length > 0) {
             values.location = location
@@ -133,19 +135,24 @@ export const CreatePostFinal = () => {
             })
             return
         }
+
         dispatch(createPet(values))
 
         resetForm()
-
-        navigate('/')
     }
 
     useEffect(() => {
         dispatch(getSpecies())
-        dispatch(getUserData())
     }, [])
 
-    return (
+    useEffect(() => {
+        if (statusCreate === 'success') {
+            dispatch(getUserData())
+            navigate('/profile')
+        }
+    }, [statusCreate])
+
+    return species.length ? (
         <Formik
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
@@ -166,8 +173,8 @@ export const CreatePostFinal = () => {
                         container
                         spacing={2}
                         columns={6}
-                        margin={3}
                         maxWidth={800}
+                        padding={3}
                     >
                         <Grid item xs={6}>
                             <Typography
@@ -193,7 +200,7 @@ export const CreatePostFinal = () => {
                         <Grid item xs={6}>
                             <Typography variant="h6">Pet details</Typography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6} sm={4}>
                             <TextfieldWrapper
                                 id="name"
                                 name="name"
@@ -201,7 +208,7 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={2}>
                             <DateTimePicker
                                 id="date"
                                 name="date"
@@ -209,7 +216,7 @@ export const CreatePostFinal = () => {
                                 min={now}
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="species"
                                 name="species"
@@ -218,7 +225,7 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={2}>
                             <Autocomplete
                                 id="breed"
                                 name="breed"
@@ -253,17 +260,8 @@ export const CreatePostFinal = () => {
                                 disabled={!breeds.length}
                                 size="small"
                             />
-
-                            {/* <ComboBox
-                                id="breed"
-                                name="breed"
-                                label="Breed"
-                                options={breeds}
-                                size="small"
-                                disabled={!breeds.length}
-                            /> */}
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="gender"
                                 name="gender"
@@ -272,7 +270,7 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="size"
                                 name="size"
@@ -281,7 +279,7 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={2}>
                             <SelectWrapper
                                 id="age"
                                 name="age"
@@ -290,7 +288,7 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} sm={2}>
                             <FormControl fullWidth size="small">
                                 <InputLabel>Color</InputLabel>
                                 <Select
@@ -333,15 +331,6 @@ export const CreatePostFinal = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-
-                            {/* <SelectWrapper
-                                id="color"
-                                name="color"
-                                label="Color"
-                                multiple
-                                options={color}
-                                size="small"
-                            /> */}
                         </Grid>
                         <Grid item xs={6}>
                             <TextfieldWrapper
@@ -353,7 +342,7 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={6} sm={3}>
                             <SelectWrapper
                                 id="type"
                                 name="type"
@@ -362,7 +351,8 @@ export const CreatePostFinal = () => {
                                 size="small"
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
+                        <Grid item xs={6} sm={3}>
                             <GMapsApi setLocation={setLocation} />
                         </Grid>
                         <Grid item xs={6}>
@@ -382,5 +372,7 @@ export const CreatePostFinal = () => {
                 </Form>
             )}
         </Formik>
+    ) : (
+        <Loading />
     )
 }

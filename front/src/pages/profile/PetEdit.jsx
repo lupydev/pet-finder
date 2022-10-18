@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik'
 import {
     Autocomplete,
     Box,
+    Button,
     Chip,
     CircularProgress,
     FormControl,
@@ -38,6 +39,7 @@ import { editPet } from '../../redux/asyncActions/pet/editPet'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { useNavigate } from 'react-router-dom'
 import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
+import { current } from '@reduxjs/toolkit'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -48,70 +50,49 @@ const FORM_VALIDATION = Yup.object().shape({
     type: Yup.string().required('Required'),
     breed: Yup.string().required('Required'),
     age: Yup.string(),
-    color: Yup.string().required('Required'),
+    //color: Yup.string().required('Required'),
     location: Yup.object().required('Required'),
     status: Yup.string(),
     date: Yup.date().required('Required'),
     observation: Yup.string(),
 })
 
-const PetEdit = ({ currentPet }) => {
+// eslint-disable-next-line react/prop-types
+const PetEdit = ({ selectedPet, setEdit }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { species, breeds } = useSelector((state) => state.pet)
-
+    const { userInfo } = useSelector((state) => state.user)
+    const [species2, setEspecie2] = useState(selectedPet?.species._id)
+    const [breeds2, setBreeds2] = useState(selectedPet?.breed._id)
     const [loading, setLoading] = useState(false)
-    const [images, setImages] = useState(currentPet.img)
+    const [images, setImages] = useState(selectedPet?.img)
     const [location, setLocation] = useState({})
 
-    // const INITIAL_FORM_STATE = {
-    //     name: currentPet?.name,
-    //     description: currentPet?.description,
-    //     species: currentPet?.species._id,
-    //     gender: currentPet?.gender,
-    //     size: currentPet?.size,
-    //     type: currentPet?.type,
-    //     breed: currentPet?.breed._id,
-    //     age: currentPet?.age,
-    //     color: currentPet?.color,
-    //     img: currentPet.img,
-    //     location: currentPet?.location.country,
-    //     date: currentPet?.date.substring(0, 10),
-    //     observation: currentPet?.observation,
-    // }
-
-    const getUserId = () => {
-        const user = JSON.parse(window.localStorage.getItem('user'))
-        return user.id
-    }
-
-    const INITIAL_FORM_STATE = {
-        name: '',
-        userId: getUserId(),
-        description: '',
-        species: '',
-        gender: '',
-        size: '',
-        type: '',
-        breed: '',
-        age: '',
-        color: [],
-        img: [
-            'https://res.cloudinary.com/diyk4to11/image/upload/v1664395969/avatar_whzrdg.webp',
-        ],
-        location: {},
-        date: '',
+    let INITIAL_FORM_STATE = {
+        name: selectedPet?.name,
+        userId: selectedPet?.userId._id,
+        description: selectedPet?.description,
+        species: species2,
+        gender: selectedPet?.gender,
+        size: selectedPet?.size,
+        type: selectedPet?.type,
+        breed: selectedPet.breed._id,
+        age: selectedPet?.age,
+        color: selectedPet?.color,
+        img: images,
+        location: selectedPet.location,
+        date: new Date(selectedPet.date).toISOString().substring(0, 10),
         observation: '',
     }
 
     useEffect(() => {
         dispatch(getSpecies())
-        console.log(currentPet)
     }, [])
 
     useEffect(() => {
-        dispatch(getBreeds(currentPet?.species._id))
-    }, [species])
+        dispatch(getBreeds(species2))
+    }, [species2])
 
     const handleUpload = async (e) => {
         try {
@@ -139,8 +120,13 @@ const PetEdit = ({ currentPet }) => {
         }
     }
 
+    const handleOnChange = (e) => {
+        setEspecie2(e.target.value)
+    }
+
     const handleSubmit = (values, resetForm) => {
-        console.log(values)
+        values.img = images
+        values.breed = breeds2
 
         // if (Object.entries(location).length > 0) {
         //     values.location = location
@@ -152,41 +138,26 @@ const PetEdit = ({ currentPet }) => {
         //     return
         // }
 
-        // if (images.length) {
-        //     values.img = images
-        // } else {
-        //     Toast.fire({
-        //         icon: 'error',
-        //         title: 'Must contain at least one image',
-        //     })
-        //     return
-        // }
+        if (images.length) {
+            values.img = images
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: 'Must contain at least one image',
+            })
+            return
+        }
 
-        // const valuesUpdate = {
-        //     ...values,
-        //     img: images,
-        // }
+        const valuesUpdate = {
+            ...values,
+            img: images,
+        }
 
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     icon: 'warning',
-        //     showDenyButton: true,
-        //     showCancelButton: true,
-        //     confirmButtonText: 'Save',
-        //     denyButtonText: `Don't save`,
-        // }).then((result) => {
-        //     if (result.isConfirmed) {
-        //         dispatch(editPet({ id: currentPet._id, newData: valuesUpdate }))
-        //         Swal.fire('Your profile has been updated!').then(() =>
-        //             navigate('/profile')
-        //         )
-        //         navigate('/profile')
-        //     } else if (result.isDenied) {
-        //         Swal.fire('Changes are not saved', '', 'info')
-        //     }
-        // })
+        dispatch(editPet({ id: selectedPet._id, newData: valuesUpdate }))
+        
+        setEdit(false)
 
-        // resetForm()
+        resetForm()
     }
 
     const handleDeleteImg = (elem) => {
@@ -194,12 +165,11 @@ const PetEdit = ({ currentPet }) => {
     }
 
     return (
-        <div>
+        species && (
             <Formik
                 initialValues={{ ...INITIAL_FORM_STATE }}
                 validationSchema={FORM_VALIDATION}
                 onSubmit={(values, { resetForm }) => {
-                    console.log(values)
                     handleSubmit(values, resetForm)
                 }}
             >
@@ -216,10 +186,12 @@ const PetEdit = ({ currentPet }) => {
                             container
                             spacing={2}
                             columns={6}
-                            margin={3}
+                            margin={0}
+                            width="100%"
                             maxWidth={800}
+                            padding={3}
                         >
-                            <Grid item xs={6}>
+                            <Grid item xs={6} width="100%">
                                 <Typography
                                     variant="h3"
                                     color="primary.main"
@@ -238,6 +210,7 @@ const PetEdit = ({ currentPet }) => {
                                     images={images}
                                     handleDeleteImg={handleDeleteImg}
                                     loading={loading}
+                                    onChange={(e) => setImages(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -245,7 +218,7 @@ const PetEdit = ({ currentPet }) => {
                                     Pet details
                                 </Typography>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={6} sm={4}>
                                 <TextfieldWrapper
                                     id="name"
                                     name="name"
@@ -253,35 +226,46 @@ const PetEdit = ({ currentPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={2}>
                                 <DateTimePicker
                                     id="date"
                                     name="date"
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
-                                <SelectWrapper
+                            <Grid item xs={6} sm={2}>
+                                <TextField
+                                    fullWidth
+                                    select
                                     id="species"
                                     name="species"
                                     label="Specie"
-                                    options={species}
                                     size="small"
-                                />
+                                    value={species2}
+                                    onChange={handleOnChange}
+                                >
+                                    {species.map((option) => (
+                                        <MenuItem
+                                            key={option._id}
+                                            value={option._id}
+                                        >
+                                            {option.name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={2}>
                                 <Autocomplete
                                     id="breed"
                                     name="breed"
                                     options={breeds}
+                                    defaultValue={{
+                                        _id: `${selectedPet.breed._id}`,
+                                        name: `${selectedPet.breed.name}`,
+                                    }}
                                     getOptionLabel={(option) => option.name}
                                     onChange={(e, value) => {
-                                        setFieldValue(
-                                            'breed',
-                                            value !== null
-                                                ? value._id
-                                                : INITIAL_FORM_STATE.breed
-                                        )
+                                        setBreeds2(value._id)
                                     }}
                                     renderInput={(params) => (
                                         <TextField
@@ -304,17 +288,8 @@ const PetEdit = ({ currentPet }) => {
                                     disabled={!breeds.length}
                                     size="small"
                                 />
-
-                                {/* <ComboBox
-                                id="breed"
-                                name="breed"
-                                label="Breed"
-                                options={breeds}
-                                size="small"
-                                disabled={!breeds.length}
-                            /> */}
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={2}>
                                 <SelectWrapper
                                     id="gender"
                                     name="gender"
@@ -323,7 +298,7 @@ const PetEdit = ({ currentPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={2}>
                                 <SelectWrapper
                                     id="size"
                                     name="size"
@@ -332,7 +307,7 @@ const PetEdit = ({ currentPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={2}>
                                 <SelectWrapper
                                     id="age"
                                     name="age"
@@ -341,7 +316,7 @@ const PetEdit = ({ currentPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={6} sm={2}>
                                 <FormControl fullWidth size="small">
                                     <InputLabel>Color</InputLabel>
                                     <Select
@@ -384,15 +359,6 @@ const PetEdit = ({ currentPet }) => {
                                         ))}
                                     </Select>
                                 </FormControl>
-
-                                {/* <SelectWrapper
-                                id="color"
-                                name="color"
-                                label="Color"
-                                multiple
-                                options={color}
-                                size="small"
-                            /> */}
                             </Grid>
                             <Grid item xs={6}>
                                 <TextfieldWrapper
@@ -404,7 +370,7 @@ const PetEdit = ({ currentPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} sm={3}>
                                 <SelectWrapper
                                     id="type"
                                     name="type"
@@ -413,10 +379,10 @@ const PetEdit = ({ currentPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} sm={3}>
                                 <GMapsApi
                                     setLocation={setLocation}
-                                    value={currentPet?.location.country}
+                                    value={selectedPet.location.country}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -429,14 +395,26 @@ const PetEdit = ({ currentPet }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                <ButtonWrapper>Save Changes</ButtonWrapper>
+                            <Grid item xs={3}>
+                                <ButtonWrapper color="success">
+                                    Save Changes
+                                </ButtonWrapper>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    fullWidth
+                                    onClick={() => setEdit(false)}
+                                >
+                                    Cancel
+                                </Button>
                             </Grid>
                         </Grid>
                     </Form>
                 )}
             </Formik>
-        </div>
+        )
     )
 }
 

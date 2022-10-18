@@ -14,7 +14,9 @@ import { renewToken } from '../redux/asyncActions/user/renewToken'
 import React, { useEffect } from 'react'
 import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
-import { CreatePostFinal } from '../components/formPost/CreatePostFinal'
+import { PublicationForm } from '../components/formPost/PublicationForm'
+import Admin from '../pages/admin/Admin'
+import isUserAdmin from '../utils/isUserAdmin'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -29,8 +31,7 @@ const Routing = () => {
     }, [])
 
     useEffect(() => {
-        // console.log(location)
-        // dispatch(renewToken())
+        userInfo.isLogged && dispatch(renewToken())
     }, [location])
 
     return (
@@ -59,12 +60,21 @@ const Routing = () => {
             >
                 <Route path="/login" element={<Login />} />
             </Route>
-            <Route path="/aboutUs" element={<About />} />
+            <Route path="/aboutUs" element={<About title="Meet" />} />
             <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/profile" element={<Profile />} />
             </Route>
             <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
-                <Route path="/createPost" element={<CreatePostFinal />} />
+                <Route path="/createPost" element={<PublicationForm />} />
+            </Route>
+            <Route
+                element={
+                    <PrivateRoute
+                        isAllowed={isUserAdmin()}
+                    />
+                }
+            >
+                <Route path="/admin" element={<Admin />} />
             </Route>
         </Routes>
     )

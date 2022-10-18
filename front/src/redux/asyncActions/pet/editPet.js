@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Toast } from '../../../utils/swalToasts'
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
 export const editPet = createAsyncThunk(
@@ -22,12 +23,23 @@ export const editPet = createAsyncThunk(
 
 export const extraEditPet = {
     [editPet.pending]: (state) => {
-        state.status = 'loading'
+        state.statusUpdate = 'loading'
     },
     [editPet.fulfilled]: (state, action) => {
-        state.status = 'success'
+        if (action.payload.data.ok) {
+            Toast.fire({
+                icon: 'success',
+                title: 'Pet updated successfully',
+            })
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: action.payload.data.msg,
+            })
+        }
+        state.statusUpdate = 'success'
     },
     [editPet.rejected]: (state) => {
-        state.status = 'failed'
+        state.statusUpdate = 'failed'
     },
 }

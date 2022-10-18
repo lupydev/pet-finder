@@ -17,6 +17,7 @@ import { createUser } from '../../redux/asyncActions/user/createUser'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { getUserData } from '../../redux/asyncActions/user/getUserData'
 
 const clientSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -84,12 +85,12 @@ const RegisterForm = () => {
         dispatch(createUser(values))
     }
 
-    // useEffect(() => {
-    //     if (userInfo.isLogged) {
-    //         navigate('/profile')
-    //         // dispatch(getUserInfo())
-    //     }
-    // }, [userInfo.isLogged])
+    useEffect(() => {
+        if (userInfo.isLogged) {
+            dispatch(getUserData())
+            navigate('/profile')
+        }
+    }, [userInfo.isLogged])
 
     return (
         <Stack
@@ -123,7 +124,14 @@ const RegisterForm = () => {
                     enableReinitialize={true}
                     validationSchema={clientSchema}
                 >
-                    {({ handleSubmit, errors, touched }) => (
+                    {({
+                        handleSubmit,
+                        errors,
+                        touched,
+                        values,
+                        handleChange,
+                        handleBlur,
+                    }) => (
                         <Form onSubmit={handleSubmit}>
                             <Stack alignItems="center" gap="20px">
                                 <Stack alignItems="center" width="100%" gap={2}>
@@ -133,8 +141,8 @@ const RegisterForm = () => {
                                         <Avatar
                                             src={image}
                                             sx={{
-                                                width: '12rem',
-                                                height: '12rem',
+                                                width: '6rem',
+                                                height: '6rem',
                                             }}
                                         />
                                     )}
@@ -148,126 +156,109 @@ const RegisterForm = () => {
                                     />
                                 </Stack>
                                 <Stack justifyContent="flex-start" width="100%">
-                                    <Stack
-                                        component={Field}
+                                    <TextField
+                                        sx={{ width: '100%' }}
+                                        error={
+                                            touched.nickname && errors.nickname
+                                                ? true
+                                                : false
+                                        }
                                         type="text"
-                                        placeholder="Nickname*"
-                                        id="nickname"
                                         name="nickname"
-                                        sx={{
-                                            border: ' 2px solid #BFBFBF',
-                                            width: '100%',
-                                            height: '50px',
-                                            borderRadius: '10px',
-                                            transition: 'border .3s ease',
-                                            px: '20px',
-                                            fontSize: '20px',
-                                            marginTop: '10px',
-                                        }}
+                                        margin="dense"
+                                        label="nickname"
+                                        helperText={
+                                            touched.nickname &&
+                                            errors.nickname &&
+                                            errors.nickname
+                                        }
+                                        size="small"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.nickname}
                                     />
-                                    {errors.nickname && touched.nickname ? (
-                                        <Typography
-                                            color="red"
-                                            fontSize="16px"
-                                            mt="5px"
-                                        >
-                                            {errors.nickname}
-                                        </Typography>
-                                    ) : null}
                                 </Stack>
                                 <Stack justifyContent="flex-start" width="100%">
-                                    <Stack
-                                        component={Field}
+                                    <TextField
+                                        sx={{ width: '100%' }}
+                                        error={
+                                            touched.fullname && errors.fullname
+                                                ? true
+                                                : false
+                                        }
                                         type="text"
-                                        placeholder="Full Name"
-                                        id="fullname"
                                         name="fullname"
-                                        sx={{
-                                            border: ' 2px solid #BFBFBF',
-                                            width: '100%',
-                                            height: '50px',
-                                            borderRadius: '10px',
-                                            transition: 'border .3s ease',
-                                            px: '20px',
-                                            fontSize: '20px',
-                                        }}
+                                        margin="dense"
+                                        label="fullname"
+                                        helperText={
+                                            touched.fullname &&
+                                            errors.fullname &&
+                                            errors.fullname
+                                        }
+                                        size="small"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.fullname}
                                     />
-                                    {errors.fullname && touched.fullname ? (
-                                        <Typography
-                                            color="red"
-                                            fontSize="16px"
-                                            mt="5px"
-                                        >
-                                            {errors.fullname}
-                                        </Typography>
-                                    ) : null}
                                 </Stack>
                                 <Stack justifyContent="flex-start" width="100%">
-                                    <Stack
-                                        component={Field}
-                                        id="email"
+                                    <TextField
+                                        sx={{ width: '100%' }}
+                                        error={
+                                            touched.email && errors.email
+                                                ? true
+                                                : false
+                                        }
                                         type="email"
                                         name="email"
-                                        placeholder="Email*"
-                                        sx={{
-                                            border: ' 2px solid #BFBFBF',
-                                            width: '100%',
-                                            height: '50px',
-                                            borderRadius: '10px',
-                                            transition: 'border .3s ease',
-                                            px: '20px',
-                                            fontSize: '20px',
-                                        }}
+                                        margin="dense"
+                                        label="Email"
+                                        placeholder="email@example.com"
+                                        helperText={
+                                            touched.email &&
+                                            errors.email &&
+                                            errors.email
+                                        }
+                                        size="small"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.email}
                                     />
-                                    {errors.email && touched.email ? (
-                                        <Typography
-                                            color="red"
-                                            fontSize="16px"
-                                            mt="5px"
-                                        >
-                                            {errors.email}
-                                        </Typography>
-                                    ) : null}
                                 </Stack>
                                 <Stack justifyContent="flex-start" width="100%">
-                                    <Stack
-                                        component={Field}
+                                    <TextField
+                                        sx={{ width: '100%' }}
+                                        error={
+                                            touched.password && errors.password
+                                                ? true
+                                                : false
+                                        }
                                         type="password"
-                                        placeholder="Password*"
-                                        id="password"
                                         name="password"
-                                        
-                                        sx={{
-                                            border: ' 2px solid #BFBFBF',
-                                            width: '100%',
-                                            height: '50px',
-                                            borderRadius: '10px',
-                                            transition: 'border .3s ease',
-                                            px: '20px',
-                                            fontSize: '20px',
-                                        }}
+                                        margin="dense"
+                                        label="Password"
+                                        helperText={
+                                            touched.password &&
+                                            errors.password &&
+                                            errors.password
+                                        }
+                                        size="small"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.password}
                                     />
-                                    {errors.password && touched.password ? (
-                                        <Typography
-                                            color="red"
-                                            fontSize="16px"
-                                            mt="5px"
-                                        >
-                                            {errors.password}
-                                        </Typography>
-                                    ) : null}
                                 </Stack>
 
                                 <Button
                                     variant="contained"
                                     color="secondary"
+                                    
                                     type="submit"
                                     sx={{
                                         mt: '10px',
                                         color: 'white',
                                         textTransform: 'none',
                                         width: '100px',
-                                        borderRadius: '8px',
                                         fontSize: '16px',
                                     }}
                                     size="small"

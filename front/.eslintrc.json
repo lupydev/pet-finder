@@ -17,7 +17,8 @@
         "react"
     ],
     "rules": {
-        "indent": ["error", 4],
-        "quotes": ["error", "single"]
+        // "indent": ["error", 4],
+        "quotes": ["error", "single"],
+        "react/prop-types": 0
     }
 }

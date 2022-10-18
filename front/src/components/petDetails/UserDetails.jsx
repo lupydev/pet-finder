@@ -90,9 +90,9 @@ const UserDetails = () => {
     return (
         <Stack
             justifyContent="space-evenly"
-            width="400px"
-            height="300px"
-            p="15px"
+            width={{xs: '100%', sm: '50%', md:"400px"}}
+            height={{xs: '200px', sm:'290px'}}
+            p={{xs:'0px 15px 15px 15px', sm: '15px'}}
             sx={{
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                 borderRadius: '5px',
@@ -102,8 +102,8 @@ const UserDetails = () => {
                 <Stack
                     direction="row"
                     width="100%"
-                    minWidth="250px"
-                    height="150px"
+                    
+                    height={{xs: '110px', sm: '150px'}}
                     border="solid 3px"
                     borderColor={
                         petDetail?.type.toLowerCase() === 'lost'
@@ -120,12 +120,11 @@ const UserDetails = () => {
                     alignItems="center"
                 >
                     <Avatar
-                        src={petDetail?.userId?.img}
-                        sx={{ width: 110, height: 110, ml: '20px' }}
+                        sx={{ width: {xs: 80, sm: 95, md: 110}, height: {xs: 80, sm: 95, md: 110}, ml: {xs: '30px', sm: '20px'}} }
                     />
                     <Stack width="100%">
                         <Typography
-                            fontSize="25px"
+                            fontSize={{xs: '20px', sm: '25px'}}
                             component="div"
                             fontWeight={'bold'}
                             mx="auto"
@@ -190,7 +189,7 @@ const UserDetails = () => {
                     justifyContent="center"
                     gap="20px"
                     sx={{
-                        backgroundImage: `url(https://res.cloudinary.com/diyk4to11/image/upload/v1665698751/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo_vhobkl.png)`,
+                        backgroundImage: 'url(https://res.cloudinary.com/diyk4to11/image/upload/v1665698751/Imagenes%20Dise%C3%B1o%20UX/Logo/fondo_vhobkl.png)',
                         borderRadius: '20px',
                         backgroundColor: '#eff5ff',
 
@@ -249,15 +248,15 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.name &&
                                     formik.touched.name ? (
-                                        <Typography>{errors.name}</Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="18px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>{errors.name}</Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="18px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <TextField
                                         label="Email"
                                         id="email"
@@ -282,15 +281,15 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.email &&
                                     formik.touched.email ? (
-                                        <Typography>{errors.email}</Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="18px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>{errors.email}</Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="18px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <TextField
                                         label="Phone"
                                         id="phone"
@@ -315,15 +314,15 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.phone &&
                                     formik.touched.phone ? (
-                                        <Typography>{errors.phone}</Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="18px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>{errors.phone}</Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="18px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <TextField
                                         id="message"
                                         name="message"
@@ -349,17 +348,17 @@ const UserDetails = () => {
                                     />
                                     {formik.errors.message &&
                                     formik.touched.message ? (
-                                        <Typography>
-                                            {errors.message}
-                                        </Typography>
-                                    ) : (
-                                        <Typography
-                                            sx={{ opacity: 0 }}
-                                            fontSize="17px"
-                                        >
-                                            .
-                                        </Typography>
-                                    )}
+                                            <Typography>
+                                                {errors.message}
+                                            </Typography>
+                                        ) : (
+                                            <Typography
+                                                sx={{ opacity: 0 }}
+                                                fontSize="17px"
+                                            >
+                                                .
+                                            </Typography>
+                                        )}
                                     <Button
                                         type="submit"
                                         variant="contained"

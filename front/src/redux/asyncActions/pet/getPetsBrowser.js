@@ -22,15 +22,15 @@ export const extraGetPetsBrowser = {
     },
     [getPetsBrowser.fulfilled]: (state, action) => {
         if (action.payload.statusText === 'No Content') {
-            console.log(action.payload.statusText);
+            state.LostPetsData = []
+            state.FoundPetsData = []
         }
         if (action.payload.data.type === 'Lost') {
-            state.statusPets = 'success'
-            state.LostPetsData = action.payload.data
+            state.LostPetsData = action.payload.data.pets
         } else {
-            state.FoundPetsData = action.payload.data
-            state.statusPets = 'success'
+            state.FoundPetsData = action.payload.data.pets
         }
+        state.status = 'success'
     },
     [getPetsBrowser.rejected]: (state) => {
         state.status = 'failed'

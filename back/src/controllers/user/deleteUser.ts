@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import User from '../../schemas/User'
+import Pet from '../../schemas/Pet'
 
 export const deleteUser = async (req: Request, res: Response) => {
     const { id } = req.params
@@ -9,7 +10,16 @@ export const deleteUser = async (req: Request, res: Response) => {
         const deleted = await User.findByIdAndDelete({ _id: id })
 
         if (deleted) {
-            return res.status(200).json({ ok: true, msg: 'user deleted', id })
+            const petDeleted = await Pet.deleteMany({ userId: deleted._id })
+
+            if (petDeleted.deletedCount >= 0) {
+                return res.status(200).json({
+                    ok: true,
+                    msg: 'user deleted',
+                    id,
+                    petsDeleted: petDeleted.deletedCount,
+                })
+            }
         }
 
         return res

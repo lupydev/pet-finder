@@ -10,19 +10,23 @@ import {
 import { getSpecies, extraGetSpecies } from '../../asyncActions/pet/getSpecies'
 import { getBreeds, extraGetBreeds } from '../../asyncActions/pet/getBreeds'
 import {
-    deletePost,
-    extraDeletePost,
+    deletePetPost,
+    extraDeletePetPost,
 } from '../../asyncActions/pet/deletePetPost'
 
 const initialState = {
-    LostPetsData: {},
-    FoundPetsData: {},
+    LostPetsData: [],
+    FoundPetsData: [],
+    MeetPetsData: [],
     petDetail: undefined,
     petsDetails: [],
     species: [],
     breeds: [],
     status: 'loading',
-    statusBreeds: 'loading',
+    statusCreate: 'loading',
+    statusSpecies: 'loading',
+    statusUpdate: 'loading',
+    statusDelete: 'loading',
     error: '',
 }
 
@@ -33,13 +37,17 @@ const petSlice = createSlice({
         cleanPetData: (state) => {
             state.LostPetsData = {}
             state.FoundPetsData = {}
+            state.MeetPetsData = {}
             state.petDetail = undefined
             state.status = 'loading'
-            state.statusBreeds = 'loading'
+            state.statusCreate = 'loading'
+            state.statusDelete = 'loading'
+            state.statusSpecies = 'loading'
+            state.statusUpdate = 'loading'
         },
         cleanBreeds: (state) => {
             state.breeds = []
-        }
+        },
     },
     extraReducers: {
         ...extraCreatePet,
@@ -49,7 +57,7 @@ const petSlice = createSlice({
         ...extraEditPet,
         ...extraGetSpecies,
         ...extraGetBreeds,
-        ...extraDeletePost,
+        ...extraDeletePetPost,
     },
 })
 
@@ -61,8 +69,8 @@ export {
     editPet,
     getSpecies,
     getBreeds,
-    deletePost,
+    deletePetPost,
 }
 
-export const { cleanPetData,cleanBreeds } = petSlice.actions
+export const { cleanPetData, cleanBreeds } = petSlice.actions
 export default petSlice.reducer

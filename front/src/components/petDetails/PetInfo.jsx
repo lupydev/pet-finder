@@ -65,9 +65,10 @@ const PetInfo = (props) => {
             <Stack
                 width="100%"
                 direction="row"
-                height="60px"
+                minHeight="60px"
                 alignItems="center"
                 gap="15px"
+               
             >
                 <Stack
                     justifyContent="flex-end"
@@ -88,7 +89,7 @@ const PetInfo = (props) => {
                 <Stack width='3px' height='80%' backgroundColor={
                     petDetail?.type.toLowerCase() === 'lost' ? 'secondary.main' : 'primary.main'
                 } />
-                <Stack justifyContent="flex-start" direction="row" width="49%">
+                <Stack py='15px' justifyContent="flex-start" direction="row" width="49%">
                     <Typography fontSize="15px" component="div" m="0">
                         {petDetail?.location?.country}
                     </Typography>

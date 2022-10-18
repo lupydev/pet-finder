@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import {
     Box,
+    Button,
     CircularProgress,
     Grid,
     IconButton,
@@ -9,11 +10,12 @@ import {
 } from '@mui/material'
 import { TiDeleteOutline } from 'react-icons/ti'
 import { Stack } from '@mui/system'
+import { AiFillCamera } from 'react-icons/ai'
 
 const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
     return (
-        <Grid item xs={6}>
-            {images.length ? (
+        <Grid item xs={6} bgcolor="#F0F8FF" borderRadius="8px" >
+            {images.length || loading ? (
                 <Paper
                     sx={{
                         display: 'flex',
@@ -29,6 +31,7 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                             position="relative"
                             border="1px solid rgba(0, 0, 0, 0.2)"
                             borderRadius="8px"
+                            overflow="hidden"
                         >
                             <IconButton
                                 style={{
@@ -46,8 +49,6 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                                 sx={{
                                     width: 150,
                                     height: 150,
-                                    borderRadius: 4,
-                                    overflow: 'hidden',
                                 }}
                             >
                                 <img src={elem} alt="Not found" height="100%" />
@@ -57,18 +58,20 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                     {loading && <CircularProgress />}
                 </Paper>
             ) : null}
-            <div style={{ margin: 10 }}>
-                <TextField
-                    fullWidth={true}
-                    id="image"
-                    name="image"
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={(e) => handleUpload(e)}
-                    size="small"
-                />
-            </div>
+
+            <Button
+                id="image"
+                name="image"
+                variant="outlined"
+                component="label"
+                size="small"
+                startIcon={<AiFillCamera />}
+                sx={{ textTransform: 'none', mt: '10px' }}
+                onChange={(e) => handleUpload(e)}
+            >
+                Upload Images
+                <input hidden accept="image/*" type="file" multiple />
+            </Button>
         </Grid>
     )
 }
