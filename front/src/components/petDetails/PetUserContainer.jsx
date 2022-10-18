@@ -8,6 +8,23 @@ import DocumentMeta from 'react-document-meta'
 import { IoMdShareAlt } from 'react-icons/io'
 
 const PetUserContainer = (props) => {
+    const url = window.location
+
+    console.log(url.href)
+    const meta = {
+        title: 'Help me to find my Home',
+        description:
+            'I am a lost Pet that wanna come home, help me sharing this link to find my family',
+        canonical:
+            'https://petfinder-phi.vercel.app/lostPets/63494bf4223d4335fbdb1c8c',
+        meta: {
+            charset: 'utf-8',
+            name: {
+                keywords: 'pet, find, lost, dog,cat,petfinder',
+            },
+            image: 'https://res.cloudinary.com/diyk4to11/image/upload/v1665747788/upload_petfinder/xx6gchaqhxmqiltmsonv.jpg',
+        },
+    }
     return (
         <Stack
             width="100%"
