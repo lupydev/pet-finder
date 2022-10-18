@@ -26,12 +26,6 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
         }
     }, [userData])
 
-    useEffect(()=>{
-
-
-
-    })
-
     return (
         <Stack width="100%" gap={5} alignItems={'center'}>
             <Title title={'Account'} desc={`Hi ${userData.nickname}!`} />
