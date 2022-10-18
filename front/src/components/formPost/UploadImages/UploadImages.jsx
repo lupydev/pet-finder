@@ -14,7 +14,7 @@ import { AiFillCamera } from 'react-icons/ai'
 
 const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
     return (
-        <Grid item xs={6}>
+        <Grid item xs={6} bgcolor="#F0F8FF" borderRadius="8px" >
             {images.length || loading ? (
                 <Paper
                     sx={{

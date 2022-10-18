@@ -16,6 +16,7 @@ import { userIsLogged } from '../redux/features/user/userSlice'
 import PrivateRoute from './privateRoute/PrivateRoute'
 import { PublicationForm } from '../components/formPost/PublicationForm'
 import Admin from '../pages/admin/Admin'
+import isUserAdmin from '../utils/isUserAdmin'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -69,7 +70,7 @@ const Routing = () => {
             <Route
                 element={
                     <PrivateRoute
-                        isAllowed={(isUserLogged() && userInfo?.isAdmin) ? true : false}
+                        isAllowed={isUserAdmin()}
                     />
                 }
             >

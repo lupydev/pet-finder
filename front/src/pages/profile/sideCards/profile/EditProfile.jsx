@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { putEditUser } from '../../../../redux/asyncActions/user/putEditUser' 
+import { putEditUser } from '../../../../redux/asyncActions/user/putEditUser'
 import { useNavigate } from 'react-router-dom'
 import { AiFillCamera } from 'react-icons/ai'
 
@@ -28,7 +28,6 @@ const validationSchema = Yup.object().shape({
 })
 
 const EditProfile = ({ userData, setEdit }) => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false)
@@ -65,20 +64,21 @@ const EditProfile = ({ userData, setEdit }) => {
         }
     }
 
-    const handleSubmitEdit = (values, resetForm) => {
+    const handleSubmit = (values, resetForm) => {
         const valuesUpdate = {
             ...values,
             img: image,
         }
         dispatch(putEditUser({ id: userData._id, newData: valuesUpdate }))
-        handleCancelEdit(resetForm)
+        setEdit(false)
+        resetForm()
     }
 
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={(values, {resetForm}) => {
-                handleSubmitEdit(values, resetForm)
+            onSubmit={(values, { resetForm }) => {
+                handleSubmit(values, resetForm)
             }}
             validationSchema={validationSchema}
         >
@@ -157,7 +157,9 @@ const EditProfile = ({ userData, setEdit }) => {
                                     touched.nickname && Boolean(errors.nickname)
                                 }
                                 helperText={
-                                    touched.nickname && Boolean(errors.nickname) ?errors.nickname : ' '
+                                    touched.nickname && Boolean(errors.nickname)
+                                        ? errors.nickname
+                                        : ' '
                                 }
                                 onBlur={handleBlur}
                             ></TextField>
@@ -185,7 +187,9 @@ const EditProfile = ({ userData, setEdit }) => {
                                     touched.fullname && Boolean(errors.fullname)
                                 }
                                 helperText={
-                                    touched.fullname && Boolean(errors.fullname) ? errors.fullname : ' '
+                                    touched.fullname && Boolean(errors.fullname)
+                                        ? errors.fullname
+                                        : ' '
                                 }
                                 onBlur={handleBlur}
                             ></TextField>

@@ -9,7 +9,7 @@ import { MdPets, MdPerson } from 'react-icons/md'
 import AdminBoxes from './AdminBoxes'
 import AdminUser from './AdminUser'
 import AdminPets from './AdminPet'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
 import { getAllUsers } from '../../redux/asyncActions/user/getAllUsers'
 
@@ -39,6 +39,7 @@ function a11yProps(index) {
 export default function AdminDashboard() {
     const dispatch = useDispatch()
     const [value, setValue] = useState(0)
+    const { statusUpdate } = useSelector((state) => state.pet)
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
@@ -53,6 +54,13 @@ export default function AdminDashboard() {
         dispatch(getPets('Found'))
         dispatch(getAllUsers())
     }, [])
+
+    useEffect(() => {
+        if (statusUpdate === 'success') {
+            dispatch(getPets('Lost'))
+            dispatch(getPets('Found'))
+        }
+    }, [statusUpdate])
 
     return (
         <Stack

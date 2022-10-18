@@ -4,6 +4,10 @@ import {
     getUserData,
     extraGetUserData,
 } from '../../asyncActions/user/getUserData'
+import {
+    getUserById,
+    extraGetUserById,
+} from '../../asyncActions/user/getUserById'
 import { login, extraLogin } from '../../asyncActions/user/login'
 import {
     loginGoogle,
@@ -16,18 +20,33 @@ import {
     putEditUser,
     extraPutEditUser,
 } from '../../asyncActions/user/putEditUser'
-import {getUserPets, extraGetUserPets} from '../../asyncActions/user/getUserPets'
-import { getAllUsers,extraGetAllUsers  } from '../../asyncActions/user/getAllUsers'
+import {
+    toggleUserAdmin,
+    extraToggleUserAdmin,
+} from '../../asyncActions/user/toggleUserAdmin'
+import {
+    getUserPets,
+    extraGetUserPets,
+} from '../../asyncActions/user/getUserPets'
+import {
+    getAllUsers,
+    extraGetAllUsers,
+} from '../../asyncActions/user/getAllUsers'
+import {
+    deleteUserData,
+    extraDeleteUserData,
+} from '../../asyncActions/user/deleteUserData'
 
 const initialState = {
     userData: undefined,
+    selectedUser: undefined,
     allUsers: [],
     userPets: [],
     userInfo: { token: '', id: '', isLogged: false, isAdmin: false },
     status: 'loading',
     statusUsers: 'loading',
     createUserStatus: 'loading',
-    deleteStatus: 'loading',
+    statusDelete: 'loading',
     error: '',
 }
 
@@ -46,6 +65,9 @@ const userSlice = createSlice({
                 isAdmin: false,
             }
             state.status = 'loading'
+            state.statusUsers = 'loading'
+            state.createUserStatus = 'loading'
+            state.statusDelete = 'loading'
 
             googleLogout()
 
@@ -54,7 +76,7 @@ const userSlice = createSlice({
         },
         cleanPetsData: (state) => {
             state.userPets = []
-        }
+        },
     },
     extraReducers: {
         ...extraCreateUser,
@@ -63,12 +85,27 @@ const userSlice = createSlice({
         ...extraGetUserPets,
         ...extraLoginGoogle,
         ...extraPutEditUser,
+        ...extraToggleUserAdmin,
         ...extraRenewToken,
-        ...extraGetAllUsers
+        ...extraGetAllUsers,
+        ...extraDeleteUserData,
+        ...extraGetUserById,
     },
 })
 
-export { createUser, login, getUserData,getAllUsers, getUserPets, loginGoogle, putEditUser, renewToken }
+export {
+    createUser,
+    login,
+    getUserData,
+    getUserById,
+    getAllUsers,
+    getUserPets,
+    loginGoogle,
+    putEditUser,
+    toggleUserAdmin,
+    renewToken,
+    deleteUserData,
+}
 
 export const { userIsLogged, logout, cleanPetsData } = userSlice.actions
 
