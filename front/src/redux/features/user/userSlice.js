@@ -36,6 +36,7 @@ import {
     deleteUserData,
     extraDeleteUserData,
 } from '../../asyncActions/user/deleteUserData'
+import { forgotPassword, extraForgotPassword } from '../../asyncActions/user/forgotPassword'
 
 const initialState = {
     userData: undefined,
@@ -90,6 +91,7 @@ const userSlice = createSlice({
         ...extraGetAllUsers,
         ...extraDeleteUserData,
         ...extraGetUserById,
+        ...extraForgotPassword
     },
 })
 
@@ -105,6 +107,7 @@ export {
     toggleUserAdmin,
     renewToken,
     deleteUserData,
+    forgotPassword
 }
 
 export const { userIsLogged, logout, cleanPetsData } = userSlice.actions

@@ -1,60 +1,27 @@
-import { Field, Formik, Form } from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import {
-    Typography,
-    Button,
-    Stack,
-    Divider,
-    TextField,
-    Grid,
-    Box,
-} from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { Typography, Button, Stack, Divider, TextField } from '@mui/material'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect } from 'react'
 import { login } from '../../redux/asyncActions/user/login'
 import { GoogleLogin } from '@react-oauth/google'
 import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
-import { getUserData } from '../../redux/asyncActions/user/getUserData'
+import { forgotPassword } from '../../redux/asyncActions/user/forgotPassword'
 
-const clientSchema = Yup.object().shape({
+const passwordSchema = Yup.object().shape({
     email: Yup.string()
         .email('Invalid Email')
         .required('This field is required'),
-    password: Yup.string()
-        .min(8, 'Password is too short')
-        .required('This field is required')
-        .matches(
-            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
-        ),
 })
 
-const Login = () => {
+const ResetPassword = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { userInfo } = useSelector((state) => state.user)
 
-    const onLoginSuccess = (googleData) => {
-        dispatch(loginGoogle(googleData))
+    const handleSubmit = (email) => {
+        dispatch(forgotPassword(email))
     }
-
-    const handleSubmit = (values) => {
-        dispatch(login(values))
-    }
-
-    // useEffect(() => {
-    //     if (userInfo.isLogged) {
-    //         navigate('/')
-    //         dispatch(getUserData())
-    //     }
-    // }, [userInfo.isLogged])
-
-    // useEffect(() => {
-    //     if (userInfo.isLogged) {
-    //         navigate('/profile')
-    //     }
-    // }, [userInfo.isLogged])
 
     return (
         <Stack
@@ -83,11 +50,11 @@ const Login = () => {
                     ml={10}
                 >
                     <Typography fontSize="20px" color="white" fontWeight="">
-                        Log In
+                        Welcome
                     </Typography>
 
                     <Typography variant="h5" color="white" fontWeight="bold">
-                        Welcome Back!
+                        Reset your Password!
                     </Typography>
 
                     <Stack position="absolute" right={0}>
@@ -113,11 +80,10 @@ const Login = () => {
                     <Formik
                         initialValues={{
                             email: '',
-                            password: '',
                         }}
                         onSubmit={(values) => handleSubmit(values)}
                         enableReinitialize={true}
-                        validationSchema={clientSchema}
+                        validationSchema={passwordSchema}
                     >
                         {({
                             errors,
@@ -134,13 +100,13 @@ const Login = () => {
                                             fontSize="20px"
                                             variant="h5"
                                         >
-                                            <b>Log In</b>
+                                            <b>Reset Password</b>
                                         </Typography>
                                         <Typography
                                             fontSize="14px"
                                             color="primary.main"
                                         >
-                                            Please fill your information bellow
+                                            Please fill the information bellow
                                         </Typography>
                                         <Stack width="100%">
                                             <TextField
@@ -155,7 +121,6 @@ const Login = () => {
                                                 name="email"
                                                 margin="dense"
                                                 label="email"
-                                                placeholder="email@example.com"
                                                 helperText={
                                                     touched.email &&
                                                     errors.email &&
@@ -168,97 +133,40 @@ const Login = () => {
                                             />
                                         </Stack>
 
-                                        <Stack width="100%">
-                                            <TextField
-                                                sx={{ width: '100%' }}
-                                                error={
-                                                    touched.password &&
-                                                    errors.password
-                                                        ? true
-                                                        : false
-                                                }
-                                                type="password"
-                                                name="password"
-                                                margin="dense"
-                                                label="password"
-                                                helperText={
-                                                    touched.password &&
-                                                    errors.password &&
-                                                    errors.password
-                                                }
-                                                size="small"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.password}
-                                            />
-                                        </Stack>
-                                        <Stack
-                                            direction="row"
-                                            alignItems="center"
-                                            mt="10px"
-                                            justifyContent="space-between"
-                                            width="100%"
+                                        <Button
+                                            variant="contained"
+                                            type="submit"
+                                            sx={{
+                                                mt: '10px',
+                                                color: 'white',
+                                                textTransform: 'none',
+                                                fontSize: '16px',
+                                                width: '100%',
+                                            }}
+                                            size="small"
                                         >
-                                            <GoogleLogin
-                                                onSuccess={(
-                                                    credentialResponse
-                                                ) => {
-                                                    onLoginSuccess(
-                                                        credentialResponse
-                                                    )
-                                                }}
-                                                onError={() => {
-                                                    console.log('Login Failed')
-                                                }}
-                                            />
-                                            <Button
-                                                variant="contained"
-                                                type="submit"
-                                                sx={{
-                                                    color: 'white',
-                                                    textTransform: 'none',
-                                                    width: '100px',
-                                                    fontSize: '16px',
-                                                }}
-                                                size="small"
-                                            >
-                                                Login
-                                            </Button>
-                                        </Stack>
+                                            Send Email
+                                        </Button>
                                     </Stack>
                                 </Form>
                             )
                         }}
                     </Formik>
-                    <Divider sx={{ width: '100%', margin: '2rem 0' }} />
                     <Stack
                         justifyContent="center"
                         direction="row"
                         gap="10px"
-                        mb="1rem"
+                        margin="1rem 0"
                     >
                         <Typography fontSize="16px">
-                            Don&apos;t have an account?
+                            did you remember your password?
                         </Typography>
                         <Typography
                             component={Link}
-                            to="/signin"
+                            to="/login"
                             fontSize="16px"
                         >
-                            Sign Up
-                        </Typography>
-                    </Stack>
-                    <Stack
-                        justifyContent="center"
-                        direction="row"
-                        gap="10px"
-                    >
-                        <Typography
-                            component={Link}
-                            to="/reset-password"
-                            fontSize="16px"
-                        >
-                            Forgot your password?
+                            Log In
                         </Typography>
                     </Stack>
                 </Stack>
@@ -276,4 +184,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default ResetPassword
