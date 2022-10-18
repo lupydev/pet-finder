@@ -2,9 +2,10 @@ import User from '../../schemas/User'
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import { generateJWT } from '../../utils/jwt'
-import axios from 'axios'
+
 import { getTemplateWelcome } from '../../utils/getTemplateWelcome'
 import { sendEmail } from '../../utils/sendEmail'
+import { suscribeUser } from '../../utils/suscribeUser'
 
 const createUser = async (req: Request, res: Response) => {
     const userData = req.body
@@ -38,10 +39,10 @@ const createUser = async (req: Request, res: Response) => {
         //*Generate JWT
         const token = await generateJWT(newUser.id, newUser.admin)
 
-        //Mail bienvenida
-        sendEmail(userData.email, getTemplateWelcome())
-
         await newUser.save()
+
+        //Mail bienvenida
+        sendEmail(userData.email, getTemplateWelcome(), 'Welcome') //TODO:ver el tema fallo bienvenida
 
         res.status(200).json({
             ok: true,
@@ -51,16 +52,7 @@ const createUser = async (req: Request, res: Response) => {
         })
 
         //MailChimp
-
-        await axios.post(
-            'https://us17.api.mailchimp.com/3.0/lists/fdb3e04161/',
-            postData,
-            {
-                headers: {
-                    Authorization: 'auth 640616577f4e558d43138af6893b722d-us17',
-                },
-            }
-        )
+        suscribeUser(postData) //TODO:ver el tema fallo suscripcion
 
         return
     } catch (error) {
