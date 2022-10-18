@@ -10,7 +10,6 @@ import { IoMdShareAlt } from 'react-icons/io'
 const PetUserContainer = (props) => {
     const url = window.location
 
-    console.log(url.href)
     const meta = {
         title: 'Help me to find my Home',
         description:
@@ -75,9 +74,7 @@ const PetUserContainer = (props) => {
                         >
                             <Button>
                                 Share on Facebook
-                                <IconButton>
-                                    <IoMdShareAlt color="#3b5998"></IoMdShareAlt>
-                                </IconButton>
+                                <IoMdShareAlt color="#3b5998"></IoMdShareAlt>
                             </Button>
                         </FacebookShareButton>
                     </DocumentMeta>
