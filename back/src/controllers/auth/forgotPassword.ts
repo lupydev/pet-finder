@@ -18,10 +18,12 @@ const forgotPassword = async (req: Request, res: Response) => {
             expiresIn: '30s',
         })
         
+        //guardo el token nuevo en base de datos 
         
-        //guardo el token nuevo en base de datos
-        const newUser = await User.updateOne({resetLink:token})
-        if(!newUser){
+        await User.updateOne({resetLink:token})//!UpdateOne no funciona Investigar
+        
+        console.log('usuario cambiado',user);
+        if(!user){
             return res.status(400).json({msj:'reset password link error'})
         }else{
         //envio email con nodemailer
