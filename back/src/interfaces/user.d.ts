@@ -11,4 +11,5 @@ export interface User {
     externId?: string
     email_verified: boolean
     status?: StatusUser
+    resetLink: string
 }

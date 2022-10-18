@@ -37,7 +37,6 @@ const PetCardsContainer = (props) => {
             )
     }, [FoundPetsData])
 
-    console.log(limitedLostPetsData)
     return (
         <Stack gap="25px">
             <Typography

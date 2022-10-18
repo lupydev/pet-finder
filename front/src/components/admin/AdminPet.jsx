@@ -32,7 +32,6 @@ export default function AdminPets({ value }) {
     }
 
     const handleDelete = (pet) => {
-        // params.row.status = 'Deleted'
         dispatch(getPetById(pet._id))
         setDeleteButton(true)
     }
@@ -139,11 +138,7 @@ export default function AdminPets({ value }) {
             field: 'age',
             headerName: 'Age',
             editable: false,
-        },
-        {
-            field: 'color',
-            headerName: 'Color',
-            editable: false,
+            width:60
         },
         {
             field: 'type',
@@ -154,6 +149,7 @@ export default function AdminPets({ value }) {
             field: 'location',
             headerName: 'Location',
             editable: false,
+            width:230
         },
         {
             field: 'status',
@@ -168,9 +164,9 @@ export default function AdminPets({ value }) {
             align: 'center',
             renderCell: (cell) =>
                 cell.value ? (
-                    <AiFillCheckCircle color="green" />
+                    <AiFillCheckCircle color="green" size='26px'  />
                 ) : (
-                    <AiFillCloseCircle color="red" />
+                    <AiFillCloseCircle color="red" size='26px'  />
                 ),
         },
         {
@@ -186,7 +182,7 @@ export default function AdminPets({ value }) {
                             backgroundColor: '#f21a1a',
                             '&:hover': { backgroundColor: '#ff6d6d' },
                         }}
-                        onClick={(e) => handleDelete(params.row)}
+                        onClick={() => handleDelete(params.row)}
                         size="small"
                     >
                         <HiOutlineTrash color="white" />
@@ -223,7 +219,7 @@ export default function AdminPets({ value }) {
             boxShadow={4}
             sx={{ borderRadius: '0px 0px 10px 10px' }}
         >
-            <PetEdit selectedPet={selectedPet} />
+            <PetEdit selectedPet={selectedPet} setEdit={setEdit} />
         </Stack>
     ) : (
         <DataGrid

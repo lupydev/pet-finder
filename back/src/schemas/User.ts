@@ -44,6 +44,10 @@ const userSchema = new Schema<User>({
         type: String,
         default: 'Active',
     },
+    resetLink:{
+        type:String,
+        default:''
+    },
 })
 
 const User = model('User', userSchema)

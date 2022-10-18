@@ -25,7 +25,7 @@ const initialState = {
     status: 'loading',
     statusCreate: 'loading',
     statusSpecies: 'loading',
-    statusBreeds: 'loading',
+    statusUpdate: 'loading',
     statusDelete: 'loading',
     error: '',
 }
@@ -43,7 +43,7 @@ const petSlice = createSlice({
             state.statusCreate = 'loading'
             state.statusDelete = 'loading'
             state.statusSpecies = 'loading'
-            state.statusBreeds = 'loading'
+            state.statusUpdate = 'loading'
         },
         cleanBreeds: (state) => {
             state.breeds = []
