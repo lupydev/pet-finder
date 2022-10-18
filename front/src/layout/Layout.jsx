@@ -12,9 +12,9 @@ const Layout = ({ children }) => {
             height="100vh"
             justifyContent="space-between"
         >
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
-            {/* <Footer /> */}
+            <Footer />
         </Stack>
     )
 }
