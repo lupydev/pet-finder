@@ -1,5 +1,6 @@
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
+import Loading from '../../components/loading/Loading'
 import TeamCard from './TeamCard'
 import team from './team.json'
 
@@ -14,21 +15,30 @@ const OurTeamContainer = () => {
             >
                 Our Team!
             </Typography>
-            {team.map((person) => (
-                <Stack
-                    direction="row"
-                    maxWidth="1024px"
-                    gap={5}
-                    margin="0 auto"
-                    mt={6}
-                    alignItems="center"
-                    justifyContent="space-between"
-                >
-                    <Stack>
-                        <TeamCard person={person} />
-                    </Stack>
+            <Stack
+                direction="row"
+                maxWidth="1440px"
+                alignItems="center"
+                justifyContent="space-evenly"
+                marginTop={6}
+                gap={1}
+                flexWrap="wrap"
+            >
+                <Stack gap="30px">
+                    <TeamCard person={team[0]} />
+                    <TeamCard person={team[1]} />
+                    <TeamCard person={team[2]} />
                 </Stack>
-            ))}
+                <Stack gap="30px">
+                    <TeamCard person={team[3]} />
+                    <TeamCard person={team[4]} />
+                </Stack>
+                <Stack gap="30px">
+                    <TeamCard person={team[5]} />
+                    <TeamCard person={team[6]} />
+                    <TeamCard person={team[7]} />
+                </Stack>
+            </Stack>
         </Box>
     )
 }

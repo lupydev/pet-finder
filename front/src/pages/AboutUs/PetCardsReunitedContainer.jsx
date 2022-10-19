@@ -7,13 +7,12 @@ import Loading from '../../components/loading/Loading'
 import PetCard from '../../components/home/pets/PetCard'
 
 const PetCardsReunitedContainer = ({ pets }) => {
-    const { status } = useSelector((state) => state.pet)
-
+    const slicePet = pets.slice(0, 4)
     return (
         <Stack gap="40px">
             <Typography
                 variant={'h3'}
-                color='primary'
+                color="primary"
                 textAlign="center"
                 px="40px"
             >
@@ -25,7 +24,7 @@ const PetCardsReunitedContainer = ({ pets }) => {
                 justifyContent={'center'}
                 gap="24px"
             >
-                <PetCard pets={pets} />
+                <PetCard pets={slicePet} />
             </Stack>
             {/* <Button
                 component={Link}

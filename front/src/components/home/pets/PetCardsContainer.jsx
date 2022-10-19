@@ -27,8 +27,6 @@ const PetCardsContainer = (props) => {
         // setLimitedLostPetsData(LostPetsData.slice(0, 4))
     }, [LostPetsData])
 
-    // console.log(petsReunited.slice(0, 4))
-
     useEffect(() => {
         FoundPetsData?.length > 0 &&
             setLimitedFoundPetsData(

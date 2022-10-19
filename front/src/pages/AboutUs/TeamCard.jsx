@@ -6,8 +6,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material'
-import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
-import team from './team.json'
+import { BsFacebook, BsInstagram, BsLinkedin } from 'react-icons/bs'
 import React from 'react'
 
 const TeamCard = ({ person }) => {
@@ -15,7 +14,7 @@ const TeamCard = ({ person }) => {
         <Card
             sx={{
                 width: '270px',
-                height: '350px',
+                height: '320px',
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
             }}
         >
@@ -35,7 +34,7 @@ const TeamCard = ({ person }) => {
                         }}
                     />
                 </Stack>
-                <Stack p="11px" gap="11px">
+                <Stack p="11px" gap="10px">
                     <Typography
                         noWrap
                         gutterBottom
@@ -71,7 +70,6 @@ const TeamCard = ({ person }) => {
                         justifyContent="flex-start"
                         alignSelf="center"
                         width="100%"
-                        marginTop={2}
                     >
                         <a target="_blank" href="https://www.instagram.com/">
                             <BsInstagram fontSize="25px" color="#357ABD" />
@@ -79,8 +77,8 @@ const TeamCard = ({ person }) => {
                         <a target="_blank" href="https://www.facebook.com/">
                             <BsFacebook fontSize="25px" color="#357ABD" />
                         </a>
-                        <a target="_blank" href="https://www.twiter.com/">
-                            <BsTwitter fontSize="25px" color="#357ABD" />
+                        <a target="_blank" href="https://www.linkedin.com/">
+                            <BsLinkedin fontSize="25px" color="#357ABD" />
                         </a>
                     </Stack>
                 </Stack>
