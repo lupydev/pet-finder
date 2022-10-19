@@ -38,7 +38,12 @@ const About = () => {
     return (
         <>
             <Stack
-                sx={{ justifyContent: 'center', gap: '40px', width: '100%' }}
+                sx={{
+                    justifyContent: 'center',
+                    gap: '40px',
+                    width: '100%',
+                    alignItems: 'center',
+                }}
             >
                 <Typography
                     color="primary.main"

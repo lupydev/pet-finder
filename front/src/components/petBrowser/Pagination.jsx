@@ -2,10 +2,9 @@ import { Pagination } from '@mui/material'
 import React from 'react'
 
 export const Paginationn = ({ page, setPage, max }) => {
-    
     const handleChange = (event, page) => {
-        setPage(page);
-      };
+        setPage(page)
+    }
 
     return (
         <Pagination
@@ -16,6 +15,5 @@ export const Paginationn = ({ page, setPage, max }) => {
             showLastButton
             showFirstButton
         />
-        
     )
 }
