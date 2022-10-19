@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Stack, Typography, Grid, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import PetCardsReunitedContainer from './PetCardsReunitedContainer' 
+import PetCardsReunitedContainer from './PetCardsReunitedContainer'
 import SvgCard from './SvgCard'
 import OurTeamContainer from './OurTeamContainer'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
@@ -36,157 +36,182 @@ const About = () => {
     }, [allPets])
 
     return (
-        <Stack sx={{ justifyContent: 'center', gap: '40px' }}>
-            <Typography
-                color="primary.main"
-                variant="h3"
-                textAlign="center"
-                mt={2}
+        <>
+            <Stack
+                sx={{
+                    justifyContent: 'center',
+                    gap: '40px',
+                    width: '100%',
+                    alignItems: 'center',
+                }}
             >
-                About Us
-            </Typography>
-            <Typography sx={{ maxWidth: '1024px', margin: '0 auto' }}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-                odio nobis ut consequatur soluta quaerat eveniet debitis maiores
-                natus. Cupiditate alias at nulla cumque eligendi dolores dolore
-                nobis? Ad, excepturi! Lorem ipsum, dolor sit amet consectetur
-                adipisicing elit.
-                <br />
-                <br />
-                Voluptates corporis eum cupiditate cum ducimus facilis quo
-                eveniet? Ratione reiciendis, est dolores repudiandae officia
-                aliquid sapiente, id odit vero dolorem culpa.
-            </Typography>
-            <Typography color="primary.main" variant="h3" textAlign="center">
-                Our services
-            </Typography>
-            <Grid
-                display="grid"
-                maxWidth="1024px"
-                gridTemplateColumns="1fr 1fr 1fr"
-                gap={5}
-                margin="0 auto"
-            >
-                <Stack
-                    sx={{
-                        justifyContent: 'center',
-                        padding: '20px',
-                        gap: '10px',
-                        border: '2px solid #FEF0E9',
-                        borderRadius: '20px',
-                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
-                    }}
+                <Typography
+                    color="primary.main"
+                    variant="h3"
+                    textAlign="center"
+                    mt={2}
                 >
-                    <Box
+                    About Us
+                </Typography>
+                <Typography sx={{ maxWidth: '1024px', margin: '0 auto' }}>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maxime odio nobis ut consequatur soluta quaerat eveniet
+                    debitis maiores natus. Cupiditate alias at nulla cumque
+                    eligendi dolores dolore nobis? Ad, excepturi! Lorem ipsum,
+                    dolor sit amet consectetur adipisicing elit.
+                    <br />
+                    <br />
+                    Voluptates corporis eum cupiditate cum ducimus facilis quo
+                    eveniet? Ratione reiciendis, est dolores repudiandae officia
+                    aliquid sapiente, id odit vero dolorem culpa.
+                </Typography>
+                <Typography
+                    color="primary.main"
+                    variant="h3"
+                    textAlign="center"
+                >
+                    Our services
+                </Typography>
+                <Grid
+                    display="grid"
+                    maxWidth="1024px"
+                    gridTemplateColumns="1fr 1fr 1fr"
+                    gap={5}
+                    margin="0 auto"
+                >
+                    <Stack
                         sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
+                            justifyContent: 'center',
+                            padding: '20px',
+                            gap: '10px',
+                            border: '2px solid #FEF0E9',
+                            borderRadius: '20px',
+                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                         }}
                     >
-                        <SvgCard />
-                        <Typography color="secundary.main">
-                            Lost Pets
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                            }}
+                        >
+                            <SvgCard />
+                            <Typography color="secundary.main">
+                                Lost Pets
+                            </Typography>
+                        </Box>
+                        <Typography>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Vel saepe consectetur iste maxime explicabo
+                            fuga quidem!
                         </Typography>
-                    </Box>
-                    <Typography>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Vel saepe consectetur iste maxime explicabo fuga quidem!
-                    </Typography>
-                    <Button
-                        component={Link}
-                        to="/lostPets"
+                        <Button
+                            component={Link}
+                            to="/lostPets"
+                            sx={{
+                                color: 'secundary.main',
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                            }}
+                        >
+                            Lost pets
+                        </Button>
+                    </Stack>
+                    <Stack
                         sx={{
-                            color: 'secundary.main',
-                            display: 'flex',
-                            justifyContent: 'flex-end',
+                            justifyContent: 'center',
+                            padding: '20px',
+                            gap: '10px',
+                            border: '2px solid #FEF0E9',
+                            borderRadius: '20px',
+                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                         }}
                     >
-                        Lost pets
-                    </Button>
-                </Stack>
-                <Stack
-                    sx={{
-                        justifyContent: 'center',
-                        padding: '20px',
-                        gap: '10px',
-                        border: '2px solid #FEF0E9',
-                        borderRadius: '20px',
-                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
-                        }}
-                    >
-                        <SvgCard />
-                        <Typography color="secundary.main">
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                            }}
+                        >
+                            <SvgCard />
+                            <Typography color="secundary.main">
+                                Found pets
+                            </Typography>
+                        </Box>
+                        <Typography>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Vel saepe consectetur iste maxime explicabo
+                            fuga quidem!
+                        </Typography>
+                        <Button
+                            component={Link}
+                            to="/foundPets"
+                            sx={{
+                                color: 'primary.main',
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                            }}
+                        >
                             Found pets
-                        </Typography>
-                    </Box>
-                    <Typography>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Vel saepe consectetur iste maxime explicabo fuga quidem!
-                    </Typography>
-                    <Button
-                        component={Link}
-                        to="/foundPets"
+                        </Button>
+                    </Stack>
+                    <Stack
                         sx={{
-                            color: 'primary.main',
-                            display: 'flex',
-                            justifyContent: 'flex-end',
+                            justifyContent: 'center',
+                            padding: '20px',
+                            gap: '10px',
+                            border: '2px solid #FEF0E9',
+                            borderRadius: '20px',
+                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
                         }}
                     >
-                        Found pets
-                    </Button>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                            }}
+                        >
+                            <SvgCard />
+                            <Typography color="secundary.main">
+                                Post a lost pet
+                            </Typography>
+                        </Box>
+                        <Typography>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Vel saepe consectetur iste maxime explicabo
+                            fuga quidem!
+                        </Typography>
+                        <Button
+                            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                            component={Link}
+                            to="/createPost"
+                        >
+                            Post a lost pet
+                        </Button>
+                    </Stack>
+                </Grid>
+                <Stack gap={10} maxWidth="1440px" width="100%">
+                    <PetCardsReunitedContainer
+                        pets={pets}
+                        title="Reunited"
+                        color="primary"
+                    />
+                    <OurTeamContainer />
                 </Stack>
                 <Stack
+                    height="100px"
+                    width={'100%'}
                     sx={{
-                        justifyContent: 'center',
-                        padding: '20px',
-                        gap: '10px',
-                        border: '2px solid #FEF0E9',
-                        borderRadius: '20px',
-                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
+                        backgroundImage:
+                            'url(https://res.cloudinary.com/diyk4to11/image/upload/v1664932414/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellitas_icwbmh.svg)',
+                        backgroundRepeat: 'repeat',
                     }}
-                >
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
-                        }}
-                    >
-                        <SvgCard />
-                        <Typography color="secundary.main">
-                            Post a lost pet
-                        </Typography>
-                    </Box>
-                    <Typography>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Vel saepe consectetur iste maxime explicabo fuga quidem!
-                    </Typography>
-                    <Button
-                        sx={{ display: 'flex', justifyContent: 'flex-end' }}
-                        component={Link}
-                        to="/createPost"
-                    >
-                        Post a lost pet
-                    </Button>
-                </Stack>
-            </Grid>
-            <Stack gap={10} maxWidth="1440px" width="100%">
-                <PetCardsReunitedContainer
-                    pets={pets}
-                    title="Reunited"
-                    color="primary"
-                />
-                <OurTeamContainer />
+                ></Stack>
             </Stack>
-        </Stack>
+        </>
     )
 }
 export default About

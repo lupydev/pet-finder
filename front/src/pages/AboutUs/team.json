@@ -1,0 +1,98 @@
+[
+    {
+        "_id": "6335b8db39217f29f0585bc2",
+        "nickname": "Daniel",
+        "fullname": "Daniel Albanez",
+        "rol": "Front End Developer",
+        "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465097/Integrantes/Daniel_zvpphk.jpg",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/danielalbanez/" ,
+            "github": "https://github.com/danielalbanez40"
+        }
+
+    },
+    {
+        "_id": "6335b95d39217f29f0585bc5",
+        "nickname": "Francisco",
+        "fullname": "Francisco Rey",
+        "rol": "Front End Developer",
+        "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465188/Integrantes/Francisco_rqloby.jpg",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/danielalbanez/",
+            "github": "https://github.com/franrey98"
+        }
+
+    },
+    {
+        "_id": "6335b9d539217f29f0585bc8",
+        "nickname": "Jeyther",
+        "fullname": "Jeyther Yriza",
+        "rol": "Front End Developer",
+        "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465328/Integrantes/Jeyter_v3omxg.jpg",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/jeyther" ,
+            "github": "https://github.com/Jeyther"
+        }
+
+    },
+    {
+        "_id": "6335b7ea39217f29f0585bbc",
+        "nickname": "Andres",
+        "fullname": "Andres Fuentes",
+        "rol": "UX/UI Designer",
+        "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1666201000/Integrantes/1646947285290_ooboch.jpg",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/eafuentes",
+            "behance": ""
+        }
+
+    },
+    {
+        "_id": "6335ba7539217f29f0585bce",
+        "nickname": "Luis",
+        "fullname": "Luis Guzmán",
+        "rol": "Front End Developer",
+        "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465504/Integrantes/LuisMi_yvmw6a.png",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/lumidev/",
+            "github": "https://github.com/lumiguz"
+        }
+
+    },
+    {
+        "_id": "6335babb39217f29f0585bd1",
+        "nickname": "Nora",
+        "fullname": "Nora Saucedo",
+        "rol": "Back End Developer",
+        "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465581/Integrantes/Nora_kmtlar.jpg",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/nora-patricia-saucedo-6b3746225",
+            "github": "https://github.com/NorSAUCE"
+        }
+
+    },
+    {
+        "_id": "6335bb0d39217f29f0585bd4",
+        "nickname": "Saira",
+        "fullname": "Saira M",
+        "rol": "Front End Developer",
+        "img": "https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/sairamiranda/",
+            "github": "https://github.com/smirart1"
+        }
+
+    },
+    {
+        "_id": "6335bb7539217f29f0585bd7",
+        "nickname": "Yamila",
+        "fullname": "Yamila paez",
+        "rol": "Back End Developer",
+        "img": "https://res.cloudinary.com/diyk4to11/image/upload/v1664465766/Integrantes/Yamila_gi0sl2.jpg",
+        "network":{
+            "linkedin": "https://www.linkedin.com/in/yamila-paez-70b7587b/",
+            "github": "https://github.com/Bellantra"
+        }
+
+    }
+]

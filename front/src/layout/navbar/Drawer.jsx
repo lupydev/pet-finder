@@ -152,6 +152,19 @@ function App() {
                         </ListItemIcon>
                         <ListItemText primary="Contact" />
                     </ListItem>
+
+                 
+                        <Button
+                            variant="contained"
+                            component={Link}
+                            to="/login"
+                            sx={{ textTransform: 'none', px: '30px',width:'100px', m:'10px auto'}}
+                            disableRipple
+                            size='small'
+                            onClick={() => setOpen(false)}
+                        >
+                            Login
+                        </Button>
                 </Stack>
             </Drawer>
         </Stack>

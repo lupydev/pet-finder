@@ -4,6 +4,7 @@ import {
     Box,
     Button,
     CircularProgress,
+    Divider,
     IconButton,
     InputAdornment,
     Stack,
@@ -18,6 +19,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
+import Loading from '../loading/Loading'
+import { AiFillCamera } from 'react-icons/ai'
 
 const clientSchema = Yup.object().shape({
     nickname: Yup.string()
@@ -141,11 +144,15 @@ const RegisterForm = () => {
                 direction="row"
             >
                 <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
-                    <img
-                        width="100%"
-                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
-                        alt="img"
-                    />
+                    {!loading ? (
+                        <img
+                            width="100%"
+                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
+                            alt="img"
+                        />
+                    ) : (
+                        <Loading />
+                    )}
                 </Stack>
                 <Stack width={{ xs: '100%', md: '400px' }} margin="0 auto">
                     <Formik
@@ -177,7 +184,7 @@ const RegisterForm = () => {
                                         fontSize="14px"
                                         color="primary.main"
                                     >
-                                        Please fill your information bellow
+                                        Please, fill your information below
                                     </Typography>
                                     <Stack
                                         alignItems="center"
@@ -195,14 +202,57 @@ const RegisterForm = () => {
                                                 }}
                                             />
                                         )}
-                                        <TextField
+                                        <Stack
+                                            width="100%"
+                                            bgcolor="#F0F8FF"
+                                            height="4.5rem"
+                                            borderRadius=".5rem"
+                                        >
+                                            <Stack px="5px" sx={{width:{xs: 'auto', md: '50%'}}}>
+                                                <Typography
+                                                    fontSize="12px"
+                                                    mt="5px"
+                                                >
+                                                    Choose your profile picture
+                                                </Typography>
+                                                <Stack width="auto">
+                                                    <Button
+                                                        id="image"
+                                                        name="image"
+                                                        variant="outlined"
+                                                        component="label"
+                                                        size="small"
+                                                        width="auto"
+                                                        startIcon={
+                                                            <AiFillCamera />
+                                                        }
+                                                        sx={{
+                                                            textTransform:
+                                                                'none',
+                                                            mt: '10px',
+                                                        }}
+                                                        onChange={(e) =>
+                                                            handleUpload(e)
+                                                        }
+                                                    >
+                                                        Upload Image
+                                                        <input
+                                                            hidden
+                                                            accept="image/*"
+                                                            type="file"
+                                                        />
+                                                    </Button>
+                                                </Stack>
+                                            </Stack>
+                                        </Stack>
+                                        {/* <TextField
                                             id="profilePicture"
                                             placeholder="Upload an image"
                                             type="file"
                                             size="small"
                                             name="profilePicture"
                                             onChange={(e) => handleUpload(e)}
-                                        />
+                                        /> */}
                                     </Stack>
                                     <Stack
                                         justifyContent="flex-start"
@@ -318,12 +368,13 @@ const RegisterForm = () => {
                                         color="secondary"
                                         type="submit"
                                         sx={{
-                                            mt: '10px',
                                             color: 'white',
                                             textTransform: 'none',
                                             width: '100px',
                                             fontSize: '16px',
                                             alignSelf: 'end',
+                                            margin: '1rem',
+                                            mr: '0',
                                         }}
                                         size="small"
                                     >
@@ -333,6 +384,7 @@ const RegisterForm = () => {
                             </Form>
                         )}
                     </Formik>
+                    <Divider sx={{ width: '100%', margin: '1rem 0' }} />
                     <Stack
                         justifyContent="center"
                         direction="row"
