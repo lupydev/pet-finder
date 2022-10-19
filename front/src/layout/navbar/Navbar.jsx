@@ -46,17 +46,20 @@ const Navbar = () => {
             px={{ xs: 3, sm: 5, md: 5 }}
             py="22px"
             zIndex={20}
+            gap={1}
             sx={{ backgroundColor: '#F6F8F8' }}
         >
             <DrawerMenu />
             <Link to="/">
-                <img
-                    src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049160/Imagenes%20Dise%C3%B1o%20UX/Logo/Frame_7_cbmjbf.png"
-                    alt="logo"
-                    width="180px"
-                />
+                <Stack maxWidth='180px'>
+                    <img
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049160/Imagenes%20Dise%C3%B1o%20UX/Logo/Frame_7_cbmjbf.png"
+                        alt="logo"
+                        width="100%"
+                    />
+                </Stack>
             </Link>
-            <Stack direction="row" gap={2} display={{ xs: 'none', md: 'flex' }}>
+            <Stack direction="row" gap={'38px'} display={{ xs: 'none', md: 'flex' }}>
                 <Button component={Link} to="/" sx={buttonStyle} disableRipple>
                     Home
                 </Button>
@@ -133,6 +136,7 @@ const Navbar = () => {
                         variant="contained"
                         component={Link}
                         to="/login"
+                        size='small'
                         sx={{ textTransform: 'none', px: '30px' }}
                         disableRipple
                     >

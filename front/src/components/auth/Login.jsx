@@ -42,7 +42,7 @@ const Login = () => {
     const handleSubmit = (values) => {
         dispatch(login(values))
     }
-    
+
     return (
         <Stack
             justifyContent="center"
@@ -180,11 +180,15 @@ const Login = () => {
                                             />
                                         </Stack>
                                         <Stack
-                                            direction="row"
+                                            direction={{
+                                                xs: 'column-reverse',
+                                                md: 'row',
+                                            }}
                                             alignItems="center"
                                             mt="10px"
                                             justifyContent="space-between"
                                             width="100%"
+                                            gap={1}
                                         >
                                             <GoogleLogin
                                                 onSuccess={(
@@ -235,11 +239,7 @@ const Login = () => {
                             Sign Up
                         </Typography>
                     </Stack>
-                    <Stack
-                        justifyContent="center"
-                        direction="row"
-                        gap="10px"
-                    >
+                    <Stack justifyContent="center" direction="row" gap="10px">
                         <Typography
                             component={Link}
                             to="/reset-password"
