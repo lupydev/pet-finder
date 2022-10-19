@@ -45,7 +45,7 @@ const PetDetails = (props) => {
     const petYear = petDate.getFullYear()
 
     return (
-        <>
+        <Stack width='100%' alignItems='center' pt='100px'>
             <Title
                 title={`${petDetail?.type} Pet`}
                 desc={'Someone Found'}
@@ -86,7 +86,7 @@ const PetDetails = (props) => {
                     ></Stack>
                 )}
             </Stack>
-        </>
+        </Stack>
     )
 }
 

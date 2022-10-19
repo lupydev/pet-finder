@@ -14,14 +14,15 @@ import { AiFillCamera } from 'react-icons/ai'
 
 const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
     return (
-        <Grid item xs={6} bgcolor="#F0F8FF" borderRadius="8px" >
+        <Grid item xs={6} bgcolor="#F0F8FF" borderRadius="8px" p='10px' >
             {images.length || loading ? (
                 <Paper
                     sx={{
                         display: 'flex',
                         flexWrap: 'wrap',
                         gap: 1,
-                        p: 3,
+                        p: 2,
+                        mb:'10px'
                     }}
                     variant="outlined"
                 >
@@ -66,7 +67,7 @@ const UploadImages = ({ handleUpload, images, handleDeleteImg, loading }) => {
                 component="label"
                 size="small"
                 startIcon={<AiFillCamera />}
-                sx={{ textTransform: 'none', mt: '10px' }}
+                sx={{ textTransform: 'none' }}
                 onChange={(e) => handleUpload(e)}
             >
                 Upload Images

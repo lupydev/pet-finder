@@ -50,13 +50,7 @@ const ContactForm = () => {
     const [submittedForm, setSubmitedform] = useState('')
 
     return (
-        <Stack
-            sx={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-            }}
-        >
+        <Stack justifyContent="center" alignItems="center" width="100%" pt='100px'>
             <Stack
                 sx={{
                     alignItems: 'center',

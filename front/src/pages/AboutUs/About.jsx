@@ -64,13 +64,12 @@ const About = () => {
     return (
         <>
             <Stack
-                sx={{
-                    justifyContent: 'center',
-                    gap: '40px',
-                    width: '100%',
-                    alignItems: 'center',
-                    px: '40px',
-                }}
+                justifyContent="center"
+                gap="40px"
+                width="100%"
+                alignItems="center"
+                px="40px"
+                pt='100px'
             >
                 <Typography
                     color="primary.main"
