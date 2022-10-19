@@ -28,7 +28,7 @@ export default function AdminPets({ value }) {
 
     const handleEditClick = (pet) => {
         dispatch(getPetById(pet._id))
-        setEditButton(!editButton)
+        setEditButton(true)
     }
 
     const handleDelete = (pet) => {

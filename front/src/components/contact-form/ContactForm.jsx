@@ -1,4 +1,4 @@
-import { useState, React } from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     Card,
@@ -136,7 +136,6 @@ const ContactForm = () => {
                                 handleBlur,
                             }) => (
                                 <Form>
-                                    
                                     <Grid
                                         container
                                         direction="row"
