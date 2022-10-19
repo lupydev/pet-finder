@@ -133,7 +133,7 @@ const Navbar = () => {
                         variant="contained"
                         component={Link}
                         to="/login"
-                        sx={{ textTransform: 'none', px: '30px' }}
+                        sx={{ textTransform: 'none', px: '30px', display:{xs:'none', md:'flex'} }}
                         disableRipple
                     >
                         Login

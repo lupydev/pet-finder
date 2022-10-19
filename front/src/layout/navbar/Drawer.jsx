@@ -50,59 +50,130 @@ function App() {
                 anchor={'left'}
                 onClose={() => setOpen(false)}
             >
-                <Stack width='250px'>
-                <Stack direction="row" height="50px" justifyContent="flex-end">
-                    <IconButton>
-                        <GrFormClose
-                            onClick={() => setOpen(false)}
-                            fontSize="40px"
-                        />
-                    </IconButton>
-                </Stack>
-                <ListItem button onClick={() => setOpen(false)} component={Link} to="/">
-                    <ListItemIcon><AiFillHome /></ListItemIcon>
-                    <ListItemText primary='Home' />
-                </ListItem>
+                <Stack width="250px">
+                    <Stack
+                        direction="row"
+                        height="50px"
+                        justifyContent="flex-end"
+                    >
+                        <IconButton>
+                            <GrFormClose
+                                onClick={() => setOpen(false)}
+                                fontSize="40px"
+                            />
+                        </IconButton>
+                    </Stack>
+                    <ListItem
+                        button
+                        onClick={() => setOpen(false)}
+                        component={Link}
+                        to="/"
+                    >
+                        <ListItemIcon>
+                            <AiFillHome />
+                        </ListItemIcon>
+                        <ListItemText primary="Home" />
+                    </ListItem>
 
-                <ListItem button onClick={handleClickNested}>
-                    <ListItemIcon><MdPets /></ListItemIcon>
-                    <ListItemText primary="Pet Browser" />
-                    {openNested ? <MdExpandLess fontSize='25px' /> : <MdOutlineExpandMore fontSize='25px' />}
-                </ListItem>
-                <Collapse in={openNested} timeout="auto">
-                    <List component="div" disablePadding>
-                        <ListItemButton onClick={() => setOpen(false)} component={Link} to="/lostPets">
-                        <ListItemIcon sx={{ pl: 4 }}><TbPoint fontSize='25px'/></ListItemIcon>
-                            <ListItemText sx={{ pl: 1 }} primary="Lost Pets" />
-                        </ListItemButton>
+                    <ListItem button onClick={handleClickNested}>
+                        <ListItemIcon>
+                            <MdPets />
+                        </ListItemIcon>
+                        <ListItemText primary="Pet Browser" />
+                        {openNested ? (
+                            <MdExpandLess fontSize="25px" />
+                        ) : (
+                            <MdOutlineExpandMore fontSize="25px" />
+                        )}
+                    </ListItem>
+                    <Collapse in={openNested} timeout="auto">
+                        <List component="div" disablePadding>
+                            <ListItemButton
+                                onClick={() => setOpen(false)}
+                                component={Link}
+                                to="/lostPets"
+                            >
+                                <ListItemIcon sx={{ pl: 4 }}>
+                                    <TbPoint fontSize="25px" />
+                                </ListItemIcon>
+                                <ListItemText
+                                    sx={{ pl: 1 }}
+                                    primary="Lost Pets"
+                                />
+                            </ListItemButton>
 
-                        <ListItemButton onClick={() => setOpen(false)} component={Link} to="/foundPets">
-                        <ListItemIcon sx={{ pl: 4 }}><TbPoint fontSize='25px'/></ListItemIcon>
-                            <ListItemText sx={{ pl: 1 }} primary="Found Pets" />
-                        </ListItemButton>
+                            <ListItemButton
+                                onClick={() => setOpen(false)}
+                                component={Link}
+                                to="/foundPets"
+                            >
+                                <ListItemIcon sx={{ pl: 4 }}>
+                                    <TbPoint fontSize="25px" />
+                                </ListItemIcon>
+                                <ListItemText
+                                    sx={{ pl: 1 }}
+                                    primary="Found Pets"
+                                />
+                            </ListItemButton>
 
-                        <ListItemButton onClick={() => setOpen(false)} component={Link} to="/createPost">
-                        <ListItemIcon sx={{ pl: 4 }}><TbPoint fontSize='25px'/></ListItemIcon>
-                            <ListItemText sx={{ pl: 1 }} primary="Create Post" />
-                        </ListItemButton>
-                    </List>
-                    <Divider />
-                </Collapse>
+                            <ListItemButton
+                                onClick={() => setOpen(false)}
+                                component={Link}
+                                to="/createPost"
+                            >
+                                <ListItemIcon sx={{ pl: 4 }}>
+                                    <TbPoint fontSize="25px" />
+                                </ListItemIcon>
+                                <ListItemText
+                                    sx={{ pl: 1 }}
+                                    primary="Create Post"
+                                />
+                            </ListItemButton>
+                        </List>
+                        <Divider />
+                    </Collapse>
 
-                <ListItem button onClick={() => setOpen(false)} component={Link} to="/aboutUs">
-                    <ListItemIcon><FaUser /></ListItemIcon>
-                    <ListItemText primary='About Us' />
-                </ListItem>
+                    <ListItem
+                        button
+                        onClick={() => setOpen(false)}
+                        component={Link}
+                        to="/aboutUs"
+                    >
+                        <ListItemIcon>
+                            <FaUser />
+                        </ListItemIcon>
+                        <ListItemText primary="About Us" />
+                    </ListItem>
 
-                <ListItem button onClick={() => setOpen(false)} component={Link} to="/contact">
-                    <ListItemIcon><GrContact /></ListItemIcon>
-                    <ListItemText primary='Contact' />
-                </ListItem>
-
-                
+                    <ListItem
+                        button
+                        onClick={() => setOpen(false)}
+                        component={Link}
+                        to="/contact"
+                    >
+                        <ListItemIcon>
+                            <GrContact />
+                        </ListItemIcon>
+                        <ListItemText primary="Contact" />
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={() => setOpen(false)}
+                        component={Link}
+                        to="/login"
+                        >
+                        <Button
+                            variant="contained"
+                            component={Link}
+                            to="/login"
+                            sx={{ textTransform: 'none', px: '30px' }}
+                            disableRipple
+                        >
+                            Login
+                        </Button>
+                    </ListItem>
                 </Stack>
             </Drawer>
-            
         </Stack>
     )
 }
