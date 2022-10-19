@@ -94,9 +94,10 @@ const EditProfile = ({ userData, setEdit }) => {
                     <Stack width="100%" gap="30px">
                         <Stack
                             width="100%"
-                            alignItems="flex-start"
+                            alignItems={{ xs: 'center', md: 'flex-start' }}
                             gap={1}
                             bgcolor="#F0F8FF"
+                            p={2}
                         >
                             <Typography
                                 fontWeight="bold"
@@ -135,14 +136,14 @@ const EditProfile = ({ userData, setEdit }) => {
                             </Button>
                         </Stack>
                         <Stack
-                            direction="row"
-                            gap="40px"
-                            alignItems={'baseline'}
+                            direction={{ xs: 'column', md: 'row' }}
+                            gap={{ xs: '10px', md: '40px' }}
+                            alignItems={{ xs: 'normal', md: 'baseline' }}
                         >
                             <Typography
                                 fontWeight="bold"
                                 sx={{ opacity: '.5' }}
-                                width="20%"
+                                width={{ xs: '100%', md: '20%' }}
                             >
                                 New Nickname *
                             </Typography>
@@ -165,13 +166,13 @@ const EditProfile = ({ userData, setEdit }) => {
                             ></TextField>
                         </Stack>
                         <Stack
-                            direction="row"
-                            gap="40px"
-                            alignItems={'baseline'}
+                            direction={{ xs: 'column', md: 'row' }}
+                            gap={{ xs: '10px', md: '40px' }}
+                            alignItems={{ xs: 'normal', md: 'baseline' }}
                         >
                             <Typography
                                 fontWeight="bold"
-                                width="20%"
+                                width={{ xs: '100%', md: '20%' }}
                                 sx={{ opacity: '.5' }}
                             >
                                 New Full Name
@@ -194,10 +195,13 @@ const EditProfile = ({ userData, setEdit }) => {
                                 onBlur={handleBlur}
                             ></TextField>
                         </Stack>
-                        <Stack direction="row" gap="40px">
+                        <Stack
+                            direction={{ xs: 'column', md: 'row' }}
+                            gap={{ xs: '10px', md: '40px' }}
+                        >
                             <Typography
                                 fontWeight="bold"
-                                width="20%"
+                                width={{ xs: '100%', md: '20%' }}
                                 sx={{ opacity: '.5' }}
                             >
                                 New About You
@@ -212,13 +216,13 @@ const EditProfile = ({ userData, setEdit }) => {
                             ></TextField>
                         </Stack>
                         <Stack
-                            direction="row"
-                            gap="40px"
-                            alignItems={'baseline'}
+                            direction={{ xs: 'column', md: 'row' }}
+                            gap={{ xs: '10px', md: '40px' }}
+                            alignItems={{ xs: 'normal', md: 'baseline' }}
                         >
                             <Typography
                                 fontWeight="bold"
-                                width="20%"
+                                width={{ xs: '100%', md: '20%' }}
                                 sx={{ opacity: '.5' }}
                             >
                                 Country
@@ -231,9 +235,9 @@ const EditProfile = ({ userData, setEdit }) => {
                             ></TextField>
                         </Stack>
                         <Stack
-                            direction="row"
+                            direction={{ xs: 'column', md: 'row' }}
                             justifyContent="center"
-                            gap="40px"
+                            gap={{ xs: '20px', md: '40px' }}
                         >
                             <Button
                                 variant="contained"
@@ -243,7 +247,7 @@ const EditProfile = ({ userData, setEdit }) => {
                                 sx={{
                                     color: 'white',
                                     textTransform: 'none',
-                                    width: '150px',
+                                    width: { xs: '100%', md: '150px' },
                                     borderRadius: '8px',
                                     fontSize: '16px',
                                 }}
@@ -258,7 +262,7 @@ const EditProfile = ({ userData, setEdit }) => {
                                 sx={{
                                     color: 'white',
                                     textTransform: 'none',
-                                    width: '150px',
+                                    width: { xs: '100%', md: '150px' },
                                     borderRadius: '8px',
                                     fontSize: '16px',
                                 }}

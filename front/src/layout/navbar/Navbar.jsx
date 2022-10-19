@@ -1,19 +1,10 @@
 import React, { useState } from 'react'
-import {
-    Avatar,
-    Box,
-    Button,
-    IconButton,
-    Menu,
-    MenuItem,
-    Stack,
-    Tooltip,
-    Typography,
-} from '@mui/material'
+import { Button, Menu, MenuItem, Stack } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { BsFillCaretDownFill } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
 import UserMenu from './UserMenu'
+import DrawerMenu from './Drawer'
 
 const buttonStyle = {
     fontSize: '20px',
@@ -46,26 +37,26 @@ const Navbar = () => {
 
     return (
         <Stack
-            position="sticky"
             width="100%"
             maxWidth="1440px"
             direction="row"
             justifyContent="space-between"
             alignItems="center"
             borderRadius="0 0 20px 20px"
-            px={10}
+            px={{ xs: 3, sm: 5, md: 5 }}
             py="22px"
             zIndex={20}
             sx={{ backgroundColor: '#F6F8F8' }}
         >
+            <DrawerMenu />
             <Link to="/">
                 <img
                     src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049160/Imagenes%20Dise%C3%B1o%20UX/Logo/Frame_7_cbmjbf.png"
                     alt="logo"
-                    width="200px"
+                    width="180px"
                 />
             </Link>
-            <Stack direction="row" gap={5}>
+            <Stack direction="row" gap={2} display={{ xs: 'none', md: 'flex' }}>
                 <Button component={Link} to="/" sx={buttonStyle} disableRipple>
                     Home
                 </Button>
@@ -133,6 +124,7 @@ const Navbar = () => {
                     Contact
                 </Button>
             </Stack>
+
             <Stack direction="row">
                 {userInfo.isLogged ? (
                     <UserMenu />
@@ -141,7 +133,7 @@ const Navbar = () => {
                         variant="contained"
                         component={Link}
                         to="/login"
-                        sx={{ textTransform: 'none', px: '40px' }}
+                        sx={{ textTransform: 'none', px: '30px' }}
                         disableRipple
                     >
                         Login

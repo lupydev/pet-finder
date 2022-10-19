@@ -27,8 +27,8 @@ const Theme = ({ children }) => {
             },
             terciary: {
                 main: '#D0F5E1',
-                dark: '#197003',
-                light: '#D0F5E1',
+                dark: '#adedcb',
+                light: '#066420',
             },
         },
         typography: {

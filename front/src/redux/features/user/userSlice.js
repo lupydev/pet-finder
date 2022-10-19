@@ -36,6 +36,8 @@ import {
     deleteUserData,
     extraDeleteUserData,
 } from '../../asyncActions/user/deleteUserData'
+import { forgotPassword, extraForgotPassword } from '../../asyncActions/user/forgotPassword'
+import { resetPassword, extraResetPassword } from '../../asyncActions/user/resetPassword'
 
 const initialState = {
     userData: undefined,
@@ -47,6 +49,7 @@ const initialState = {
     statusUsers: 'loading',
     createUserStatus: 'loading',
     statusDelete: 'loading',
+    statusUpdate: 'loading',
     error: '',
 }
 
@@ -68,6 +71,7 @@ const userSlice = createSlice({
             state.statusUsers = 'loading'
             state.createUserStatus = 'loading'
             state.statusDelete = 'loading'
+            state.statusUpdate = 'loading'
 
             googleLogout()
 
@@ -90,6 +94,8 @@ const userSlice = createSlice({
         ...extraGetAllUsers,
         ...extraDeleteUserData,
         ...extraGetUserById,
+        ...extraForgotPassword,
+        ...extraResetPassword
     },
 })
 
@@ -105,6 +111,8 @@ export {
     toggleUserAdmin,
     renewToken,
     deleteUserData,
+    forgotPassword,
+    resetPassword
 }
 
 export const { userIsLogged, logout, cleanPetsData } = userSlice.actions

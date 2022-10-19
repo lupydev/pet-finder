@@ -4,10 +4,15 @@ import { Request, Response } from 'express'
 const getPetById = async (req: Request, res: Response) => {
     const { id } = req.params
     try {
-        const pet = await Pet.findOne({$and: [{ _id: id }, {status:"Active"}]})
+        const pet = await Pet.findOne({
+            $and: [{ _id: id }, { status: 'Active' }],
+        })
             .populate({ path: 'breed', select: '_id name' })
             .populate({ path: 'species', select: '_id name' })
-            .populate({ path: 'userId', select: '_id nickname fullname img' })
+            .populate({
+                path: 'userId',
+                select: '_id nickname fullname img email',
+            })
 
         if (pet) {
             return res.status(200).json({ pet, ok: true, msg: 'Pet found' })
