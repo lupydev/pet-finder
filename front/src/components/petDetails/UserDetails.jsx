@@ -15,6 +15,27 @@ import * as yup from 'yup'
 import { Toast } from '../../utils/swalToasts'
 import emailjs from '@emailjs/browser'
 import Loading from '../loading/Loading'
+import { FacebookShareButton } from 'react-share'
+import DocumentMeta from 'react-document-meta'
+import { IoMdShareAlt } from 'react-icons/io'
+import { AiFillFacebook } from 'react-icons/ai'
+
+const url = window.location
+
+const meta = {
+    title: 'Help me to find my Home',
+    description:
+        'I am a lost Pet that wanna come home, help me sharing this link to find my family',
+    canonical:
+        'https://petfinder-phi.vercel.app/lostPets/63494bf4223d4335fbdb1c8c',
+    meta: {
+        charset: 'utf-8',
+        name: {
+            keywords: 'pet, find, lost, dog,cat,petfinder',
+        },
+        image: 'https://res.cloudinary.com/diyk4to11/image/upload/v1665747788/upload_petfinder/xx6gchaqhxmqiltmsonv.jpg',
+    },
+}
 
 const UserDetails = () => {
     const navigate = useNavigate()
@@ -92,50 +113,50 @@ const UserDetails = () => {
 
     return (
         <Stack
-            justifyContent="space-evenly"
+            justifyContent="center"
             width={{ xs: '100%', sm: '50%', md: '400px' }}
-            height={{ xs: '200px', sm: '290px' }}
-            p={{ xs: '0px 15px 15px 15px', sm: '15px' }}
+            p="15px"
             sx={{
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                 borderRadius: '5px',
             }}
+            gap="10px"
         >
             {petDetail != undefined ? (
                 <Stack
                     direction="row"
                     width="100%"
-                    height={{ xs: '110px', sm: '150px' }}
                     border="solid 3px"
-                    borderColor={
-                        petDetail?.type.toLowerCase() === 'lost'
-                            ? 'secondary'
-                            : 'primary'
-                    }
+                    borderRadius="10px"
                     sx={{
                         borderColor:
                             petDetail?.type.toLowerCase() === 'lost'
                                 ? 'secondary.main'
                                 : 'primary.main',
                     }}
-                    borderRadius="10px"
                     gap="10px"
                     alignItems="center"
+                    justifyContent="center"
+                    p="10px"
                 >
-                    <Avatar
-                        src={petDetail?.userId?.img}
-                        sx={{
-                            width: { xs: 80, sm: 95, md: 110 },
-                            height: { xs: 80, sm: 95, md: 110 },
-                            ml: { xs: '30px', sm: '20px' },
-                        }}
-                    />
-                    <Stack width="100%">
+                    <Stack
+                        width={{ md: '40%', xs: '100%' }}
+                        alignItems="center"
+                    >
+                        <Avatar
+                            src={petDetail?.userId?.img}
+                            sx={{
+                                width: { xs: 80, sm: 95, md: 110 },
+                                height: { xs: 80, sm: 95, md: 110 },
+                            }}
+                        />
+                    </Stack>
+                    <Stack width={{ md: '60%', xs: '100%' }}>
                         <Typography
                             fontSize={{ xs: '20px', sm: '25px' }}
                             component="div"
                             fontWeight={'bold'}
-                            mx="auto"
+                            mx={{ xs: '0', md: 'auto' }}
                             color={
                                 petDetail?.type.toLowerCase() === 'lost'
                                     ? 'secondary'
@@ -162,7 +183,6 @@ const UserDetails = () => {
                     sx={{
                         textTransform: 'none',
                         borderRadius: '8px',
-                        mx: '10px',
                     }}
                     onClick={handleOpen}
                 >
@@ -179,13 +199,44 @@ const UserDetails = () => {
                     sx={{
                         textTransform: 'none',
                         borderRadius: '8px',
-                        mx: '10px',
                     }}
                     onClick={() => navigate('/login')}
                 >
                     Log in to contact this user
                 </Button>
             )}
+            <Stack
+                width="100%"
+                height="3px"
+                backgroundColor={
+                    petDetail?.type === 'Lost'
+                        ? 'secondary.light'
+                        : 'primary.light'
+                }
+            />
+            <DocumentMeta {...meta}>
+                <Button
+                    component={FacebookShareButton}
+                    variant="contained"
+                    style={{
+                        textTransform: 'none',
+                        backgroundColor: '#357ABD',
+                        color: 'white',
+                        padding: '10px 0px',
+                        width: '70%',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        margin: '0 auto',
+                    }}
+                    startIcon={<AiFillFacebook color="white" />}
+                    url={url.href}
+                    quote="Help this Pet come home"
+                    hashtag="PetFinder"
+                    resetButtonStyle
+                >
+                    Share on Facebook
+                </Button>
+            </DocumentMeta>
             <Modal
                 open={open}
                 onClose={handleClose}
