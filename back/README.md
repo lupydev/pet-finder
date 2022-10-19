@@ -55,6 +55,8 @@
 | POST | login        | http://localhost:PORT/login       | body: email, password |
 | POST | renew token  | http://localhost:PORT/renew       | headers : { token }   |
 | POST | login Google | http://localhost:PORT/loginGoogle | body: credential      |
+| PUT  | forgot Password | http://localhost:PORT/forgot-password | body: email      |
+| PUT  | reset Password | http://localhost:PORT/reset-password | headers: {token} body: password |
 
 ## Pet
 

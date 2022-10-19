@@ -30,7 +30,7 @@ const Hero = () => {
                 maxWidth="1440px"
                 py="20px"
             >
-                <Stack width="100%" gap={3} pl='40px'>
+                <Stack width="100%" gap={3} px={{xs:'40px', md:'0'}} pl={{md:'40px'}}>
                     <Typography
                         variant="h1"
                         fontWeight="bold"

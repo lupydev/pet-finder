@@ -17,6 +17,8 @@ import PrivateRoute from './privateRoute/PrivateRoute'
 import { PublicationForm } from '../components/formPost/PublicationForm'
 import Admin from '../pages/admin/Admin'
 import isUserAdmin from '../utils/isUserAdmin'
+import ForgotPassword from '../components/auth/ForgotPassword'
+import ResetPassword from '../components/auth/ResetPassword'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -67,15 +69,11 @@ const Routing = () => {
             <Route element={<PrivateRoute isAllowed={isUserLogged()} />}>
                 <Route path="/createPost" element={<PublicationForm />} />
             </Route>
-            <Route
-                element={
-                    <PrivateRoute
-                        isAllowed={isUserAdmin()}
-                    />
-                }
-            >
+            <Route element={<PrivateRoute isAllowed={isUserAdmin()} />}>
                 <Route path="/admin" element={<Admin />} />
             </Route>
+            <Route path="/forgot-password/:token" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
     )
 }

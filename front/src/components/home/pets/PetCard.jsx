@@ -108,10 +108,9 @@ const PetCard = ({
                                 {pet?.meet && (
                                     <Chip
                                         label="Reunited"
-                                        size="small"
                                         sx={{
                                             backgroundColor: 'terciary.main',
-                                            color: 'terciary.dark',
+                                            color: 'terciary.light',
                                         }}
                                     />
                                 )}
@@ -202,7 +201,7 @@ const PetCard = ({
                                         width: '140px',
                                         borderRadius: '8px',
                                         color: pet.meet
-                                            ? 'terciary.dark'
+                                            ? 'terciary.light'
                                             : 'white',
                                     }}
                                 >
