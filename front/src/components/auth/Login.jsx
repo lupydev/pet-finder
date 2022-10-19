@@ -44,7 +44,7 @@ const Login = () => {
     const handleSubmit = (values) => {
         dispatch(login(values))
     }
-    
+
     return (
         <Stack
             justifyContent="center"
@@ -184,7 +184,16 @@ const Login = () => {
                                                 value={values.password}
                                             />
                                         </Stack>
-                                        <Stack direction='row-reverse'  sx={{justifyContent:{xs:'space-between'} , width:'100%', padding:'1rem 0'}}>
+                                        <Stack
+                                            direction="row-reverse"
+                                            sx={{
+                                                justifyContent: {
+                                                    xs: 'space-between',
+                                                },
+                                                width: '100%',
+                                                padding: '1rem 0',
+                                            }}
+                                        >
                                             <Button
                                                 variant="contained"
                                                 type="submit"
@@ -193,25 +202,43 @@ const Login = () => {
                                                     textTransform: 'none',
                                                     width: '100px',
                                                     fontSize: '16px',
-                                                    margin: {xs: '0 1rem', md:'0'}
+                                                    alignSelf: 'end',
+                                                    margin: {
+                                                        xs: '0 1rem',
+                                                        md: '0',
+                                                    },
                                                 }}
-                                                size="small"
+                                                size='small'
                                             >
                                                 Login
                                             </Button>
 
-                                            <GoogleLogin
-                                                onSuccess={(
-                                                    credentialResponse
-                                                ) => {
-                                                    onLoginSuccess(
+                                            <Stack
+                                                direction={{
+                                                    xs: 'column-reverse',
+                                                    md: 'row',
+                                                }}
+                                                alignItems="center"
+                                                mt="10px"
+                                                justifyContent="space-between"
+                                                width="100%"
+                                                gap={1}
+                                            >
+                                                <GoogleLogin
+                                                    onSuccess={(
                                                         credentialResponse
-                                                    )
-                                                }}
-                                                onError={() => {
-                                                    console.log('Login Failed')
-                                                }}
-                                            />
+                                                    ) => {
+                                                        onLoginSuccess(
+                                                            credentialResponse
+                                                        )
+                                                    }}
+                                                    onError={() => {
+                                                        console.log(
+                                                            'Login Failed'
+                                                        )
+                                                    }}
+                                                />
+                                            </Stack>
                                         </Stack>
                                     </Stack>
                                 </Form>
@@ -236,11 +263,7 @@ const Login = () => {
                             Sign Up
                         </Typography>
                     </Stack>
-                    <Stack
-                        justifyContent="center"
-                        direction="row"
-                        gap="10px"
-                    >
+                    <Stack justifyContent="center" direction="row" gap="10px">
                         <Typography
                             component={Link}
                             to="/reset-password"

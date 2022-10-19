@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
     Drawer,
     ListItem,
@@ -36,7 +36,6 @@ function App() {
     useEffect(() => {
         setOpenNested(false)
     }, [open === false])
-    
 
     return (
         <Stack display={{ xs: 'flex', md: 'none' }}>
@@ -56,11 +55,8 @@ function App() {
                         height="50px"
                         justifyContent="flex-end"
                     >
-                        <IconButton>
-                            <GrFormClose
-                                onClick={() => setOpen(false)}
-                                fontSize="40px"
-                            />
+                        <IconButton onClick={() => setOpen(false)}>
+                            <GrFormClose fontSize="40px" />
                         </IconButton>
                     </Stack>
                     <ListItem
@@ -156,6 +152,7 @@ function App() {
                         </ListItemIcon>
                         <ListItemText primary="Contact" />
                     </ListItem>
+
                     <ListItem
                         button
                         onClick={() => setOpen(false)}
@@ -168,6 +165,7 @@ function App() {
                             to="/login"
                             sx={{ textTransform: 'none', px: '30px' }}
                             disableRipple
+                            size='small'
                         >
                             Login
                         </Button>
