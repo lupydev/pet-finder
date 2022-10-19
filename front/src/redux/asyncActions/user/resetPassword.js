@@ -4,22 +4,22 @@ import { Toast } from '../../../utils/swalToasts'
 
 export const API_ROUTE = import.meta.env.VITE_APP_API_ROUTE
 
-export const forgotPassword = createAsyncThunk('forgot-password/token', async (newPassword, token) => {
+export const resetPassword = createAsyncThunk('reset-password/token', async ({password,token} ) => {
 
     const config = { headers: { token: token } }
 
     try {
-        return await axios.put(`${API_ROUTE}/forgot-password`, newPassword, config)
+        return await axios.put(`${API_ROUTE}/reset-password`, {password}, config)
     } catch (err) {
         console.log(err)
     }
 })
 
-export const extraForgotPassword = {
-    [forgotPassword.pending]: (state, action) => {
+export const extraResetPassword = {
+    [resetPassword.pending]: (state, action) => {
         state.status = 'loading'
     },
-    [forgotPassword.fulfilled]: (state, action) => {
+    [resetPassword.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
             
             console.log(action.payload.data)
@@ -36,7 +36,7 @@ export const extraForgotPassword = {
         }
         state.status = 'success'
     },
-    [forgotPassword.rejected]: (state, action) => {
+    [resetPassword.rejected]: (state, action) => {
         state.status = 'failed'
     },
 }

@@ -9,7 +9,7 @@ import EditProfile from './EditProfile'
 
 const Profile = () => {
     const { userData } = useSelector((state) => state.user)
-    const dispatch= useDispatch();
+    const dispatch = useDispatch()
 
     const [edit, setEdit] = useState(false)
 
@@ -17,9 +17,9 @@ const Profile = () => {
         setEdit(!edit)
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         dispatch(getUserData())
-    },[])
+    }, [])
 
     return (
         <>
@@ -27,6 +27,7 @@ const Profile = () => {
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
+                gap="20px"
             >
                 <Typography variant="h5" fontWeight="bold">
                     This is your Profile
@@ -48,21 +49,27 @@ const Profile = () => {
                 <EditProfile userData={userData} setEdit={setEdit} />
             ) : (
                 <>
-                    <Stack direction="row" alignItems={'center'}>
+                    <Stack
+                        direction={{ xs: 'column', md: 'row' }}
+                        alignItems={{ xs: 'start', md: 'center' }}
+                    >
                         <Typography
                             fontWeight="bold"
                             sx={{ opacity: '.5' }}
-                            width="20%"
+                            width={{ xs: '100%', md: '20%' }}
                         >
                             Nickname
                         </Typography>
 
                         <Typography>{userData.nickname}</Typography>
                     </Stack>
-                    <Stack direction="row" alignItems={'center'}>
+                    <Stack
+                        direction={{ xs: 'column', md: 'row' }}
+                        alignItems={{ xs: 'start', md: 'center' }}
+                    >
                         <Typography
                             fontWeight="bold"
-                            width="20%"
+                            width={{ xs: '100%', md: '20%' }}
                             sx={{ opacity: '.5' }}
                         >
                             Full Name
@@ -71,25 +78,28 @@ const Profile = () => {
                         <Typography>{userData.fullname}</Typography>
                     </Stack>
 
-                    <Stack direction="row">
+                    <Stack direction={{ xs: 'column', md: 'row' }}>
                         <Typography
                             fontWeight="bold"
-                            width="20%"
+                            width={{ xs: '100%', md: '20%' }}
                             sx={{ opacity: '.5' }}
                         >
                             About You
                         </Typography>
-                        <Typography width="80%">
+                        <Typography width={{ xs: '100%', md: '80%' }}>
                             Lorem ipsum dolor sit amet. In voluptatem dolor in
                             nihil dolorem in nihil quasi ut repellendus tenetur
                             et facere quia cum rerum molestiae. Et praesentium
                             Quis in pariatur nostrum sit
                         </Typography>
                     </Stack>
-                    <Stack direction="row" mb="45px">
+                    <Stack
+                        direction={{ xs: 'column', md: 'row' }}
+                        mb={{ xs: 0, md: '45px' }}
+                    >
                         <Typography
                             fontWeight="bold"
-                            width="20%"
+                            width={{ xs: '100%', md: '20%' }}
                             sx={{ opacity: '.5' }}
                         >
                             Country

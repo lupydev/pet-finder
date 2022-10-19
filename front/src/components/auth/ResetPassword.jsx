@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import React from 'react'
 import { forgotPassword } from '../../redux/asyncActions/user/forgotPassword'
+import { useEffect } from 'react'
 
 const passwordSchema = Yup.object().shape({
     email: Yup.string()
@@ -13,11 +14,14 @@ const passwordSchema = Yup.object().shape({
 })
 
 const ResetPassword = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const handleSubmit = (email) => {
         dispatch(forgotPassword(email))
+        navigate('/')
     }
+
 
     return (
         <Stack

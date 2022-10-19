@@ -5,14 +5,17 @@ import {
     Stack,
     ToggleButtonGroup,
     ToggleButton,
+    useMediaQuery,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import Title from '../../components/petBrowser/Title'
 
 const ProfileContainer = ({ menuItems, view, setView, children }) => {
-    const { userData  } = useSelector((state) => state.user)
+    const { userData } = useSelector((state) => state.user)
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
+
+    const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('md'))
 
     const handleMenuChange = (event, nextView) => {
         nextView && setView(nextView)
@@ -32,25 +35,26 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
             <Stack
                 width="100%"
                 py="65px"
-                direction={'row'}
+                alignItems={'center'}
                 justifyContent={'center'}
                 sx={{
                     backgroundColor: '#E9F1F7',
                 }}
             >
                 <Stack
-                    direction="row"
+                    direction={{ xs: 'column', md: 'row' }}
                     width="100%"
                     maxWidth="1440px"
                     height="100%"
-                    gap={5}
-                    alignItems={'flex-start'}
+                    gap={{xs:3,md:5}}
+                    alignItems={'start'}
                     justifyContent={'center'}
+                    px={{ xs: '20px', md: '40px' }}
                 >
                     {/* Profile Card */}
                     <Stack
-                        width="320px"
-                        height="630px"
+                        width={{ xs: '100%', md: '320px' }}
+                        height={{ xs: 'auto', md: '630px' }}
                         backgroundColor="#FDFEFF"
                         boxShadow={5}
                         borderRadius={5}
@@ -58,10 +62,14 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
                         p="24px"
                         gap="20px"
                     >
-                        <Stack alignItems="center" width="100%">
+                        <Stack
+                            alignItems="center"
+                            justifyContent={'center'}
+                            width="100%"
+                        >
                             <Stack
-                                width="180px"
-                                height="180px"
+                                width={{ xs: '60px', md: '180px' }}
+                                height={{ xs: '60px', md: '180px' }}
                                 p="3px"
                                 sx={{ border: '3px solid #3981BF' }}
                                 borderRadius="50%"
@@ -75,12 +83,24 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
                                     alt={userData?.nickname}
                                 />
                             </Stack>
-                            <Typography fontSize="32px" color="#0D0D0D">
-                                {name}
-                            </Typography>
-                            <Typography fontSize="24px" color="#0D0D0D">
-                                {lastName}
-                            </Typography>
+                            <Stack
+                                direction={{ xs: 'row', md: 'column' }}
+                                alignItems="center"
+                                justifyContent={'center'}
+                            >
+                                <Typography
+                                    fontSize={{ xs: '22px', md: '32px' }}
+                                    color="#0D0D0D"
+                                >
+                                    {name}
+                                </Typography>
+                                <Typography
+                                    fontSize={{ xs: '22px', md: '24px' }}
+                                    color="#0D0D0D"
+                                >
+                                    {lastName}
+                                </Typography>
+                            </Stack>
                         </Stack>
                         <Stack
                             width="100%"
@@ -89,10 +109,18 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
                         />
                         <Stack width="100%">
                             <ToggleButtonGroup
-                                orientation="vertical"
+                                orientation={
+                                    isSmallScreen ? 'horizontal' : 'vertical'
+                                }
                                 value={view}
                                 onChange={handleMenuChange}
                                 exclusive
+                                sx={{
+                                    width: '100%',
+                                    justifyContent: isSmallScreen
+                                        ? 'space-between'
+                                        : 'flex-start',
+                                }}
                             >
                                 {menuItems.map((item) => (
                                     <ToggleButton
@@ -101,18 +129,29 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
                                         color="primary"
                                         fullWidth
                                         sx={{
+                                            width: '100%',
                                             display: 'flex',
                                             direction: 'row',
                                             p: 1,
-                                            justifyContent: 'flex-start',
+                                            // px: isSmallScreen?2:1 ,
+                                            justifyContent: isSmallScreen
+                                                ? 'center'
+                                                : 'flex-start',
                                             gap: '20px',
                                             border: 'none',
                                         }}
                                     >
-                                        <Stack width="22px" alignItems="center">
+                                        <Stack
+                                            width={{ xs: '22px', md: '22px' }}
+                                            alignItems="center"
+                                        >
                                             {item.icon}
                                         </Stack>
                                         <Typography
+                                            display={{
+                                                xs: 'none',
+                                                md: 'block',
+                                            }}
                                             color="#0D0D0D"
                                             spacing={0}
                                             textTransform="none"
@@ -127,8 +166,8 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
                     {/* End Profile Card */}
                     {/* Side Card */}
                     <Stack
-                        width="750px"
-                        minHeight="450px"
+                        width={{ xs: '100%', md: '750px' }}
+                        minHeight={{xs:'auto', md:"450px"}}
                         backgroundColor="#FDFEFF"
                         py="50px"
                         px="26px"
