@@ -11,11 +11,12 @@ import {
 } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { login } from '../../redux/asyncActions/user/login'
 import { GoogleLogin } from '@react-oauth/google'
 import { loginGoogle } from '../../redux/asyncActions/user/loginGoogle'
 import { getUserData } from '../../redux/asyncActions/user/getUserData'
+import Loading from '../loading/Loading'
 
 const clientSchema = Yup.object().shape({
     email: Yup.string()
@@ -34,6 +35,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { userInfo } = useSelector((state) => state.user)
+    const [loadImage, setLoadImage] = useState(false)
 
     const onLoginSuccess = (googleData) => {
         dispatch(loginGoogle(googleData))
@@ -89,7 +91,6 @@ const Login = () => {
                     <Typography variant="h5" color="white" fontWeight="bold">
                         Welcome Back!
                     </Typography>
-
                     <Stack position="absolute" right={0}>
                         <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1665012764/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellas_q9ukes.png" />
                     </Stack>
@@ -102,13 +103,17 @@ const Login = () => {
                 mt={3}
                 direction="row"
             >
-                <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
-                    <img
-                        width="100%"
-                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
-                        alt="img"
-                    />
-                </Stack>
+                {!loadImage ? (
+                    <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
+                        <img
+                            width="100%"
+                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
+                            alt="img"
+                        />
+                    </Stack>
+                ) : (
+                    <Loading />
+                )}
                 <Stack width={{ xs: '100%', md: '400px' }} margin="0 auto">
                     <Formik
                         initialValues={{
@@ -140,7 +145,7 @@ const Login = () => {
                                             fontSize="14px"
                                             color="primary.main"
                                         >
-                                            Please fill your information bellow
+                                            Please, fill your information below
                                         </Typography>
                                         <Stack width="100%">
                                             <TextField
@@ -192,27 +197,41 @@ const Login = () => {
                                                 value={values.password}
                                             />
                                         </Stack>
+                                        <Stack direction='row-reverse'  sx={{justifyContent:{xs:'space-between'} , width:'100%', padding:'1rem 0'}}>
+                                            <Button
+                                                variant="contained"
+                                                type="submit"
+                                                sx={{
+                                                    color: 'white',
+                                                    textTransform: 'none',
+                                                    width: '100px',
+                                                    fontSize: '16px',
+                                                    margin: {xs: '0 1rem', md:'0'}
+                                                }}
+                                                size="small"
+                                            >
+                                                Login
+                                            </Button>
 
-                                        <Button
-                                            variant="contained"
-                                            type="submit"
-                                            sx={{
-                                                mt: '10px',
-                                                color: 'white',
-                                                textTransform: 'none',
-                                                width: '100px',
-                                                fontSize: '16px',
-                                                alignSelf: 'end',
-                                            }}
-                                            size="small"
-                                        >
-                                            Login
-                                        </Button>
+                                            <GoogleLogin
+                                                onSuccess={(
+                                                    credentialResponse
+                                                ) => {
+                                                    onLoginSuccess(
+                                                        credentialResponse
+                                                    )
+                                                }}
+                                                onError={() => {
+                                                    console.log('Login Failed')
+                                                }}
+                                            />
+                                        </Stack>
                                     </Stack>
                                 </Form>
                             )
                         }}
                     </Formik>
+                    <Divider sx={{ width: '100%', margin: '1rem 0' }} />
                     <Stack
                         justifyContent="center"
                         direction="row"
@@ -230,15 +249,6 @@ const Login = () => {
                             Sign Up
                         </Typography>
                     </Stack>
-                    <Divider sx={{ width: '100%', margin: '1rem 0' }} />
-                    <GoogleLogin
-                        onSuccess={(credentialResponse) => {
-                            onLoginSuccess(credentialResponse)
-                        }}
-                        onError={() => {
-                            console.log('Login Failed')
-                        }}
-                    />
                 </Stack>
             </Stack>
             <Stack

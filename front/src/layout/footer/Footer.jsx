@@ -34,13 +34,13 @@ const Footer = () => {
                         justifyContent="flex-end"
                         alignSelf="center"
                     >
-                        <a target="_blank" href="https://www.instagram.com/">
+                        <a target="_blank" rel='noreferrer' href="https://www.instagram.com/">
                             <BsInstagram fontSize="30px" color="white" />
                         </a>
-                        <a target="_blank" href="https://www.facebook.com/">
+                        <a target="_blank" rel='noreferrer' href="https://www.facebook.com/">
                             <BsFacebook fontSize="30px" color="white" />
                         </a>
-                        <a target="_blank" href="https://www.twiter.com/">
+                        <a target="_blank" rel='noreferrer' href="https://www.twiter.com/">
                             <BsTwitter fontSize="30px" color="white" />
                         </a>
                     </Stack>
