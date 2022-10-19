@@ -82,7 +82,7 @@ const PetCard = ({
                                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1666107770/Pawprint-Heart-Reunited_xqt1rq.svg"
                                         alt="meet"
                                         style={{
-                                            transform:'rotate(329deg)',
+                                            transform: 'rotate(329deg)',
                                             width: '65px',
                                         }}
                                     />
@@ -200,7 +200,9 @@ const PetCard = ({
                                         textTransform: 'none',
                                         width: '140px',
                                         borderRadius: '8px',
-                                        color: pet.meet ? 'terciary.light': 'white',
+                                        color: pet.meet
+                                            ? 'terciary.light'
+                                            : 'white',
                                     }}
                                 >
                                     More Details
