@@ -15,12 +15,7 @@ import {
     Checkbox,
     Divider,
 } from '@mui/material'
-import {
-    MdPets,
-    MdDateRange,
-    MdPalette,
-    MdExpand,
-} from 'react-icons/md'
+import { MdPets, MdDateRange, MdPalette, MdExpand } from 'react-icons/md'
 import { BsCaretDownFill, BsSearch } from 'react-icons/bs'
 import { FaTransgender } from 'react-icons/fa'
 import { TbSortDescending } from 'react-icons/tb'
@@ -46,7 +41,7 @@ const FilterBar = ({
     return (
         <>
             <Stack
-                px={10}
+                px={{ xs: '20px', md: 10 }}
                 mt="10px"
                 direction="column"
                 width="100%"
@@ -59,9 +54,12 @@ const FilterBar = ({
                 </Typography>
                 <Divider
                     color="#357abd"
-                    sx={{ borderBottomWidth: 3, width: '450px' }}
+                    sx={{
+                        borderBottomWidth: 3,
+                        width: { xs: '100%', md: '450px' },
+                    }}
                 />
-                <Stack direction="row">
+                <Stack direction={{ xs: 'column', md: 'row' }} gap="20px">
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -96,22 +94,23 @@ const FilterBar = ({
                 </Stack>
             </Stack>
             <Stack
-                px={10}
+                px={{ xs: '20px', md: 10 }}
                 mt="10px"
                 direction="row"
                 width="100%"
                 maxWidth="1440px"
                 justifyContent="space-evenly"
                 flexWrap="wrap"
+                gap="30px"
             >
                 <FormControl>
-                    <Stack width="200px">
+                    <Stack width={{ xs: '300px', md: '200px' }}>
                         <InputLabel htmlFor="demo-customized-select-native">
                             {principalInputs[0].label}
                         </InputLabel>
                         <Select
                             displayEmpty
-                            sx={{ height: '45px' }}
+                            sx={{ height: '45px', width: '100%' }}
                             startAdornment={
                                 <InputAdornment position="start">
                                     <MdPets />
@@ -196,7 +195,7 @@ const FilterBar = ({
                 </FormControl>
 
                 <FormControl>
-                    <Stack width="200px">
+                    <Stack width={{ xs: '300px', md: '200px' }}>
                         <InputLabel htmlFor="demo-customized-select-native">
                             {principalInputs[1].label}
                         </InputLabel>
@@ -258,7 +257,7 @@ const FilterBar = ({
                 </FormControl>
 
                 <FormControl>
-                    <Stack width="200px">
+                    <Stack width={{ xs: '300px', md: '200px' }}>
                         <GMapsApi
                             setLocation={setLocation}
                             types={['locality']}
@@ -326,11 +325,12 @@ const FilterBar = ({
                             display: 'flex',
                             flexWrap: 'wrap',
                             justifyContent: 'space-evenly',
-                            px: 10,
+                            gap:'30px',
+                            px: {xs:'20px',md:10},
                         }}
                     >
                         <FormControl>
-                            <Stack width="200px">
+                            <Stack width={{ xs: '300px', md: '200px' }}>
                                 <InputLabel htmlFor="demo-customized-select-native">
                                     {extraInputs[0].label}
                                 </InputLabel>
@@ -395,7 +395,7 @@ const FilterBar = ({
                             </Stack>
                         </FormControl>
                         <FormControl>
-                            <Stack width="200px">
+                            <Stack width={{ xs: '300px', md: '200px' }}>
                                 <InputLabel htmlFor="demo-customized-select-native">
                                     {extraInputs[1].label}
                                 </InputLabel>
@@ -460,7 +460,7 @@ const FilterBar = ({
                             </Stack>
                         </FormControl>
                         <FormControl>
-                            <Stack width="200px">
+                            <Stack width={{ xs: '300px', md: '200px' }}>
                                 <InputLabel htmlFor="demo-customized-select-native">
                                     {extraInputs[2].label}
                                 </InputLabel>
@@ -524,7 +524,7 @@ const FilterBar = ({
                             </Stack>
                         </FormControl>
                         <FormControl>
-                            <Stack width="200px">
+                            <Stack width={{ xs: '300px', md: '200px' }}>
                                 <InputLabel htmlFor="demo-customized-select-native">
                                     {extraInputs[3].label}
                                 </InputLabel>

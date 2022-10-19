@@ -189,7 +189,6 @@ const PetEdit = ({ selectedPet, setEdit }) => {
                             margin={0}
                             width="100%"
                             maxWidth={800}
-                            padding={3}
                         >
                             <Grid item xs={6} width="100%">
                                 <Typography
@@ -395,12 +394,12 @@ const PetEdit = ({ selectedPet, setEdit }) => {
                                     size="small"
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} md={3}>
                                 <ButtonWrapper color="success">
                                     Save Changes
                                 </ButtonWrapper>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} md={3}>
                                 <Button
                                     variant="contained"
                                     color="primary"

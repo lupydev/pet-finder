@@ -6,16 +6,15 @@ import {
     Stack,
     Typography,
 } from '@mui/material'
-
-import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
+import { BsBehance, BsFacebook, BsGithub, BsInstagram, BsLinkedin } from 'react-icons/bs'
 import React from 'react'
 
-const TeamCard = () => {
+const TeamCard = ({ person }) => {
     return (
         <Card
             sx={{
                 width: '270px',
-                height: '350px',
+                height: '320px',
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
             }}
         >
@@ -28,13 +27,14 @@ const TeamCard = () => {
             >
                 <Stack alignItems="center" justifyContent="center">
                     <Avatar
+                        src={person?.img}
                         sx={{
                             width: '170px',
                             height: '170px',
                         }}
                     />
                 </Stack>
-                <Stack p="11px" gap="11px">
+                <Stack p="11px" gap="10px">
                     <Typography
                         noWrap
                         gutterBottom
@@ -50,13 +50,13 @@ const TeamCard = () => {
                             gap: '6px',
                         }}
                     >
-                        {'Francisco Rey'}
+                        {person?.fullname}
                         <Typography
                             fontSize="14px"
                             padding="2px"
                             color="#9b9fa0"
                         >
-                            Front End Developer
+                            {person?.rol}
                         </Typography>
                     </Typography>
                     <Box
@@ -70,17 +70,52 @@ const TeamCard = () => {
                         justifyContent="flex-start"
                         alignSelf="center"
                         width="100%"
-                        marginTop={2}
                     >
-                        <a target="_blank" href="https://www.instagram.com/">
-                            <BsInstagram fontSize="25px" color="#357ABD" />
-                        </a>
-                        <a target="_blank" href="https://www.facebook.com/">
-                            <BsFacebook fontSize="25px" color="#357ABD" />
-                        </a>
-                        <a target="_blank" href="https://www.twiter.com/">
-                            <BsTwitter fontSize="25px" color="#357ABD" />
-                        </a>
+                        {person?.network?.instagram && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.instagram}
+                            >
+                                <BsInstagram fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.facebook && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.facebook}
+                            >
+                                <BsFacebook fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.linkedin && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.linkedin}
+                            >
+                                <BsLinkedin fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.github && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.github}
+                            >
+                                <BsGithub fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.behance && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.behance}
+                            >
+                                <BsBehance fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
                     </Stack>
                 </Stack>
             </CardContent>
