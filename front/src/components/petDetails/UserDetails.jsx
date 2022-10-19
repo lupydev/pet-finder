@@ -13,14 +13,13 @@ import { useSelector } from 'react-redux'
 import { Formik, useFormik } from 'formik'
 import * as yup from 'yup'
 import { Toast } from '../../utils/swalToasts'
-import emailjs from '@emailjs/browser'
+
 import Loading from '../loading/Loading'
 import { FacebookShareButton } from 'react-share'
 import DocumentMeta from 'react-document-meta'
 import { IoMdShareAlt } from 'react-icons/io'
 import { AiFillFacebook } from 'react-icons/ai'
 import { sendEmail } from '../../utils/sendEmail'
-import { isForOfStatement } from 'typescript'
 
 const url = window.location
 
