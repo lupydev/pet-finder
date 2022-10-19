@@ -11,8 +11,8 @@ import {
     Alert,
 } from '@mui/material'
 import { Formik, Form } from 'formik'
-import emailjs from '@emailjs/browser'
 import * as Yup from 'yup'
+import { sendEmail } from '../../utils/sendEmail'
 
 const initialForm = {
     name: '',
@@ -48,30 +48,6 @@ const CONTACT_FORM_VALIDATION = Yup.object().shape({
 
 const ContactForm = () => {
     const [submittedForm, setSubmitedform] = useState('')
-
-    const sendEmail = (values, resetForm) => {
-        try {
-            emailjs
-                .send(
-                    import.meta.env.VITE_APP_SERVICE_ID,
-                    import.meta.env.VITE_APP_TEMPLATE_CONTACT_FORM_ID,
-                    values,
-                    import.meta.env.VITE_APP_USER_ID
-                )
-                .then(() => {
-                    setSubmitedform('success')
-                    setTimeout(() => {
-                        setSubmitedform('')
-                    }, 2500)
-                    resetForm()
-                })
-        } catch (error) {
-            setSubmitedform('error')
-            setTimeout(() => {
-                setSubmitedform('')
-            }, 2500)
-        }
-    }
 
     return (
         <Stack
@@ -124,8 +100,25 @@ const ContactForm = () => {
                         <Formik
                             initialValues={initialForm}
                             validationSchema={CONTACT_FORM_VALIDATION}
-                            onSubmit={(values, { resetForm }) => {
-                                sendEmail(values, resetForm)
+                            onSubmit={async (values, { resetForm }) => {
+                                try {
+                                    const validate = await sendEmail(values)
+
+                                    if (validate) {
+                                        setSubmitedform('success')
+                                        setTimeout(() => {
+                                            setSubmitedform('')
+                                        }, 2500)
+                                        resetForm()
+                                    } else {
+                                        setSubmitedform('error')
+                                        setTimeout(() => {
+                                            setSubmitedform('')
+                                        }, 2500)
+                                    }
+                                } catch (error) {
+                                    console.error(error)
+                                }
                             }}
                         >
                             {({

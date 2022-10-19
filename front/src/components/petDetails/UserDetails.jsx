@@ -19,6 +19,8 @@ import { FacebookShareButton } from 'react-share'
 import DocumentMeta from 'react-document-meta'
 import { IoMdShareAlt } from 'react-icons/io'
 import { AiFillFacebook } from 'react-icons/ai'
+import { sendEmail } from '../../utils/sendEmail'
+import { isForOfStatement } from 'typescript'
 
 const url = window.location
 
@@ -69,27 +71,25 @@ const UserDetails = () => {
             phone: '',
             message: '',
         },
-        onSubmit: (values, { resetForm }) => {
+        onSubmit: async (values, { resetForm }) => {
             try {
-                const allValues = {
-                    ...values,
-                    emailTo: petDetail?.userId?.email,
-                }
-                emailjs
-                    .send(
-                        import.meta.env.VITE_APP_SERVICE_ID,
-                        import.meta.env.VITE_APP_TEMPLATE_CONTACT_USER_ID,
-                        allValues,
-                        import.meta.env.VITE_APP_USER_ID
-                    )
-                    .then(() => {
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Email sended successfully.',
-                        })
-                        setOpen(false)
-                        resetForm()
+                values.emailTo = petDetail?.userId?.email
+
+                const validate = await sendEmail(values)
+
+                if (validate) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Email sended successfully.',
                     })
+                    setOpen(false)
+                    resetForm()
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'There is an error sending the message.',
+                    })
+                }
             } catch (err) {
                 console.log(err)
                 Toast.fire({
