@@ -1,10 +1,11 @@
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { Typography, Button, Stack, TextField } from '@mui/material'
-import { Link, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import React from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
 import { forgotPassword } from '../../redux/asyncActions/user/forgotPassword'
+import { resetPassword } from '../../redux/asyncActions/user/resetPassword'
 
 const passwordSchema = Yup.object().shape({
     password: Yup.string()
@@ -20,14 +21,23 @@ const passwordSchema = Yup.object().shape({
 })
 
 const ForgotPassword = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { status } = useSelector((state) => state.user)
 
     const { token } = useParams()
 
     const handleSubmit = (values) => {
         const { password } = values
-        dispatch(forgotPassword(password, token))
+        dispatch(resetPassword({password: password, token: token}))
     }
+
+    useEffect(() => {
+     
+        status==='success' && navigate('/login')
+
+    }, [status])
+    
 
     return (
         <Stack

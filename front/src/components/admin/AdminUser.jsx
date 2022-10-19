@@ -14,7 +14,7 @@ import { toggleUserAdmin } from '../../redux/asyncActions/user/toggleUserAdmin'
 
 export default function AdminUser() {
     const dispatch = useDispatch()
-    const { allUsers, selectedUser, statusDelete } = useSelector(
+    const { allUsers, selectedUser, statusDelete, status } = useSelector(
         (state) => state.user
     )
     const [loading, setLoading] = useState(true)
@@ -51,7 +51,6 @@ export default function AdminUser() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const newUser = { ...user, admin: !user.admin }
-                console.log(newUser, 'NewUser')
                 dispatch(toggleUserAdmin({ id: user._id, newData: {admin:!user.admin} }))
             }
         })

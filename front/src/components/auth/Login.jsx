@@ -42,20 +42,7 @@ const Login = () => {
     const handleSubmit = (values) => {
         dispatch(login(values))
     }
-
-    // useEffect(() => {
-    //     if (userInfo.isLogged) {
-    //         navigate('/')
-    //         dispatch(getUserData())
-    //     }
-    // }, [userInfo.isLogged])
-
-    // useEffect(() => {
-    //     if (userInfo.isLogged) {
-    //         navigate('/profile')
-    //     }
-    // }, [userInfo.isLogged])
-
+    
     return (
         <Stack
             justifyContent="center"

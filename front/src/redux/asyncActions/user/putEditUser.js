@@ -23,7 +23,7 @@ export const putEditUser = createAsyncThunk(
 
 export const extraPutEditUser = {
     [putEditUser.pending]: (state, action) => {
-        state.status = 'loading'
+        state.statusUpdate = 'loading'
     },
     [putEditUser.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
@@ -38,9 +38,9 @@ export const extraPutEditUser = {
                 title: 'Can not update the user',
             })
         }
-        state.status = 'success'
+        state.statusUpdate = 'success'
     },
     [putEditUser.rejected]: (state, action) => {
-        state.status = 'failed'
+        state.statusUpdate = 'failed'
     },
 }

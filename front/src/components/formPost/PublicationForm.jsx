@@ -171,7 +171,7 @@ export const PublicationForm = ({ selectedPet }) => {
                 <Form>
                     <Grid
                         container
-                        spacing={2}
+                        spacing={0}
                         columns={6}
                         maxWidth={800}
                         padding={3}

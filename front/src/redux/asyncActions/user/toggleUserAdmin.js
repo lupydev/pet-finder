@@ -10,7 +10,6 @@ export const toggleUserAdmin = createAsyncThunk(
 
         const config = { headers: { token: user.token } }
         try {
-console.log(newData);
 
             return await axios.put(
                 `${API_ROUTE}/users/update/${id}`,
@@ -25,7 +24,7 @@ console.log(newData);
 
 export const extraToggleUserAdmin = {
     [toggleUserAdmin.pending]: (state, action) => {
-        state.status = 'loading'
+        state.statusDelete = 'loading'
     },
     [toggleUserAdmin.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
@@ -40,9 +39,9 @@ export const extraToggleUserAdmin = {
             })
             console.log(action.payload.data.msg);
         }
-        state.status = 'success'
+        state.statusDelete = 'success'
     },
     [toggleUserAdmin.rejected]: (state, action) => {
-        state.status = 'failed'
+        state.statusDelete = 'failed'
     },
 }
