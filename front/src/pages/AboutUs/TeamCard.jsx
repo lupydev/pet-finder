@@ -6,7 +6,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material'
-import { BsFacebook, BsInstagram, BsLinkedin } from 'react-icons/bs'
+import { BsBehance, BsFacebook, BsGithub, BsInstagram, BsLinkedin } from 'react-icons/bs'
 import React from 'react'
 
 const TeamCard = ({ person }) => {
@@ -71,15 +71,51 @@ const TeamCard = ({ person }) => {
                         alignSelf="center"
                         width="100%"
                     >
-                        <a target="_blank" href="https://www.instagram.com/">
-                            <BsInstagram fontSize="25px" color="#357ABD" />
-                        </a>
-                        <a target="_blank" href="https://www.facebook.com/">
-                            <BsFacebook fontSize="25px" color="#357ABD" />
-                        </a>
-                        <a target="_blank" href="https://www.linkedin.com/">
-                            <BsLinkedin fontSize="25px" color="#357ABD" />
-                        </a>
+                        {person?.network?.instagram && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.instagram}
+                            >
+                                <BsInstagram fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.facebook && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.facebook}
+                            >
+                                <BsFacebook fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.linkedin && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.linkedin}
+                            >
+                                <BsLinkedin fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.github && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.github}
+                            >
+                                <BsGithub fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
+                        {person?.network?.behance && (
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={person?.network?.behance}
+                            >
+                                <BsBehance fontSize="25px" color="#357ABD" />
+                            </a>
+                        )}
                     </Stack>
                 </Stack>
             </CardContent>

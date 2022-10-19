@@ -79,7 +79,7 @@ const PetCard = ({
                             {pet?.meet && (
                                 <Stack position="absolute" right="0" bottom="0">
                                     <img
-                                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1666107770/Pawprint-Heart-Reunited_xqt1rq.svg"
+                                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1666200542/Pawprint-Heart-Reunited-Small_ara0j5.png"
                                         alt="meet"
                                         style={{
                                             transform: 'rotate(329deg)',
@@ -139,14 +139,15 @@ const PetCard = ({
                                     </Typography>
                                 </Stack>
                             </Stack>
-                            <Stack direction="row" width="100%">
+                            <Stack direction="row" width="100%" gap='5px'>
                                 <GrMap fontSize="20px" />
                                 <Tooltip title={pet.location?.country}>
                                     <Typography
-                                        ml="5px"
+                                        // ml="5px"
                                         noWrap
                                         variant="body2"
                                         color="text.secondary"
+                                        width='100%'
                                     >
                                         {pet.location?.country}
                                     </Typography>
