@@ -7,6 +7,32 @@ import SvgCard from './SvgCard'
 import OurTeamContainer from './OurTeamContainer'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
 
+const serviceCardsInfo = [
+    {
+        id: 1,
+        title: 'Lost Pets',
+        description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel saepe consectetur iste maxime explicabo fuga quidem!',
+        color: 'secondary',
+        link: '/lostPets',
+    },
+    {
+        id: 2,
+        title: 'Found Pets',
+        description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel saepe consectetur iste maxime explicabo fuga quidem!',
+        color: 'primary',
+        link: '/foundPets',
+    },
+    {
+        id: 3,
+        title: 'Create a Post',
+        description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel saepe consectetur iste maxime explicabo fuga quidem!',
+        link: '/createPost',
+    },
+]
+
 const About = () => {
     const { LostPetsData, FoundPetsData } = useSelector((state) => state.pet)
     const dispatch = useDispatch()
@@ -43,6 +69,7 @@ const About = () => {
                     gap: '40px',
                     width: '100%',
                     alignItems: 'center',
+                    px: '40px',
                 }}
             >
                 <Typography
@@ -70,129 +97,59 @@ const About = () => {
                     variant="h3"
                     textAlign="center"
                 >
-                    Our services
+                    Our Services
                 </Typography>
-                <Grid
-                    display="grid"
+                <Stack
+                    direction={{ xs: 'column', md: 'row' }}
                     maxWidth="1024px"
-                    gridTemplateColumns="1fr 1fr 1fr"
                     gap={5}
                     margin="0 auto"
+                    alignItems="center"
                 >
-                    <Stack
-                        sx={{
-                            justifyContent: 'center',
-                            padding: '20px',
-                            gap: '10px',
-                            border: '2px solid #FEF0E9',
-                            borderRadius: '20px',
-                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                            }}
+                    {serviceCardsInfo.map((item) => (
+                        <Stack
+                            key={item.id}
+                            justifyContent="center"
+                            padding="20px"
+                            gap="10px"
+                            borderRadius="4px"
+                            boxShadow={4}
+                            maxWidth="380px"
                         >
-                            <SvgCard />
-                            <Typography color="secundary.main">
-                                Lost Pets
+                            <Stack
+                                direction="row"
+                                alignItems="center"
+                                justifyContent={{
+                                    xs: 'center',
+                                    md: 'space-around',
+                                }}
+                                gap="20px"
+                            >
+                                <SvgCard />
+                                <Typography
+                                    fontSize="24px"
+                                    color="primary.main"
+                                    textTransform="uppercase"
+                                >
+                                    {item.title}
+                                </Typography>
+                            </Stack>
+                            <Typography fontSize="16px" fontWeight="light">
+                                {item.description}
                             </Typography>
-                        </Box>
-                        <Typography>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Vel saepe consectetur iste maxime explicabo
-                            fuga quidem!
-                        </Typography>
-                        <Button
-                            component={Link}
-                            to="/lostPets"
-                            sx={{
-                                color: 'secundary.main',
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                            }}
-                        >
-                            Lost pets
-                        </Button>
-                    </Stack>
-                    <Stack
-                        sx={{
-                            justifyContent: 'center',
-                            padding: '20px',
-                            gap: '10px',
-                            border: '2px solid #FEF0E9',
-                            borderRadius: '20px',
-                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                            }}
-                        >
-                            <SvgCard />
-                            <Typography color="secundary.main">
-                                Found pets
-                            </Typography>
-                        </Box>
-                        <Typography>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Vel saepe consectetur iste maxime explicabo
-                            fuga quidem!
-                        </Typography>
-                        <Button
-                            component={Link}
-                            to="/foundPets"
-                            sx={{
-                                color: 'primary.main',
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                            }}
-                        >
-                            Found pets
-                        </Button>
-                    </Stack>
-                    <Stack
-                        sx={{
-                            justifyContent: 'center',
-                            padding: '20px',
-                            gap: '10px',
-                            border: '2px solid #FEF0E9',
-                            borderRadius: '20px',
-                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.25)',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                            }}
-                        >
-                            <SvgCard />
-                            <Typography color="secundary.main">
-                                Post a lost pet
-                            </Typography>
-                        </Box>
-                        <Typography>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Vel saepe consectetur iste maxime explicabo
-                            fuga quidem!
-                        </Typography>
-                        <Button
-                            sx={{ display: 'flex', justifyContent: 'flex-end' }}
-                            component={Link}
-                            to="/createPost"
-                        >
-                            Post a lost pet
-                        </Button>
-                    </Stack>
-                </Grid>
+                            <Button
+                                component={Link}
+                                to={item.link}
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'flex-end',
+                                }}
+                            >
+                                {item.title}
+                            </Button>
+                        </Stack>
+                    ))}
+                </Stack>
                 <Stack gap={10} maxWidth="1440px" width="100%">
                     <PetCardsReunitedContainer
                         pets={pets}
