@@ -36,8 +36,14 @@ import {
     deleteUserData,
     extraDeleteUserData,
 } from '../../asyncActions/user/deleteUserData'
-import { forgotPassword, extraForgotPassword } from '../../asyncActions/user/forgotPassword'
-import { resetPassword, extraResetPassword } from '../../asyncActions/user/resetPassword'
+import {
+    forgotPassword,
+    extraForgotPassword,
+} from '../../asyncActions/user/forgotPassword'
+import {
+    resetPassword,
+    extraResetPassword,
+} from '../../asyncActions/user/resetPassword'
 
 const initialState = {
     userData: undefined,
@@ -95,7 +101,7 @@ const userSlice = createSlice({
         ...extraDeleteUserData,
         ...extraGetUserById,
         ...extraForgotPassword,
-        ...extraResetPassword
+        ...extraResetPassword,
     },
 })
 
@@ -112,7 +118,7 @@ export {
     renewToken,
     deleteUserData,
     forgotPassword,
-    resetPassword
+    resetPassword,
 }
 
 export const { userIsLogged, logout, cleanPetsData } = userSlice.actions

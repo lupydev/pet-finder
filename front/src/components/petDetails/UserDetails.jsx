@@ -69,7 +69,6 @@ const UserDetails = () => {
         },
         onSubmit: async (values, { resetForm }) => {
             try {
-                values.emailTo = petDetail?.userId?.email
 
                 const validate = await sendEmail(values)
 
@@ -126,7 +125,7 @@ const UserDetails = () => {
                     borderRadius="10px"
                     sx={{
                         borderColor:
-                            petDetail?.type.toLowerCase() === 'lost'
+                            petDetail?.type === 'Lost'
                                 ? 'secondary.main'
                                 : 'primary.main',
                     }}
