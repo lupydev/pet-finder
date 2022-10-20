@@ -53,10 +53,7 @@ const UserDetails = () => {
             .string()
             .email('Enter a valid email.')
             .required('Email is required.'),
-        phone: yup
-            .number()
-            .typeError('Only numbers')
-            .required('Phone is required.'),
+        phone: yup.number().typeError('Only numbers'),
         message: yup
             .string()
             .required('Please enter a message.')
