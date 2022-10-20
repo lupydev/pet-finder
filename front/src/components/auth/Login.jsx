@@ -123,19 +123,27 @@ const Login = () => {
                             return (
                                 <Form onSubmit={handleSubmit}>
                                     <Stack alignItems="start" gap="10px">
-                                        <Typography
-                                            fontSize="20px"
-                                            variant="h5"
+                                        <Stack
+                                            padding={{ xs: '1rem', sm: '0' }}
                                         >
-                                            <b>Log In</b>
-                                        </Typography>
-                                        <Typography
-                                            fontSize="14px"
-                                            color="primary.main"
+                                            <Typography
+                                                fontSize="20px"
+                                                variant="h5"
+                                            >
+                                                <b>Log In</b>
+                                            </Typography>
+                                            <Typography
+                                                fontSize="14px"
+                                                color="primary.main"
+                                            >
+                                                Please, fill your information
+                                                below
+                                            </Typography>
+                                        </Stack>
+                                        <Stack
+                                            width="100%"
+                                            padding={{ xs: '1rem', sm: '0' }}
                                         >
-                                            Please, fill your information below
-                                        </Typography>
-                                        <Stack width="100%">
                                             <TextField
                                                 sx={{ width: '100%' }}
                                                 error={
@@ -161,7 +169,10 @@ const Login = () => {
                                             />
                                         </Stack>
 
-                                        <Stack width="100%">
+                                        <Stack
+                                            width="100%"
+                                            padding={{ xs: '1rem', sm: '0' }}
+                                        >
                                             <TextField
                                                 sx={{ width: '100%' }}
                                                 error={
