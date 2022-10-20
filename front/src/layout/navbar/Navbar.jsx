@@ -37,6 +37,7 @@ const Navbar = () => {
 
     return (
         <Stack
+            position="fixed"
             width="100%"
             maxWidth="1440px"
             direction="row"

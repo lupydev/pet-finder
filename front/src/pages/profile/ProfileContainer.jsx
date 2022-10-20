@@ -30,7 +30,7 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
     }, [userData])
 
     return (
-        <Stack width="100%" gap={5} alignItems={'center'}>
+        <Stack width="100%" gap={5} alignItems={'center'} pt='100px'>
             <Title title={'Account'} desc={`Hi ${userData.nickname}!`} />
             <Stack
                 width="100%"

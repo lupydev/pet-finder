@@ -7,7 +7,7 @@ import AboutUs from '../../components/home/aboutUs/AboutUs'
 
 const Home = () => {
     return (
-        <Stack width="100%" gap="100px" alignItems="center">
+        <Stack width="100%" gap="100px" alignItems="center" pt="100px">
             <Hero />
             <AboutUs />
             <PetsContainer />
