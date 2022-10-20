@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
 import {
-    Box,
-    Card,
-    CardContent,
-    Grid,
-    Stack,
+    Button,
+    FormControl,
     TextField,
     Typography,
-    Button,
     Alert,
 } from '@mui/material'
-import { Formik, Form } from 'formik'
+import { Stack } from '@mui/system'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Formik, useFormik } from 'formik'
 import * as Yup from 'yup'
+import { Toast } from '../../utils/swalToasts'
 import { sendEmail } from '../../utils/sendEmail'
 
 const initialForm = {
@@ -21,283 +20,247 @@ const initialForm = {
     comments: '',
 }
 
-const CONTACT_FORM_VALIDATION = Yup.object().shape({
-    name: Yup.string()
-        .matches(
-            /^[A-Za-z\s]+$/g,
-            '* The name field allows only letters and blank spaces'
-        )
-        .required('* Name is required'),
-
-    lastname: Yup.string()
-        .matches(
-            /^[A-Za-z\s]+$/g,
-            '* The lastname field allows only letters and blank spaces'
-        )
-        .required('* Lastname is required'),
-
-    email: Yup.string()
-        .email('* Invalid Email')
-        .required('* Email is required'),
-
-    comments: Yup.string()
-        .min(10, 'This comment is too short')
-        .max(255, 'This comment is too long!')
-        .required('* Comments is required'),
-})
-
 const ContactForm = () => {
-    const [submittedForm, setSubmitedform] = useState('')
+    const { petDetail } = useSelector((state) => state.pet)
 
+    const CONTACT_FORM_VALIDATION = Yup.object().shape({
+        name: Yup.string()
+            .matches(
+                /^[A-Za-z\s]+$/g,
+                '* The name field allows only letters and blank spaces'
+            )
+            .required('* Name is required'),
+
+        lastname: Yup.string()
+            .matches(
+                /^[A-Za-z\s]+$/g,
+                '* The lastname field allows only letters and blank spaces'
+            )
+            .required('* Lastname is required'),
+
+        email: Yup.string()
+            .email('* Invalid Email')
+            .required('* Email is required'),
+
+        comments: Yup.string()
+            .min(10, 'This comment is too short')
+            .max(255, 'This comment is too long!')
+            .required('* Comments is required'),
+    })
+
+    // const formik = useFormik({
+    //     initialValues: {
+    //         name: '',
+    //         lastname: '',
+    //         email: '',
+    //         comments: '',
+    //     },
+    //     onSubmit: async (values, { resetForm }) => {
+    //         try {
+    //             const validate = await sendEmail(values)
+
+    //             if (validate) {
+    //                 Toast.fire({
+    //                     icon: 'success',
+    //                     title: 'Email sended successfully.',
+    //                 })
+    //                 resetForm()
+    //             } else {
+    //                 Toast.fire({
+    //                     icon: 'error',
+    //                     title: 'There is an error sending the message.',
+    //                 })
+    //             }
+    //         } catch (err) {
+    //             console.log(err)
+    //             Toast.fire({
+    //                 icon: 'error',
+    //                 title: 'There is an error sending the message.',
+    //             })
+    //         }
+    //     },
+    //     validationSchema: CONTACT_FORM_VALIDATION,
+    // })
     return (
-        <Stack justifyContent="center" alignItems="center" width="100%" pt='100px'>
-            <Stack
-                sx={{
-                    alignItems: 'center',
-                    width: '50%',
+        <Stack
+            alignItems="center"
+            justifyContent="center"
+            width="100%"
+            maxWidth="661px"
+            gap="20px"
+            sx={{ boxShadow: 24 }}
+            borderRadius="10px"
+            p="40px 20px 50px 20px"
+        >
+            <Typography
+                color="#2b74b5"
+                fontSize={{ xs: '11px', sm: '12px' }}
+                component="div"
+                fontWeight={'bold'}
+                mx="auto"
+                mb="15px"
+            >
+                Hello dear user! Welcome to the contact section of our website,
+                leave us all your questions regarding the operation of our site
+                and we will take care of it! Our users are very important to us,
+                that's why we are very interested in your feedback so that
+                everyone feels comfortable surfing our website. Feel free to
+                leave your concerns below.
+            </Typography>
+            <Formik
+                width="100%"
+                initialValues={initialForm}
+                validationSchema={CONTACT_FORM_VALIDATION}
+                onSubmit={async (values, { resetForm }) => {
+                    try {
+                        const validate = await sendEmail(values)
+
+                        if (validate) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Email sended successfully.',
+                            })
+                            resetForm()
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'There is an error sending the message.',
+                            })
+                        }
+                    } catch (error) {
+                        console.error(error)
+                    }
                 }}
             >
-                <Typography
-                    variant="h4"
-                    sx={{ padding: '1rem', color: '#357ABD' }}
-                >
-                    Contact Form
-                </Typography>
-
-                <Typography
-                    component={'span'}
-                    variant="body1"
-                    sx={{
-                        margin: '0 auto',
-                        width: '100%',
-                        textAlign: 'justify',
-                    }}
-                >
-                    Hello dear user! welcome to the contact section of our
-                    website, leave us all your questions regarding the operation
-                    of our site and we will take care of it! Our users are very
-                    important to us, that&apos;s why we are very interested in
-                    your feedback so that everyone feels comfortable surfing our
-                    website. Feel free to leave your concerns below.
-                </Typography>
-            </Stack>
-            <Box sx={{ width: '100%', padding: '2rem' }}>
-                <Card
-                    sx={{
-                        width: '40%',
-                        margin: '0 auto',
-                        borderRadius: '20px',
-                        boxShadow: '3',
-                    }}
-                >
-                    <CardContent sx={{ width: '100%', margin: '0 auto' }}>
-                        <Formik
-                            initialValues={initialForm}
-                            validationSchema={CONTACT_FORM_VALIDATION}
-                            onSubmit={async (values, { resetForm }) => {
-                                try {
-                                    const validate = await sendEmail(values)
-
-                                    if (validate) {
-                                        setSubmitedform('success')
-                                        setTimeout(() => {
-                                            setSubmitedform('')
-                                        }, 2500)
-                                        resetForm()
-                                    } else {
-                                        setSubmitedform('error')
-                                        setTimeout(() => {
-                                            setSubmitedform('')
-                                        }, 2500)
-                                    }
-                                } catch (error) {
-                                    console.error(error)
-                                }
-                            }}
-                        >
-                            {({
-                                values,
-                                errors,
-                                touched,
-                                handleChange,
-                                handleBlur,
-                            }) => (
-                                <Form>
-                                    <Grid
-                                        container
-                                        direction="row"
-                                        spacing={2}
-                                        justifyContent="center"
-                                    >
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            lg={12}
-                                            xl={12}
-                                        >
-                                            <TextField
-                                                sx={{ width: '100%' }}
-                                                error={
-                                                    touched.name && errors.name
-                                                        ? true
-                                                        : false
-                                                }
-                                                type="text"
-                                                name="name"
-                                                margin="dense"
-                                                label="Name:"
-                                                helperText={
-                                                    touched.name &&
-                                                    errors.name &&
-                                                    errors.name
-                                                }
-                                                size="small"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.name}
-                                            />
-                                        </Grid>
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            lg={12}
-                                            xl={12}
-                                        >
-                                            <TextField
-                                                sx={{ width: '100%' }}
-                                                error={
-                                                    touched.lastname &&
-                                                    errors.lastname
-                                                        ? true
-                                                        : false
-                                                }
-                                                type="text"
-                                                name="lastname"
-                                                margin="dense"
-                                                label="Lastname:"
-                                                helperText={
-                                                    touched.lastname &&
-                                                    errors.lastname &&
-                                                    errors.lastname
-                                                }
-                                                size="small"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.lastname}
-                                            />
-                                        </Grid>
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            lg={12}
-                                            xl={12}
-                                        >
-                                            <TextField
-                                                sx={{ width: '100%' }}
-                                                error={
-                                                    touched.email &&
-                                                    errors.email
-                                                        ? true
-                                                        : false
-                                                }
-                                                type="email"
-                                                name="email"
-                                                margin="dense"
-                                                label="Email:"
-                                                helperText={
-                                                    touched.email &&
-                                                    errors.email &&
-                                                    errors.email
-                                                }
-                                                size="small"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.email}
-                                            />
-                                        </Grid>
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            lg={12}
-                                            xl={12}
-                                        >
-                                            <TextField
-                                                sx={{ width: '100%' }}
-                                                id="outlined-multiline-static"
-                                                name="comments"
-                                                error={
-                                                    touched.comments &&
-                                                    errors.comments
-                                                        ? true
-                                                        : false
-                                                }
-                                                label="Let me know your comments"
-                                                multiline
-                                                rows={4}
-                                                helperText={
-                                                    touched.comments &&
-                                                    errors.comments &&
-                                                    errors.comments
-                                                }
-                                                size="small"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.comments}
-                                            />
-                                        </Grid>
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            lg={12}
-                                            xl={12}
-                                        >
-                                            <Button
-                                                sx={{ width: '100%' }}
-                                                type="submit"
-                                                variant="contained"
-                                                size="small"
-                                            >
-                                                Enviar 🚀
-                                            </Button>
-
-                                            {submittedForm === 'success' && (
-                                                <Alert
-                                                    sx={{ margin: '1rem 0' }}
-                                                    variant="filled"
-                                                    severity="success"
-                                                >
-                                                    Thanks for your feedback!
-                                                </Alert>
-                                            )}
-                                            {submittedForm === 'error' && (
-                                                <Alert
-                                                    sx={{ margin: '1rem 0' }}
-                                                    variant="filled"
-                                                    severity="error"
-                                                >
-                                                    Oops! An error occurred and
-                                                    we were unable to submit the
-                                                    form.
-                                                </Alert>
-                                            )}
-                                        </Grid>
-                                    </Grid>
-                                </Form>
+                {({
+                    errors,
+                    touched,
+                    handleSubmit,
+                    values,
+                    handleChange,
+                    handleBlur,
+                }) => (
+                    <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                        <FormControl sx={{ gap: '3px', width: '100%' }}>
+                            <TextField
+                                label="Name"
+                                id="name"
+                                name="name"
+                                variant="outlined"
+                                size="small"
+                                value={values.name}
+                                onChange={handleChange}
+                                error={touched.name && Boolean(errors.name)}
+                                helperText={touched.name && errors.name}
+                                onBlur={handleBlur}
+                                inputProps={{ style: { fontSize: 16 } }}
+                                InputLabelProps={{
+                                    style: { fontSize: 16 },
+                                }}
+                            />
+                            {errors.name && touched.name ? (
+                                <Typography>{errors.name}</Typography>
+                            ) : (
+                                <Typography sx={{ opacity: 0 }} fontSize="18px">
+                                    .
+                                </Typography>
                             )}
-                        </Formik>
-                    </CardContent>
-                </Card>
-            </Box>
+                            <TextField
+                                label="Lastname"
+                                id="lastname"
+                                name="lastname"
+                                variant="outlined"
+                                size="small"
+                                value={values.lastname}
+                                onChange={handleChange}
+                                error={
+                                    touched.lastname && Boolean(errors.lastname)
+                                }
+                                helperText={touched.lastname && errors.lastname}
+                                onBlur={handleBlur}
+                                inputProps={{ style: { fontSize: 16 } }}
+                                InputLabelProps={{
+                                    style: { fontSize: 16 },
+                                }}
+                            />
+                            {errors.lastname && touched.lastname ? (
+                                <Typography>{errors.lastname}</Typography>
+                            ) : (
+                                <Typography sx={{ opacity: 0 }} fontSize="18px">
+                                    .
+                                </Typography>
+                            )}
+                            <TextField
+                                label="Email"
+                                id="email"
+                                name="email"
+                                variant="outlined"
+                                size="small"
+                                value={values.email}
+                                onChange={handleChange}
+                                error={touched.email && Boolean(errors.email)}
+                                helperText={touched.email && errors.email}
+                                onBlur={handleBlur}
+                                inputProps={{ style: { fontSize: 16 } }}
+                                InputLabelProps={{
+                                    style: { fontSize: 16 },
+                                }}
+                            />
+                            {errors.email && touched.email ? (
+                                <Typography>{errors.email}</Typography>
+                            ) : (
+                                <Typography sx={{ opacity: 0 }} fontSize="18px">
+                                    .
+                                </Typography>
+                            )}
+                            <TextField
+                                id="comments"
+                                name="comments"
+                                multiline
+                                rows={2}
+                                label="Comments"
+                                variant="outlined"
+                                value={values.comments}
+                                onChange={handleChange}
+                                error={
+                                    touched.comments && Boolean(errors.comments)
+                                }
+                                helperText={touched.comments && errors.comments}
+                                onBlur={handleBlur}
+                                inputProps={{ style: { fontSize: 16 } }}
+                                InputLabelProps={{
+                                    style: { fontSize: 16 },
+                                }}
+                            />
+                            {errors.comments && touched.comments ? (
+                                <Typography>{errors.comments}</Typography>
+                            ) : (
+                                <Typography sx={{ opacity: 0 }} fontSize="17px">
+                                    .
+                                </Typography>
+                            )}
+                            <Button
+                                width="50%"
+                                type="submit"
+                                variant="contained"
+                                color={
+                                    petDetail?.type.toLowerCase() === 'lost'
+                                        ? 'secondary'
+                                        : 'primary'
+                                }
+                                sx={{
+                                    alignSelf: 'flex-end',
+                                    width: '50%',
+                                    textTransform: 'none',
+                                    borderRadius: '8px',
+                                }}
+                            >
+                                Send
+                            </Button>
+                        </FormControl>
+                    </form>
+                )}
+            </Formik>
         </Stack>
     )
 }

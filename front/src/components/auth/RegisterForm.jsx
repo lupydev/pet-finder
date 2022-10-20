@@ -276,7 +276,7 @@ const RegisterForm = () => {
                                             type="text"
                                             name="nickname"
                                             margin="dense"
-                                            label="nickname"
+                                            label="Nickname *"
                                             helperText={
                                                 touched.nickname &&
                                                 errors.nickname &&
@@ -303,7 +303,7 @@ const RegisterForm = () => {
                                             type="text"
                                             name="fullname"
                                             margin="dense"
-                                            label="fullname"
+                                            label="Full Name"
                                             helperText={
                                                 touched.fullname &&
                                                 errors.fullname &&
