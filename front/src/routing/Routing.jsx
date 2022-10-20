@@ -1,6 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from '../pages/home/Home'
-import ContactForm from '../components/contact-form/ContactForm'
 import RegisterForm from '../components/auth/RegisterForm'
 import Login from '../components/auth/Login'
 import PetBrowserContainer from '../pages/petBrowser/petBrowserContainer'
@@ -19,6 +18,7 @@ import Admin from '../pages/admin/Admin'
 import isUserAdmin from '../utils/isUserAdmin'
 import ForgotPassword from '../components/auth/ForgotPassword'
 import ResetPassword from '../components/auth/ResetPassword'
+import ContactUs from '../pages/Contact/ContactUs'
 
 const Routing = () => {
     const dispatch = useDispatch()
@@ -50,7 +50,7 @@ const Routing = () => {
                 element={<PetBrowserContainer title="Lost" color="secondary" />}
             />
             <Route path="/lostPets/:id" element={<PetDetails />} />
-            <Route path="/contact" element={<ContactForm />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/signin" element={<RegisterForm />} />
             <Route
                 element={
@@ -74,6 +74,8 @@ const Routing = () => {
             </Route>
             <Route path="/forgot-password/:token" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/*" element={<Home />} />
+
         </Routes>
     )
 }

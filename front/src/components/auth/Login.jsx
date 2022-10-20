@@ -51,6 +51,7 @@ const Login = () => {
             alignItems="center"
             width="100%"
             gap="20px"
+            pt="100px"
         >
             <Stack
                 direction="row"
@@ -208,7 +209,7 @@ const Login = () => {
                                                         md: '0',
                                                     },
                                                 }}
-                                                size='small'
+                                                size="small"
                                             >
                                                 Login
                                             </Button>

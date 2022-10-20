@@ -97,12 +97,11 @@ const RegisterForm = () => {
 
     return (
         <Stack
-            sx={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                gap: '20px',
-            }}
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            gap="20px"
+            pt='100px'
         >
             <Stack
                 direction="row"
@@ -208,7 +207,15 @@ const RegisterForm = () => {
                                             height="4.5rem"
                                             borderRadius=".5rem"
                                         >
-                                            <Stack px="5px" sx={{width:{xs: 'auto', md: '50%'}}}>
+                                            <Stack
+                                                px="5px"
+                                                sx={{
+                                                    width: {
+                                                        xs: 'auto',
+                                                        md: '50%',
+                                                    },
+                                                }}
+                                            >
                                                 <Typography
                                                     fontSize="12px"
                                                     mt="5px"
@@ -269,7 +276,7 @@ const RegisterForm = () => {
                                             type="text"
                                             name="nickname"
                                             margin="dense"
-                                            label="nickname"
+                                            label="Nickname *"
                                             helperText={
                                                 touched.nickname &&
                                                 errors.nickname &&
@@ -296,7 +303,7 @@ const RegisterForm = () => {
                                             type="text"
                                             name="fullname"
                                             margin="dense"
-                                            label="fullname"
+                                            label="Full Name"
                                             helperText={
                                                 touched.fullname &&
                                                 errors.fullname &&

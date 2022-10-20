@@ -45,6 +45,7 @@ const ForgotPassword = () => {
             alignItems="center"
             width="100%"
             gap="20px"
+            pt='100px'
         >
             <Stack
                 direction="row"

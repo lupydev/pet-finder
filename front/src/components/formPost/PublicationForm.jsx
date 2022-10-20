@@ -175,6 +175,7 @@ export const PublicationForm = ({ selectedPet }) => {
                         columns={6}
                         maxWidth={800}
                         padding={3}
+                        pt='100px'
                     >
                         <Grid item xs={6}>
                             <Typography
