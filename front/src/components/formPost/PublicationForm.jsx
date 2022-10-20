@@ -162,6 +162,7 @@ export const PublicationForm = ({ selectedPet }) => {
                 gap="4px"
                 alignItems="center"
                 justifyContent="center"
+                marginTop='100px'
             >
                 <Stack
                     spacing={0}
