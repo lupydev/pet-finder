@@ -39,7 +39,7 @@ const menuItems = [
 const Profile = () => {
     const dispatch = useDispatch()
     const { userData } = useSelector((state) => state.user)
-    const [view, setView] = useState(menuItems[0].id)
+    const [view, setView] = useState(menuItems[1].id)
 
     useEffect(() => {
         dispatch(getUserData())

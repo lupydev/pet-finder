@@ -6,14 +6,11 @@ import {
     Box,
     Button,
     Chip,
-    CircularProgress,
     FormControl,
     Grid,
-    IconButton,
     InputLabel,
     MenuItem,
     OutlinedInput,
-    Paper,
     Select,
     TextField,
     Typography,
@@ -22,14 +19,12 @@ import TextfieldWrapper from '../../components/formPost/Textfield/Textfield'
 import SelectWrapper from '../../components/formPost/Select/Select'
 import DateTimePicker from '../../components/formPost/DateTimePicker/DateTimePicker'
 import gender from '../../components/formPost/Data/Gender/gender.json'
-import breed from '../../components/formPost/Data/Breed/breed.json'
 import size from '../../components/formPost/Data/Size/size.json'
 import age from '../../components/formPost/Data/Age/age.json'
 import color from '../../components/formPost/Data/Color/color.json'
 import types from '../../components/formPost/Data/Type/types.json'
 import ButtonWrapper from '../../components/formPost/Button/ButtonWrapper'
 import GMapsApi from '../../components/formPost/GMapsAutocomplete/GMapsApi'
-import { TiDeleteOutline } from 'react-icons/ti'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { Toast } from '../../utils/swalToasts'
@@ -39,7 +34,6 @@ import { editPet } from '../../redux/asyncActions/pet/editPet'
 import { getSpecies } from '../../redux/asyncActions/pet/getSpecies'
 import { useNavigate } from 'react-router-dom'
 import { getBreeds } from '../../redux/asyncActions/pet/getBreeds'
-import { current } from '@reduxjs/toolkit'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -57,12 +51,9 @@ const FORM_VALIDATION = Yup.object().shape({
     observation: Yup.string(),
 })
 
-// eslint-disable-next-line react/prop-types
 const PetEdit = ({ selectedPet, setEdit }) => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { species, breeds } = useSelector((state) => state.pet)
-    const { userInfo } = useSelector((state) => state.user)
     const [species2, setEspecie2] = useState(selectedPet?.species._id)
     const [breeds2, setBreeds2] = useState(selectedPet?.breed._id)
     const [loading, setLoading] = useState(false)

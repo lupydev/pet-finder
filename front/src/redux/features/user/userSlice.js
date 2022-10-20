@@ -25,10 +25,6 @@ import {
     extraToggleUserAdmin,
 } from '../../asyncActions/user/toggleUserAdmin'
 import {
-    getUserPets,
-    extraGetUserPets,
-} from '../../asyncActions/user/getUserPets'
-import {
     getAllUsers,
     extraGetAllUsers,
 } from '../../asyncActions/user/getAllUsers'
@@ -49,7 +45,6 @@ const initialState = {
     userData: undefined,
     selectedUser: undefined,
     allUsers: [],
-    userPets: [],
     userInfo: { token: '', id: '', isLogged: false, isAdmin: false },
     status: 'loading',
     statusUsers: 'loading',
@@ -84,15 +79,11 @@ const userSlice = createSlice({
             window.localStorage.removeItem('user')
             state.userData = undefined
         },
-        cleanPetsData: (state) => {
-            state.userPets = []
-        },
     },
     extraReducers: {
         ...extraCreateUser,
         ...extraLogin,
         ...extraGetUserData,
-        ...extraGetUserPets,
         ...extraLoginGoogle,
         ...extraPutEditUser,
         ...extraToggleUserAdmin,
@@ -111,7 +102,6 @@ export {
     getUserData,
     getUserById,
     getAllUsers,
-    getUserPets,
     loginGoogle,
     putEditUser,
     toggleUserAdmin,
