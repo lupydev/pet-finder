@@ -7,11 +7,11 @@ import {
     Box,
     Chip,
     FormControl,
-    Grid,
     InputLabel,
     MenuItem,
     OutlinedInput,
     Select,
+    Stack,
     TextField,
     Typography,
 } from '@mui/material'
@@ -153,226 +153,287 @@ export const PublicationForm = ({ selectedPet }) => {
     }, [statusCreate])
 
     return species.length ? (
-        <Formik
-            initialValues={{ ...INITIAL_FORM_STATE }}
-            validationSchema={FORM_VALIDATION}
-            onSubmit={(values, { resetForm }) => {
-                handleSubmit(values, resetForm)
-            }}
-        >
-            {({
-                values,
-                errors,
-                touched,
-                setFieldValue,
-                handleChange,
-                handleBlur,
-            }) => (
-                <Form>
-                    <Grid
-                        container
-                        spacing={2}
-                        columns={6}
-                        maxWidth={800}
-                        padding={3}
-                        pt='100px'
-                    >
-                        <Grid item xs={6}>
-                            <Typography
-                                variant="h3"
-                                color="primary.main"
-                                fontFamily={'Merriweather'}
-                                fontWeight="bold"
-                                textAlign="center"
-                            >
-                                Create Post
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Typography variant="h6">Pictures</Typography>
+        <Stack width="100%">
+            <Stack
+                direction="row"
+                width="100%"
+                sx={{ backgroundColor: 'primary.main' }}
+                height="auto"
+                gap="4px"
+                alignItems="center"
+                justifyContent="center"
+                marginTop='100px'
+            >
+                <Stack
+                    spacing={0}
+                    position="relative"
+                    justifyContent="center"
+                    width="100%"
+                    maxWidth="1440px"
+                    height="auto"
+                    overflow="hidden"
+                    ml={10}
+                    padding='1rem'
+                >
+                    <Typography fontSize="20px" color="white" fontWeight="">
+                        Post Pet
+                    </Typography>
 
-                            <UploadImages
-                                handleUpload={handleUpload}
-                                images={images}
-                                handleDeleteImg={handleDeleteImg}
-                                loading={loading}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Typography variant="h6">Pet details</Typography>
-                        </Grid>
-                        <Grid item xs={6} sm={4}>
-                            <TextfieldWrapper
-                                id="name"
-                                name="name"
-                                label="Pet name"
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={2}>
-                            <DateTimePicker
-                                id="date"
-                                name="date"
-                                size="small"
-                                min={now}
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={2}>
-                            <SelectWrapper
-                                id="species"
-                                name="species"
-                                label="Specie"
-                                options={species}
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={2}>
-                            <Autocomplete
-                                id="breed"
-                                name="breed"
-                                options={breeds}
-                                getOptionLabel={(option) => option.name}
-                                onChange={(e, value) => {
-                                    setFieldValue(
-                                        'breed',
-                                        value !== null
-                                            ? value._id
-                                            : INITIAL_FORM_STATE.breed
-                                    )
-                                }}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="Breeds"
-                                        id="breed"
-                                        error={
-                                            touched.breed && errors.breed
-                                                ? true
-                                                : false
-                                        }
-                                        helperText={
-                                            touched.breed &&
-                                            errors.breed &&
-                                            errors.breed
-                                        }
+                    <Typography variant="h5" color="white" fontWeight="bold">
+                        If your best friend is lost or you found <br />
+                        the best friend someone ¡Post Here!
+                    </Typography>
+                    <Stack position="absolute" right={0}>
+                        <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1665012764/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellas_q9ukes.png" />
+                    </Stack>
+                </Stack>
+            </Stack>
+            <Stack
+                direction="row"
+                margin="0 auto"
+                maxWidth="1000px"
+                justifyContent="space-between"
+            >
+                <Formik
+                    initialValues={{ ...INITIAL_FORM_STATE }}
+                    validationSchema={FORM_VALIDATION}
+                    onSubmit={(values, { resetForm }) => {
+                        handleSubmit(values, resetForm)
+                    }}
+                >
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        setFieldValue,
+                        handleChange,
+                        handleBlur,
+                    }) => (
+                        <Form>
+                            <Stack
+                                width="100%"
+                                spacing={2}
+                                columns={12}
+                                maxWidth={800}
+                                padding={3}
+                                margin="0 auto"
+                            >
+                                <Stack>
+                                    <Typography variant="h6">
+                                        Pictures
+                                    </Typography>
+
+                                    <UploadImages
+                                        handleUpload={handleUpload}
+                                        images={images}
+                                        handleDeleteImg={handleDeleteImg}
+                                        loading={loading}
                                     />
-                                )}
-                                disableClearable
-                                disabled={!breeds.length}
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={2}>
-                            <SelectWrapper
-                                id="gender"
-                                name="gender"
-                                label="Gender"
-                                options={gender}
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={2}>
-                            <SelectWrapper
-                                id="size"
-                                name="size"
-                                label="Size"
-                                options={size}
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={2}>
-                            <SelectWrapper
-                                id="age"
-                                name="age"
-                                label="Age"
-                                options={age}
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={2}>
-                            <FormControl fullWidth size="small">
-                                <InputLabel>Color</InputLabel>
-                                <Select
-                                    id="color"
-                                    name="color"
-                                    label="color"
-                                    value={values.color}
-                                    multiple
-                                    onChange={handleChange}
-                                    input={
-                                        <OutlinedInput
-                                            id="select-multiple-chip"
-                                            label="Color"
-                                        />
-                                    }
-                                    renderValue={(selected) => (
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                flexWrap: 'wrap',
-                                                gap: 0.5,
-                                            }}
-                                        >
-                                            {selected.map((value) => (
-                                                <Chip
-                                                    key={value}
-                                                    label={value}
-                                                />
-                                            ))}
-                                        </Box>
-                                    )}
+                                </Stack>
+                                <Stack>
+                                    <Typography variant="h6">
+                                        Pet details
+                                    </Typography>
+                                </Stack>
+                                <Stack
+                                    direction={{ xs: 'column', sm: 'row' }}
+                                    // justifyContent="space-between"
+                                    spacing={2}
+                                    // sx={{ direction: { xs: 'column', md: 'row' } }}
                                 >
-                                    {color.map((color) => (
-                                        <MenuItem
-                                            key={color._id}
-                                            value={color.name}
+                                    <TextfieldWrapper
+                                        id="name"
+                                        name="name"
+                                        label="Pet name"
+                                        size="small"
+                                    />
+                                    <DateTimePicker
+                                        id="date"
+                                        name="date"
+                                        size="small"
+                                        min={now}
+                                    />
+                                </Stack>
+                                <Stack
+                                    direction={{ xs: 'column', sm: 'row' }}
+                                    justifyContent="space-between"
+                                    spacing={2}
+                                >
+                                    <SelectWrapper
+                                        id="species"
+                                        name="species"
+                                        label="Specie"
+                                        options={species}
+                                        size="small"
+                                    />
+
+                                    <Autocomplete
+                                        fullWidth
+                                        id="breed"
+                                        name="breed"
+                                        options={breeds}
+                                        getOptionLabel={(option) => option.name}
+                                        onChange={(e, value) => {
+                                            setFieldValue(
+                                                'breed',
+                                                value !== null
+                                                    ? value._id
+                                                    : INITIAL_FORM_STATE.breed
+                                            )
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Breeds"
+                                                id="breed"
+                                                error={
+                                                    touched.breed &&
+                                                    errors.breed
+                                                        ? true
+                                                        : false
+                                                }
+                                                helperText={
+                                                    touched.breed &&
+                                                    errors.breed &&
+                                                    errors.breed
+                                                }
+                                            />
+                                        )}
+                                        disableClearable
+                                        disabled={!breeds.length}
+                                        size="small"
+                                    />
+
+                                    <SelectWrapper
+                                        id="gender"
+                                        name="gender"
+                                        label="Gender"
+                                        options={gender}
+                                        size="small"
+                                    />
+                                </Stack>
+
+                                <Stack
+                                    direction={{ xs: 'column', sm: 'row' }}
+                                    justifyContent="space-between"
+                                    spacing={2}
+                                >
+                                    <SelectWrapper
+                                        id="size"
+                                        name="size"
+                                        label="Size"
+                                        options={size}
+                                        size="small"
+                                    />
+
+                                    <SelectWrapper
+                                        id="age"
+                                        name="age"
+                                        label="Age"
+                                        options={age}
+                                        size="small"
+                                    />
+
+                                    <FormControl fullWidth size="small">
+                                        <InputLabel>Color</InputLabel>
+                                        <Select
+                                            id="color"
+                                            name="color"
+                                            label="color"
+                                            value={values.color}
+                                            multiple
+                                            onChange={handleChange}
+                                            input={
+                                                <OutlinedInput
+                                                    id="select-multiple-chip"
+                                                    label="Color"
+                                                />
+                                            }
+                                            renderValue={(selected) => (
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        flexWrap: 'wrap',
+                                                        gap: 0.5,
+                                                    }}
+                                                >
+                                                    {selected.map((value) => (
+                                                        <Chip
+                                                            key={value}
+                                                            label={value}
+                                                        />
+                                                    ))}
+                                                </Box>
+                                            )}
                                         >
-                                            {color.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextfieldWrapper
-                                id="observation"
-                                name="observation"
-                                label="Observation"
-                                multiline={true}
-                                rows={4}
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={3}>
-                            <SelectWrapper
-                                id="type"
-                                name="type"
-                                label="Type"
-                                options={types}
-                                size="small"
-                            />
-                        </Grid>
-                        {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
-                        <Grid item xs={6} sm={3}>
-                            <GMapsApi setLocation={setLocation} />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextfieldWrapper
-                                id="description"
-                                name="description"
-                                label="Description"
-                                multiline={true}
-                                rows={6}
-                                size="small"
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <ButtonWrapper>Create Post</ButtonWrapper>
-                        </Grid>
-                    </Grid>
-                </Form>
-            )}
-        </Formik>
+                                            {color.map((color) => (
+                                                <MenuItem
+                                                    key={color._id}
+                                                    value={color.name}
+                                                >
+                                                    {color.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </Stack>
+                                <Stack>
+                                    <TextfieldWrapper
+                                        id="observation"
+                                        name="observation"
+                                        label="Observation"
+                                        multiline={true}
+                                        rows={4}
+                                        size="small"
+                                    />
+                                </Stack>
+                                <Stack
+                                    direction={{ xs: 'column', sm: 'row' }}
+                                    justifyContent="space-between"
+                                    spacing={2}
+                                >
+                                    <SelectWrapper
+                                        id="type"
+                                        name="type"
+                                        label="Type"
+                                        options={types}
+                                        size="small"
+                                    />
+
+                                    {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
+                                    <Stack width="100%">
+                                        <GMapsApi setLocation={setLocation} />
+                                    </Stack>
+                                </Stack>
+                                <Stack>
+                                    <TextfieldWrapper
+                                        id="description"
+                                        name="description"
+                                        label="Description"
+                                        multiline={true}
+                                        rows={6}
+                                        size="small"
+                                    />
+                                </Stack>
+                                <Stack alignSelf="end" minWidth="200px">
+                                    <ButtonWrapper>Post</ButtonWrapper>
+                                </Stack>
+                            </Stack>
+                        </Form>
+                    )}
+                </Formik>
+                <Stack
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ display: { xs: 'none', md: 'flex' } }}
+                >
+                    <img
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1666276517/Imagenes%20Dise%C3%B1o%20UX/CreatePostImage/Image-post_qkl8ms.png"
+                        alt="Post Image"
+                    />
+                </Stack>
+            </Stack>
+        </Stack>
     ) : (
         <Loading />
     )
