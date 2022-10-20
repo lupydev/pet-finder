@@ -7,6 +7,7 @@ import {
     Box,
     Chip,
     FormControl,
+    Grid,
     InputLabel,
     MenuItem,
     OutlinedInput,
@@ -36,6 +37,7 @@ import { getUserData } from '../../redux/asyncActions/user/getUserData'
 import ComboBox from './SelectAutocomplete/ComboBox'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
 import Loading from '../loading/Loading'
+import Title from '../petBrowser/Title'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -153,46 +155,17 @@ export const PublicationForm = ({ selectedPet }) => {
     }, [statusCreate])
 
     return species.length ? (
-        <Stack width="100%">
+        <Stack width="100%" pt="100px" alignItems="center">
+            <Title
+                title="Post a Pet"
+                desc={`if your best friend is lost or you found someone's best friend, Post it Here!`}
+            />
             <Stack
-                direction="row"
                 width="100%"
-                sx={{ backgroundColor: 'primary.main' }}
-                height="auto"
-                gap="4px"
-                alignItems="center"
-                justifyContent="center"
-                marginTop='100px'
-            >
-                <Stack
-                    spacing={0}
-                    position="relative"
-                    justifyContent="center"
-                    width="100%"
-                    maxWidth="1440px"
-                    height="auto"
-                    overflow="hidden"
-                    ml={10}
-                    padding='1rem'
-                >
-                    <Typography fontSize="20px" color="white" fontWeight="">
-                        Post Pet
-                    </Typography>
-
-                    <Typography variant="h5" color="white" fontWeight="bold">
-                        If your best friend is lost or you found <br />
-                        the best friend someone ¡Post Here!
-                    </Typography>
-                    <Stack position="absolute" right={0}>
-                        <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1665012764/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/huellas_q9ukes.png" />
-                    </Stack>
-                </Stack>
-            </Stack>
-            <Stack
+                maxWidth="1440px"
                 direction="row"
-                margin="0 auto"
-                maxWidth="1000px"
-                justifyContent="space-between"
+                justifyContent={{ xs: 'center', md: 'space-between' }}
+                alignItems="center"
             >
                 <Formik
                     initialValues={{ ...INITIAL_FORM_STATE }}
@@ -210,15 +183,17 @@ export const PublicationForm = ({ selectedPet }) => {
                         handleBlur,
                     }) => (
                         <Form>
-                            <Stack
-                                width="100%"
+                            <Grid
+                                container
                                 spacing={2}
-                                columns={12}
+                                columns={6}
                                 maxWidth={800}
                                 padding={3}
-                                margin="0 auto"
+                                pt="50px"
+                                width="100%"
+                                m={0}
                             >
-                                <Stack>
+                                <Grid item xs={6} pt="50px">
                                     <Typography variant="h6">
                                         Pictures
                                     </Typography>
@@ -229,36 +204,29 @@ export const PublicationForm = ({ selectedPet }) => {
                                         handleDeleteImg={handleDeleteImg}
                                         loading={loading}
                                     />
-                                </Stack>
-                                <Stack>
+                                </Grid>
+                                <Grid item xs={6}>
                                     <Typography variant="h6">
                                         Pet details
                                     </Typography>
-                                </Stack>
-                                <Stack
-                                    direction={{ xs: 'column', sm: 'row' }}
-                                    // justifyContent="space-between"
-                                    spacing={2}
-                                    // sx={{ direction: { xs: 'column', md: 'row' } }}
-                                >
+                                </Grid>
+                                <Grid item xs={6} sm={4}>
                                     <TextfieldWrapper
                                         id="name"
                                         name="name"
                                         label="Pet name"
                                         size="small"
                                     />
+                                </Grid>
+                                <Grid item xs={6} sm={2}>
                                     <DateTimePicker
                                         id="date"
                                         name="date"
                                         size="small"
                                         min={now}
                                     />
-                                </Stack>
-                                <Stack
-                                    direction={{ xs: 'column', sm: 'row' }}
-                                    justifyContent="space-between"
-                                    spacing={2}
-                                >
+                                </Grid>
+                                <Grid item xs={6} sm={2}>
                                     <SelectWrapper
                                         id="species"
                                         name="species"
@@ -266,9 +234,9 @@ export const PublicationForm = ({ selectedPet }) => {
                                         options={species}
                                         size="small"
                                     />
-
+                                </Grid>
+                                <Grid item xs={6} sm={2}>
                                     <Autocomplete
-                                        fullWidth
                                         id="breed"
                                         name="breed"
                                         options={breeds}
@@ -303,7 +271,8 @@ export const PublicationForm = ({ selectedPet }) => {
                                         disabled={!breeds.length}
                                         size="small"
                                     />
-
+                                </Grid>
+                                <Grid item xs={6} sm={2}>
                                     <SelectWrapper
                                         id="gender"
                                         name="gender"
@@ -311,13 +280,8 @@ export const PublicationForm = ({ selectedPet }) => {
                                         options={gender}
                                         size="small"
                                     />
-                                </Stack>
-
-                                <Stack
-                                    direction={{ xs: 'column', sm: 'row' }}
-                                    justifyContent="space-between"
-                                    spacing={2}
-                                >
+                                </Grid>
+                                <Grid item xs={6} sm={2}>
                                     <SelectWrapper
                                         id="size"
                                         name="size"
@@ -325,7 +289,8 @@ export const PublicationForm = ({ selectedPet }) => {
                                         options={size}
                                         size="small"
                                     />
-
+                                </Grid>
+                                <Grid item xs={6} sm={2}>
                                     <SelectWrapper
                                         id="age"
                                         name="age"
@@ -333,7 +298,8 @@ export const PublicationForm = ({ selectedPet }) => {
                                         options={age}
                                         size="small"
                                     />
-
+                                </Grid>
+                                <Grid item xs={6} sm={2}>
                                     <FormControl fullWidth size="small">
                                         <InputLabel>Color</InputLabel>
                                         <Select
@@ -376,8 +342,8 @@ export const PublicationForm = ({ selectedPet }) => {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                </Stack>
-                                <Stack>
+                                </Grid>
+                                <Grid item xs={6}>
                                     <TextfieldWrapper
                                         id="observation"
                                         name="observation"
@@ -386,12 +352,8 @@ export const PublicationForm = ({ selectedPet }) => {
                                         rows={4}
                                         size="small"
                                     />
-                                </Stack>
-                                <Stack
-                                    direction={{ xs: 'column', sm: 'row' }}
-                                    justifyContent="space-between"
-                                    spacing={2}
-                                >
+                                </Grid>
+                                <Grid item xs={6} sm={3}>
                                     <SelectWrapper
                                         id="type"
                                         name="type"
@@ -399,13 +361,12 @@ export const PublicationForm = ({ selectedPet }) => {
                                         options={types}
                                         size="small"
                                     />
-
-                                    {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
-                                    <Stack width="100%">
-                                        <GMapsApi setLocation={setLocation} />
-                                    </Stack>
-                                </Stack>
-                                <Stack>
+                                </Grid>
+                                {/* GOOGLE AUTOCOMPLETE COMPONENT*/}
+                                <Grid item xs={6} sm={3}>
+                                    <GMapsApi setLocation={setLocation} />
+                                </Grid>
+                                <Grid item xs={6}>
                                     <TextfieldWrapper
                                         id="description"
                                         name="description"
@@ -414,20 +375,23 @@ export const PublicationForm = ({ selectedPet }) => {
                                         rows={6}
                                         size="small"
                                     />
-                                </Stack>
-                                <Stack alignSelf="end" minWidth="200px">
-                                    <ButtonWrapper>Post</ButtonWrapper>
-                                </Stack>
-                            </Stack>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <ButtonWrapper>Create Post</ButtonWrapper>
+                                </Grid>
+                            </Grid>
                         </Form>
                     )}
                 </Formik>
                 <Stack
                     justifyContent="center"
                     alignItems="center"
+                    width="100%"
+                    maxWidth="450px"
                     sx={{ display: { xs: 'none', md: 'flex' } }}
                 >
                     <img
+                        width="100%"
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1666276517/Imagenes%20Dise%C3%B1o%20UX/CreatePostImage/Image-post_qkl8ms.png"
                         alt="Post Image"
                     />
