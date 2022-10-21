@@ -101,7 +101,7 @@ const RegisterForm = () => {
             alignItems="center"
             width="100%"
             gap="20px"
-            pt="100px"
+            pt='100px'
         >
             <Stack
                 direction="row"
@@ -137,17 +137,13 @@ const RegisterForm = () => {
             </Stack>
 
             <Stack
-                width="100%"
                 alignItems="center"
                 justifyContent="space-between"
                 mt={3}
-                direction={{ xs: 'column', md: 'row' }}
+                direction="row"
+                width='100%'
             >
-                <Stack
-                    // width="50%"
-                    // display={{ xs: 'none', md: 'flex' }}
-                    width={{ xs: '300px', md: '500px' }}
-                >
+                <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
                     {!loading ? (
                         <img
                             width="100%"
@@ -158,7 +154,7 @@ const RegisterForm = () => {
                         <Loading />
                     )}
                 </Stack>
-                <Stack width={{ xs: '100%', sm: '400px' }} margin="0 auto">
+                <Stack width={{ xs: '80%', md: '400px' }} margin="0 auto">
                     <Formik
                         initialValues={initialValues}
                         onSubmit={(values) => {
@@ -179,7 +175,7 @@ const RegisterForm = () => {
                                 <Stack
                                     alignItems="start"
                                     gap="10px"
-                                    margin={{ xs: '0 2rem', md: 'auto' }}
+                                    margin={{ xs: '0 1rem', md: 'auto' }}
                                 >
                                     <Typography fontSize="20px" variant="h5">
                                         <b>Sign Up</b>
