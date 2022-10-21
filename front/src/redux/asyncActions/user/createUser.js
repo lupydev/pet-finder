@@ -18,9 +18,6 @@ export const extraCreateUser = {
     },
     [createUser.fulfilled]: (state, action) => {
         if (action.payload.data.ok) {
-            state.createUserStatus = 'success'
-
-            console.log(action.payload.data)
 
             let user = {
                 token: action.payload.data.token,
@@ -41,6 +38,8 @@ export const extraCreateUser = {
                 title: `${action.payload.data.msg}`,
             })
         }
+        state.createUserStatus = 'success'
+
     },
     [createUser.rejected]: (state, action) => {
         state.createUserStatus = 'failed'

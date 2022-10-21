@@ -90,7 +90,6 @@ const RegisterForm = () => {
 
     useEffect(() => {
         if (userInfo.isLogged) {
-            dispatch(getUserData())
             navigate('/profile')
         }
     }, [userInfo.isLogged])
@@ -101,7 +100,7 @@ const RegisterForm = () => {
             alignItems="center"
             width="100%"
             gap="20px"
-            pt='100px'
+            pt="100px"
         >
             <Stack
                 direction="row"
@@ -141,18 +140,14 @@ const RegisterForm = () => {
                 justifyContent="space-between"
                 mt={3}
                 direction="row"
-                width='100%'
+                width="100%"
             >
                 <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
-                    {!loading ? (
-                        <img
-                            width="100%"
-                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
-                            alt="img"
-                        />
-                    ) : (
-                        <Loading />
-                    )}
+                    <img
+                        width="100%"
+                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
+                        alt="img"
+                    />
                 </Stack>
                 <Stack width={{ xs: '80%', md: '400px' }} margin="0 auto">
                     <Formik
