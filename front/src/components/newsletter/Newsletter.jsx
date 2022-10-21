@@ -4,8 +4,8 @@ import NewsletterSubscribe from './NewsletterSubscribe'
 
 const Newsletter = () => {
     return (
-        <Box sx={{ backgroundColor: '#3981BF' }}>
-            <Stack direction={{xs:'column', md:'row'}}>
+        <Stack width='100%' sx={{ backgroundColor: '#3981BF' }}  justifyContent='center' alignItems='center'>
+            <Stack direction={{xs:'column', md:'row'}} maxWidth='1440px' justifyContent='center'>
                 <Stack
                     color="secondary.light"
                     justifyContent= 'center'
@@ -29,7 +29,7 @@ const Newsletter = () => {
                     alt="NewsletterImage"
                 />
             </Stack>
-        </Box>
+        </Stack>
     )
 }
 

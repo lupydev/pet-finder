@@ -45,7 +45,7 @@ const Profile = () => {
         dispatch(getUserData())
     }, [])
 
-    return userData ? (
+    return userData !== undefined ? (
         <ProfileContainer menuItems={menuItems} view={view} setView={setView}>
             {view === 'profile' && <ProfileCard />}
             {view === 'publications' && <PublicationsCard />}

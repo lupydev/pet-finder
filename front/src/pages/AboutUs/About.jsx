@@ -6,7 +6,7 @@ import PetCardsReunitedContainer from './PetCardsReunitedContainer'
 import SvgCard from './SvgCard'
 import OurTeamContainer from './OurTeamContainer'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 const serviceCardsInfo = [
     {
@@ -81,10 +81,17 @@ const About = () => {
                     About Us
                 </Typography>
                 <Typography sx={{ maxWidth: '1024px', margin: '0 auto' }}>
-                    PetFinder was born with the purpose of promoting community cooperation, we seek that both people who lose their best friends and people who find a lost friend from home, have a means by which they can be reunited.
+                    PetFinder was born with the purpose of promoting community
+                    cooperation, we seek that both people who lose their best
+                    friends and people who find a lost friend from home, have a
+                    means by which they can be reunited.
                     <br />
                     <br />
-                    We are a platform that seeks to be that means by which our user can find those beings that are so important to each one. We want users to be able to publish their requested pet or if they find a pet that has lost its human, help them find it!
+                    We are a platform that seeks to be that means by which our
+                    user can find those beings that are so important to each
+                    one. We want users to be able to publish their requested pet
+                    or if they find a pet that has lost its human, help them
+                    find it!
                 </Typography>
                 <Typography
                     color="primary.main"
@@ -93,7 +100,7 @@ const About = () => {
                 >
                     Our Services
                 </Typography>
-                
+
                 <Stack
                     direction={{ xs: 'column', md: 'row' }}
                     maxWidth="1024px"
@@ -101,57 +108,57 @@ const About = () => {
                     margin="0 auto"
                     alignItems="center"
                 >
-
                     {serviceCardsInfo.map((item) => (
                         <motion.div
-                        whileHover={{ scale: [null, 1.1, 1.1] }}
-                        transition={{ duration: 0.4 }}
-                    >
-                        <Stack
+                            whileHover={{ scale: [null, 1.1, 1.1] }}
+                            transition={{ duration: 0.4 }}
                             key={item.id}
-                            justifyContent="center"
-                            padding="20px"
-                            gap="10px"
-                            borderRadius="4px"
-                            boxShadow={4}
-                            maxWidth="380px"
                         >
                             <Stack
-                                direction="row"
-                                alignItems="center"
-                                justifyContent={{
-                                    xs: 'center',
-                                    md: 'space-around',
-                                }}
-                                gap="20px"
+                                
+                                justifyContent="center"
+                                padding="20px"
+                                gap="10px"
+                                borderRadius="4px"
+                                boxShadow={4}
+                                maxWidth="380px"
                             >
-                                <SvgCard />
-                                <Typography
-                                    fontSize="24px"
-                                    color="primary.main"
-                                    textTransform="uppercase"
+                                <Stack
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent={{
+                                        xs: 'center',
+                                        md: 'space-around',
+                                    }}
+                                    gap="20px"
+                                >
+                                    <SvgCard />
+                                    <Typography
+                                        fontSize="24px"
+                                        color="primary.main"
+                                        textTransform="uppercase"
+                                    >
+                                        {item.title}
+                                    </Typography>
+                                </Stack>
+                                <Typography fontSize="16px" fontWeight="light">
+                                    {item.description}
+                                </Typography>
+                                <Button
+                                    component={Link}
+                                    to={item.link}
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-end',
+                                    }}
                                 >
                                     {item.title}
-                                </Typography>
+                                </Button>
                             </Stack>
-                            <Typography fontSize="16px" fontWeight="light">
-                                {item.description}
-                            </Typography>
-                            <Button
-                                component={Link}
-                                to={item.link}
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'flex-end',
-                                }}
-                            >
-                                {item.title}
-                            </Button>
-                        </Stack>
                         </motion.div>
                     ))}
                 </Stack>
-               
+
                 <Stack gap={10} maxWidth="1440px" width="100%">
                     <PetCardsReunitedContainer
                         pets={pets}

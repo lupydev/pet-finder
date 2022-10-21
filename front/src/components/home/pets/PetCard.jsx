@@ -36,6 +36,7 @@ const PetCard = ({
                 <motion.div
                     whileHover={{ scale: [null, 1.05, 1.05] }}
                     transition={{ duration: 0.4 }}
+                    key={pet._id}
                 >
                     <Card
                         sx={{
@@ -43,7 +44,6 @@ const PetCard = ({
                             height: '400px',
                             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                         }}
-                        key={pet._id}
                     >
                         <CardContent
                             sx={{

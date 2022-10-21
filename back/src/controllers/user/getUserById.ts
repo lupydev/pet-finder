@@ -5,7 +5,7 @@ export const getUserById = async (req: Request, res: Response) => {
     const { id } = req.params
 
     try {
-        const user = await User.findById({ _id: id, status: 'Active' }).populate({ path: 'pets', select: '_id img name status meet' })
+        const user = await User.findById({ _id: id, status: 'Active' }).populate({ path: 'pets', select: '_id img name status meet type' })
 
         if (user) {
             return res.status(200).json({ ok: true, msg: 'User found', user })

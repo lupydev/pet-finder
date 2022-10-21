@@ -51,7 +51,7 @@ const Login = () => {
             alignItems="center"
             width="100%"
             gap="20px"
-            pt="100px"
+            pt='100px'
         >
             <Stack
                 direction="row"
@@ -86,19 +86,13 @@ const Login = () => {
             </Stack>
 
             <Stack
-                width='100%'
                 alignItems="center"
                 justifyContent="space-between"
                 mt={3}
-                direction={{ xs: 'column', md: 'row' }}
+                direction="row"
             >
                 {!loadImage ? (
-                    <Stack
-                        // width="50%"
-                        // display={{ xs: 'none', md: 'flex' }}
-                        width={{ xs: '300px', md: '500px' }}
-                        
-                    >
+                    <Stack width="50%" display={{ xs: 'none', md: 'flex' }}>
                         <img
                             width="100%"
                             src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049166/Imagenes%20Dise%C3%B1o%20UX/Imagenes%20Landing%20page/iStock-157526441_mma0zx.jpg"
@@ -108,7 +102,7 @@ const Login = () => {
                 ) : (
                     <Loading />
                 )}
-                <Stack width={{ xs: '100%', sm: '400px' }} margin="0 auto">
+                <Stack width={{ xs: '100%', md: '400px' }} margin="0 auto">
                     <Formik
                         initialValues={{
                             email: '',
@@ -130,7 +124,7 @@ const Login = () => {
                                 <Form onSubmit={handleSubmit}>
                                     <Stack alignItems="start" gap="10px">
                                         <Stack
-                                            padding={{ xs: '0 1rem', sm: '0' }}
+                                            padding={{ xs: '1rem', sm: '0' }}
                                         >
                                             <Typography
                                                 fontSize="20px"
@@ -148,7 +142,7 @@ const Login = () => {
                                         </Stack>
                                         <Stack
                                             width="100%"
-                                            padding={{ xs: '0 1rem', sm: '0' }}
+                                            padding={{ xs: '1rem', sm: '0' }}
                                         >
                                             <TextField
                                                 sx={{ width: '100%' }}
