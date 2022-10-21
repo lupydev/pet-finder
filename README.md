@@ -11,6 +11,7 @@
 
 <p align="center"  ><b>You can check out our webpage here:</b></p>
 <h3 align="center"><a href="https://petfinder-phi.vercel.app/" target="_blank" rel="noopener noreferrer"> 🐾 Pet Finder 🐾</a></h3>
+<p align="center" ><img width="50px" align="center"src="https://res.cloudinary.com/diyk4to11/image/upload/v1665058097/Imagenes%20Dise%C3%B1o%20UX/Gif%20Carga%20de%20Pantallas/Carga_Pantalla_-_Animacion_vztvtb.gif"></p> 
 
 <hr/>
 
