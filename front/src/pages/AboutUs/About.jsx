@@ -6,13 +6,14 @@ import PetCardsReunitedContainer from './PetCardsReunitedContainer'
 import SvgCard from './SvgCard'
 import OurTeamContainer from './OurTeamContainer'
 import { getPets } from '../../redux/asyncActions/pet/getPets'
+import { motion } from 'framer-motion'
 
 const serviceCardsInfo = [
     {
         id: 1,
         title: 'Lost Pets',
         description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel saepe consectetur iste maxime explicabo fuga quidem!',
+            'In this section, users who lost their pet will be able to find pet posts that have been posted as found by other users.',
         color: 'secondary',
         link: '/lostPets',
     },
@@ -20,7 +21,7 @@ const serviceCardsInfo = [
         id: 2,
         title: 'Found Pets',
         description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel saepe consectetur iste maxime explicabo fuga quidem!',
+            'In this section, users who found a lost pet will be able to find pet posts that have been posted as lost by other users.',
         color: 'primary',
         link: '/foundPets',
     },
@@ -28,7 +29,7 @@ const serviceCardsInfo = [
         id: 3,
         title: 'Create a Post',
         description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel saepe consectetur iste maxime explicabo fuga quidem!',
+            'Here you can make posts, either because you lost your pet or because you found one far from home and want to help it.',
         link: '/createPost',
     },
 ]
@@ -69,7 +70,7 @@ const About = () => {
                 width="100%"
                 alignItems="center"
                 px="40px"
-                pt='100px'
+                pt="100px"
             >
                 <Typography
                     color="primary.main"
@@ -80,16 +81,17 @@ const About = () => {
                     About Us
                 </Typography>
                 <Typography sx={{ maxWidth: '1024px', margin: '0 auto' }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maxime odio nobis ut consequatur soluta quaerat eveniet
-                    debitis maiores natus. Cupiditate alias at nulla cumque
-                    eligendi dolores dolore nobis? Ad, excepturi! Lorem ipsum,
-                    dolor sit amet consectetur adipisicing elit.
+                    PetFinder was born with the purpose of promoting community
+                    cooperation, we seek that both people who lose their best
+                    friends and people who find a lost friend from home, have a
+                    means by which they can be reunited.
                     <br />
                     <br />
-                    Voluptates corporis eum cupiditate cum ducimus facilis quo
-                    eveniet? Ratione reiciendis, est dolores repudiandae officia
-                    aliquid sapiente, id odit vero dolorem culpa.
+                    We are a platform that seeks to be that means by which our
+                    user can find those beings that are so important to each
+                    one. We want users to be able to publish their requested pet
+                    or if they find a pet that has lost its human, help them
+                    find it!
                 </Typography>
                 <Typography
                     color="primary.main"
@@ -98,6 +100,7 @@ const About = () => {
                 >
                     Our Services
                 </Typography>
+
                 <Stack
                     direction={{ xs: 'column', md: 'row' }}
                     maxWidth="1024px"
@@ -106,49 +109,56 @@ const About = () => {
                     alignItems="center"
                 >
                     {serviceCardsInfo.map((item) => (
-                        <Stack
+                        <motion.div
+                            whileHover={{ scale: [null, 1.1, 1.1] }}
+                            transition={{ duration: 0.4 }}
                             key={item.id}
-                            justifyContent="center"
-                            padding="20px"
-                            gap="10px"
-                            borderRadius="4px"
-                            boxShadow={4}
-                            maxWidth="380px"
                         >
                             <Stack
-                                direction="row"
-                                alignItems="center"
-                                justifyContent={{
-                                    xs: 'center',
-                                    md: 'space-around',
-                                }}
-                                gap="20px"
+                                
+                                justifyContent="center"
+                                padding="20px"
+                                gap="10px"
+                                borderRadius="4px"
+                                boxShadow={4}
+                                maxWidth="380px"
                             >
-                                <SvgCard />
-                                <Typography
-                                    fontSize="24px"
-                                    color="primary.main"
-                                    textTransform="uppercase"
+                                <Stack
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent={{
+                                        xs: 'center',
+                                        md: 'space-around',
+                                    }}
+                                    gap="20px"
+                                >
+                                    <SvgCard />
+                                    <Typography
+                                        fontSize="24px"
+                                        color="primary.main"
+                                        textTransform="uppercase"
+                                    >
+                                        {item.title}
+                                    </Typography>
+                                </Stack>
+                                <Typography fontSize="16px" fontWeight="light">
+                                    {item.description}
+                                </Typography>
+                                <Button
+                                    component={Link}
+                                    to={item.link}
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-end',
+                                    }}
                                 >
                                     {item.title}
-                                </Typography>
+                                </Button>
                             </Stack>
-                            <Typography fontSize="16px" fontWeight="light">
-                                {item.description}
-                            </Typography>
-                            <Button
-                                component={Link}
-                                to={item.link}
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'flex-end',
-                                }}
-                            >
-                                {item.title}
-                            </Button>
-                        </Stack>
+                        </motion.div>
                     ))}
                 </Stack>
+
                 <Stack gap={10} maxWidth="1440px" width="100%">
                     <PetCardsReunitedContainer
                         pets={pets}

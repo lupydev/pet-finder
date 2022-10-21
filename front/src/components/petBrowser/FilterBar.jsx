@@ -21,6 +21,7 @@ import { FaTransgender } from 'react-icons/fa'
 import { TbSortDescending } from 'react-icons/tb'
 import { useSelector } from 'react-redux'
 import GMapsApi from '../formPost/GMapsAutocomplete/GMapsApi'
+import { motion } from 'framer-motion'
 
 const FilterBar = ({
     title,
@@ -75,22 +76,24 @@ const FilterBar = ({
                         label="Show Reunited"
                         onChange={handleShowReunited}
                     />
-                    <Button
-                        onClick={handleClick}
-                        variant="contained"
-                        color={
-                            title.toLowerCase() === 'lost'
-                                ? 'secondary'
-                                : 'primary'
-                        }
-                        sx={{
-                            textTransform: 'none',
-                            width: '160px',
-                            borderRadius: '8px',
-                        }}
-                    >
-                        Restart Filters
-                    </Button>
+                    <motion.div whileTap={{ scale: 0.98 }}>
+                        <Button
+                            onClick={handleClick}
+                            variant="contained"
+                            color={
+                                title.toLowerCase() === 'lost'
+                                    ? 'secondary'
+                                    : 'primary'
+                            }
+                            sx={{
+                                textTransform: 'none',
+                                width: '160px',
+                                borderRadius: '8px',
+                            }}
+                        >
+                            Restart Filters
+                        </Button>
+                    </motion.div>
                 </Stack>
             </Stack>
             <Stack
@@ -268,23 +271,25 @@ const FilterBar = ({
                     </Stack>
                 </FormControl>
                 <Stack direction="row" gap="15px">
-                    <Button
-                        onClick={handleSubmit}
-                        endIcon={<BsSearch size="15px" />}
-                        variant="contained"
-                        color={
-                            title.toLowerCase() === 'lost'
-                                ? 'secondary'
-                                : 'primary'
-                        }
-                        sx={{
-                            textTransform: 'none',
-                            width: '180px',
-                            borderRadius: '8px',
-                        }}
-                    >
-                        Search
-                    </Button>
+                    <motion.div whileTap={{ scale: 0.98 }}>
+                        <Button
+                            onClick={handleSubmit}
+                            endIcon={<BsSearch size="15px" />}
+                            variant="contained"
+                            color={
+                                title.toLowerCase() === 'lost'
+                                    ? 'secondary'
+                                    : 'primary'
+                            }
+                            sx={{
+                                textTransform: 'none',
+                                width: '180px',
+                                borderRadius: '8px',
+                            }}
+                        >
+                            Search
+                        </Button>
+                    </motion.div>
                 </Stack>
             </Stack>
 
@@ -325,8 +330,8 @@ const FilterBar = ({
                             display: 'flex',
                             flexWrap: 'wrap',
                             justifyContent: 'space-evenly',
-                            gap:'30px',
-                            px: {xs:'20px',md:10},
+                            gap: '30px',
+                            px: { xs: '20px', md: 10 },
                         }}
                     >
                         <FormControl>

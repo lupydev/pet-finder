@@ -24,12 +24,12 @@ const Title = ({ title, desc = '', name }) => {
             >
                 {desc !== '' ? (
                     <>
-                        <Typography fontSize="20px" color="white" fontWeight="">
+                        <Typography fontSize={{xs: '18px',sm: '22px', md: '25px'}} color="white" fontWeight="">
                             {title}
                         </Typography>
 
                         <Typography
-                            variant="h5"
+                            fontSize={{xs: '17px',sm: '21px', md: '23px'}} 
                             color="white"
                             fontWeight="bold"
                         >

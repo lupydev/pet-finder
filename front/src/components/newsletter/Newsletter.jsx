@@ -1,12 +1,11 @@
 import { Box, Stack, TextField, Typography, Button } from '@mui/material'
 import React from 'react'
-
 import NewsletterSubscribe from './NewsletterSubscribe'
 
 const Newsletter = () => {
     return (
-        <Box sx={{ backgroundColor: '#3981BF' }}>
-            <Stack direction={{xs:'column', md:'row'}}>
+        <Stack width='100%' sx={{ backgroundColor: '#3981BF' }}  justifyContent='center' alignItems='center'>
+            <Stack direction={{xs:'column', md:'row'}} maxWidth='1440px' justifyContent='center'>
                 <Stack
                     color="secondary.light"
                     justifyContent= 'center'
@@ -15,11 +14,7 @@ const Newsletter = () => {
                 >
                     <h2>Newsletter</h2>
                     <Typography sx={{ paddingBottom: '2rem' }}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Voluptatibus mollitia explicabo accusantium nulla. Quas,
-                        blanditiis nostrum. Vel ducimus id laudantium labore
-                        iste nulla voluptates ipsum? Porro beatae architecto
-                        aliquam dolore.
+                    Sign up to our newsletter, so you can be able to find out the latest news and posts about lost, found and reunited pets!
                     </Typography>
                     <NewsletterSubscribe></NewsletterSubscribe>
                 </Stack>
@@ -34,7 +29,7 @@ const Newsletter = () => {
                     alt="NewsletterImage"
                 />
             </Stack>
-        </Box>
+        </Stack>
     )
 }
 
