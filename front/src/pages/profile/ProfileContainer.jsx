@@ -30,7 +30,7 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
     }, [userData])
 
     return (
-        <Stack width="100%" gap={5} alignItems={'center'} pt='100px'>
+        <Stack width="100%" gap={5} alignItems={'center'} pt="100px">
             <Title title={'Account'} desc={`Hi ${userData.nickname}!`} />
             <Stack
                 width="100%"
@@ -46,7 +46,7 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
                     width="100%"
                     maxWidth="1440px"
                     height="100%"
-                    gap={{xs:3,md:5}}
+                    gap={{ xs: 3, md: 5 }}
                     alignItems={'start'}
                     justifyContent={'center'}
                     px={{ xs: '20px', md: '40px' }}
@@ -167,7 +167,7 @@ const ProfileContainer = ({ menuItems, view, setView, children }) => {
                     {/* Side Card */}
                     <Stack
                         width={{ xs: '100%', md: '750px' }}
-                        minHeight={{xs:'auto', md:"450px"}}
+                        minHeight={{ xs: 'auto', md: '450px' }}
                         backgroundColor="#FDFEFF"
                         py="50px"
                         px="26px"
