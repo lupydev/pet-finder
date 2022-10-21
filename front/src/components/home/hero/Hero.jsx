@@ -1,6 +1,7 @@
 import { Stack, Typography, Button, Box } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const Hero = () => {
     return (
@@ -30,7 +31,12 @@ const Hero = () => {
                 maxWidth="1440px"
                 py="20px"
             >
-                <Stack width="100%" gap={3} px={{xs:'40px', md:'0'}} pl={{md:'40px'}}>
+                <Stack
+                    width="100%"
+                    gap={3}
+                    px={{ xs: '40px', md: '0' }}
+                    pl={{ md: '40px' }}
+                >
                     <Typography
                         variant="h1"
                         fontWeight="bold"
@@ -45,24 +51,25 @@ const Hero = () => {
                         width="60%"
                     />
                     <Typography variant="subtitle1" color="primary.dark">
-                        In voluptatem dolor in nihil dolorem in nihil quasi ut
-                        repellendus.
+                    We know how hard it is to lose your pet, that's why we want to help you!
                     </Typography>
-                    <Button
-                        component={Link}
-                        to="/createPost"
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                            alignSelf:{xs:'center', md:'auto'},
-                            width: {xs:'200px', md:'auto'},
-                            borderRadius: 2,
-                            textTransform: 'none',
-                            fontWeight: 'regular',
-                        }}
-                    >
-                        Create a Post
-                    </Button>
+                    <motion.div whileTap={{ scale: 0.98 }}>
+                        <Button
+                            component={Link}
+                            to="/createPost"
+                            variant="contained"
+                            color="primary"
+                            sx={{
+                                alignSelf: { xs: 'center', md: 'auto' },
+                                width: { xs: '200px', md: 'auto' },
+                                borderRadius: 2,
+                                textTransform: 'none',
+                                fontWeight: 'regular',
+                            }}
+                        >
+                            Create a Post
+                        </Button>
+                    </motion.div>
                 </Stack>
                 <Stack width="100%" display={{ xs: 'none', md: 'flex' }}>
                     <img

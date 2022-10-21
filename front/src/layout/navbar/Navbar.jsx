@@ -5,6 +5,7 @@ import { BsFillCaretDownFill } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
 import UserMenu from './UserMenu'
 import DrawerMenu from './Drawer'
+import { motion } from 'framer-motion'
 
 const buttonStyle = {
     fontSize: '20px',
@@ -52,7 +53,7 @@ const Navbar = () => {
         >
             <DrawerMenu />
             <Link to="/">
-                <Stack maxWidth='180px'>
+                <Stack maxWidth="180px">
                     <img
                         src="https://res.cloudinary.com/diyk4to11/image/upload/v1664049160/Imagenes%20Dise%C3%B1o%20UX/Logo/Frame_7_cbmjbf.png"
                         alt="logo"
@@ -60,23 +61,45 @@ const Navbar = () => {
                     />
                 </Stack>
             </Link>
-            <Stack direction="row" gap={'38px'} display={{ xs: 'none', md: 'flex' }}>
-                <Button component={Link} to="/" sx={buttonStyle} disableRipple>
-                    Home
-                </Button>
-                <Stack>
+            <Stack
+                direction="row"
+                gap={'38px'}
+                display={{ xs: 'none', md: 'flex' }}
+            >
+                <motion.div
+                    whileHover={{ scale: [null, 1.05, 1.05] }}
+                    transition={{ duration: 0.4 }}
+                    whileTap={{ scale: 0.98 }}
+                >
                     <Button
-                        id="basic-button"
-                        aria-controls={open ? 'basic-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}
+                        component={Link}
+                        to="/"
                         sx={buttonStyle}
-                        endIcon={<BsFillCaretDownFill size="15px" />}
                         disableRipple
                     >
-                        Pet Browser
+                        Home
                     </Button>
+                </motion.div>
+
+                <Stack>
+                    <motion.div
+                        whileHover={{ scale: [null, 1.05, 1.05] }}
+                        transition={{ duration: 0.4 }}
+                        whileTap={{ scale: 0.98 }}
+                    >
+                        <Button
+                            id="basic-button"
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}
+                            sx={buttonStyle}
+                            endIcon={<BsFillCaretDownFill size="15px" />}
+                            disableRipple
+                        >
+                            Pet Browser
+                        </Button>
+                    </motion.div>
                     <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -110,23 +133,35 @@ const Navbar = () => {
                     </Menu>
                 </Stack>
 
-                <Button
-                    component={Link}
-                    to="/aboutUs"
-                    sx={buttonStyle}
-                    disableRipple
+                <motion.div
+                    whileHover={{ scale: [null, 1.05, 1.05] }}
+                    transition={{ duration: 0.4 }}
+                    whileTap={{ scale: 0.98 }}
                 >
-                    About Us
-                </Button>
+                    <Button
+                        component={Link}
+                        to="/aboutUs"
+                        sx={buttonStyle}
+                        disableRipple
+                    >
+                        About Us
+                    </Button>
+                </motion.div>
 
-                <Button
-                    component={Link}
-                    to="/contact"
-                    sx={buttonStyle}
-                    disableRipple
+                <motion.div
+                    whileHover={{ scale: [null, 1.05, 1.05] }}
+                    transition={{ duration: 0.4 }}
+                    whileTap={{ scale: 0.98 }}
                 >
-                    Contact
-                </Button>
+                    <Button
+                        component={Link}
+                        to="/contact"
+                        sx={buttonStyle}
+                        disableRipple
+                    >
+                        Contact
+                    </Button>
+                </motion.div>
             </Stack>
 
             <Stack direction="row">
@@ -137,8 +172,12 @@ const Navbar = () => {
                         variant="contained"
                         component={Link}
                         to="/login"
-                        sx={{ textTransform: 'none', px: '30px', display:{xs:'none', md:'flex'} }}
-                        size='small'
+                        sx={{
+                            textTransform: 'none',
+                            px: '30px',
+                            display: { xs: 'none', md: 'flex' },
+                        }}
+                        size="small"
                         disableRipple
                     >
                         Login

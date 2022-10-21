@@ -12,6 +12,7 @@ import { Formik, useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Toast } from '../../utils/swalToasts'
 import { sendEmail } from '../../utils/sendEmail'
+import { motion } from "framer-motion";
 
 const initialForm = {
     name: '',
@@ -103,7 +104,7 @@ const ContactForm = () => {
                 Hello dear user! Welcome to the contact section of our website,
                 leave us all your questions regarding the operation of our site
                 and we will take care of it! Our users are very important to us,
-                that's why we are very interested in your feedback so that
+                that&apos;s why we are very interested in your feedback so that
                 everyone feels comfortable surfing our website. Feel free to
                 leave your concerns below.
             </Typography>
@@ -141,7 +142,7 @@ const ContactForm = () => {
                     handleBlur,
                 }) => (
                     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                        <FormControl sx={{ gap: '3px', width: '100%' }}>
+                        <FormControl sx={{ gap: '10px', width: '100%' }}>
                             <TextField
                                 label="Name"
                                 id="name"
@@ -158,13 +159,7 @@ const ContactForm = () => {
                                     style: { fontSize: 16 },
                                 }}
                             />
-                            {errors.name && touched.name ? (
-                                <Typography>{errors.name}</Typography>
-                            ) : (
-                                <Typography sx={{ opacity: 0 }} fontSize="18px">
-                                    .
-                                </Typography>
-                            )}
+                            
                             <TextField
                                 label="Lastname"
                                 id="lastname"
@@ -183,13 +178,7 @@ const ContactForm = () => {
                                     style: { fontSize: 16 },
                                 }}
                             />
-                            {errors.lastname && touched.lastname ? (
-                                <Typography>{errors.lastname}</Typography>
-                            ) : (
-                                <Typography sx={{ opacity: 0 }} fontSize="18px">
-                                    .
-                                </Typography>
-                            )}
+
                             <TextField
                                 label="Email"
                                 id="email"
@@ -206,13 +195,7 @@ const ContactForm = () => {
                                     style: { fontSize: 16 },
                                 }}
                             />
-                            {errors.email && touched.email ? (
-                                <Typography>{errors.email}</Typography>
-                            ) : (
-                                <Typography sx={{ opacity: 0 }} fontSize="18px">
-                                    .
-                                </Typography>
-                            )}
+
                             <TextField
                                 id="comments"
                                 name="comments"
@@ -232,13 +215,8 @@ const ContactForm = () => {
                                     style: { fontSize: 16 },
                                 }}
                             />
-                            {errors.comments && touched.comments ? (
-                                <Typography>{errors.comments}</Typography>
-                            ) : (
-                                <Typography sx={{ opacity: 0 }} fontSize="17px">
-                                    .
-                                </Typography>
-                            )}
+
+                            <motion.div whileTap={{ scale: 0.98 }}>
                             <Button
                                 width="50%"
                                 type="submit"
@@ -257,6 +235,7 @@ const ContactForm = () => {
                             >
                                 Send
                             </Button>
+                            </motion.div>
                         </FormControl>
                     </form>
                 )}

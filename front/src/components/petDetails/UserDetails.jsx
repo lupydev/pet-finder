@@ -20,6 +20,7 @@ import DocumentMeta from 'react-document-meta'
 import { IoMdShareAlt } from 'react-icons/io'
 import { AiFillFacebook } from 'react-icons/ai'
 import { sendEmail } from '../../utils/sendEmail'
+import { motion } from 'framer-motion'
 
 const url = window.location
 
@@ -69,8 +70,6 @@ const UserDetails = () => {
         },
         onSubmit: async (values, { resetForm }) => {
             try {
-                values.emailTo = petDetail?.userId?.email
-
                 const validate = await sendEmail(values)
 
                 if (validate) {
@@ -126,7 +125,7 @@ const UserDetails = () => {
                     borderRadius="10px"
                     sx={{
                         borderColor:
-                            petDetail?.type.toLowerCase() === 'lost'
+                            petDetail?.type === 'Lost'
                                 ? 'secondary.main'
                                 : 'primary.main',
                     }}
@@ -182,7 +181,13 @@ const UserDetails = () => {
                     }}
                     onClick={handleOpen}
                 >
-                    Contact
+                    <motion.div
+                        whileHover={{ scale: [null, 1.05, 1.05] }}
+                        transition={{ duration: 0.4 }}
+                        whileTap={{ scale: 0.98 }}
+                    >
+                        Contact
+                    </motion.div>
                 </Button>
             ) : (
                 <Button
@@ -198,7 +203,13 @@ const UserDetails = () => {
                     }}
                     onClick={() => navigate('/login')}
                 >
-                    Log in to contact this user
+                    <motion.div
+                        whileHover={{ scale: [null, 1.05, 1.05] }}
+                        transition={{ duration: 0.4 }}
+                        whileTap={{ scale: 0.98 }}
+                    >
+                        Log in to contact this user
+                    </motion.div>
                 </Button>
             )}
             <Stack
@@ -415,6 +426,7 @@ const UserDetails = () => {
                                             .
                                         </Typography>
                                     )}
+
                                     <Button
                                         type="submit"
                                         variant="contained"
@@ -430,7 +442,15 @@ const UserDetails = () => {
                                             borderRadius: '8px',
                                         }}
                                     >
-                                        Send
+                                        <motion.div
+                                            whileHover={{
+                                                scale: [null, 1.05, 1.05],
+                                            }}
+                                            transition={{ duration: 0.4 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            Send
+                                        </motion.div>
                                     </Button>
                                 </FormControl>
                             </form>

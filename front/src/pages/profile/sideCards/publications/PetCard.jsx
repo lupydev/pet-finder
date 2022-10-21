@@ -4,10 +4,6 @@ import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
 import { editPet } from '../../../../redux/asyncActions/pet/editPet'
 import { useNavigate } from 'react-router-dom'
-import {
-    cleanPetsData,
-    getUserPets,
-} from '../../../../redux/features/user/userSlice'
 
 const CustomButton = styled(Button)(({ theme }) => ({
     color: theme.palette.secondary.main,
@@ -23,10 +19,8 @@ const CustomButton = styled(Button)(({ theme }) => ({
 const PetCard = ({ pet, handleEditClick }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { userData } = useSelector((state) => state.user)
-    const { statusUpdate } = useSelector((state) => state.pet)
 
-    const handleStatusClick = (e) => {
+    const handleStatusClick = () => {
         Swal.fire({
             title:
                 pet?.type === 'Lost'
