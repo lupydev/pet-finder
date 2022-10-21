@@ -41,15 +41,15 @@ const createUser = async (req: Request, res: Response) => {
 
         await newUser.save()
 
-        //Mail bienvenida
-        sendEmail(userData.email, getTemplateWelcome(), 'Welcome') //TODO:ver el tema fallo bienvenida
-
         res.status(200).json({
             ok: true,
             msg: 'User Created',
             id: newUser.id,
             token,
         })
+
+        //Mail bienvenida
+        sendEmail(userData.email, getTemplateWelcome(), 'Welcome') //TODO:ver el tema fallo bienvenida
 
         //MailChimp
         suscribeUser(postData) //TODO:ver el tema fallo suscripcion
