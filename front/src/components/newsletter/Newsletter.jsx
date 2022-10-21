@@ -1,6 +1,5 @@
 import { Box, Stack, TextField, Typography, Button } from '@mui/material'
 import React from 'react'
-
 import NewsletterSubscribe from './NewsletterSubscribe'
 
 const Newsletter = () => {
@@ -15,11 +14,7 @@ const Newsletter = () => {
                 >
                     <h2>Newsletter</h2>
                     <Typography sx={{ paddingBottom: '2rem' }}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Voluptatibus mollitia explicabo accusantium nulla. Quas,
-                        blanditiis nostrum. Vel ducimus id laudantium labore
-                        iste nulla voluptates ipsum? Porro beatae architecto
-                        aliquam dolore.
+                    Sign up to our newsletter, so you can be able to find out the latest news and posts about lost, found and reunited pets!
                     </Typography>
                     <NewsletterSubscribe></NewsletterSubscribe>
                 </Stack>

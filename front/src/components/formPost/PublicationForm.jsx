@@ -38,6 +38,7 @@ import ComboBox from './SelectAutocomplete/ComboBox'
 import { editPet } from '../../redux/asyncActions/pet/editPet'
 import Loading from '../loading/Loading'
 import Title from '../petBrowser/Title'
+import { motion } from 'framer-motion'
 
 const FORM_VALIDATION = Yup.object().shape({
     name: Yup.string().max(15),
@@ -158,7 +159,7 @@ export const PublicationForm = ({ selectedPet }) => {
         <Stack width="100%" pt="100px" alignItems="center">
             <Title
                 title="Post a Pet"
-                desc={`if your best friend is lost or you found someone's best friend, Post it Here!`}
+                desc={`If your best friend is lost or you found someone's best friend, Post it Here!`}
             />
             <Stack
                 width="100%"
@@ -377,25 +378,35 @@ export const PublicationForm = ({ selectedPet }) => {
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <ButtonWrapper>Create Post</ButtonWrapper>
+                                    <motion.div whileTap={{ scale: 0.98 }}>
+                                        <ButtonWrapper>
+                                            Create Post
+                                        </ButtonWrapper>
+                                    </motion.div>
                                 </Grid>
                             </Grid>
                         </Form>
                     )}
                 </Formik>
-                <Stack
-                    justifyContent="center"
-                    alignItems="center"
-                    width="100%"
-                    maxWidth="450px"
-                    sx={{ display: { xs: 'none', md: 'flex' } }}
+
+                <motion.div
+                    whileHover={{ scale: [null, 1.05, 1.05] }}
+                    transition={{ duration: 0.4 }}
                 >
-                    <img
+                    <Stack
+                        justifyContent="center"
+                        alignItems="center"
                         width="100%"
-                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1666276517/Imagenes%20Dise%C3%B1o%20UX/CreatePostImage/Image-post_qkl8ms.png"
-                        alt="Post Image"
-                    />
-                </Stack>
+                        maxWidth="450px"
+                        sx={{ display: { xs: 'none', md: 'flex' } }}
+                    >
+                        <img
+                            width="100%"
+                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1666276517/Imagenes%20Dise%C3%B1o%20UX/CreatePostImage/Image-post_qkl8ms.png"
+                            alt="Post Image"
+                        />
+                    </Stack>
+                </motion.div>
             </Stack>
         </Stack>
     ) : (

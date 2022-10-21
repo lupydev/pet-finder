@@ -12,6 +12,7 @@ import { Formik, useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Toast } from '../../utils/swalToasts'
 import { sendEmail } from '../../utils/sendEmail'
+import { motion } from "framer-motion";
 
 const initialForm = {
     name: '',
@@ -215,6 +216,7 @@ const ContactForm = () => {
                                 }}
                             />
 
+                            <motion.div whileTap={{ scale: 0.98 }}>
                             <Button
                                 width="50%"
                                 type="submit"
@@ -233,6 +235,7 @@ const ContactForm = () => {
                             >
                                 Send
                             </Button>
+                            </motion.div>
                         </FormControl>
                     </form>
                 )}

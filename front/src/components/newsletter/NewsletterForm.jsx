@@ -1,6 +1,7 @@
 import { Alert, Button, Stack, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
+import { motion } from 'framer-motion'
 
 const NewsletterEmailTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -45,24 +46,25 @@ const NewsletterForm = ({ onSubmitted, status, message }) => {
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                 />
-
-                <Button
-                    variant="contained"
-                    sx={{
-                        color: 'primary.main',
-                        textTransform: 'none',
-                        backgroundColor: 'white',
-                        padding: '1rem',
-                        px: '40px',
-                        height: '56px',
-                        '&:hover': {
-                            backgroundColor: 'secondary.light',
-                        },
-                    }}
-                    type="submit"
-                >
-                    Suscribe
-                </Button>
+                <motion.div whileTap={{ scale: 0.98 }}>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            color: 'primary.main',
+                            textTransform: 'none',
+                            backgroundColor: 'white',
+                            padding: '1rem',
+                            px: '40px',
+                            height: '56px',
+                            '&:hover': {
+                                backgroundColor: 'secondary.light',
+                            },
+                        }}
+                        type="submit"
+                    >
+                        Suscribe
+                    </Button>
+                </motion.div>
             </Stack>
             <Stack marginTop={1}>
                 {status === 'sending' && (

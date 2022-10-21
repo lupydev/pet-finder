@@ -21,6 +21,7 @@
         "axios": "^0.27.2",
         "cloudinary-react": "^1.8.1",
         "formik": "^2.2.9",
+        "framer-motion": "^7.6.1",
         "react": "^18.2.0",
         "react-carousel-minimal": "^1.4.1",
         "react-document-meta": "^3.0.0-beta.2",
