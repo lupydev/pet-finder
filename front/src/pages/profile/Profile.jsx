@@ -45,7 +45,7 @@ const Profile = () => {
         dispatch(getUserData())
     }, [])
 
-    return userData !== undefined ? (
+    return (
         <ProfileContainer menuItems={menuItems} view={view} setView={setView}>
             {view === 'profile' && <ProfileCard />}
             {view === 'publications' && <PublicationsCard />}
@@ -54,8 +54,6 @@ const Profile = () => {
             {view === 'myPets' && <UnderConstruction />}
             {view === 'deleteProfile' && <DeleteUser />}
         </ProfileContainer>
-    ) : (
-        <Loading />
     )
 }
 
