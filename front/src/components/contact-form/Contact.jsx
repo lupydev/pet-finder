@@ -2,6 +2,7 @@ import { Stack } from '@mui/material'
 import React from 'react'
 import Title from '../petBrowser/Title'
 import ContactForm from './ContactForm'
+import { motion } from "framer-motion";
 
 export const Contact = () => {
     return (
@@ -12,14 +13,14 @@ export const Contact = () => {
             />
             <Stack
                 px={{ xs: 3, sm: 5, md: 10 }}
-                mt={{xs: '0px',md: '10px'}}
+                mt={{ xs: '0px', md: '10px' }}
                 direction={{ xs: 'column', md: 'row' }}
                 width="100%"
                 maxWidth="1440px"
                 pb="5px"
-                alignItems={{xs: 'center',md: ''}}
-                justifyContent={{xs: '',md: 'center'}}
-                gap={{xs: '20px', sm: '40px', md: '50px'}} 
+                alignItems={{ xs: 'center', md: '' }}
+                justifyContent={{ xs: '', md: 'center' }}
+                gap={{ xs: '20px', sm: '40px', md: '50px' }}
             >
                 <Stack
                     display={{ xs: 'flex', sm: 'none', md: 'none' }}
@@ -49,10 +50,15 @@ export const Contact = () => {
                     height="100%"
                     justifyContent="center"
                 >
-                    <img
-                        src="https://res.cloudinary.com/diyk4to11/image/upload/v1666225880/Frame_Logo_ContacUs_kw7haa.png"
-                        width="280px"
-                    />
+                    <motion.div
+                        whileHover={{ scale: [null, 1.1, 1.1] }}
+                        transition={{ duration: 0.4 }}
+                    >
+                        <img
+                            src="https://res.cloudinary.com/diyk4to11/image/upload/v1666225880/Frame_Logo_ContacUs_kw7haa.png"
+                            width="280px"
+                        />
+                    </motion.div>
                 </Stack>
             </Stack>
 
