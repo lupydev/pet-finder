@@ -4,14 +4,13 @@
 <h3> We know our pets love to be active and sometimes play on the streets💖🐶, normally when they are exploring the enviroment get lost😞. Pet Finder is commited to help you find your best friend as soon as possible.🔍😻</h3>
 <p align="center" ><img width="50px" align="center"src="https://res.cloudinary.com/diyk4to11/image/upload/v1665058097/Imagenes%20Dise%C3%B1o%20UX/Gif%20Carga%20de%20Pantallas/Carga_Pantalla_-_Animacion_vztvtb.gif"></p> 
 
-
 <hr/>
 
 <img align="center" src="https://res.cloudinary.com/diyk4to11/image/upload/v1666373293/Imagenes%20Dise%C3%B1o%20UX/Logo/Captura_de_pantalla_2022-10-21_122803_skr4dj.png">
 
-<p align="center"  ><b>You can check out our webpage here:</b></p>
+<h3 align="center"  ><b>You can check out our webpage here:</b></h3>
 <h3 align="center"><a href="https://petfinder-phi.vercel.app/" target="_blank" rel="noopener noreferrer"> 🐾 Pet Finder 🐾</a></h3>
-<p align="center" ><img width="50px" align="center"src="https://res.cloudinary.com/diyk4to11/image/upload/v1665058097/Imagenes%20Dise%C3%B1o%20UX/Gif%20Carga%20de%20Pantallas/Carga_Pantalla_-_Animacion_vztvtb.gif"></p> 
+<p  align="center" ><a href="https://www.youtube.com/watch?v=X5mUV5qxs3I" target="_blank" rel="noopener noreferrer"> <img src="https://img.shields.io/badge/Video Preview%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white"/></a></p>
 
 <hr/>
 
@@ -128,6 +127,14 @@ VITE_APP_API_ROUTE = Localhost of you api ( ex. http://localhost:4000).
 |:-:|
 | Andres Fuentes|
 | <a href="https://www.behance.net/andrsplazas1"><img src="https://img.shields.io/badge/Behance-%2320232a.svg?style=for-the-badge&logo=Behance&logoColor=%%2361DAFB"/></a> <a href="https://www.linkedin.com/in/eafuentes"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
+
+### 👉🏻 Team Leader
+
+
+| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQF9rsUvFbgBoQ/profile-displayphoto-shrink_800_800/0/1655738132255?e=1671667200&v=beta&t=SQxTTu16OigEskquv-1wXmuK72t6H_5chkWc2RSDSSg" width=80>|
+|:-:|
+| Alejandro Cardenas |
+| <a href="https://www.linkedin.com/in/alejandro-alfredo-cardenas/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
 
 ## Communication
 
