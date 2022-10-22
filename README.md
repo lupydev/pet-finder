@@ -63,6 +63,17 @@ VITE_APP_API_ROUTE = Localhost of you api ( ex. http://localhost:4000).
 
 ## ✔ Backend
 
+### 👉🏻 Task List ✅
+
+- Development of Rest Api for Lost and Found pets with NodeJs, TypeScript and Express.
+- Validations with Express Validator.
+- MongoDb Database. 
+- Creating filters with Mongoose and regular expressions. 
+- Users validation wiith JWT and Google. 
+- Sending emails with Nodemailer for contact, welcome and password recovery.
+- Signing up subscribers for Newsletter with Mailchimp.
+- Deployed on Heroku
+
 ### 👉🏻 Built with 🛠️
 
 ![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?style=for-the-badge&logo=Node.js&logoColor=white) 
@@ -80,12 +91,23 @@ VITE_APP_API_ROUTE = Localhost of you api ( ex. http://localhost:4000).
 
 ## ✔ Frontend
 
+### 👉🏻 Task List ✅
+
+- Development of the view through dynamic components with Javascript and React.
+- Adding style with Material UI components, tables and elements.
+- Creating the linked routes of the page using React Router.
+- Formik, Yup, Axios and Redux to control and submit form data.
+- Using Google Oauth API as Login alternative.
+- Using Google Maps API to show dinamical maps and Location Autocomplete.
+- obtaining and uploading images of pets with Cloudinary.
+- Visual and attractive animations added with Framer Motion.
+- Deployed on Vercel.
+
 ### 👉🏻 Built with 🛠️
 
-![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=for-the-badge&logo=Javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/React-149eca?style=for-the-badge&logo=react&logoColor=fff) ![Redux](https://img.shields.io/badge/Redux_Toolkit-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=fff) ![Formik](https://img.shields.io/badge/Formik-172B4D?style=for-the-badge&logo=Formik&logoColor=fff) ![React Router](https://img.shields.io/badge/React_Router-000?style=for-the-badge&logo=reactrouter&logoColor=fff) ![Google Maps Api](https://img.shields.io/badge/Google_Maps_Api-DE4032?style=for-the-badge&logo=GoogleMaps&logoColor=fff) ![Vercel](https://img.shields.io/badge/vercel%20-%23000000.svg?&style=for-the-badge&logo=vercel&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=for-the-badge&logo=Javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/React-149eca?style=for-the-badge&logo=react&logoColor=fff) ![Redux](https://img.shields.io/badge/Redux_Toolkit-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=fff) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-d2c?style=for-the-badge&logo=Framer_Motion&logoColor=fff) ![Formik](https://img.shields.io/badge/Formik-172B4D?style=for-the-badge&logo=Formik&logoColor=fff) ![Yup](https://img.shields.io/badge/Yup-crimson?style=for-the-badge&logo=Yup&logoColor=fff) ![React Router](https://img.shields.io/badge/React_Router-000?style=for-the-badge&logo=reactrouter&logoColor=fff) ![Google Maps Api](https://img.shields.io/badge/Google_Maps_Api-DE4032?style=for-the-badge&logo=GoogleMaps&logoColor=fff) ![Vercel](https://img.shields.io/badge/vercel%20-%23000000.svg?&style=for-the-badge&logo=vercel&logoColor=white)
 
 ### 👉🏻 Developers
-
 
 | <img src="https://user-images.githubusercontent.com/30716739/188255862-4007fa2e-dae9-4fba-a593-55f2c533b0c1.png" width=50>| <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1664465097/Integrantes/Daniel_zvpphk.jpg" width=50>|  <img src="https://avatars.githubusercontent.com/u/103131605?v=4" width=50>  |  <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1664465188/Integrantes/Francisco_rqloby.jpg" width=50>  |  <img src="https://res.cloudinary.com/diyk4to11/image/upload/v1664465504/Integrantes/LuisMi_yvmw6a.png" width=50> |
 :-:|:-:|:-:|:-:|:-:|
