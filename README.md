@@ -135,7 +135,7 @@ VITE_APP_API_ROUTE = Localhost of you api ( ex. http://localhost:4000).
 | <img src="https://media-exp1.licdn.com/dms/image/C4D03AQF9rsUvFbgBoQ/profile-displayphoto-shrink_800_800/0/1655738132255?e=1671667200&v=beta&t=SQxTTu16OigEskquv-1wXmuK72t6H_5chkWc2RSDSSg" width=80>|
 |:-:|
 | Alejandro Cardenas |
-| <a href="https://www.linkedin.com/in/alejandro-alfredo-cardenas/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
+|<a href="https://github.com/Al3x4nDr0s"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/alejandro-alfredo-cardenas/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> ||
 
 ## Communication
 
